@@ -140,7 +140,7 @@ Cette distance a deux propriétés supplémentaires qui la distinguent d'une dis
 
 \emph{Étape 2 : extractions successives.} Par le théorème de Bolzano--Weierstrass (Théorème~1.2), la suite réelle bornée $(x^{(k)}_1)_k$ admet une sous-suite convergente : il existe une extractrice $\varphi_1$ et $\ell_1\in[-R,R]$ avec $x^{(\varphi_1(k))}_1\to\ell_1$. La suite $(x^{(\varphi_1(k))}_2)_k$ est encore bornée : on en extrait une sous-suite convergente via $\varphi_2$, $x^{(\varphi_1\circ\varphi_2(k))}_2\to\ell_2$ ; la première coordonnée converge toujours vers $\ell_1$ le long de $\varphi_1\circ\varphi_2$ (sous-suite d'une suite convergente). On itère $d$ fois et l'on pose $\varphi:=\varphi_1\circ\cdots\circ\varphi_d$ (extractrice comme composée d'extractrices) : pour chaque $i\in\{1,\dots,d\}$, $x^{(\varphi(k))}_i\to\ell_i$.
 
-\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} Posons $\ell:=(\ell_1,\dots,\ell_d)$. Alors
+\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} En notant $\ell:=(\ell_1,\dots,\ell_d)$, on a
 \[
 \norm{x^{(\varphi(k))}-\ell}^2=\sum_{i=1}^d\big|x^{(\varphi(k))}_i-\ell_i\big|^2\xrightarrow[k\to\infty]{}0
 \]
