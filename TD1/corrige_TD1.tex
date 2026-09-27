@@ -1,0 +1,696 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rb}{\overline{\R}}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\DeclareMathOperator{\Ker}{Ker}
+\newcommand{\ie}{c'est-à-dire}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}1 -- Topologie des espaces métriques}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} On suit les notations du polycopié : $B(a,r)$ désigne la boule ouverte, $\Bf(a,r)$ la boule fermée, $d(A,x):=\inf_{a\in A} d(x,a)$ la distance d'un point à une partie, $\interieur{A}$ et $\adh{A}$ l'intérieur et l'adhérence, et $\partial A := \adh{A}\setminus\interieur{A}$ la frontière. Comme dans le poly (Définition~1.20), une partie $A$ d'un espace métrique est dite \emph{compacte} si toute suite d'éléments de $A$ admet une valeur d'adhérence \emph{dans $A$} (compacité séquentielle) ; la propriété de Borel--Lebesgue en est une caractérisation équivalente (Théorème~1.4).
+
+Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+\end{commentaire}
+
+\section*{Topologie générale d'un espace métrique}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Intérieur, adhérence et frontière ne commutent pas}
+Soit $X$ un espace métrique et $A$ une partie de $X$. Donner des contre-exemples aux propriétés suivantes :
+\begin{enumerate}[label=\arabic*.]
+  \item $\interieur{\adh{A}} \subset A$,
+  \item $\interieur{\adh{A}} \supset A$,
+  \item $\partial A \subset \partial \adh{A}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+On se place dans $X=\R$ muni de la distance usuelle.
+
+\medskip
+\noindent\textbf{1. $\interieur{\adh{A}}\not\subset A$.} Prenons $A := \Q\cap[0,1]$. Comme $\Q$ est dense dans $\R$, tout point de $[0,1]$ est limite de rationnels de $[0,1]$, donc $\adh{A}=[0,1]$ (l'inclusion $\adh{A}\subset[0,1]$ vient de ce que $[0,1]$ est un fermé contenant $A$). Ainsi $\interieur{\adh{A}} = \,]0,1[$, qui contient par exemple $\sqrt2/2\notin A$.
+
+Un exemple encore plus simple : $A := \,]0,1[\,\cup\,]1,2[$. Alors $\adh{A}=[0,2]$, $\interieur{\adh{A}}=\,]0,2[\,\ni 1$, mais $1\notin A$ : « prendre l'adhérence puis l'intérieur » a \emph{bouché le trou}.
+
+\medskip
+\noindent\textbf{2. $\interieur{\adh{A}}\not\supset A$.} Prenons $A := \{0\}$. C'est un fermé, donc $\adh{A}=\{0\}$, dont l'intérieur est vide (aucune boule ouverte de rayon $r>0$ n'est contenue dans $\{0\}$). Donc $\interieur{\adh{A}}=\emptyset\not\supset A$. Le même exemple fonctionne avec $A=\Z$ ou $A=\{1/n : n\ge1\}$.
+
+\medskip
+\noindent\textbf{3. $\partial A\not\subset\partial\adh{A}$.} Prenons $A:=\Q$. On a $\adh{\Q}=\R$ et $\interieur{\Q}=\emptyset$ (tout intervalle ouvert non vide contient des irrationnels), donc
+\[
+\partial\Q = \adh{\Q}\setminus\interieur{\Q} = \R,
+\qquad\text{tandis que}\qquad
+\partial\adh{\Q} = \partial\R = \adh{\R}\setminus\interieur{\R} = \R\setminus\R = \emptyset .
+\]
+La frontière de $\Q$ est tout $\R$, celle de son adhérence est vide.
+\end{solution}
+
+\begin{pointcle}
+Les opérations $A\mapsto\interieur{A}$ et $A\mapsto\adh{A}$ ne sont pas « inverses » l'une de l'autre, et $A$ n'est en général comparable ni à $\interieur{\adh{A}}$ ni à $\adh{\interieur{A}}$. Les seules inclusions toujours vraies sont
+\[
+\interieur{A}\ \subset\ A\ \subset\ \adh{A},\qquad
+\interieur{A}\subset\interieur{\adh{A}},\qquad
+\adh{\interieur{A}}\subset\adh{A},
+\]
+qui découlent des caractérisations « plus grand ouvert contenu dans » et « plus petit fermé contenant » (Définitions 1.9 et 1.10), et de leur \emph{croissance} : $A\subset B\Rightarrow \interieur{A}\subset\interieur{B}$ et $\adh{A}\subset\adh{B}$.
+\end{pointcle}
+
+\begin{commentaire}
+L'inclusion \emph{inverse} de celle du point 3 est, elle, toujours vraie : $\partial\adh{A}\subset\partial A$. En effet
+\[
+\partial\adh{A} = \adh{\adh{A}}\setminus\interieur{\adh{A}} = \adh{A}\setminus\interieur{\adh{A}}
+\ \subset\ \adh{A}\setminus\interieur{A} = \partial A,
+\]
+car $\interieur{A}\subset\interieur{\adh{A}}$. Le passage à l'adhérence ne peut donc que \emph{réduire} la frontière. Il en va de même pour $\partial\interieur{A}\subset\partial A$.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 2 (Exercice 1.3 du poly) -- Topologie induite}
+Soit $(X,d)$ un espace métrique et $A\subset X$. Vérifier que les ouverts et fermés de $A$ (pour la distance induite) sont respectivement les intersections avec $A$ des parties ouvertes et fermées de $X$.
+\end{exo}
+
+\begin{solution}
+Notons, pour $x\in A$ et $r>0$, $B_A(x,r) := \{y\in A : d(x,y)<r\}$ la boule ouverte de l'espace métrique $(A,d_{|A\times A})$. La remarque fondamentale est l'identité
+\begin{equation}\label{eq:bouleinduite}
+B_A(x,r) = B_X(x,r)\cap A .
+\end{equation}
+Par définition (Définition~1.6 appliquée à l'espace $A$), une partie $U\subset A$ est ouverte \emph{dans $A$} si pour tout $x\in U$ il existe $r>0$ tel que $B_A(x,r)\subset U$.
+
+\medskip
+\noindent\textbf{Les ouverts de $A$ sont les traces des ouverts de $X$.}
+
+\noindent$(\Leftarrow)$ Soit $O$ un ouvert de $X$ et $U:=O\cap A$. Soit $x\in U$. Comme $x\in O$ ouvert de $X$, il existe $r>0$ tel que $B_X(x,r)\subset O$. Alors par \eqref{eq:bouleinduite}, $B_A(x,r)=B_X(x,r)\cap A\subset O\cap A = U$. Donc $U$ est ouvert dans $A$.
+
+\noindent$(\Rightarrow)$ Soit $U$ un ouvert de $A$. Pour chaque $x\in U$ on dispose d'un rayon $r_x>0$ tel que $B_A(x,r_x)\subset U$. Posons
+\[
+O := \bigcup_{x\in U} B_X(x,r_x),
+\]
+qui est un ouvert de $X$ comme union de boules ouvertes (Proposition~1.1). Vérifions que $O\cap A = U$ :
+\begin{itemize}
+  \item $O\cap A = \bigcup_{x\in U}\big(B_X(x,r_x)\cap A\big) = \bigcup_{x\in U} B_A(x,r_x)\subset U$ ;
+  \item réciproquement, si $x\in U$ alors $x\in B_X(x,r_x)\cap A\subset O\cap A$.
+\end{itemize}
+Donc $U=O\cap A$ est bien la trace sur $A$ d'un ouvert de $X$.
+
+\medskip
+\noindent\textbf{Les fermés de $A$ sont les traces des fermés de $X$.} On passe au complémentaire \emph{dans $A$}. Une partie $F\subset A$ est fermée dans $A$ si et seulement si $A\setminus F$ est ouverte dans $A$, \ie{} (d'après ce qui précède) si et seulement s'il existe un ouvert $O$ de $X$ tel que $A\setminus F = O\cap A$. Or
+\[
+A\setminus F = O\cap A \iff F = A\setminus (O\cap A) = A\cap (X\setminus O).
+\]
+Comme $O$ décrit les ouverts de $X$, $G:=X\setminus O$ décrit exactement les fermés de $X$, et l'on obtient : $F$ est fermé dans $A$ si et seulement si $F=A\cap G$ avec $G$ fermé de $X$.
+\end{solution}
+
+\begin{pointcle}
+Tout repose sur l'identité \eqref{eq:bouleinduite} : \emph{une boule de $A$ est la trace d'une boule de $X$}. Cette identité, apparemment triviale, est la source de toute la topologie induite. Notez aussi que dans le sens $(\Rightarrow)$ l'ouvert $O$ construit n'est pas unique : ce qui compte est sa trace sur $A$.
+\end{pointcle}
+
+\begin{piege}
+Le complémentaire doit être pris \emph{dans le bon espace}. Le fermé de $A$ s'écrit $A\setminus(O\cap A)$ et non $X\setminus O$ : c'est l'identité ensembliste $A\setminus(O\cap A)=A\cap(X\setminus O)$ qui fait le lien. Oublier de « re-couper » par $A$ est l'erreur la plus fréquente sur cet exercice, et c'est précisément ce qui rend fausses plusieurs affirmations de l'exercice suivant.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Vrai ou faux sur la topologie induite}
+Soit $X$ un espace métrique, $A\neq\emptyset$ une partie de $X$. Dire si les propriétés suivantes sont vraies ; si elles sont fausses, donner des contre-exemples et, éventuellement, des conditions supplémentaires pour qu'elles soient vraies.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $B\subseteq A$ est un ouvert de $A$ alors $B$ est aussi ouvert dans $X$.
+  \item Si $B$ est ouvert dans $X$, $B\cap A$ est aussi ouvert dans $A$.
+  \item Si $B\subseteq A$ est fermé dans $A$, $B$ est aussi fermé dans $X$.
+  \item Si $B\subseteq A$ est fermé dans $X$, $B$ est aussi fermé dans $A$.
+  \item Si $X$ est un espace métrique complet, $A$ est complet.
+  \item Il existe une fonction $f:\Q\to\N$ non constante, continue.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+Dans tout l'exercice, on utilise la description de l'exercice~2 : les ouverts (resp. fermés) de $A$ sont les $O\cap A$ (resp. $G\cap A$) avec $O$ ouvert (resp. $G$ fermé) de $X$.
+
+\medskip
+\noindent\textbf{1. Faux.} Dans $X=\R$, prenons $A=[0,1]$ et $B=A$. L'ensemble $A$ est toujours ouvert dans lui-même (c'est $\R\cap A$), mais $[0,1]$ n'est pas ouvert dans $\R$ (aucune boule centrée en $0$ n'est contenue dans $[0,1]$). Autre exemple, avec $B\neq A$ : $A=[0,1]$ et $B=[0,\tfrac12[\,=\,]-1,\tfrac12[\,\cap A$.
+
+\emph{Condition suffisante :} la propriété devient vraie si \textbf{$A$ est ouvert dans $X$}. En effet $B=O\cap A$ est alors une intersection de deux ouverts de $X$, donc un ouvert de $X$ (Proposition~1.1). Cette condition est aussi nécessaire (prendre $B=A$).
+
+\medskip
+\noindent\textbf{2. Vrai.} C'est exactement le sens $(\Leftarrow)$ de l'exercice~2.
+
+\medskip
+\noindent\textbf{3. Faux.} Dans $X=\R$, prenons $A=\,]0,1[$ et $B=A$ : $A$ est fermé dans lui-même mais pas dans $\R$ (la suite $(1/n)_{n\ge2}$ est dans $A$ et converge vers $0\notin A$, contredisant la caractérisation séquentielle des fermés, Proposition~1.3). Avec $B\neq A$ : $A=\,]0,1[$ et $B=\,]0,\tfrac12]=[-1,\tfrac12]\cap A$.
+
+\emph{Condition suffisante (et nécessaire) :} \textbf{$A$ fermé dans $X$}, car alors $B=G\cap A$ est une intersection de deux fermés de $X$.
+
+\medskip
+\noindent\textbf{4. Vrai.} Si $B\subseteq A$ est fermé dans $X$, alors $B=B\cap A$ est la trace sur $A$ du fermé $B$ de $X$, donc $B$ est fermé dans $A$ par l'exercice~2. (Même argument pour les ouverts : un ouvert de $X$ \emph{contenu dans $A$} est ouvert dans $A$.)
+
+\medskip
+\noindent\textbf{5. Faux.} $\R$ est complet mais $A=\,]0,1[$ ne l'est pas : la suite $(1/n)_{n\ge2}$ est de Cauchy (elle converge dans $\R$) mais n'a pas de limite dans $A$. De même $\Q\subset\R$ n'est pas complet.
+
+\emph{Condition nécessaire et suffisante :} \textbf{$A$ fermé dans $X$}, c'est la Proposition~1.8 du poly.
+
+\medskip
+\noindent\textbf{6. Vrai !} Contrairement aux précédentes, cette affirmation est \emph{exacte}. Munissons $\N$ de la distance usuelle (induite par $\R$). Posons
+\[
+f(x) := \begin{cases} 0 & \text{si } x<\sqrt2,\\ 1 & \text{si } x>\sqrt2,\end{cases}\qquad x\in\Q .
+\]
+Cette définition a un sens sur tout $\Q$ car $\sqrt2\notin\Q$. Montrons que $f$ est continue via la caractérisation topologique (Proposition~1.5) : il suffit que $f^{-1}(O)$ soit ouvert dans $\Q$ pour tout ouvert $O$ de $\N$. Or $f^{-1}(O)$ est l'un des quatre ensembles $\emptyset$, $\Q$, $\Q\cap\,]-\infty,\sqrt2[$ et $\Q\cap\,]\sqrt2,+\infty[$, qui sont tous des ouverts de $\Q$ par l'exercice~2 (traces d'ouverts de $\R$). Donc $f$ est continue et non constante.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Ouvert, fermé, complet : relativement à quoi ?} Les notions « ouvert » et « fermé » sont \emph{relatives} à l'espace ambiant : $]0,1[$ est fermé dans lui-même et non fermé dans $\R$. La complétude, elle, est \emph{intrinsèque} (elle ne fait intervenir que les suites de $A$ et la distance sur $A$), mais elle se lit sur $X$ complet par « fermé dans $X$ » (Proposition~1.8).
+\end{pointcle}
+
+\begin{commentaire}
+La question 6 illustre la \emph{non-connexité} de $\Q$ : on peut « couper » $\Q$ en deux ouverts disjoints non vides ($\Q\cap\,]-\infty,\sqrt2[$ et $\Q\cap\,]\sqrt2,+\infty[$), ce qui est impossible dans $\R$. Sur $\R$, une fonction continue à valeurs dans $\N$ est nécessairement constante (théorème des valeurs intermédiaires : l'image d'un intervalle est un intervalle, et un intervalle contenu dans $\N$ est un point). Une fonction continue à valeurs dans un espace \emph{discret} comme $\N$ (où chaque singleton $\{k\}=B(k,\tfrac12)$ est ouvert) est exactement une fonction \emph{localement constante}.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Boules ouvertes, boules fermées, sphères}
+Soit $(X,d)$ un espace métrique, $a\in X$ et $r\ge0$. On note $B(a,r)$, $\Bf(a,r)$, $S(a,r)$ la boule ouverte, la boule fermée et la sphère de centre $a$ et de rayon $r$.
+\begin{enumerate}[label=\alph*)]
+  \item Montrer que $B(a,r)$ est ouvert, que $\Bf(a,r)$ est fermé et que $S(a,r)$ est fermé.
+  \item Montrer que $\adh{B(a,r)}\subset\Bf(a,r)$ et $B(a,r)\subset\Int(\Bf(a,r))$. Montrer que dans un espace vectoriel normé ce sont des égalités. Donner des exemples d'espaces métriques où ces inclusions sont strictes.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{a) Première méthode : à la main, avec l'inégalité triangulaire.}
+
+\emph{$B(a,r)$ est ouvert.} Soit $x\in B(a,r)$, de sorte que $\rho := r-d(x,a)>0$. Pour $y\in B(x,\rho)$, on a
+\[
+d(y,a)\le d(y,x)+d(x,a) < \rho + d(x,a) = r,
+\]
+donc $B(x,\rho)\subset B(a,r)$ : tout point de $B(a,r)$ est centre d'une boule ouverte contenue dans $B(a,r)$.
+
+\emph{$\Bf(a,r)$ est fermé.} Montrons que son complémentaire $C:=\{x\in X : d(x,a)>r\}$ est ouvert. Soit $x\in C$ et $\rho := d(x,a)-r>0$. Pour $y\in B(x,\rho)$, l'inégalité triangulaire $d(x,a)\le d(x,y)+d(y,a)$ donne
+\[
+d(y,a)\ \ge\ d(x,a)-d(x,y)\ >\ d(x,a)-\rho\ =\ r,
+\]
+donc $B(x,\rho)\subset C$.
+
+\emph{$S(a,r)$ est fermé.} On a $S(a,r)=\Bf(a,r)\cap\big(X\setminus B(a,r)\big)$ : intersection de deux fermés (le second est le complémentaire d'un ouvert), donc fermé (Proposition~1.1).
+
+\medskip
+\noindent\textbf{Seconde méthode : par continuité.} La fonction $\varphi : x\mapsto d(x,a)$ est $1$-lipschitzienne car $|d(x,a)-d(y,a)|\le d(x,y)$ (inégalité triangulaire « inverse » ; c'est aussi l'exercice~6 avec $A=\{a\}$), donc continue. Alors
+\[
+B(a,r)=\varphi^{-1}(\,]-\infty,r[\,),\qquad \Bf(a,r)=\varphi^{-1}(\,]-\infty,r]\,),\qquad S(a,r)=\varphi^{-1}(\{r\}),
+\]
+sont respectivement l'image réciproque d'un ouvert et de deux fermés de $\R$ par une application continue : ouvert et fermés par la Proposition~1.5.
+
+\medskip
+\noindent\textbf{b) Les deux inclusions.} $\Bf(a,r)$ est un fermé qui contient $B(a,r)$ ; comme $\adh{B(a,r)}$ est \emph{le plus petit} fermé contenant $B(a,r)$ (Définition~1.10), on a $\adh{B(a,r)}\subset\Bf(a,r)$. De même $B(a,r)$ est un ouvert contenu dans $\Bf(a,r)$, et $\Int(\Bf(a,r))$ est \emph{le plus grand} ouvert contenu dans $\Bf(a,r)$ (Définition~1.9), d'où $B(a,r)\subset\Int(\Bf(a,r))$.
+
+\medskip
+\noindent\textbf{Cas d'un espace vectoriel normé $(E,\norm{\cdot})$, avec $r>0$.} Il suffit de montrer que tout point $x$ de la sphère $S(a,r)$ (\ie{} $\norm{x-a}=r$) est à la fois adhérent à $B(a,r)$ et non intérieur à $\Bf(a,r)$, puisque $\Bf(a,r)=B(a,r)\sqcup S(a,r)$.
+
+\emph{$x$ est adhérent à $B(a,r)$.} Posons $x_n := a+\big(1-\tfrac1n\big)(x-a)$ pour $n\ge1$ : le point $x_n$ est sur le segment $[a,x]$, un peu avant $x$. On a $\norm{x_n-a}=\big(1-\tfrac1n\big)r<r$, donc $x_n\in B(a,r)$, et $\norm{x_n-x}=\tfrac1n\norm{x-a}=\tfrac rn\to0$. Ainsi $x$ est limite d'une suite de $B(a,r)$, donc $x\in\adh{B(a,r)}$ (Proposition~1.2). D'où $\Bf(a,r)\subset\adh{B(a,r)}$, et l'égalité.
+
+\emph{$x$ n'est pas intérieur à $\Bf(a,r)$.} Posons $y_n := a+\big(1+\tfrac1n\big)(x-a)$ : cette fois $\norm{y_n-a}=\big(1+\tfrac1n\big)r>r$, donc $y_n\notin\Bf(a,r)$, et $y_n\to x$. Toute boule $B(x,\rho)$ contient donc un $y_n$, \ie{} rencontre le complémentaire de $\Bf(a,r)$ : $x\notin\Int(\Bf(a,r))$. D'où $\Int(\Bf(a,r))\subset B(a,r)$, et l'égalité.
+
+\medskip
+\noindent\textbf{Exemples d'inclusions strictes.} Prenons $X=\Z$ muni de la distance usuelle $d(m,n)=|m-n|$, $a=0$ et $r=1$. Alors
+\[
+B(0,1)=\{0\},\qquad \Bf(0,1)=\{-1,0,1\},\qquad S(0,1)=\{-1,1\}.
+\]
+Dans $\Z$, \emph{toute} partie est ouverte (car $B(n,\tfrac12)=\{n\}$, donc tout singleton est ouvert, donc toute union de singletons) et par complémentaire toute partie est fermée. Ainsi
+\[
+\adh{B(0,1)}=\{0\}\subsetneq\{-1,0,1\}=\Bf(0,1),
+\qquad
+B(0,1)=\{0\}\subsetneq\{-1,0,1\}=\Int(\Bf(0,1)).
+\]
+Le même phénomène se produit dans tout ensemble ayant au moins deux points muni de la \emph{distance discrète} ($d(x,y)=1$ si $x\ne y$), avec $r=1$ : $B(a,1)=\{a\}$ et $\Bf(a,1)=X$.
+\end{solution}
+
+\begin{piege}
+\textbf{Une « boule fermée » n'est pas l'adhérence de la boule ouverte.} La terminologie suggère que $\Bf(a,r)=\adh{B(a,r)}$, ce qui est faux en général (cf.\ Exercice~1.6 du poly). Ce qui est \emph{toujours} vrai, c'est que $\Bf(a,r)$ est un fermé et $B(a,r)$ un ouvert. L'égalité dans un espace vectoriel normé vient de la possibilité de « glisser le long du segment $[a,x]$ » grâce aux homothéties $x\mapsto a+t(x-a)$ : cette structure \emph{affine} n'existe pas dans un espace métrique général, et dans $\Z$ il n'y a « rien » entre $0$ et $1$.
+
+Notez aussi le cas $r=0$ : $B(a,0)=\emptyset$ et $\Bf(a,0)=\{a\}$, donc l'inclusion $\adh{B(a,0)}=\emptyset\subsetneq\{a\}$ est stricte \emph{même dans un espace vectoriel normé} ; l'égalité demande $r>0$.
+\end{piege}
+
+\begin{pointcle}
+La seconde méthode de la question a) est à retenir : \emph{pour montrer qu'un ensemble défini par une inégalité ou une égalité est ouvert ou fermé, l'écrire comme image réciproque d'un intervalle ouvert ou fermé par une fonction continue}. C'est souvent bien plus rapide que la manipulation directe de boules.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 5 (Exercice 1.7 du poly) -- Convergence dans un produit}
+Soient $(X,d_X)$ et $(Y,d_Y)$ deux espaces métriques. On munit $X\times Y$ de la distance
+\[
+D_1\big((x_1,y_1),(x_2,y_2)\big):=d_X(x_1,x_2)+d_Y(y_1,y_2).
+\]
+Montrer que la convergence de $z_n:=(x_n,y_n)$ vers $z:=(x,y)$ équivaut aux deux convergences $x_n\to x$ dans $X$ et $y_n\to y$ dans $Y$.
+\end{exo}
+
+\begin{solution}
+Rappelons (Remarque~1.5) que $z_n\to z$ dans $(X\times Y,D_1)$ signifie que la suite réelle $D_1(z_n,z)$ tend vers $0$. Tout repose sur l'encadrement, valable pour tout $n$,
+\begin{equation}\label{eq:encadrement}
+\max\big(d_X(x_n,x),\,d_Y(y_n,y)\big)\ \le\ D_1(z_n,z)\ =\ d_X(x_n,x)+d_Y(y_n,y).
+\end{equation}
+
+\noindent$(\Rightarrow)$ Si $D_1(z_n,z)\to0$, alors par l'inégalité de gauche dans \eqref{eq:encadrement}, $0\le d_X(x_n,x)\le D_1(z_n,z)\to0$, donc $x_n\to x$ ; de même $y_n\to y$.
+
+\noindent$(\Leftarrow)$ Si $d_X(x_n,x)\to0$ et $d_Y(y_n,y)\to0$, alors leur somme tend vers $0$, \ie{} $D_1(z_n,z)\to0$ par l'égalité de droite dans \eqref{eq:encadrement}.
+\end{solution}
+
+\begin{commentaire}
+Le même argument fonctionne pour $D_\infty=\max(d_X,d_Y)$ et $D_2=\sqrt{d_X^2+d_Y^2}$ de l'Exemple~1.3, grâce aux inégalités
+\[
+D_\infty\ \le\ D_2\ \le\ D_1\ \le\ 2\,D_\infty ,
+\]
+qui montrent que les trois distances ont \emph{les mêmes suites convergentes} (et les mêmes limites), donc les mêmes fermés, les mêmes ouverts, les mêmes fonctions continues : c'est le sens de la Remarque~1.2. On dit que ces distances sont \emph{(topologiquement) équivalentes}. C'est ce qui autorise, dans la suite, à invoquer la compacité d'un produit (Proposition~1.9, énoncée pour $D_\infty$) ou la continuité de la distance (Exercice~1.10) sans se soucier de la distance produit choisie.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 6 (Exercice 1.11 du poly) -- La distance à une partie est $1$-lipschitzienne}
+Soit $(X,d)$ un espace métrique et $A\subset X$ une partie non vide. Montrer que $x\mapsto d(A,x):=\inf_{a\in A}d(x,a)$ est $1$-lipschitzienne.
+\end{exo}
+
+\begin{solution}
+Soient $x,y\in X$. Pour tout $a\in A$, l'inégalité triangulaire donne
+\[
+d(x,a)\ \le\ d(x,y)+d(y,a).
+\]
+Le membre de gauche est minoré par $d(A,x)$ (définition de la borne inférieure), donc pour tout $a\in A$ :
+\[
+d(A,x)-d(x,y)\ \le\ d(y,a).
+\]
+Le réel $d(A,x)-d(x,y)$ est ainsi un \emph{minorant} de l'ensemble $\{d(y,a):a\in A\}$ ; il est donc inférieur ou égal à la borne inférieure de cet ensemble, qui est \emph{le plus grand} des minorants :
+\[
+d(A,x)-d(x,y)\ \le\ d(A,y),\qquad\text{soit}\qquad d(A,x)-d(A,y)\le d(x,y).
+\]
+En échangeant les rôles de $x$ et $y$ on obtient $d(A,y)-d(A,x)\le d(x,y)$, et finalement
+\[
+\abs{d(A,x)-d(A,y)}\ \le\ d(x,y)\qquad\text{pour tous } x,y\in X .
+\]
+\end{solution}
+
+\begin{pointcle}
+\textbf{Passer à la borne inférieure dans une inégalité.} Si $\alpha\le u_a$ pour tout $a\in A$, alors $\alpha\le\inf_{a\in A}u_a$. C'est la définition même de l'inf comme plus grand minorant ; on n'a \emph{pas} besoin que l'inf soit atteint. La rédaction ci-dessus isole ce passage, qui est le seul point délicat de l'exercice. Attention à l'hypothèse $A\ne\emptyset$ : sinon $d(A,x)=\inf\emptyset=+\infty$ et l'énoncé n'a plus de sens.
+\end{pointcle}
+
+\begin{commentaire}
+Cette fonction est d'un usage constant. Trois conséquences immédiates :
+\begin{itemize}
+  \item $d(A,\cdot)$ est continue, donc $\adh{A}=\{x : d(A,x)=0\}$ (Corollaire~1.1) est fermé, ce qui redonne que l'adhérence est fermée.
+  \item \emph{Séparation des fermés.} Si $F_1,F_2$ sont deux fermés disjoints non vides, $U_i:=\{x : d(F_i,x)<d(F_j,x)\}$ ($j\ne i$) sont deux ouverts disjoints contenant respectivement $F_1$ et $F_2$ (car $d(F_i,x)=0\iff x\in F_i$ pour $F_i$ fermé). Les espaces métriques sont donc « normaux ».
+  \item \emph{Lemme d'Urysohn métrique.} La fonction $g(x):=\dfrac{d(F_1,x)}{d(F_1,x)+d(F_2,x)}$ est continue, à valeurs dans $[0,1]$, vaut $0$ sur $F_1$ et $1$ sur $F_2$. Elle servira (partitions de l'unité, densité des fonctions continues dans $L^p$…).
+\end{itemize}
+\end{commentaire}
+
+\section*{Complétude}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Deux applications du lemme de Baire}
+\begin{enumerate}[label=\arabic*.]
+  \item Soit $E$ un espace métrique complet et $(F_n)_{n\in\N}$ une suite de fermés de $E$ telle que $E=\bigcup_{n}F_n$. Montrer que $\bigcup_n\interieur{F_n}$ est un ouvert dense de $E$.
+  \item Soit $T:E\to E$ linéaire continue, $E$ normé complet. On suppose que pour tout $x\in E$ il existe $n_x$ tel que $T^{n_x}x=0$. Montrer que $T$ est nilpotente.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1.} L'ensemble $V:=\bigcup_n\interieur{F_n}$ est ouvert comme union d'ouverts. Toute la difficulté est la densité.
+
+\emph{Étape 1 : les « bords » $G_n:=F_n\setminus\interieur{F_n}$ sont des fermés d'intérieur vide.} On a $G_n=F_n\cap(E\setminus\interieur{F_n})$, intersection de deux fermés, donc fermé. Soit $O$ un ouvert contenu dans $G_n$. Alors $O\subset F_n$, et comme $\interieur{F_n}$ est le plus grand ouvert contenu dans $F_n$, $O\subset\interieur{F_n}$. Mais $O\subset G_n$ est disjoint de $\interieur{F_n}$ : donc $O=\emptyset$. Ainsi $\interieur{G_n}=\emptyset$.
+
+\emph{Étape 2 : Baire.} L'espace $E$ étant complet, le Lemme~1.1 (ii) affirme que $G:=\bigcup_n G_n$ est d'intérieur vide. Or « $G$ d'intérieur vide » équivaut à « $E\setminus G$ dense » : en effet, $\Int(G)=\emptyset$ signifie qu'aucun ouvert non vide n'est contenu dans $G$, \ie{} que tout ouvert non vide rencontre $E\setminus G$, ce qui est la caractérisation (iii) de la densité (Proposition~1.4).
+
+\emph{Étape 3 : $E\setminus G\subset V$.} Soit $x\notin G$. Comme $E=\bigcup_n F_n$, il existe $n$ tel que $x\in F_n$. Comme $x\notin G_n=F_n\setminus\interieur{F_n}$, on a nécessairement $x\in\interieur{F_n}\subset V$.
+
+\emph{Conclusion.} $V$ contient la partie dense $E\setminus G$, donc $\adh{V}\supset\adh{E\setminus G}=E$ : $V$ est dense.
+
+\bigskip
+\noindent\textbf{2.} Posons $F_n:=\Ker(T^n)=\{x\in E : T^nx=0\}$ pour $n\in\N$ (avec $T^0=\mathrm{Id}$, $F_0=\{0\}$).
+
+\emph{Les $F_n$ sont des sous-espaces vectoriels fermés.} Sous-espaces car $T^n$ est linéaire. Fermés car $T^n$ est continue (composée d'applications continues, Proposition~1.6) et $F_n=(T^n)^{-1}(\{0\})$ est l'image réciproque du fermé $\{0\}$ (Proposition~1.5).
+
+\emph{Ils recouvrent $E$.} C'est exactement l'hypothèse : tout $x$ appartient à $F_{n_x}$.
+
+\emph{Baire.} $E$ étant complet, le Lemme~1.1 (ii) interdit que tous les $F_n$ soient d'intérieur vide : il existe $N$ tel que $\Int(F_N)\ne\emptyset$, \ie{} il existe $x_0\in E$ et $r>0$ tels que $B(x_0,r)\subset F_N$.
+
+\emph{Un sous-espace vectoriel d'intérieur non vide est l'espace entier.} Soit $y\in E$, $y\ne0$. Le point $v:=x_0+\dfrac{r}{2\norm{y}}\,y$ vérifie $\norm{v-x_0}=r/2<r$, donc $v\in B(x_0,r)\subset F_N$. Comme $x_0\in F_N$ également et que $F_N$ est un sous-espace vectoriel,
+\[
+y=\frac{2\norm{y}}{r}\,(v-x_0)\in F_N .
+\]
+Donc $F_N=E$, \ie{} $T^N=0$ : $T$ est nilpotente.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Schéma d'utilisation de Baire.} (1) Écrire l'espace complet comme union \emph{dénombrable} de \emph{fermés} ; (2) en déduire que l'un d'eux a un intérieur non vide ; (3) exploiter une structure supplémentaire (ici : linéaire) pour propager cette information locale à tout l'espace. La question 2 est le modèle de nombreux résultats du chapitre~4 (Banach--Steinhaus, application ouverte).
+\end{pointcle}
+
+\begin{piege}
+\textbf{Ne pas confondre $\bigcup\interieur{F_n}$ et $\Int\big(\bigcup F_n\big)$.} Le second est $E$ tout entier (hypothèse), le premier peut être strictement plus petit : dans $E=\R$, $F_0=\,]-\infty,0]$, $F_1=[0,+\infty[$, on a $\bigcup\interieur{F_n}=\R\setminus\{0\}$, dense mais différent de $\R$. La question 1 dit exactement que ce qu'on perd est « topologiquement négligeable ».
+
+\textbf{L'hypothèse de complétude est essentielle.} Dans $E=\Q$ (non complet), les singletons $F_n=\{q_n\}$ (énumération de $\Q$) sont fermés, recouvrent $\Q$, mais $\bigcup\interieur{F_n}=\emptyset$ n'est pas dense. Pour la question 2 : sur $E=\R[X]$ muni de la norme $\norm{\sum a_kX^k}:=\sum|a_k|\,k!$, l'opérateur de dérivation $D$ est linéaire continu ($\norm{DP}\le\norm{P}$, calcul immédiat), vérifie $D^{\deg P+1}P=0$ pour tout $P$, mais n'est pas nilpotent ($D^nX^n=n!\ne0$). L'espace $\R[X]$ n'est pas complet, ce qui est cohérent avec l'Exercice~3.2 du poly.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Théorème de Cantor (Exercice 1.14 du poly)}
+Montrer que pour un espace métrique $(X,d)$, la complétude équivaut à la propriété suivante : si $(F_n)_{n\in\N}$ est une suite décroissante de fermés non vides vérifiant $\lim_n\diam(F_n)=0$, alors $\bigcap_nF_n$ est un singleton.
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{Un préliminaire : $\diam(\adh{A})=\diam(A)$.} Soit $A\subset X$. L'inégalité $\diam(A)\le\diam(\adh{A})$ est claire ($A\subset\adh{A}$). Réciproquement, soient $x,y\in\adh{A}$ et $\varepsilon>0$ ; par la Proposition~1.2 (ou le Corollaire~1.1), il existe $a,b\in A$ avec $d(x,a)<\varepsilon$ et $d(y,b)<\varepsilon$, d'où
+\[
+d(x,y)\le d(x,a)+d(a,b)+d(b,y)< \diam(A)+2\varepsilon .
+\]
+Passant au sup en $(x,y)$ puis faisant $\varepsilon\to0$ : $\diam(\adh{A})\le\diam(A)$.
+
+\medskip
+\noindent\textbf{(Complet $\Rightarrow$ Cantor).} Soit $(F_n)$ comme dans l'énoncé. Choisissons pour chaque $n$ un point $x_n\in F_n$ (possible car $F_n\ne\emptyset$).
+
+\emph{La suite $(x_n)$ est de Cauchy.} Pour $m\ge n$, on a $x_m\in F_m\subset F_n$ (décroissance), donc $x_n,x_m\in F_n$ et $d(x_n,x_m)\le\diam(F_n)$. Soit $\varepsilon>0$ ; comme $\diam(F_n)\to0$, il existe $N$ tel que $\diam(F_N)<\varepsilon$, et alors pour $m\ge n\ge N$, $d(x_n,x_m)\le\diam(F_n)\le\diam(F_N)<\varepsilon$.
+
+\emph{Sa limite $x$ est dans tous les $F_n$.} Par complétude, $x_n\to x\in X$. Fixons $n$. La suite $(x_m)_{m\ge n}$ est à valeurs dans le fermé $F_n$ et converge vers $x$, donc $x\in F_n$ par la caractérisation séquentielle des fermés (Proposition~1.3). Ainsi $x\in\bigcap_nF_n$.
+
+\emph{Unicité.} Si $x,y\in\bigcap_nF_n$, alors $d(x,y)\le\diam(F_n)$ pour tout $n$, donc $d(x,y)=0$ et $x=y$. Cette partie n'utilise pas la complétude (c'est l'Exercice~1.15).
+
+\medskip
+\noindent\textbf{(Cantor $\Rightarrow$ complet).} Soit $(x_n)$ une suite de Cauchy de $X$. Posons
+\[
+A_n:=\{x_m : m\ge n\},\qquad F_n:=\adh{A_n}.
+\]
+Les $F_n$ sont fermés, non vides ($x_n\in F_n$) et décroissants (car $A_{n+1}\subset A_n$ et l'adhérence est croissante). Par le préliminaire, $\diam(F_n)=\diam(A_n)$, et la définition même d'une suite de Cauchy (Définition~1.16) est que $\diam(A_n)\to0$. L'hypothèse de Cantor fournit donc un point $x$ avec $\bigcap_nF_n=\{x\}$. Enfin, pour tout $n$, $x$ et $x_n$ appartiennent à $F_n$, donc
+\[
+d(x_n,x)\le\diam(F_n)\xrightarrow[n\to\infty]{}0 ,
+\]
+\ie{} $x_n\to x$. Toute suite de Cauchy converge : $X$ est complet.
+\end{solution}
+
+\begin{pointcle}
+La preuve du sens réciproque montre \emph{comment fabriquer des fermés emboîtés à partir d'une suite de Cauchy} : $F_n=\adh{\{x_m:m\ge n\}}$. C'est un réflexe utile, qui traduit « de Cauchy » en « diamètres tendant vers $0$ ». Le passage à l'adhérence est indispensable (les $A_n$ ne sont pas fermés en général) et il est licite car il ne change pas le diamètre.
+\end{pointcle}
+
+\begin{piege}
+Les trois hypothèses sur $(F_n)$ sont indispensables : dans $\R$ complet, $F_n=[n,+\infty[$ (diamètres infinis) ou $F_n=\,]0,1/n[$ (non fermés) ont une intersection vide ; et sans « non vides » il n'y a rien à dire. Notez aussi que $\diam(F_n)\to0$ ne peut pas être remplacé par « $F_n$ bornés » : dans un espace de Banach de dimension infinie, on peut trouver des boules fermées emboîtées d'intersection vide.
+\end{piege}
+
+\section*{Compacité}
+
+% =====================================================================
+\begin{exo}{Exercice 9 -- Fermés bornés non compacts}
+Donner des exemples de fermés bornés d'un espace métrique qui ne sont pas compacts.
+\end{exo}
+
+\begin{solution}
+Rappelons qu'un compact est toujours fermé et borné (Proposition~1.10) et que la réciproque est vraie dans $\R^d$ (Corollaire~1.2). Voici quatre situations où elle est fausse.
+
+\medskip
+\noindent\textbf{1. Un ensemble infini muni de la distance discrète.} Soit $X$ infini et $d(x,y)=1$ si $x\ne y$, $d(x,x)=0$. Alors $X$ est fermé (dans lui-même) et borné ($\diam X=1$). Soit $(x_n)$ une suite de points \emph{deux à deux distincts} (possible car $X$ est infini). Pour $n\ne m$, $d(x_n,x_m)=1$ : aucune sous-suite n'est de Cauchy, donc aucune ne converge (Exercice~1.14). $X$ n'est pas compact.
+
+\medskip
+\noindent\textbf{2. $\R$ muni d'une distance bornée.} Sur $X=\R$, posons $\delta(x,y):=\min(1,|x-y|)$. C'est une distance, pour laquelle $\R$ est borné ($\diam=1$) et fermé. Une suite converge pour $\delta$ si et seulement si elle converge pour la distance usuelle (car $\delta(x_n,x)\to0\iff|x_n-x|\to0$) : les valeurs d'adhérence sont les mêmes. La suite $x_n=n$ n'a pas de valeur d'adhérence (toute sous-suite tend vers $+\infty$), donc $(\R,\delta)$ n'est pas compact. Même chose avec la distance $|\arctan x-\arctan y|$ de l'Exemple~1.2.
+
+\medskip
+\noindent\textbf{3. $\Q\cap[0,1]$ dans $\Q$.} C'est un fermé de $\Q$ (trace du fermé $[0,1]$ de $\R$, Exercice~2), borné. Une suite de rationnels $(q_n)$ convergeant dans $\R$ vers $\sqrt2/2$ (par densité) n'a qu'une valeur d'adhérence possible dans $\R$, à savoir $\sqrt2/2\notin\Q$ : elle n'a donc aucune valeur d'adhérence dans $\Q\cap[0,1]$. C'est l'Exercice~1.21 : l'ensemble est même \emph{précompact} ; c'est la complétude qui manque.
+
+\medskip
+\noindent\textbf{4. La boule unité fermée d'un espace normé de dimension infinie.} Dans $\ell^\infty(\N)$ (suites bornées, norme $\sup$), les vecteurs $e_n=(0,\dots,0,1,0,\dots)$ ($1$ en position $n$) sont dans la boule unité fermée $\Bf(0,1)$, fermée et bornée, et vérifient $\norm{e_n-e_m}_\infty=1$ pour $n\ne m$ : comme au point 1, aucune sous-suite n'est de Cauchy. Le même exemple fonctionne dans $\ell^p$ ($\norm{e_n-e_m}_p=2^{1/p}$) ou dans $C^0([0,1])$ avec $f_n(x)=x^n$ ($\norm{f_n-f_{2n}}_\infty\ge 1/4$ ; ou simplement : une sous-suite convergeant uniformément aurait une limite continue, or $f_n$ converge simplement vers $\mathbf 1_{\{1\}}$, discontinue).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Dans un espace métrique général, « fermé borné » ne suffit jamais a priori.} Le bon énoncé est le Corollaire~1.4 : \emph{dans un espace complet, compact $\iff$ fermé et précompact}. Les exemples 1, 2 et 4 sont bornés mais \emph{pas précompacts} (on ne peut pas les recouvrir par un nombre fini de boules de rayon $1/2$) ; l'exemple 3 est précompact mais \emph{pas complet}. Le théorème de Riesz (chapitre~2) affirme que la boule unité fermée d'un espace normé est compacte \emph{si et seulement si} l'espace est de dimension finie : l'exemple 4 n'est donc pas un accident.
+\end{pointcle}
+
+\begin{commentaire}
+L'exemple 2 est instructif : $\delta$ et $|\cdot|$ définissent la même topologie sur $\R$ (mêmes ouverts, mêmes suites convergentes), donc les mêmes compacts. Mais $\R$ est borné pour $\delta$ et pas pour $|\cdot|$. Cela montre que \emph{la compacité est une notion topologique, alors que le caractère borné est une notion métrique} : il n'y a aucune raison qu'une propriété topologique se lise sur une propriété métrique, sauf théorème spécifique ($\R^d$).
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 10 (Exercice 1.19 du poly) -- Unique valeur d'adhérence dans un compact}
+Soit $(X,d)$ un espace métrique compact et $(x_n)_n$ une suite d'éléments de $X$ ne possédant qu'une valeur d'adhérence $x$. Montrer que $(x_n)_n$ converge vers $x$.
+\end{exo}
+
+\begin{solution}
+Raisonnons par l'absurde en supposant que $(x_n)$ ne converge pas vers $x$. La négation de la convergence s'écrit
+\[
+\exists\varepsilon>0,\ \forall N\in\N,\ \exists n\ge N :\ d(x_n,x)\ge\varepsilon .
+\]
+Autrement dit, l'ensemble $I:=\{n\in\N : d(x_n,x)\ge\varepsilon\}$ est \emph{infini}. Énumérons-le dans l'ordre croissant : $I=\{\varphi(0)<\varphi(1)<\cdots\}$, ce qui définit une extractrice $\varphi$, et la sous-suite $(x_{\varphi(n)})_n$ vérifie
+\begin{equation}\label{eq:loin}
+\forall n\in\N,\qquad d(x_{\varphi(n)},x)\ge\varepsilon .
+\end{equation}
+
+\emph{Compacité.} La suite $(x_{\varphi(n)})_n$ est à valeurs dans le compact $X$ : elle admet une valeur d'adhérence $y\in X$, \ie{} il existe une extractrice $\psi$ telle que $x_{\varphi(\psi(n))}\to y$.
+
+\emph{$y$ est une valeur d'adhérence de $(x_n)$.} En effet $\varphi\circ\psi$ est strictement croissante comme composée de deux applications strictement croissantes (c'est le point de l'Exercice~1.18) : $(x_{\varphi(\psi(n))})_n$ est une sous-suite de $(x_n)_n$ qui converge vers $y$.
+
+\emph{$y\ne x$.} L'application $z\mapsto d(z,x)$ est continue ($1$-lipschitzienne, Exercice~6). En passant à la limite dans \eqref{eq:loin} le long de $\psi$, on obtient $d(y,x)\ge\varepsilon>0$, donc $y\ne x$.
+
+Nous avons construit une seconde valeur d'adhérence $y\ne x$ : contradiction avec l'hypothèse d'unicité. Donc $x_n\to x$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Négation de la convergence = existence d'une sous-suite qui reste loin.} Le passage de « $\forall N\,\exists n\ge N$ » à « l'ensemble des indices est infini » puis à « on peut en extraire une sous-suite » est une gymnastique à maîtriser parfaitement. Ensuite, \emph{la compacité sert à extraire une sous-suite convergente de cette sous-suite « rebelle »}, et « extraite d'extraite est extraite » permet de conclure.
+\end{pointcle}
+
+\begin{piege}
+\textbf{L'hypothèse de compacité est indispensable}, comme le rappelle l'Exemple~1.8 : dans $\R$ (non compact), la suite $x_n=n\,\mathbf 1_{2\N}(n)$, qui vaut $0,1,0,3,0,5,\dots$, n'a que $0$ comme valeur d'adhérence mais ne converge pas. La sous-suite « rebelle » $(2n+1)_n$ n'a aucune valeur d'adhérence, et l'argument s'effondre. Le résultat reste vrai sous l'hypothèse plus faible « $(x_n)$ est à valeurs dans un compact de $X$ », par exemple si $(x_n)$ est bornée dans $\R^d$.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 11 -- Distance entre deux compacts}
+Soit $(X,d)$ un espace métrique. On définit la distance entre deux sous-ensembles $A,B\subset X$ par $\dist(A,B):=\inf_{a\in A,\,b\in B}d(a,b)$. Montrer que si $A$ et $B$ sont compacts (et non vides), alors il existe $a_*\in A$ et $b_*\in B$ tels que $\dist(A,B)=d(a_*,b_*)$.
+\end{exo}
+
+\begin{solution}
+Il s'agit de montrer qu'une borne inférieure est atteinte, \ie{} est un minimum. On donne deux rédactions.
+
+\medskip
+\noindent\textbf{Première rédaction : minimum d'une fonction continue sur un compact.} Munissons $A\times B$ de la distance $D_1$ de l'exercice~5. L'application $\Phi:(a,b)\mapsto d(a,b)$ est $1$-lipschitzienne sur $(A\times B,D_1)$ : pour $(a,b),(a',b')\in A\times B$, deux inégalités triangulaires donnent
+\[
+d(a,b)\le d(a,a')+d(a',b')+d(b',b),
+\]
+d'où, en échangeant les rôles des deux couples,
+\[
+\abs{d(a,b)-d(a',b')}\le d(a,a')+d(b,b')=D_1\big((a,b),(a',b')\big).
+\]
+Donc $\Phi$ est continue. Par ailleurs $A\times B$ est compact : c'est la Proposition~1.9 (énoncée pour $D_\infty$, mais $D_1$ et $D_\infty$ ont les mêmes suites convergentes, cf.\ le commentaire de l'exercice~5). Le Corollaire~1.3 (une fonction continue sur un compact non vide atteint ses bornes) fournit $(a_*,b_*)\in A\times B$ tel que
+\[
+d(a_*,b_*)=\min_{(a,b)\in A\times B}\Phi(a,b)=\inf_{a\in A,\,b\in B}d(a,b)=\dist(A,B).
+\]
+
+\medskip
+\noindent\textbf{Seconde rédaction : suite minimisante.} Elle rend explicite ce que cache le Corollaire~1.3. L'ensemble $\{d(a,b):a\in A,b\in B\}$ est une partie non vide de $\R_+$, donc $\dist(A,B)$ est un réel $\ge0$. Par définition de la borne inférieure, pour tout $n\ge1$ il existe $(a_n,b_n)\in A\times B$ avec
+\[
+\dist(A,B)\le d(a_n,b_n)<\dist(A,B)+\tfrac1n ,
+\]
+de sorte que $d(a_n,b_n)\to\dist(A,B)$ : c'est une \emph{suite minimisante}. Par compacité de $A$, on extrait $a_{\varphi(n)}\to a_*\in A$. Par compacité de $B$, on extrait de $(b_{\varphi(n)})$ une sous-suite $b_{\varphi(\psi(n))}\to b_*\in B$ ; on a toujours $a_{\varphi(\psi(n))}\to a_*$ (sous-suite d'une suite convergente). Par continuité de $d$ (ci-dessus, ou Exercice~1.10),
+\[
+d(a_*,b_*)=\lim_n d\big(a_{\varphi(\psi(n))},b_{\varphi(\psi(n))}\big)=\dist(A,B)
+\]
+puisque $(d(a_{\varphi(\psi(n))},b_{\varphi(\psi(n))}))_n$ est extraite de la suite convergente $(d(a_n,b_n))_n$.
+\end{solution}
+
+\begin{methode}
+\textbf{Montrer qu'un inf est atteint :} (1) prendre une suite minimisante (toujours possible, par définition de l'inf) ; (2) utiliser une compacité pour en extraire une sous-suite convergente ; (3) passer à la limite grâce à la continuité de la quantité minimisée. C'est le schéma de la preuve de la Proposition~1.10 (caractère borné d'un compact) et de très nombreux problèmes d'existence en analyse (calcul des variations).
+\end{methode}
+
+\begin{commentaire}
+\textbf{Que reste-t-il si l'on affaiblit les hypothèses ?}
+\begin{itemize}
+  \item \emph{$A$ compact, $B$ seulement fermé.} L'extraction sur $(a_n)$ fonctionne encore, et l'on obtient $\dist(A,B)=d(B,a_*)$ pour un $a_*\in A$, mais cet inf sur $B$ n'est pas nécessairement atteint (cf.\ Exercice~1.1). En revanche, si de plus $A\cap B=\emptyset$, on obtient $\dist(A,B)=d(B,a_*)>0$ car $a_*\notin B=\adh B$ (Corollaire~1.1) : \emph{un compact et un fermé disjoints sont à distance strictement positive}. Ce fait est très utile.
+  \item \emph{$A$ et $B$ seulement fermés.} Tout peut arriver : dans $\R$, $A=\N$ et $B=\{n+\tfrac1n : n\ge2\}$ sont deux fermés disjoints avec $\dist(A,B)=0$, non atteinte. Dans $\R^2$, l'axe des abscisses et le graphe de $x\mapsto e^x$ donnent le même phénomène.
+\end{itemize}
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 12 -- Fonction continue tendant vers $0$ à l'infini}
+Soit $f:\R\to\R$ continue telle que $\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=0$. Montrer que $f$ est bornée et atteint au moins une de ses bornes.
+\end{exo}
+
+\begin{solution}
+\emph{Cas trivial.} Si $f$ est identiquement nulle, elle est bornée et atteint ses deux bornes ($\sup f=\inf f=0$).
+
+\emph{Réduction.} Sinon, il existe $x_0\in\R$ avec $f(x_0)\ne0$. Quitte à remplacer $f$ par $-f$ (qui est encore continue, tend encore vers $0$ en $\pm\infty$, et dont les bornes sont les opposées de celles de $f$), on peut supposer $f(x_0)>0$. Nous allons montrer que $f$ est bornée et que $\sup_\R f$ est atteint.
+
+\emph{Confinement grâce aux limites.} Posons $\varepsilon:=f(x_0)/2>0$. Par définition des limites en $\pm\infty$, il existe $R>0$ tel que
+\[
+|x|\ge R\ \Longrightarrow\ |f(x)|\le\varepsilon .
+\]
+Quitte à augmenter $R$, on peut supposer $R\ge|x_0|$, de sorte que $x_0\in K:=[-R,R]$.
+
+\emph{Compacité.} Le segment $K$ est compact (Théorème~1.2 de Bolzano--Weierstrass) et $f$ est continue sur $K$ : par le Corollaire~1.3, $f$ est bornée sur $K$ et atteint son maximum en un point $x_M\in K$. Notons $M:=f(x_M)=\max_Kf$ ; comme $x_0\in K$, on a $M\ge f(x_0)=2\varepsilon>\varepsilon$.
+
+\emph{Conclusion.}
+\begin{itemize}
+  \item \emph{$f$ est bornée :} sur $K$, $|f|\le\max_K|f|<+\infty$ ; hors de $K$, $|f|\le\varepsilon$.
+  \item \emph{$\sup_\R f$ est atteint :} pour $x\in K$, $f(x)\le M$ par définition de $M$ ; pour $x\notin K$, $f(x)\le|f(x)|\le\varepsilon<M$. Ainsi $f\le M$ sur $\R$ et $f(x_M)=M$ : $M=\max_\R f$.
+\end{itemize}
+\end{solution}
+
+\begin{pointcle}
+\textbf{Ramener un problème sur $\R$ (non compact) à un problème sur un segment (compact).} Les limites à l'infini servent à \emph{confiner} la partie intéressante de $f$ dans un compact, où le théorème des bornes atteintes s'applique. Le choix de $\varepsilon=f(x_0)/2$ (et non un $\varepsilon$ quelconque) est ce qui garantit que le maximum sur $K$ est bien le maximum global : à l'extérieur, $f$ est « en dessous » de $f(x_0)$.
+\end{pointcle}
+
+\begin{piege}
+\textbf{Pourquoi « au moins une » et pas « ses deux » bornes ?} La fonction $f(x)=\dfrac{1}{1+x^2}$ vérifie les hypothèses, atteint son maximum $1$ en $0$, mais $\inf_\R f=0$ n'est pas atteint. Une seule borne est garantie : celle « du côté » où $f$ s'écarte de $0$. Si $f$ change de signe (par exemple $f(x)=x e^{-x^2}$), les deux bornes sont atteintes, par le même argument appliqué à $f$ et à $-f$.
+\end{piege}
+
+\begin{commentaire}
+Une autre façon de voir l'exercice : $f$ se prolonge par continuité à $\Rb=\R\cup\{\pm\infty\}$ muni de la distance $|\arctan x-\arctan y|$ (Exemple~1.2), en posant $f(\pm\infty)=0$. L'espace $\Rb$ est compact (il est isométrique à $[-\pi/2,\pi/2]$), donc $f$ y atteint son max et son min. Si $f\not\equiv0$, l'un des deux est non nul, donc atteint en un point de $\R$. C'est l'idée de \emph{compactification}.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 13 -- Points fixes}
+\begin{enumerate}[label=\arabic*.]
+  \item Soit $E$ un espace vectoriel normé et $C\subseteq E$ un convexe compact (non vide). Montrer que toute application $1$-lipschitzienne de $C$ dans lui-même admet un point fixe. \emph{Indication : considérer, pour $z\in C$ fixé, $f_n(x):=\frac{1}{n+1}z+\frac{n}{n+1}f(x)$.}
+  \item Soit $(X,d)$ un espace métrique compact (non vide) et $f:X\to X$ telle que $d(f(x),f(y))<d(x,y)$ pour $x\ne y$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Expliquer pourquoi le théorème de point fixe de Picard ne s'applique pas.
+    \item Montrer cependant que $f$ admet un unique point fixe $a\in X$.
+    \item Montrer que la suite des itérées de $f$ converge simplement vers la fonction constante égale à $a$.
+    \item Que dire dans le cas de l'inégalité large $d(f(x),f(y))\le d(x,y)$ ?
+  \end{enumerate}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1.} Soit $f:C\to C$ $1$-lipschitzienne, $z\in C$ fixé, et pour $n\ge1$, $f_n(x):=\frac{1}{n+1}z+\frac{n}{n+1}f(x)$.
+
+\emph{$f_n$ envoie $C$ dans $C$.} Pour $x\in C$, $f_n(x)$ est le barycentre à coefficients positifs $\frac1{n+1}+\frac n{n+1}=1$ des points $z\in C$ et $f(x)\in C$ : il est dans $C$ par \textbf{convexité}.
+
+\emph{$f_n$ est contractante.} Pour $x,y\in C$,
+\[
+\norm{f_n(x)-f_n(y)}=\frac{n}{n+1}\norm{f(x)-f(y)}\le\frac{n}{n+1}\norm{x-y},
+\]
+et $k_n:=\frac n{n+1}<1$.
+
+\emph{Picard.} $C$ est compact donc complet (Proposition~1.12). Le théorème de point fixe de Picard (Exercice~1.16) s'applique à $f_n:C\to C$ : il existe un unique $x_n\in C$ tel que $f_n(x_n)=x_n$.
+
+\emph{Les $x_n$ sont « presque » des points fixes de $f$.} On calcule
+\[
+x_n-f(x_n)=f_n(x_n)-f(x_n)=\frac1{n+1}\big(z-f(x_n)\big),\qquad\text{donc}\qquad
+\norm{x_n-f(x_n)}\le\frac{\diam(C)}{n+1}\xrightarrow[n\to\infty]{}0 ,
+\]
+où $\diam(C)<\infty$ car $C$ est compact donc borné (Proposition~1.10).
+
+\emph{Compacité et passage à la limite.} Par compacité de $C$, il existe une extractrice $\varphi$ et $x\in C$ avec $x_{\varphi(n)}\to x$. Alors, par inégalité triangulaire et caractère $1$-lipschitzien de $f$,
+\begin{align*}
+\norm{x-f(x)}
+&\le\norm{x-x_{\varphi(n)}}+\norm{x_{\varphi(n)}-f(x_{\varphi(n)})}+\norm{f(x_{\varphi(n)})-f(x)}\\
+&\le 2\norm{x-x_{\varphi(n)}}+\frac{\diam(C)}{\varphi(n)+1}\xrightarrow[n\to\infty]{}0 .
+\end{align*}
+Donc $f(x)=x$.
+
+\medskip
+\noindent\textbf{2.(a)} Le théorème de Picard demande une constante $k<1$ \emph{uniforme} : $d(f(x),f(y))\le k\,d(x,y)$ pour tous $x,y$. Ici on sait seulement que le rapport $d(f(x),f(y))/d(x,y)$ est $<1$ pour chaque couple $x\ne y$, mais rien n'empêche que le supremum de ces rapports vaille $1$. Exemple : $X=[0,1]$ et $f(x)=\sin x$. Pour $x\ne y$ dans $[0,1]$, l'égalité des accroissements finis donne $|\sin x-\sin y|=|\cos c|\,|x-y|$ pour un $c$ strictement compris entre $x$ et $y$, donc $c\in\,]0,1]$ et $\cos c<1$ : l'hypothèse de l'exercice est satisfaite. Mais $\frac{\sin x-\sin 0}{x-0}=\frac{\sin x}{x}\to1$ quand $x\to0^+$, donc $f$ n'est $k$-lipschitzienne pour aucun $k<1$. (La complétude, elle, n'est pas en cause : un compact est complet.)
+
+\medskip
+\noindent\textbf{2.(b)} \emph{Unicité.} Si $a\ne b$ sont deux points fixes, $d(a,b)=d(f(a),f(b))<d(a,b)$, absurde.
+
+\emph{Existence.} Considérons $g:X\to\R_+$, $g(x):=d(x,f(x))$. L'hypothèse implique que $f$ est $1$-lipschitzienne donc continue, et $d$ est continue sur $X\times X$ (Exercice~1.10) ; $g$ est donc continue comme composée de $x\mapsto(x,f(x))$ (continue, exercice~5) et de $d$. Comme $X$ est compact et non vide, $g$ atteint son minimum en un point $a\in X$ (Corollaire~1.3). Supposons $f(a)\ne a$. Alors
+\[
+g(f(a))=d\big(f(a),f(f(a))\big)<d(a,f(a))=g(a),
+\]
+ce qui contredit la minimalité de $g(a)$. Donc $f(a)=a$.
+
+\medskip
+\noindent\textbf{2.(c)} Fixons $x\in X$ et posons $x_n:=f^n(x)$ ($f^0=\mathrm{Id}$) et $u_n:=d(x_n,a)$. Il s'agit de montrer $u_n\to0$.
+
+\emph{$(u_n)$ est décroissante.} Comme $a=f(a)$, $u_{n+1}=d(f(x_n),f(a))\le d(x_n,a)=u_n$ (avec inégalité stricte si $x_n\ne a$). Décroissante et minorée par $0$, $(u_n)$ converge vers un réel $\ell\ge0$.
+
+\emph{$\ell=0$ par compacité.} Par compacité de $X$, il existe $\varphi$ et $y\in X$ avec $x_{\varphi(n)}\to y$. Par continuité de $d(\cdot,a)$, $d(y,a)=\lim u_{\varphi(n)}=\ell$. Par continuité de $f$, $x_{\varphi(n)+1}=f(x_{\varphi(n)})\to f(y)$, donc $d(f(y),a)=\lim u_{\varphi(n)+1}=\ell$ (sous-suite de la suite convergente $(u_n)$). Si $\ell>0$, alors $y\ne a$ et l'hypothèse donne
+\[
+\ell=d(f(y),a)=d(f(y),f(a))<d(y,a)=\ell ,
+\]
+absurde. Donc $\ell=0$, \ie{} $f^n(x)\to a$. Ceci pour tout $x$ : $(f^n)_n$ converge simplement vers la fonction constante égale à $a$.
+
+\medskip
+\noindent\textbf{2.(d)} Avec l'inégalité large, $f$ est seulement $1$-lipschitzienne, et \emph{tout} peut tomber en défaut :
+\begin{itemize}
+  \item \emph{Existence :} $X=[-2,-1]\cup[1,2]$ (compact de $\R$) et $f(x)=-x$. C'est une isométrie de $X$, sans point fixe car $0\notin X$.
+  \item \emph{Unicité :} $f=\mathrm{Id}_X$ sur n'importe quel compact ayant au moins deux points.
+  \item \emph{Convergence des itérées :} $X=[-1,1]$ et $f(x)=-x$ : unique point fixe $0$, mais $f^n(x)=(-1)^nx$ ne converge pas pour $x\ne0$.
+\end{itemize}
+La question 1 montre en revanche que l'\emph{existence} subsiste si $X$ est un convexe compact d'un espace normé : le contre-exemple ci-dessus est bien non convexe.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Trois usages différents de la compacité pour un point fixe.}
+\begin{itemize}
+  \item \emph{Question 1 :} on approche $f$ par des contractions $f_n$ (Picard), puis on extrait une sous-suite convergente des points fixes approchés. Schéma « perturbation + compacité ».
+  \item \emph{Question 2(b) :} on minimise $x\mapsto d(x,f(x))$ ; la compacité fournit un minimiseur et l'hypothèse stricte force ce minimum à valoir $0$. Schéma « variationnel ».
+  \item \emph{Question 2(c) :} la suite $u_n=d(f^n(x),a)$ est monotone, donc convergente ; la compacité identifie la limite. Sans compacité, on saurait seulement que $u_n\to\ell$ sans pouvoir prouver $\ell=0$.
+\end{itemize}
+\end{pointcle}
+
+\begin{piege}
+Dans la question 2(c), l'inégalité stricte $u_{n+1}<u_n$ ne suffit \emph{pas} à conclure $u_n\to0$ : une suite strictement décroissante peut converger vers une limite $>0$. C'est précisément pour cela qu'on passe par une valeur d'adhérence $y$ et qu'on applique l'hypothèse stricte \emph{au point limite}. De même, dans la question 1, il ne faut pas oublier de vérifier que $f_n(C)\subset C$ (convexité) : Picard s'applique à une application \emph{d'un espace complet dans lui-même}.
+\end{piege}
+
+\begin{commentaire}
+\textbf{Pour aller plus loin.}
+\begin{itemize}
+  \item La convergence de 2(c) est en fait \emph{uniforme} sur $X$ : les fonctions $g_n(x)=d(f^n(x),a)$ sont continues, décroissent en $n$, et convergent simplement vers $0$ sur le compact $X$ ; le théorème de Dini donne alors $\sup_Xg_n\to0$.
+  \item La question 1 est un cas très particulier du théorème de \emph{Brouwer} (toute application \emph{continue} d'un convexe compact de $\R^d$ dans lui-même a un point fixe) et de sa version en dimension infinie (\emph{Schauder}). L'hypothèse lipschitzienne permet ici une preuve élémentaire ; pour une application seulement continue, le passage « $x_n$ presque fixe $\Rightarrow$ limite fixe » fonctionne encore, mais on ne dispose plus des $x_n$.
+  \item Que la question 1 exige la \emph{convexité} se voit sur le cercle $S^1\subset\R^2$, compact non convexe : une rotation d'angle non nul est une isométrie sans point fixe.
+\end{itemize}
+\end{commentaire}
+
+\end{document}

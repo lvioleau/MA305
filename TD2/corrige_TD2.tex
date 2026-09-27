@@ -1,0 +1,497 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}2 -- Espaces vectoriels normés}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} $\K$ désigne $\R$ ou $\C$. Un EVN est toujours muni de la distance $d(x,y)=\norm{x-y}$ (Remarque~2.1). Pour un compact $K$, $\norm{f}_K:=\sup_K|f|$ est la norme uniforme sur $K$. On note $\Lc(E,F)$ l'espace des applications linéaires continues (opérateurs) de $E$ dans $F$, et $\norm{T}_{\Lc(E,F)}$ ou $\opnorm{T}$ sa norme (Définition~2.4). Les numéros de résultats renvoient au polycopié.
+
+Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Pas de Banach à base dénombrable}
+Montrer qu'un espace vectoriel possédant une base infinie dénombrable n'est complet pour aucune norme (on pourra admettre qu'un sous-espace de dimension finie est toujours fermé).
+\end{exo}
+
+\begin{solution}
+Soit $E$ un espace vectoriel muni d'une base $(e_n)_{n\in\N}$ (base \emph{algébrique} : tout vecteur est combinaison linéaire \emph{finie} des $e_n$, de façon unique). Soit $\norm\cdot$ une norme sur $E$ ; supposons par l'absurde $(E,\norm\cdot)$ complet.
+
+\emph{Une union dénombrable de fermés.} Posons $F_n:=\Vect(e_0,\dots,e_n)$. Chaque $F_n$ est un sous-espace de dimension finie $n+1$, donc fermé (Proposition~3.2 du poly, admise dans l'énoncé). Tout $x\in E$ étant combinaison linéaire finie des $e_k$, il appartient à $F_n$ dès que $n$ dépasse le plus grand indice intervenant : $E=\bigcup_{n\in\N}F_n$.
+
+\emph{Baire.} L'espace $E$ étant complet, le Lemme~1.1 (ii) interdit que tous les $F_n$ soient d'intérieur vide : il existe $N$ et une boule $B(x_0,r)\subset F_N$, $r>0$.
+
+\emph{Un sous-espace d'intérieur non vide est tout l'espace.} Pour $y\in E\setminus\{0\}$, le vecteur $v:=x_0+\frac{r}{2\norm y}y$ est dans $B(x_0,r)\subset F_N$, et $x_0\in F_N$, donc $y=\frac{2\norm y}{r}(v-x_0)\in F_N$ (sous-espace vectoriel). Ainsi $F_N=E$.
+
+\emph{Contradiction.} $e_{N+1}\in E=F_N=\Vect(e_0,\dots,e_N)$ contredit la liberté de la famille $(e_n)$. Donc $(E,\norm\cdot)$ n'est pas complet, et ce quelle que soit la norme choisie.
+\end{solution}
+
+\begin{pointcle}
+C'est exactement le schéma de Baire vu au TD1 (exercice 7) : \emph{espace complet $=$ union dénombrable de fermés $\Rightarrow$ l'un d'eux a un intérieur non vide $\Rightarrow$ la structure linéaire propage cette information à tout l'espace}. Conséquence : \textbf{la dimension algébrique d'un espace de Banach est finie ou non dénombrable}. Par exemple $\R[X]$ (base $(X^n)_n$) et $c_{<\infty}(\N)$ (suites à support fini, base $(\mathbf e^k)_k$) ne sont complets pour aucune norme, ce qui répond à l'Exercice~3.2 du poly.
+\end{pointcle}
+
+\begin{piege}
+\textbf{Base algébrique $\ne$ base hilbertienne.} L'espace $\ell^2(\N)$ est complet et admet la famille orthonormée $(\mathbf e^k)_k$ comme « base hilbertienne » (tout vecteur est une \emph{série} convergente $\sum u_k\mathbf e^k$). Ce n'est pas une contradiction : $(\mathbf e^k)$ n'engendre algébriquement que $c_{<\infty}(\N)\subsetneq\ell^2(\N)$. L'énoncé parle de combinaisons \emph{finies} ; c'est précisément ce qui donne $E=\bigcup F_n$.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Distance associée à une norme ; compacts de $\R^d$}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $(E,\norm\cdot)$ est un espace normé, l'application $(x,y)\mapsto\norm{x-y}$ est une distance.
+  \item On munit $\R^d$ de la norme euclidienne $\norm x=(\sum_{i=1}^d|x_i|^2)^{1/2}$. Montrer que tout sous-ensemble fermé borné est compact.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Posons $d(x,y):=\norm{x-y}$, à valeurs dans $\R_+$. On vérifie les trois axiomes à partir de ceux de la norme (Définition~2.1).
+\begin{itemize}
+  \item \emph{Séparation :} $d(x,y)=0\iff\norm{x-y}=0\iff x-y=0\iff x=y$.
+  \item \emph{Symétrie :} $d(y,x)=\norm{y-x}=\norm{(-1)(x-y)}=|-1|\,\norm{x-y}=d(x,y)$ par homogénéité.
+  \item \emph{Inégalité triangulaire :} pour $x,y,z\in E$, en écrivant $x-z=(x-y)+(y-z)$,
+  \[
+  d(x,z)=\norm{(x-y)+(y-z)}\le\norm{x-y}+\norm{y-z}=d(x,y)+d(y,z).
+  \]
+\end{itemize}
+Cette distance a deux propriétés supplémentaires qui la distinguent d'une distance quelconque : elle est \emph{invariante par translation}, $d(x+a,y+a)=d(x,y)$, et \emph{homogène}, $d(\lambda x,\lambda y)=|\lambda|d(x,y)$.
+
+\medskip
+\noindent\textbf{(b)} Soit $A\subset\R^d$ fermé et borné, et $(x^{(k)})_{k\in\N}$ une suite d'éléments de $A$. Il faut en extraire une sous-suite convergeant vers un élément de $A$ (Définition~1.20). On note $x^{(k)}=(x^{(k)}_1,\dots,x^{(k)}_d)$.
+
+\emph{Étape 1 : chaque coordonnée est bornée.} $A$ borné signifie qu'il existe $R$ tel que $\norm{x}\le R$ pour tout $x\in A$. Comme $|x_i|\le\big(\sum_j|x_j|^2\big)^{1/2}=\norm x$, on a $x^{(k)}_i\in[-R,R]$ pour tous $k$ et $i$.
+
+\emph{Étape 2 : extractions successives.} Par le théorème de Bolzano--Weierstrass (Théorème~1.2), la suite réelle bornée $(x^{(k)}_1)_k$ admet une sous-suite convergente : il existe une extractrice $\varphi_1$ et $\ell_1\in[-R,R]$ avec $x^{(\varphi_1(k))}_1\to\ell_1$. La suite $(x^{(\varphi_1(k))}_2)_k$ est encore bornée : on en extrait une sous-suite convergente via $\varphi_2$, $x^{(\varphi_1\circ\varphi_2(k))}_2\to\ell_2$ ; la première coordonnée converge toujours vers $\ell_1$ le long de $\varphi_1\circ\varphi_2$ (sous-suite d'une suite convergente). On itère $d$ fois et l'on pose $\varphi:=\varphi_1\circ\cdots\circ\varphi_d$ (extractrice comme composée d'extractrices) : pour chaque $i\in\{1,\dots,d\}$, $x^{(\varphi(k))}_i\to\ell_i$.
+
+\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} Posons $\ell:=(\ell_1,\dots,\ell_d)$. Alors
+\[
+\norm{x^{(\varphi(k))}-\ell}^2=\sum_{i=1}^d\big|x^{(\varphi(k))}_i-\ell_i\big|^2\xrightarrow[k\to\infty]{}0
+\]
+comme somme \emph{finie} de suites tendant vers $0$. Donc $x^{(\varphi(k))}\to\ell$ dans $(\R^d,\norm\cdot)$.
+
+\emph{Étape 4 : la limite est dans $A$.} $A$ est fermé et $(x^{(\varphi(k))})_k$ est une suite de $A$ convergeant vers $\ell$ : par la caractérisation séquentielle des fermés (Proposition~1.3), $\ell\in A$. Donc $A$ est compact.
+\end{solution}
+
+\begin{pointcle}
+La preuve tient à deux faits : (i) dans $\R^d$, \emph{converger en norme, c'est converger coordonnée par coordonnée} (encadrement $\norm x_\infty\le\norm x_2\le\sqrt d\,\norm x_\infty$, cas particulier de (2.1)) ; (ii) on ne fait qu'un \emph{nombre fini} ($d$) d'extractions successives. C'est le Corollaire~1.2 du poly (prouvé là via la compacité du produit $[-R,R]^d$, Proposition~1.9), et le Théorème~2.1 l'étend à toute norme sur $\K^d$ puisqu'elles sont toutes équivalentes.
+\end{pointcle}
+
+\begin{piege}
+L'argument s'effondre en dimension infinie : dans $\ell^2(\N)$, la suite $(\mathbf e^k)_k$ converge « coordonnée par coordonnée » vers $0$ (chaque coordonnée est nulle à partir d'un certain rang), mais $\norm{\mathbf e^k-\mathbf e^j}_2=\sqrt2$ pour $k\ne j$ : aucune sous-suite ne converge. Il y a une infinité de coordonnées, et « somme finie de suites tendant vers $0$ » n'a plus de sens. C'est le contenu du théorème de Riesz (Théorème~3.1) : \emph{fermé borné $\Rightarrow$ compact} caractérise la dimension finie.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 3 (Exercice 2.2 du poly) -- Suite exhaustive de compacts}
+Soit $O$ un ouvert de $\R^d$, $F$ son complémentaire et $B_n$ la boule fermée de rayon $n$ centrée en l'origine. Montrer que les ensembles
+\[
+K_n:=B_n\cap\{x\in O : d(F,x)\ge1/n\}
+\]
+forment une suite croissante de compacts tous contenus dans $O$ et le recouvrant.
+\end{exo}
+
+\begin{solution}
+Si $O=\R^d$, alors $F=\emptyset$ et, avec la convention $d(\emptyset,x)=\inf\emptyset=+\infty$, on a simplement $K_n=B_n$ : boules fermées, compactes, croissantes, recouvrant $\R^d$. On suppose désormais $F\ne\emptyset$. Rappelons que $F=\R^d\setminus O$ est fermé et que, par le Corollaire~1.1, $d(F,x)=0\iff x\in\adh F=F$ ; autrement dit
+\begin{equation}\label{eq:dF}
+x\in O\iff d(F,x)>0 .
+\end{equation}
+
+\emph{$K_n\subset O$.} C'est immédiat par définition ; on peut d'ailleurs, grâce à \eqref{eq:dF}, réécrire $K_n=B_n\cap\{x\in\R^d : d(F,x)\ge1/n\}$ sans mentionner $O$.
+
+\emph{$K_n$ est compact.} La fonction $x\mapsto d(F,x)$ est $1$-lipschitzienne (TD1, exercice~6), donc continue, et $\{x\in\R^d : d(F,x)\ge1/n\}$ est l'image réciproque du fermé $[1/n,+\infty[$ : c'est un fermé de $\R^d$. Ainsi $K_n$ est l'intersection de deux fermés, donc fermé, et il est borné car contenu dans $B_n$. Par le Corollaire~1.2 (ou l'exercice~2), $K_n$ est compact.
+
+\emph{Croissance.} Si $x\in K_n$, alors $\norm x\le n\le n+1$ et $d(F,x)\ge\frac1n\ge\frac1{n+1}$, donc $x\in K_{n+1}$.
+
+\emph{Recouvrement.} Soit $x\in O$. Par \eqref{eq:dF}, $d(F,x)>0$. Choisissons un entier $n\ge\max\big(\norm x,\,1/d(F,x)\big)$ : alors $\norm x\le n$ et $d(F,x)\ge1/n$, \ie{} $x\in K_n$. Donc $O=\bigcup_nK_n$.
+
+\medskip
+\noindent\textbf{Complément utile : $K_n\subset\interieur{K_{n+1}}$.} Soit $x\in K_n$ et $\rho:=\min\big(1,\frac1n-\frac1{n+1}\big)>0$. Pour $y\in B(x,\rho)$, on a $\norm y\le\norm x+\rho<n+1$, et par le caractère $1$-lipschitzien de $d(F,\cdot)$,
+\[
+d(F,y)\ \ge\ d(F,x)-\norm{x-y}\ >\ \frac1n-\Big(\frac1n-\frac1{n+1}\Big)=\frac1{n+1}.
+\]
+Donc $B(x,\rho)\subset K_{n+1}$, \ie{} $x\in\interieur{K_{n+1}}$.
+
+\emph{Conséquence : tout compact $K\subset O$ est contenu dans l'un des $K_n$.} Les ouverts $(\interieur{K_{n}})_{n\ge1}$ recouvrent $O\supset K$ (car $K_n\subset\interieur{K_{n+1}}$ et les $K_n$ recouvrent $O$). Par la propriété de Borel--Lebesgue (Théorème~1.4), $K$ est recouvert par un nombre fini d'entre eux, $K\subset\interieur{K_{n_1}}\cup\dots\cup\interieur{K_{n_p}}\subset K_{\max n_i}$ par croissance.
+\end{solution}
+
+\begin{pointcle}
+Les deux contraintes qui définissent $K_n$ répondent aux deux façons pour un point de $O$ de « s'échapper » : partir à l'infini (contrôlé par $B_n$) ou s'approcher du bord $F=\partial O\cup(\R^d\setminus\adh O)$ (contrôlé par $d(F,x)\ge1/n$). Le complément $K_n\subset\interieur{K_{n+1}}$ est la propriété vraiment utile en pratique : c'est elle qui donne « tout compact de $O$ est dans un $K_n$ », indispensable à la question (c) de l'exercice suivant.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- La distance de la convergence uniforme sur tout compact}
+Soit $O$ un ouvert de $\R^d$, $X:=\Cz(O)$ et $(K_n)_{n\ge0}$ une suite exhaustive de compacts associée à $O$. On pose
+\[
+d_X(f,g):=\sum_{n\ge0}\frac{\min\{1,\norm{f-g}_{K_n}\}}{2^n},\qquad f,g\in X .
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $d_X$ est une distance sur $X$.
+  \item Soit $f\in X$ et $(f_j)_{j\in\N}\in X^\N$. Montrer que $\lim_jd_X(f_j,f)=0\iff f_j\to f$ uniformément sur $K_n$ pour tout $n\ge0$.
+  \item Conclure que la topologie induite par $d_X$ ne dépend pas du choix de la suite $(K_n)_{n\ge0}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+Remarquons d'abord que pour $f\in\Cz(O)$ et $K\subset O$ compact, $\norm f_K=\sup_K|f|<+\infty$ (fonction continue sur un compact, Corollaire~1.3) ; $\norm\cdot_{K}$ vérifie l'homogénéité et l'inégalité triangulaire, mais pas la séparation sur $\Cz(O)$ : c'est une \emph{semi-norme}.
+
+\medskip
+\noindent\textbf{(a)} \emph{$d_X$ est bien définie.} Le terme général de la série est compris entre $0$ et $2^{-n}$ : la série converge et $0\le d_X(f,g)\le2$.
+
+\emph{Symétrie.} $\norm{f-g}_{K_n}=\norm{g-f}_{K_n}$.
+
+\emph{Séparation.} Si $d_X(f,g)=0$, chaque terme (positif) de la série est nul : $\min\{1,\norm{f-g}_{K_n}\}=0$, donc $\norm{f-g}_{K_n}=0$, \ie{} $f=g$ sur $K_n$, pour tout $n$. Comme $\bigcup_nK_n=O$, $f=g$ sur $O$.
+
+\emph{Inégalité triangulaire.} Le point crucial est que $\theta:t\mapsto\min\{1,t\}$ est \emph{croissante} et \emph{sous-additive} sur $\R_+$ :
+\[
+\theta(a+b)\le\theta(a)+\theta(b)\qquad(a,b\ge0).
+\]
+En effet, si $a\ge1$ ou $b\ge1$, le membre de droite vaut au moins $1\ge\theta(a+b)$ ; sinon il vaut $a+b\ge\theta(a+b)$. Pour $f,g,h\in X$ et tout $n$, l'inégalité triangulaire de la semi-norme $\norm\cdot_{K_n}$ puis la croissance et la sous-additivité de $\theta$ donnent
+\[
+\theta\big(\norm{f-h}_{K_n}\big)\le\theta\big(\norm{f-g}_{K_n}+\norm{g-h}_{K_n}\big)\le\theta\big(\norm{f-g}_{K_n}\big)+\theta\big(\norm{g-h}_{K_n}\big).
+\]
+On divise par $2^n$ et l'on somme (séries convergentes à termes positifs) : $d_X(f,h)\le d_X(f,g)+d_X(g,h)$.
+
+\medskip
+\noindent\textbf{(b)} $(\Rightarrow)$ Supposons $d_X(f_j,f)\to0$ et fixons $n$. Le terme d'indice $n$ est majoré par la somme :
+\[
+\min\{1,\norm{f_j-f}_{K_n}\}\le2^nd_X(f_j,f)\xrightarrow[j\to\infty]{}0 .
+\]
+Pour $j$ assez grand, ce minimum est $<1$, donc vaut $\norm{f_j-f}_{K_n}$, qui tend ainsi vers $0$ : $f_j\to f$ uniformément sur $K_n$.
+
+$(\Leftarrow)$ Supposons $\norm{f_j-f}_{K_n}\to0$ pour tout $n$, et soit $\varepsilon>0$. \emph{On coupe la queue de la série :} choisissons $N$ tel que $\sum_{n>N}2^{-n}=2^{-N}\le\varepsilon/2$. Pour les \emph{finitement nombreux} indices $n\le N$, il existe $J$ tel que $j\ge J\Rightarrow\norm{f_j-f}_{K_n}\le\varepsilon/4$ pour tout $n\le N$ (prendre le max des rangs obtenus pour chaque $n$). Alors, pour $j\ge J$,
+\[
+d_X(f_j,f)\le\sum_{n\le N}\frac{\varepsilon/4}{2^n}+\sum_{n>N}\frac1{2^n}\le\frac\varepsilon4\cdot2+\frac\varepsilon2=\varepsilon .
+\]
+Donc $d_X(f_j,f)\to0$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Étape 1 : la convergence pour $d_X$ est intrinsèque.} Montrons que
+\[
+d_X(f_j,f)\to0\iff f_j\to f\ \text{uniformément sur tout compact } K\subset O .
+\]
+Le sens $(\Leftarrow)$ vient de (b) puisque les $K_n$ sont des compacts de $O$. Pour $(\Rightarrow)$ : si $K\subset O$ est compact, il est contenu dans un $K_{n_0}$ (complément de l'exercice~3), donc $\norm{f_j-f}_K\le\norm{f_j-f}_{K_{n_0}}\to0$ par (b). Le membre de droite ne fait plus référence à la suite $(K_n)$.
+
+\emph{Étape 2 : deux distances ayant les mêmes suites convergentes ont la même topologie.} Soit $d'_X$ la distance construite avec une autre suite exhaustive $(K'_n)$. Par l'étape 1, une suite converge vers $f$ pour $d_X$ si et seulement si elle converge vers $f$ pour $d'_X$. Par la caractérisation séquentielle des fermés (Proposition~1.3), $d_X$ et $d'_X$ ont les mêmes fermés, donc (par complémentaire) les mêmes ouverts : elles définissent la même topologie sur $\Cz(O)$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Fabriquer une distance à partir d'une famille dénombrable de semi-normes} $(p_n)_n$ : $d=\sum_n2^{-n}\min\{1,p_n(f-g)\}$. Le facteur $2^{-n}$ assure la convergence, le $\min\{1,\cdot\}$ borne chaque terme, la sous-additivité de $\min\{1,\cdot\}$ donne l'inégalité triangulaire, et la séparation vient de ce que la famille $(p_n)$ est \emph{séparante} ($p_n(f)=0\ \forall n\Rightarrow f=0$). La convergence pour $d$ est la convergence pour \emph{chaque} $p_n$, ce qui se prouve par l'argument « couper la queue de la série » de (b). Cet espace $(\Cz(O),d_X)$ est complet (exercice : passer par la complétude de chaque $\Cz(K_n)$) ; on parle d'\emph{espace de Fréchet}.
+\end{pointcle}
+
+\begin{piege}
+\textbf{Ce n'est pas une distance issue d'une norme} (Exercice~2.3 du poly). Idée : $d_X$ n'est pas homogène ($d_X(0,\lambda f)\ne|\lambda|d_X(0,f)$ dès que les minima saturent). Plus profondément, pour $N$ fixé, le sous-espace $V_N:=\{f : f=0\text{ sur }K_N\}$ est \emph{contenu dans toute boule $B_{d_X}(0,\rho)$} dès que $2^{-N}<\rho$ (car alors $d_X(0,f)\le\sum_{n>N}2^{-n}<\rho$ pour $f\in V_N$, les termes $n\le N$ étant nuls). Si $d_X$ provenait d'une norme $\mathcal N$, la boule $B_{\mathcal N}(0,1)$ contiendrait une boule $B_{d_X}(0,\rho)\supset V_N$, donc le sous-espace $V_N$ tout entier, ce qui force $\mathcal N=0$ sur $V_N$ ; or $V_N\ne\{0\}$ ($O\ne K_N$ car un ouvert non vide de $\R^d$ n'est jamais compact, et on construit une fonction continue non nulle nulle sur $K_N$ via $d(K_N,\cdot)$).
+
+\textbf{Sur l'énoncé :} la feuille fait démarrer la somme à $n\ge2$ ; cela ne change rien (les $K_n$, $n\ge2$, recouvrent encore $O$ par croissance, et $K_0,K_1\subset K_2$), on a rédigé avec $n\ge0$ comme dans l'Exemple~2.5.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Séparabilité de $\Cz(K;\R)$}
+Soit $K$ un compact de $\R^d$. Montrer que $\Cz(K;\R)$ (muni de la norme uniforme) est séparable.
+\end{exo}
+
+\begin{solution}
+Si $K=\emptyset$ il n'y a rien à dire ; supposons $K\ne\emptyset$. Il s'agit d'exhiber une partie \emph{dénombrable} et \emph{dense} (Définition~1.13).
+
+\emph{Étape 1 : les polynômes sont denses (Stone--Weierstrass).} Notons $\mathcal P$ l'ensemble des fonctions polynomiales en $d$ variables à coefficients réels, restreintes à $K$. C'est une sous-algèbre unitaire de $\Cz(K;\R)$ (stable par somme, produit, contient la constante $1$). Elle \emph{sépare les points} : si $x\ne y$ dans $K$, une coordonnée diffère, $x_i\ne y_i$, et la fonction coordonnée $p_i:z\mapsto z_i$ est dans $\mathcal P$ avec $p_i(x)\ne p_i(y)$. Le Théorème~2.2 s'applique : $\mathcal P$ est dense dans $\Cz(K;\R)$.
+
+\emph{Étape 2 : les polynômes à coefficients rationnels sont dénombrables.} Notons $\mathcal P_\Q\subset\mathcal P$ les polynômes à coefficients dans $\Q$. Un tel polynôme est déterminé par un degré total $m$ et une famille finie de rationnels (ses coefficients, indexés par les multi-indices $\alpha\in\N^d$ avec $|\alpha|\le m$). Pour $m$ fixé il y en a autant que d'éléments de $\Q^{c_m}$ (avec $c_m$ le nombre de multi-indices de longueur $\le m$), ensemble dénombrable ; $\mathcal P_\Q$ est une union dénombrable (sur $m$) d'ensembles dénombrables, donc dénombrable.
+
+\emph{Étape 3 : $\mathcal P_\Q$ est dense dans $\mathcal P$.} Comme $K$ est borné, $M_\alpha:=\sup_{x\in K}|x^\alpha|<+\infty$ pour tout multi-indice $\alpha$. Soit $P=\sum_{|\alpha|\le m}a_\alpha x^\alpha\in\mathcal P$ et $\varepsilon>0$. Par densité de $\Q$ dans $\R$, choisissons $q_\alpha\in\Q$ avec $|a_\alpha-q_\alpha|\,M_\alpha\le\varepsilon/c_m$, et posons $Q:=\sum q_\alpha x^\alpha\in\mathcal P_\Q$. Alors
+\[
+\norm{P-Q}_K\le\sum_{|\alpha|\le m}|a_\alpha-q_\alpha|\,M_\alpha\le\varepsilon .
+\]
+
+\emph{Étape 4 : la densité est transitive.} Soit $f\in\Cz(K;\R)$ et $\varepsilon>0$. Par l'étape 1, il existe $P\in\mathcal P$ avec $\norm{f-P}_K\le\varepsilon/2$ ; par l'étape 3, $Q\in\mathcal P_\Q$ avec $\norm{P-Q}_K\le\varepsilon/2$. Donc $\norm{f-Q}_K\le\varepsilon$ : $\mathcal P_\Q$ est dense dans $\Cz(K;\R)$, et dénombrable. L'espace est séparable.
+\end{solution}
+
+\begin{methode}
+\textbf{Prouver une séparabilité} suit presque toujours ce chemin : (1) un théorème de densité fournit une partie dense « à paramètres réels » (polynômes, fonctions en escalier, suites à support fini) ; (2) on rend les paramètres rationnels, ce qui donne une partie dénombrable ; (3) on vérifie que l'approximation par des paramètres rationnels ne coûte qu'un $\varepsilon$ et l'on conclut par transitivité de la densité. Comparer avec la Proposition~2.8 (séparabilité de $L^p$) et le Corollaire~2.2 ($\ell^p$).
+\end{methode}
+
+\begin{commentaire}
+\begin{itemize}
+  \item Le même argument, avec $\Q+i\Q$ et le Théorème~2.3, donne la séparabilité de $\Cz(K;\C)$ ; pour $\Cz(\Sun;\C)$ on peut aussi utiliser les polynômes trigonométriques à coefficients dans $\Q+i\Q$ (Exemple~2.4).
+  \item Plus généralement $\Cz(X;\R)$ est séparable pour tout espace métrique compact $X$ : $X$ est séparable (précompact, Proposition~1.13, donc réunion dénombrable de boules finies), et si $(x_n)$ est dense, l'algèbre engendrée par $1$ et les fonctions $d(x_n,\cdot)$ sépare les points ; on conclut par Stone--Weierstrass et coefficients rationnels.
+  \item L'exercice~9 montrera que ce n'est pas le cas de tous les espaces de fonctions « naturels » : $\ell^\infty$ et $L^\infty$ ne sont pas séparables.
+\end{itemize}
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 6 -- Trois expressions de la norme d'opérateur}
+Soient $(E,\norm\cdot_E)$ et $(F,\norm\cdot_F)$ deux EVN et $\norm T_{\Lc(E,F)}:=\sup_{\norm x_E\le1}\norm{T(x)}_F$. Montrer que pour tout $T\in\Lc(E,F)$,
+\[
+\norm T_{\Lc(E,F)}=\sup_{\norm x_E=1}\norm{T(x)}_F=\sup_{x\in E\setminus\{0\}}\frac{\norm{T(x)}_F}{\norm x_E}.
+\]
+\end{exo}
+
+\begin{solution}
+On suppose $E\ne\{0\}$ (sinon les deux derniers supremums portent sur l'ensemble vide et l'énoncé est sans objet ; le premier vaut $0$). Notons
+\[
+A:=\sup_{\norm x_E\le1}\norm{Tx}_F,\qquad B:=\sup_{\norm x_E=1}\norm{Tx}_F,\qquad C:=\sup_{x\ne0}\frac{\norm{Tx}_F}{\norm x_E}.
+\]
+Ces trois quantités sont finies car $T$ est continue (Théorème~2.4 (iii)-(iv)).
+
+\emph{$B\le A$.} La sphère $\{\norm x_E=1\}$ est contenue dans la boule $\{\norm x_E\le1\}$ : un sup sur un ensemble plus petit est plus petit.
+
+\emph{$B=C$.} Pour $x\ne0$, posons $u:=x/\norm x_E$, de norme $1$. Par linéarité de $T$ et homogénéité de la norme,
+\[
+\frac{\norm{Tx}_F}{\norm x_E}=\norm{T\Big(\frac{x}{\norm x_E}\Big)}_F=\norm{Tu}_F\le B ,
+\]
+d'où $C\le B$ en passant au sup. Réciproquement, pour $\norm x_E=1$, $\norm{Tx}_F=\norm{Tx}_F/\norm x_E\le C$, d'où $B\le C$.
+
+\emph{$A\le C$.} Soit $\norm x_E\le1$. Si $x=0$, $\norm{Tx}_F=0\le C$. Sinon,
+\[
+\norm{Tx}_F=\norm x_E\cdot\frac{\norm{Tx}_F}{\norm x_E}\le\norm x_E\cdot C\le C .
+\]
+Passant au sup, $A\le C$.
+
+\emph{Conclusion.} $B\le A\le C=B$, donc $A=B=C$.
+\end{solution}
+
+\begin{pointcle}
+La troisième expression dit que $\norm T_{\Lc(E,F)}$ est \emph{la meilleure constante} $M$ dans l'inégalité $\norm{Tx}_F\le M\norm x_E$ (Remarque~2.7) : c'est ainsi qu'on l'utilise en pratique, et c'est ainsi qu'on la calcule (exercice~7) : \textbf{une majoration} $\norm{Tx}\le M\norm x$ pour tout $x$ donne $\opnorm T\le M$, puis \textbf{un vecteur test} $x_0$ (ou une suite de vecteurs tests) avec $\norm{Tx_0}$ proche de $M\norm{x_0}$ donne $\opnorm T\ge M$. Tout repose sur l'\emph{homogénéité} : normaliser un vecteur ne change pas le rapport $\norm{Tx}/\norm x$.
+\end{pointcle}
+
+\begin{commentaire}
+On a même $\opnorm T=\sup_{\norm x_E<1}\norm{Tx}_F$ (boule ouverte) : pour $\norm x_E=1$, $\norm{T(tx)}_F=t\norm{Tx}_F\to\norm{Tx}_F$ quand $t\to1^-$. En revanche, le sup \emph{n'est pas toujours atteint} en dimension infinie : sur $c_0(\N)$ (suites tendant vers $0$, norme $\sup$), la forme linéaire $T\mathbf u:=\sum_{n\ge1}2^{-n}u_n$ vérifie $|T\mathbf u|\le\norm{\mathbf u}_\infty$ avec égalité seulement si $u_n=\pm1$ pour tout $n$, impossible dans $c_0$ ; pourtant $\opnorm T=1$ (tester avec $\mathbf u=(1,\dots,1,0,0,\dots)$). L'exercice~7 (b.2) présente le même phénomène.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 7 (Exercice 2.5 du poly) -- Coefficients de Fourier et noyau de Dirichlet}
+On considère, pour $f\in\Cz(\Sun;\C)$ (identifié aux fonctions continues $2\pi$-périodiques, Exemple~2.2) et $n\in\Z$,
+\[
+c_n(f):=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_n},\qquad e_n:t\mapsto e^{int}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f\mapsto c_n(f)$ est une forme linéaire continue sur $\Cz(\Sun;\C)$ et calculer sa norme.
+  \item Pour $N\in\N$, on cherche la norme de $\Phi_N:f\mapsto\sum_{|n|\le N}c_n(f)$.
+  \begin{enumerate}[label=(b.\arabic*)]
+    \item Montrer que $\opnorm{\Phi_N}\le(2\pi)^{-1}\int_0^{2\pi}|D_N|$, où $D_N:=\sum_{|n|\le N}e_n$ (noyau de Dirichlet).
+    \item En considérant $f_n:=D_N\,(n^{-1}+|D_N|)^{-1}$, transformer l'inégalité précédente en égalité.
+  \end{enumerate}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Linéarité :} elle découle de la linéarité de l'intégrale. \emph{Continuité et majoration de la norme :} comme $|\overline{e_n}(t)|=1$,
+\[
+|c_n(f)|\le\frac1{2\pi}\int_0^{2\pi}|f(t)|\,|\overline{e_n}(t)|\,dt\le\frac1{2\pi}\int_0^{2\pi}\norm f_\infty\,dt=\norm f_\infty .
+\]
+Par le Théorème~2.4 (iv), $c_n$ est continue et $\opnorm{c_n}\le1$ (exercice~6). \emph{Vecteur test :} $f=e_n$ vérifie $\norm{e_n}_\infty=1$ et
+\[
+c_n(e_n)=\frac1{2\pi}\int_0^{2\pi}e^{int}e^{-int}\,dt=1 ,
+\]
+donc $\opnorm{c_n}\ge|c_n(e_n)|/\norm{e_n}_\infty=1$. Finalement $\opnorm{c_n}=1$.
+
+\medskip
+\noindent\textbf{(b.1)} Par linéarité de l'intégrale,
+\[
+\Phi_N(f)=\sum_{|n|\le N}\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_n}=\frac1{2\pi}\int_0^{2\pi}f\,\overline{D_N},
+\qquad\overline{D_N}=\sum_{|n|\le N}\overline{e_n}=\sum_{|n|\le N}e_{-n}=D_N .
+\]
+Le noyau $D_N$ est donc \emph{à valeurs réelles} : $D_N(t)=1+2\sum_{n=1}^N\cos(nt)$. Ainsi
+\[
+|\Phi_N(f)|\le\frac1{2\pi}\int_0^{2\pi}|f|\,|D_N|\le\norm f_\infty\cdot\frac1{2\pi}\int_0^{2\pi}|D_N| ,
+\]
+ce qui montre que $\Phi_N$ est continue et $\opnorm{\Phi_N}\le L_N:=\dfrac1{2\pi}\displaystyle\int_0^{2\pi}|D_N|$.
+
+\medskip
+\noindent\textbf{(b.2)} Pour $n\ge1$, posons $f_n:=\dfrac{D_N}{\frac1n+|D_N|}$. Le dénominateur est $\ge\frac1n>0$ et continu, donc $f_n$ est continue et $2\pi$-périodique : $f_n\in\Cz(\Sun;\C)$ (à valeurs réelles). De plus
+\[
+|f_n|=\frac{|D_N|}{\frac1n+|D_N|}<1,\qquad\text{donc}\qquad\norm{f_n}_\infty\le1 .
+\]
+Calculons $\Phi_N(f_n)$, en utilisant $D_N\cdot D_N=|D_N|^2$ ($D_N$ réel) et la minoration $\dfrac{|D_N|^2}{\frac1n+|D_N|}=|D_N|-\dfrac{\frac1n|D_N|}{\frac1n+|D_N|}\ge|D_N|-\dfrac1n$ :
+\[
+\Phi_N(f_n)=\frac1{2\pi}\int_0^{2\pi}\frac{|D_N|^2}{\frac1n+|D_N|}\ \ge\ \frac1{2\pi}\int_0^{2\pi}\Big(|D_N|-\frac1n\Big)=L_N-\frac1n .
+\]
+Par l'exercice~6, $\opnorm{\Phi_N}\ge\dfrac{|\Phi_N(f_n)|}{\norm{f_n}_\infty}\ge L_N-\dfrac1n$ pour tout $n\ge1$. En faisant $n\to\infty$ : $\opnorm{\Phi_N}\ge L_N$, et avec (b.1),
+\[
+\opnorm{\Phi_N}=L_N=\frac1{2\pi}\int_0^{2\pi}|D_N(t)|\,dt .
+\]
+\end{solution}
+
+\begin{pointcle}
+\textbf{Calculer une norme d'opérateur} : majoration « brutale » via l'inégalité triangulaire intégrale, puis vecteur test. Ici le vecteur test idéal serait $\sgn(D_N)$ (pour avoir $f\,D_N=|D_N|$ avec $|f|=1$), mais il est \emph{discontinu} là où $D_N$ change de signe. On le \emph{régularise} en $f_n=D_N/(\frac1n+|D_N|)$, qui est continue, de module $<1$, et converge vers $\sgn(D_N)$ ; le sup n'est pas atteint mais est approché. Ce procédé (approcher un « signe » par des fonctions continues) revient constamment, par exemple pour identifier le dual de $L^1$ (Proposition~2.7 du poly).
+\end{pointcle}
+
+\begin{commentaire}
+\textbf{Pourquoi cet exercice ?} $\Phi_N(f)$ est la $N$-ième somme partielle de Fourier de $f$ évaluée en $0$ : $S_Nf(0)=\sum_{|n|\le N}c_n(f)$. Les constantes $L_N$ sont les \emph{constantes de Lebesgue}. Avec la forme close $D_N(t)=\dfrac{\sin((N+\frac12)t)}{\sin(t/2)}$, on montre que $L_N\ge c\ln N\to+\infty$. Le théorème de Banach--Steinhaus (chapitre~4) transformera cette explosion des normes en un résultat frappant : \emph{il existe des fonctions continues dont la série de Fourier diverge en $0$}. Cet exercice est donc la première étape d'un contre-exemple célèbre (du Bois-Reymond, 1873).
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 8 (Exercice 2.7 du poly) -- Lemme de Riemann--Lebesgue}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que l'ensemble $c_0(\Z)$ des suites tendant vers $0$ en $\pm\infty$ est un sous-espace fermé de $\ell^\infty(\Z)$.
+  \item Montrer que $\mathcal F:f\mapsto(c_n(f))_{n\in\Z}$ envoie continûment $\Cz(\Sun;\C)$ dans $\ell^\infty(\Z)$.
+  \item En utilisant la densité des fonctions en escalier dans $\Cz(\Sun;\C)$, montrer que l'image de $\mathcal F$ est contenue dans $c_0(\Z)$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Sous-espace.} Une suite tendant vers $0$ en $\pm\infty$ est bornée, donc $c_0(\Z)\subset\ell^\infty(\Z)$ ; la suite nulle y est ; si $\mathbf u,\mathbf v\in c_0(\Z)$ et $\lambda\in\K$, $|u_n+\lambda v_n|\le|u_n|+|\lambda||v_n|\to0$ quand $|n|\to\infty$.
+
+\emph{Fermé.} Utilisons la caractérisation séquentielle. Soit $(\mathbf u^{(k)})_k$ une suite d'éléments de $c_0(\Z)$ convergeant dans $\ell^\infty(\Z)$ vers $\mathbf u$, \ie{} $\norm{\mathbf u^{(k)}-\mathbf u}_\infty\to0$. Soit $\varepsilon>0$. Choisissons $k$ tel que $\norm{\mathbf u^{(k)}-\mathbf u}_\infty\le\varepsilon/2$, puis, comme $\mathbf u^{(k)}\in c_0(\Z)$, un entier $M$ tel que $|u^{(k)}_n|\le\varepsilon/2$ pour $|n|\ge M$. Alors, pour $|n|\ge M$,
+\[
+|u_n|\le|u_n-u^{(k)}_n|+|u^{(k)}_n|\le\norm{\mathbf u-\mathbf u^{(k)}}_\infty+\frac\varepsilon2\le\varepsilon .
+\]
+Donc $u_n\to0$ quand $|n|\to\infty$ : $\mathbf u\in c_0(\Z)$.
+
+\medskip
+\noindent\textbf{(b)} Par l'exercice~7 (a), $|c_n(f)|\le\norm f_\infty$ pour tout $n\in\Z$ : la suite $\mathcal F(f)=(c_n(f))_n$ est bornée, donc $\mathcal F(f)\in\ell^\infty(\Z)$, avec
+\[
+\norm{\mathcal F(f)}_\infty=\sup_{n\in\Z}|c_n(f)|\le\norm f_\infty .
+\]
+L'application $\mathcal F$ est linéaire (chaque $c_n$ l'est), et cette inégalité est le critère (iv) du Théorème~2.4 : $\mathcal F$ est continue, de norme $\le1$ (en fait $=1$ : tester $f=e_0=1$, pour laquelle $c_0(f)=1$).
+
+\medskip
+\noindent\textbf{(c)} \emph{Étape 1 : extension de $c_n$ aux fonctions en escalier.} La formule $c_n(g)=\frac1{2\pi}\int_0^{2\pi}g\,\overline{e_n}$ garde un sens pour toute fonction $g$ bornée et intégrable sur $[0,2\pi]$, avec toujours $|c_n(g)|\le\norm g_\infty$ ; en particulier
+\begin{equation}\label{eq:lip}
+|c_n(f)-c_n(g)|=|c_n(f-g)|\le\norm{f-g}_\infty .
+\end{equation}
+
+\emph{Étape 2 : les coefficients d'une fonction en escalier tendent vers $0$.} Pour $0\le a<b\le2\pi$ et $n\ne0$,
+\[
+c_n(\mathbf 1_{[a,b[})=\frac1{2\pi}\int_a^be^{-int}\,dt=\frac1{2\pi}\cdot\frac{e^{-inb}-e^{-ina}}{-in},
+\qquad\text{donc}\qquad
+|c_n(\mathbf 1_{[a,b[})|\le\frac1{2\pi}\cdot\frac2{|n|}\xrightarrow[|n|\to\infty]{}0 .
+\]
+Par linéarité, $c_n(g)\to0$ pour toute fonction en escalier $g$ (combinaison linéaire finie d'indicatrices d'intervalles).
+
+\emph{Étape 3 : densité.} Soit $f\in\Cz(\Sun;\C)$ ; $f$ est continue sur le compact $[0,2\pi]$, donc uniformément continue (Théorème~1.3 de Heine). Soit $\varepsilon>0$ et $\delta>0$ tel que $|t-s|<\delta\Rightarrow|f(t)-f(s)|\le\varepsilon/2$. Prenons $m$ avec $2\pi/m<\delta$, $t_k:=2\pi k/m$, et $g:=\sum_{k=0}^{m-1}f(t_k)\mathbf 1_{[t_k,t_{k+1}[}$. Pour $t\in[t_k,t_{k+1}[$, $|f(t)-g(t)|=|f(t)-f(t_k)|\le\varepsilon/2$ : donc $\norm{f-g}_\infty\le\varepsilon/2$.
+
+\emph{Étape 4 : conclusion.} Avec ce $g$, l'étape 2 fournit $M$ tel que $|c_n(g)|\le\varepsilon/2$ pour $|n|\ge M$. Alors, par \eqref{eq:lip}, pour $|n|\ge M$,
+\[
+|c_n(f)|\le|c_n(f)-c_n(g)|+|c_n(g)|\le\norm{f-g}_\infty+\frac\varepsilon2\le\varepsilon .
+\]
+Donc $c_n(f)\to0$ quand $|n|\to\infty$ : $\mathcal F(f)\in c_0(\Z)$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le principe « dense $+$ continu $+$ fermé ».} Si une application continue $\mathcal F$ envoie une partie dense $D$ dans un fermé $C$, alors elle envoie tout l'espace dans $C$ : $\mathcal F(\adh D)\subset\adh{\mathcal F(D)}\subset\adh C=C$. C'est exactement la structure de (c), et c'est pour cela que (a) demandait que $c_0(\Z)$ soit \emph{fermé} et (b) que $\mathcal F$ soit \emph{continue}. Le résultat est le \emph{lemme de Riemann--Lebesgue} : les coefficients de Fourier d'une fonction continue (et même $L^1$, par le même argument de densité) tendent vers $0$.
+\end{pointcle}
+
+\begin{commentaire}
+Deux variantes de la preuve de (c), instructives :
+\begin{itemize}
+  \item \emph{Sans fonctions en escalier :} le changement de variable $t\mapsto t+\pi/n$ ($n\ne0$) et la périodicité donnent $c_n(f)=-\frac1{2\pi}\int_0^{2\pi}f(t+\frac\pi n)e^{-int}dt$, donc $2|c_n(f)|\le\frac1{2\pi}\int_0^{2\pi}|f(t)-f(t+\frac\pi n)|dt\le\omega_f(\pi/|n|)\to0$, où $\omega_f$ est le module de continuité uniforme de $f$.
+  \item \emph{Avec Stone--Weierstrass :} les polynômes trigonométriques sont denses (Exemple~2.4) et leurs coefficients de Fourier sont nuls au-delà d'un rang ; on conclut par le même $\varepsilon/2$.
+\end{itemize}
+Dans les deux cas, ce qui décroît est la « régularité » de $f$ : plus $f$ est régulière, plus $c_n(f)$ décroît vite (une intégration par parties donne $|c_n(f)|\le\norm{f'}_\infty/|n|$ pour $f\in\mathcal C^1$).
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 9 (Exercices 2.6 et 2.8 du poly) -- Non-séparabilité de $\ell^\infty$ et $L^\infty$}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que l'ensemble des suites ne prenant comme valeurs que $0$ et $1$ est indénombrable. En déduire que $\ell^\infty(\N)$ n'est pas séparable.
+  \item Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $L^\infty(\Omega)$ n'est pas séparable.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{$\{0,1\}^\N$ est indénombrable (argument diagonal de Cantor).} Supposons par l'absurde qu'on puisse énumérer ses éléments : $\{0,1\}^\N=\{\mathbf u^{(k)}:k\in\N\}$. Définissons la suite $\mathbf v$ par $v_n:=1-u^{(n)}_n\in\{0,1\}$. Pour tout $k$, $v_k\ne u^{(k)}_k$, donc $\mathbf v\ne\mathbf u^{(k)}$ : $\mathbf v$ n'est pas dans l'énumération, contradiction.
+
+\emph{Des boules disjointes en quantité indénombrable.} Pour $\mathbf u\ne\mathbf v$ dans $\{0,1\}^\N\subset\ell^\infty(\N)$, il existe un indice $n$ avec $|u_n-v_n|=1$, et tous les écarts sont $\le1$ : $\norm{\mathbf u-\mathbf v}_\infty=1$. Les boules ouvertes $B(\mathbf u,\frac12)$, $\mathbf u\in\{0,1\}^\N$, sont donc \emph{deux à deux disjointes} : si $\mathbf w$ appartenait à $B(\mathbf u,\frac12)\cap B(\mathbf v,\frac12)$, on aurait $\norm{\mathbf u-\mathbf v}_\infty\le\norm{\mathbf u-\mathbf w}_\infty+\norm{\mathbf w-\mathbf v}_\infty<1$.
+
+\emph{Non-séparabilité.} Supposons qu'il existe une partie $D\subset\ell^\infty(\N)$ dénombrable et dense. Par la caractérisation (iii) de la Proposition~1.4, $D$ rencontre tout ouvert non vide, en particulier chaque boule $B(\mathbf u,\frac12)$ : choisissons $\psi(\mathbf u)\in D\cap B(\mathbf u,\frac12)$. Les boules étant disjointes, $\psi:\{0,1\}^\N\to D$ est \emph{injective}. Mais une injection d'un ensemble indénombrable dans un ensemble dénombrable n'existe pas : contradiction. Donc $\ell^\infty(\N)$ n'est pas séparable.
+
+\medskip
+\noindent\textbf{(b)} Rappelons que $\norm f_{L^\infty(\Omega)}$ est le \emph{supremum essentiel} : le plus petit $M$ tel que $|f|\le M$ presque partout. En particulier, pour un ensemble mesurable $A$, $\norm{\mathbf 1_A}_{L^\infty}=1$ si $\lambda_d(A)>0$ et $0$ sinon.
+
+\emph{Une famille indénombrable à distances mutuelles $1$.} Comme $\Omega$ est un ouvert non vide, il contient une boule $B(x_0,r)$ avec $r>0$. Pour $t\in\,]0,r]$, posons $f_t:=\mathbf 1_{B(x_0,t)}\in L^\infty(\Omega)$. Pour $0<s<t\le r$,
+\[
+f_t-f_s=\mathbf 1_{\{x\,:\,s\le\norm{x-x_0}<t\}} .
+\]
+La couronne $\{s\le\norm{x-x_0}<t\}$ contient l'ouvert non vide $\{s<\norm{x-x_0}<t\}$, donc est de mesure de Lebesgue strictement positive ; par conséquent $\norm{f_t-f_s}_{L^\infty}=1$.
+
+\emph{Conclusion, comme en (a).} Les boules $B(f_t,\frac12)$, $t\in\,]0,r]$, sont deux à deux disjointes et en quantité indénombrable (l'intervalle $]0,r]$ l'est). Une partie dense devrait rencontrer chacune d'elles, ce qu'une partie dénombrable ne peut faire. Donc $L^\infty(\Omega)$ n'est pas séparable.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Critère de non-séparabilité :} \emph{si un espace métrique contient une famille indénombrable de points deux à deux à distance $\ge\delta>0$, il n'est pas séparable}. Réciproquement, dans un espace séparable toute famille d'ouverts non vides deux à deux disjoints est dénombrable. Ce critère est l'outil standard ; il montre aussi que $\Cz_b(\R)$ (fonctions continues bornées, norme uniforme) ou $\ell^\infty(\Z)$ ne sont pas séparables.
+\end{pointcle}
+
+\begin{piege}
+\begin{itemize}
+  \item Dans $L^\infty$, « $f_t\ne f_s$ » ne suffit pas : il faut que $f_t-f_s$ soit non nulle \emph{sur un ensemble de mesure strictement positive}, sinon $\norm{f_t-f_s}_{L^\infty}=0$. C'est pour cela qu'on vérifie que la couronne contient un ouvert non vide.
+  \item Contraste avec $p<\infty$ : $\ell^p(\N)$ (Corollaire~2.2) et $L^p(\Omega)$ (Proposition~2.8) sont séparables, grâce à la densité des suites à support fini, resp. des fonctions continues à support compact. Dans $\ell^\infty$, $c_{<\infty}(\N)$ n'est pas dense (Proposition~2.3, la suite constante $\mathbf 1$ est à distance $1$ de toute suite à support fini) : c'est précisément ce qui rend possible la non-séparabilité. Le sous-espace fermé $c_0(\N)$, lui, est séparable.
+  \item L'indication du poly (« s'inspirer de l'Exercice~2.6 ») suggère une autre construction : des boules disjointes $B_k\subset\Omega$, $k\in\N$, et les fonctions $f_{\mathbf u}:=\sum_ku_k\mathbf 1_{B_k}$ pour $\mathbf u\in\{0,1\}^\N$, qui vérifient encore $\norm{f_{\mathbf u}-f_{\mathbf v}}_{L^\infty}=1$ pour $\mathbf u\ne\mathbf v$.
+\end{itemize}
+\end{piege}
+
+\end{document}
