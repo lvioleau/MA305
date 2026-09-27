@@ -9,6 +9,7 @@ in a container (full TeX Live). Academic year 2026–2027.
 TD1/, TD2/, …   — one folder per TD: subject and/or correction (.tex)
 Dockerfile      — TeX Live build environment
 justfile        — build recipes
+pdf/            — symlinks to all compiled PDFs (git-ignored, see `just pdfs`)
 ```
 
 Every `.tex` file in a `TD*/` folder is a standalone document; there is no
@@ -25,6 +26,7 @@ just td 1         # compile every .tex in TD1/ (also: just td TD1)
 just watch 1      # recompile TD1 on every change (Ctrl-C to stop)
 just view 1       # compile TD1, then open its PDFs
 just all          # compile every TD
+just pdfs         # refresh pdf/ (done automatically by `just td`)
 just clean        # remove aux files, keep PDFs
 just distclean    # remove aux files and generated PDFs
 just              # list all recipes

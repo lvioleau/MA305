@@ -29,6 +29,8 @@ undefined references, then run `just clean` so only `.tex` and `.pdf` remain.
 - `TD<n>/` — one folder per TD. Each `.tex` is a standalone document with its
   own preamble (no shared files); names like `corrige_TD<n>.tex`.
 - PDFs are git-ignored (rebuild with `just td <n>`); never commit them.
+- `pdf/` — git-ignored symlinks to every compiled PDF, refreshed by
+  `just td` / `just pdfs`.
 
 ## Conventions
 

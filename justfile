@@ -13,6 +13,18 @@ default:
 # compile every .tex of a TD folder: just td 1  (or: just td TD1)
 td n:
     {{run}} {{image}} {{latexmk}} {{ if n =~ '^[0-9]+$' { "TD" + n } else { n } }}/*.tex
+    @just pdfs
+
+# refresh pdf/: one symlink per compiled PDF, for browsing them in one place
+pdfs:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    mkdir -p pdf
+    find pdf -type l -delete
+    for f in TD*/*.tex; do
+        [ -f "${f%.tex}.pdf" ] && ln -s "../${f%.tex}.pdf" pdf/
+    done
+    ls pdf
 
 # compile every TD folder
 all:
@@ -39,6 +51,7 @@ clean:
 # remove aux files and generated PDFs of every TD
 distclean:
     {{run}} {{image}} sh -c 'for f in TD*/*.tex; do latexmk -cd -C "$f"; done'
+    @just pdfs
 
 # interactive shell inside the TeX Live container
 shell:

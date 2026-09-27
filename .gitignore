@@ -16,3 +16,6 @@
 .idea/
 .DS_Store
 *~
+
+# Symlinks to the compiled PDFs (just pdfs)
+pdf/
