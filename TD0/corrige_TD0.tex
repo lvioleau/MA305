@@ -1,0 +1,747 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 3)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1, 2 et 3) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
+\begin{itemize}
+  \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
+  \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
+\end{itemize}
+Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
+\end{commentaire}
+
+\tableofcontents
+
+% =====================================================================
+\section{Chapitre 1 -- Topologie des espaces métriques}
+% =====================================================================
+
+\begin{exo}{Exercice 1.1 -- La distance à une partie est-elle atteinte ?}
+Montrer par des exemples que la distance à une partie peut : n'être atteinte en aucun point ; être atteinte en une infinité de points ; être atteinte en un unique point.
+\end{exo}
+
+\begin{solution}
+Rappelons que $d(A,x)=\inf_{a\in A}d(x,a)$ ; la distance est « atteinte en $a$ » si $d(x,a)=d(A,x)$.
+
+\emph{Jamais atteinte.} Dans $\R$, $A=\,]0,1[$ et $x=2$ : $d(A,2)=\inf_{a\in]0,1[}(2-a)=1$, mais $2-a>1$ pour tout $a\in A$. Autre exemple : $A=\{1/n : n\ge1\}$ et $x=0$, $d(A,0)=0$ non atteinte (aucun $1/n$ n'est nul).
+
+\emph{Atteinte en une infinité de points.} Dans $\R^2$ euclidien, $A=\{a : \norm a=1\}$ (cercle unité) et $x=0$ : $d(A,0)=1=d(0,a)$ pour \emph{tout} $a\in A$. Dans $\R$, on peut prendre $A=\Z$ et $x=\tfrac12$ pour le cas intermédiaire « atteinte en exactement deux points » ($0$ et $1$).
+
+\emph{Atteinte en un unique point.} Dans $\R$, $A=[0,1]$ et $x=2$ : $d(A,2)=1=d(2,1)$, et $2-a=1$ impose $a=1$.
+\end{solution}
+
+\begin{commentaire}
+Le premier cas (inf non atteint) est lié au défaut de \emph{fermeture} de $A$ : si $A$ est fermé non vide dans $\R^d$, la distance est toujours atteinte (minimiser la fonction continue $d(x,\cdot)$ sur le compact $A\cap\Bf(x,R)$ pour $R>d(A,x)$). Dans un espace métrique général, il faut $A$ compact (TD1 ex.~11) ; $A$ fermé ne suffit pas (le TD1 ex.~11 en donne un contre-exemple, et l'exercice~3.3 ci-dessous un autre). Le cas « une infinité de points » est lié à l'absence de \emph{stricte convexité} de l'ensemble.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.2 -- Ouverts et boules}
+Les ouverts sont exactement les unions quelconques de boules ouvertes.
+\end{exo}
+
+\begin{solution}
+\emph{Une boule ouverte est un ouvert.} Soit $y\in B(a,r)$ et $\rho:=r-d(y,a)>0$. Si $z\in B(y,\rho)$ alors $d(z,a)\le d(z,y)+d(y,a)<\rho+d(y,a)=r$ : $B(y,\rho)\subset B(a,r)$. (C'est le TD1 ex.~4a.)
+
+\emph{Une union de boules ouvertes est un ouvert.} Soit $O=\bigcup_{i\in I}B(a_i,r_i)$ et $x\in O$. Alors $x\in B(a_i,r_i)$ pour un certain $i$, et par ce qui précède il existe $\rho>0$ avec $B(x,\rho)\subset B(a_i,r_i)\subset O$. Donc $O$ est ouvert (Définition~1.6). L'ensemble vide est l'union de la famille vide.
+
+\emph{Réciproquement, un ouvert est union de boules ouvertes.} Soit $O$ ouvert. Par définition, pour tout $x\in O$ il existe $r_x>0$ avec $B(x,r_x)\subset O$. Alors
+\[
+O=\bigcup_{x\in O}B(x,r_x):
+\]
+l'inclusion $\supset$ vient de $B(x,r_x)\subset O$, l'inclusion $\subset$ de $x\in B(x,r_x)$.
+\end{solution}
+
+\begin{pointcle}
+Les boules ouvertes forment une \emph{base} de la topologie : tout ouvert s'en déduit par union. C'est ce qui permet de ne vérifier une propriété « pour toute boule » plutôt que « pour tout ouvert » (continuité, densité, etc.). L'exercice~1.8 raffine cela dans $\R^d$ : une famille \emph{dénombrable} de boules suffit.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.4 -- Caractérisation de l'intérieur et de l'adhérence}
+Montrer que $\interieur A$ est l'ensemble des points contenus dans une boule ouverte contenue dans $A$, et que $\adh A$ est l'ensemble des points dont tout voisinage rencontre $A$.
+\end{exo}
+
+\begin{solution}
+\emph{Intérieur.} Si $x\in B(a,r)\subset A$, alors $B(a,r)$ est un ouvert (exercice~1.2) contenu dans $A$, donc contenu dans $\interieur A$ (le plus grand ouvert contenu dans $A$, Définition~1.9) : $x\in\interieur A$. Réciproquement, si $x\in\interieur A$, comme $\interieur A$ est ouvert il existe $r>0$ avec $B(x,r)\subset\interieur A\subset A$ : $x$ est dans une boule ouverte contenue dans $A$.
+
+\emph{Adhérence : une dualité.} Commençons par l'identité
+\begin{equation}\label{eq:dualite}
+X\setminus\adh A=\Int(X\setminus A).
+\end{equation}
+En effet, $\adh A$ est l'intersection des fermés contenant $A$ ; par passage au complémentaire, $X\setminus\adh A$ est l'union des ouverts contenus dans $X\setminus A$, \ie{} le plus grand ouvert contenu dans $X\setminus A$ : c'est $\Int(X\setminus A)$.
+
+Soit maintenant $x\in X$. Par \eqref{eq:dualite} et la première partie,
+\[
+x\notin\adh A\iff x\in\Int(X\setminus A)\iff\exists r>0,\ B(x,r)\subset X\setminus A\iff\exists r>0,\ B(x,r)\cap A=\emptyset .
+\]
+Par négation : $x\in\adh A$ si et seulement si toute boule $B(x,r)$ rencontre $A$. Enfin, « toute boule centrée en $x$ rencontre $A$ » équivaut à « tout voisinage de $x$ rencontre $A$ » : un voisinage contient une boule centrée en $x$ (Définition~1.7 et Définition~1.6), et une boule centrée en $x$ est un voisinage de $x$.
+\end{solution}
+
+\begin{pointcle}
+La dualité \eqref{eq:dualite} (et sa jumelle $X\setminus\interieur A=\adh{X\setminus A}$) permet de \emph{déduire} toute propriété de l'adhérence de la propriété correspondante de l'intérieur, sans refaire de preuve. À retenir avec la caractérisation séquentielle de $\adh A$ (Proposition~1.2), qui en découle : « toute boule $B(x,2^{-n})$ rencontre $A$ » fournit une suite de $A$ tendant vers $x$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.5 -- Intérieur d'un ouvert, adhérence d'un fermé}
+Que dire de l'intérieur d'un ouvert ? De l'adhérence d'un fermé ?
+\end{exo}
+
+\begin{solution}
+Si $O$ est ouvert, $O$ est lui-même un ouvert contenu dans $O$, donc $O\subset\interieur O$ ; l'inclusion $\interieur O\subset O$ est toujours vraie : $\interieur O=O$. De même, si $F$ est fermé, $F$ est un fermé contenant $F$, donc $\adh F\subset F\subset\adh F$ : $\adh F=F$.
+
+Réciproquement, $\interieur A=A$ implique $A$ ouvert et $\adh A=A$ implique $A$ fermé (car $\interieur A$ est ouvert et $\adh A$ fermé). On a donc les \emph{caractérisations}
+\[
+A\text{ ouvert}\iff\interieur A=A,\qquad A\text{ fermé}\iff\adh A=A .
+\]
+Conséquence : $\interieur{(\interieur A)}=\interieur A$ et $\adh{\adh A}=\adh A$ (idempotence), puisque $\interieur A$ est ouvert et $\adh A$ fermé.
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.8 -- Les ouverts de $\R^d$ sont des unions dénombrables de boules}
+Montrer que dans $\R^d$, tout ouvert s'écrit comme union dénombrable de boules ouvertes contenues dans celui-ci.
+\end{exo}
+
+\begin{solution}
+Considérons la famille $\mathcal B:=\{B(q,r) : q\in\Q^d,\ r\in\Q_+^*\}$ des boules « rationnelles ». Elle est \emph{dénombrable} : elle est indexée par $\Q^d\times\Q_+^*$, produit fini d'ensembles dénombrables.
+
+Soit $O$ un ouvert de $\R^d$ et $\mathcal B_O:=\{B\in\mathcal B : B\subset O\}$, sous-famille de $\mathcal B$ donc dénombrable. Montrons que $O=\bigcup_{B\in\mathcal B_O}B$. L'inclusion $\supset$ est évidente. Soit $x\in O$ : il existe $\rho>0$ avec $B(x,\rho)\subset O$. Par densité de $\Q^d$ dans $\R^d$ (Exemple~1.4), choisissons $q\in\Q^d$ avec $\norm{x-q}<\rho/3$, puis un rationnel $r$ avec $\rho/3<r<2\rho/3$. Alors :
+\begin{itemize}
+  \item $x\in B(q,r)$ car $\norm{x-q}<\rho/3<r$ ;
+  \item $B(q,r)\subset B(x,\rho)\subset O$ car pour $y\in B(q,r)$, $\norm{y-x}\le\norm{y-q}+\norm{q-x}<r+\rho/3<\rho$.
+\end{itemize}
+Ainsi $B(q,r)\in\mathcal B_O$ et $x$ est dans l'union. D'où $O=\bigcup_{B\in\mathcal B_O}B$, union dénombrable de boules ouvertes contenues dans $O$.
+\end{solution}
+
+\begin{pointcle}
+La seule propriété de $\R^d$ utilisée est la \emph{séparabilité} (Définition~1.13) : l'argument marche dans tout espace métrique séparable, avec une partie dense dénombrable $D$ à la place de $\Q^d$. On dit que l'espace est \emph{à base dénombrable d'ouverts}. C'est ce qui rend, par exemple, la tribu borélienne de $\R^d$ engendrée par les boules rationnelles, et ce qui permet d'extraire de tout recouvrement ouvert de $\R^d$ un sous-recouvrement dénombrable (propriété de Lindelöf).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.9 -- Continuité en un point avec des boules}
+Traduire la définition de la continuité en un point à l'aide de boules ouvertes.
+\end{exo}
+
+\begin{solution}
+La Définition~1.14 s'écrit : $f$ est continue en $a$ si
+\[
+\forall\varepsilon>0,\ \exists\alpha>0,\ \forall x\in X,\quad d_X(x,a)<\alpha\Rightarrow d_Y(f(x),f(a))<\varepsilon .
+\]
+Or $d_X(x,a)<\alpha$ signifie $x\in B_X(a,\alpha)$ et $d_Y(f(x),f(a))<\varepsilon$ signifie $f(x)\in B_Y(f(a),\varepsilon)$. La continuité en $a$ se réécrit donc
+\[
+\forall\varepsilon>0,\ \exists\alpha>0,\quad f\big(B_X(a,\alpha)\big)\subset B_Y\big(f(a),\varepsilon\big),
+\]
+ou encore
+\[
+\forall\varepsilon>0,\ \exists\alpha>0,\quad B_X(a,\alpha)\subset f^{-1}\big(B_Y(f(a),\varepsilon)\big).
+\]
+La seconde forme dit exactement : \emph{pour tout $\varepsilon>0$, $f^{-1}(B_Y(f(a),\varepsilon))$ est un voisinage de $a$}. Comme tout voisinage de $f(a)$ contient une boule $B_Y(f(a),\varepsilon)$, cela équivaut à : \emph{l'image réciproque de tout voisinage de $f(a)$ est un voisinage de $a$}, formulation utilisée dans la preuve de la Proposition~1.5.
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.10 -- Continuité de la distance}
+Sur un espace métrique $(X,d)$, en munissant $X\times X$ de l'une des distances $D_k$ de l'Exemple~1.3, montrer que $d:X\times X\to\R_+$ est continue.
+\end{exo}
+
+\begin{solution}
+Soient $(x,y),(x',y')\in X\times X$. Deux inégalités triangulaires donnent $d(x,y)\le d(x,x')+d(x',y')+d(y',y)$, soit $d(x,y)-d(x',y')\le d(x,x')+d(y,y')$ ; par symétrie des rôles,
+\[
+\abs{d(x,y)-d(x',y')}\le d(x,x')+d(y,y')=D_1(z,z')\le\sqrt2\,D_2(z,z')\le2\,D_\infty(z,z'),
+\]
+où $z:=(x,y)$, $z':=(x',y')$ et
+l'on a utilisé $D_1\le\sqrt2D_2$ et $D_2\le\sqrt2D_\infty$ (inégalités entre les normes $1$, $2$, $\infty$ sur $\R^2$, Proposition~2.1). Ainsi $d$ est $1$-lipschitzienne pour $D_1$ et lipschitzienne pour $D_2$ et $D_\infty$, donc continue dans les trois cas (Exemple~1.5).
+\end{solution}
+
+\begin{commentaire}
+C'est cette continuité qui autorise à « passer à la limite dans les distances » : si $x_n\to x$ et $y_n\to y$, alors $d(x_n,y_n)\to d(x,y)$ (caractérisation séquentielle de la continuité et Exercice~1.7). On l'a utilisée sans cesse au TD1 (ex.~10, 11, 13). La constante $\sqrt2$ importe peu : seule compte la lipschitzianité.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.11 -- Continue, uniformément continue, lipschitzienne}
+Une application uniformément continue est-elle nécessairement continue ? Une application continue est-elle nécessairement uniformément continue ? Une application uniformément continue est-elle nécessairement lipschitzienne ?
+\end{exo}
+
+\begin{solution}
+\emph{Uniformément continue $\Rightarrow$ continue : oui.} Dans la Définition~1.15 le seuil $\alpha$ ne dépend que de $\varepsilon$ ; il convient a fortiori pour la continuité en chaque point $a$ (Définition~1.14), où l'on aurait le droit de le faire dépendre de $a$.
+
+\emph{Continue $\Rightarrow$ uniformément continue : non.} Prenons $f(x)=x^2$ sur $\R$. Pour $h>0$ fixé, $f(x+h)-f(x)=2xh+h^2\to+\infty$ quand $x\to+\infty$. Ainsi, pour $\varepsilon=1$ et tout $\alpha>0$, en prenant $h=\alpha/2$ et $x$ assez grand on a $|x+h-x|<\alpha$ mais $|f(x+h)-f(x)|\ge1$ : la négation de l'uniforme continuité est satisfaite. Autre exemple, sur un ensemble borné : $x\mapsto1/x$ sur $]0,1]$, avec $x_n=1/n$, $y_n=1/(n+1)$ : $|x_n-y_n|\to0$ mais $|f(x_n)-f(y_n)|=1$.
+
+\emph{Uniformément continue $\Rightarrow$ lipschitzienne : non.} Prenons $g(x)=\sqrt x$ sur $[0,1]$. Elle est uniformément continue par le théorème de Heine (Théorème~1.3, $[0,1]$ compact), ou directement via l'inégalité
+\[
+\abs{\sqrt x-\sqrt y}\le\sqrt{|x-y|}\qquad(x,y\ge0),
+\]
+qui vient de $(\sqrt x-\sqrt y)^2\le(\sqrt x-\sqrt y)(\sqrt x+\sqrt y)=|x-y|$ pour $x\ge y$ (on prend $\alpha=\varepsilon^2$). Mais $g$ n'est pas lipschitzienne : $\dfrac{g(x)-g(0)}{x-0}=\dfrac1{\sqrt x}\to+\infty$ quand $x\to0^+$, donc aucune constante $k$ ne convient.
+\end{solution}
+
+\begin{pointcle}
+Trois régularités emboîtées, \emph{strictement} : lipschitzienne $\Rightarrow$ uniformément continue $\Rightarrow$ continue. La première implication est l'Exemple~1.5. Le théorème de Heine remonte la seconde \emph{sur un compact}, mais rien ne remonte la première : $\sqrt{\cdot}$ est « höldérienne d'exposant $1/2$ » sans être lipschitzienne. Les contre-exemples de continuité non uniforme exploitent toujours une \emph{non-compacité} : $\R$ non borné, ou $]0,1]$ non fermé.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.13 -- Deux parties non complètes de $\R$}
+Montrer que $\Q$ n'est pas complet. Donner un exemple de partie indénombrable de $\R$ qui n'est pas complète.
+\end{exo}
+
+\begin{solution}
+\emph{$\Q$ n'est pas complet.} Soit $x_n:=\lfloor10^n\sqrt2\rfloor/10^n\in\Q$ (troncature décimale de $\sqrt2$). On a $|x_n-\sqrt2|\le10^{-n}$, donc $x_n\to\sqrt2$ dans $\R$. Une suite convergente est de Cauchy (exercice~1.14), et la distance sur $\Q$ est la distance induite : $(x_n)$ est de Cauchy dans $\Q$. Si elle convergeait dans $\Q$ vers $\ell\in\Q$, elle convergerait aussi dans $\R$ vers $\ell$, et par unicité de la limite $\ell=\sqrt2\notin\Q$ : contradiction.
+
+\emph{Une partie indénombrable non complète.} $A=\,]0,1[$ convient : la suite $(1/n)_{n\ge2}$ est de Cauchy dans $A$ (elle converge dans $\R$) mais n'a pas de limite dans $A$ (sa seule limite possible est $0\notin A$). Autre exemple : $\R\setminus\Q$, avec la suite $(\sqrt2/n)_{n\ge1}$ d'irrationnels tendant vers $0\in\Q$.
+\end{solution}
+
+\begin{commentaire}
+Dans les deux cas, le défaut de complétude est un défaut de \emph{fermeture} dans $\R$ complet : c'est la Proposition~1.8, « dans un espace complet, complet $\iff$ fermé ». On en déduit qu'un sous-ensemble dense et strict de $\R$ n'est jamais complet.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.14 -- Suites convergentes et suites de Cauchy}
+Montrer que dans tout espace métrique une suite convergente est nécessairement de Cauchy. Montrer qu'une suite de Cauchy est nécessairement contenue dans une boule.
+\end{exo}
+
+\begin{solution}
+\emph{Convergente $\Rightarrow$ Cauchy.} Soit $x_n\to x$ et $\varepsilon>0$. Il existe $N$ tel que $d(x_n,x)<\varepsilon/2$ pour $n\ge N$. Pour $n,m\ge N$, $d(x_n,x_m)\le d(x_n,x)+d(x,x_m)<\varepsilon$.
+
+\emph{Cauchy $\Rightarrow$ bornée.} Soit $(x_n)$ de Cauchy. Pour $\varepsilon=1$ il existe $N$ tel que $d(x_n,x_N)<1$ pour tout $n\ge N$. Posons
+\[
+R:=1+\max\big(d(x_0,x_N),\dots,d(x_{N-1},x_N)\big)
+\]
+(maximum d'un nombre \emph{fini} de réels). Alors $d(x_n,x_N)<R$ pour tout $n$ : la suite est contenue dans $B(x_N,R)$.
+\end{solution}
+
+\begin{piege}
+La réciproque de la première assertion est précisément la \emph{complétude}, qui n'est pas automatique (exercice~1.13). La seconde assertion ne dit pas qu'une suite bornée est de Cauchy : $((-1)^n)_n$ est bornée et n'est pas de Cauchy. Le schéma « traiter les indices $\ge N$ par l'hypothèse, les indices $<N$ par finitude » est à connaître par cœur.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.16 -- Théorème de point fixe de Picard}
+Soit $(X,d)$ un espace métrique complet non vide et $f:X\to X$ une application contractante, \ie{} $k$-lipschitzienne avec $k<1$. Montrer l'existence et l'unicité d'un élément $x\in X$ tel que $f(x)=x$.
+\end{exo}
+
+\begin{solution}
+\emph{Unicité.} Si $f(x)=x$ et $f(y)=y$, alors $d(x,y)=d(f(x),f(y))\le k\,d(x,y)$, soit $(1-k)d(x,y)\le0$ ; comme $1-k>0$, $d(x,y)=0$ et $x=y$.
+
+\emph{Existence : les itérées.} Fixons $x_0\in X$ et posons $x_{n+1}:=f(x_n)$. Par récurrence,
+\[
+d(x_{n+1},x_n)=d(f(x_n),f(x_{n-1}))\le k\,d(x_n,x_{n-1})\le\dots\le k^n\,d(x_1,x_0).
+\]
+\emph{La suite est de Cauchy.} Pour $m>n$, par inégalité triangulaire et somme géométrique,
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le d(x_1,x_0)\sum_{j=n}^{m-1}k^j\le d(x_1,x_0)\,\frac{k^n}{1-k}\xrightarrow[n\to\infty]{}0 .
+\]
+\emph{Passage à la limite.} Par complétude, $x_n\to x\in X$. Comme $f$ est continue (lipschitzienne), $f(x_n)\to f(x)$ ; or $f(x_n)=x_{n+1}\to x$. Par unicité de la limite, $f(x)=x$.
+
+\emph{Bonus : vitesse de convergence.} En faisant $m\to\infty$ dans l'inégalité précédente (continuité de $d$, exercice~1.10) : $d(x,x_n)\le\dfrac{k^n}{1-k}\,d(x_1,x_0)$.
+\end{solution}
+
+\begin{pointcle}
+C'est l'archétype de l'usage de la complétude : \emph{on prouve la convergence d'une suite sans connaître sa limite}, puis on identifie la limite par continuité. Les trois hypothèses sont nécessaires : $X$ complet ($f(x)=x/2$ sur $]0,1]$ n'a pas de point fixe), $k<1$ uniforme (TD1 ex.~13.2, où $d(f(x),f(y))<d(x,y)$ ne suffit pas sans compacité), $f(X)\subset X$. Applications au chapitre~3 et au-delà : Cauchy--Lipschitz, inversion locale, équations intégrales.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.17 -- Construction du logarithme par prolongement}
+Pour $n\in\N^*$ on note $H_n:=\sum_{k=1}^n\frac1k$.
+\begin{enumerate}[label=\arabic*.]
+  \item Montrer, pour $p\in\N^*$, que la suite $(H_{pn}-H_n)_n$ est croissante et majorée. On note $\lambda(p)$ sa limite.
+  \item Démontrer que pour $p,m\in\N^*$ on a $\lambda(pm)=\lambda(p)+\lambda(m)$.
+  \item Pour $r=p/q\in\Q_+^*$, montrer que $\lambda(r):=\lambda(p)-\lambda(q)$ prolonge sans ambiguïté $\lambda$ à $\Q_+^*$.
+  \item Montrer que $\lambda:\Q_+^*\to\R$ est croissante, vérifie l'équation fonctionnelle de la question 2 sur $\Q_+^*$, ainsi que $\frac{r}{1+r}\le\lambda(1+r)\le r$ pour $r\in\Q_+^*$.
+  \item Montrer que pour tout $\varepsilon>0$, $\lambda$ est uniformément continue sur $[\varepsilon,\infty[\,\cap\,\Q$.
+  \item En déduire l'existence d'un prolongement continu de $\lambda$ à $\R_+^*$. Reconnaissez-vous cette fonction ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1.} Posons $u_n:=H_{pn}-H_n=\sum_{k=n+1}^{pn}\frac1k$ (somme de $(p-1)n$ termes ; $u_n=0$ si $p=1$).
+
+\emph{Croissance.} En comparant les indices,
+\[
+u_{n+1}-u_n=\sum_{k=pn+1}^{p(n+1)}\frac1k-\frac1{n+1}\ \ge\ p\cdot\frac1{p(n+1)}-\frac1{n+1}=0 ,
+\]
+car les $p$ termes de la somme sont tous $\ge\frac1{p(n+1)}$.
+
+\emph{Majoration.} Chaque terme de $u_n$ est $\le\frac1{n+1}$, donc $u_n\le\dfrac{(p-1)n}{n+1}\le p-1$. Croissante et majorée, $(u_n)$ converge ; on note $\lambda(p)$ sa limite, avec $0\le\lambda(p)\le p-1$ et $\lambda(1)=0$.
+
+\medskip
+\noindent\textbf{2.} On écrit
+\[
+H_{pmn}-H_n=\big(H_{p(mn)}-H_{mn}\big)+\big(H_{mn}-H_n\big).
+\]
+Le premier terme est le terme d'indice $mn$ de la suite $(H_{pj}-H_j)_j$, qui converge vers $\lambda(p)$ ; c'en est une sous-suite (l'indice $mn$ est strictement croissant en $n$), donc il tend vers $\lambda(p)$. Le second tend vers $\lambda(m)$. Le membre de gauche tend vers $\lambda(pm)$. D'où $\lambda(pm)=\lambda(p)+\lambda(m)$.
+
+\medskip
+\noindent\textbf{3.} Si $r=p/q=p'/q'$, alors $pq'=p'q$, et par la question 2,
+\[
+\lambda(p)+\lambda(q')=\lambda(pq')=\lambda(p'q)=\lambda(p')+\lambda(q),
+\qquad\text{soit}\qquad\lambda(p)-\lambda(q)=\lambda(p')-\lambda(q') .
+\]
+La valeur $\lambda(r)$ ne dépend donc pas de la représentation choisie. Elle prolonge bien $\lambda$ : pour $r=p\in\N^*$, on écrit $p=p/1$ et $\lambda(p)-\lambda(1)=\lambda(p)$.
+
+\medskip
+\noindent\textbf{4.} \emph{Équation fonctionnelle.} Pour $r=p/q$ et $s=p'/q'$, $rs=pp'/(qq')$ et
+\[
+\lambda(rs)=\lambda(pp')-\lambda(qq')=\lambda(p)+\lambda(p')-\lambda(q)-\lambda(q')=\lambda(r)+\lambda(s).
+\]
+\emph{Encadrement.} Soit $r=p/q$, de sorte que $1+r=(p+q)/q$ et $\lambda(1+r)=\lambda(p+q)-\lambda(q)$. Or
+\[
+H_{(p+q)n}-H_{qn}=\sum_{k=qn+1}^{(p+q)n}\frac1k
+\]
+est une somme de $pn$ termes compris entre $\frac1{(p+q)n}$ et $\frac1{qn}$, donc comprise entre $\frac{p}{p+q}=\frac{r}{1+r}$ et $\frac pq=r$. Comme $H_{(p+q)n}-H_{qn}=(H_{(p+q)n}-H_n)-(H_{qn}-H_n)\to\lambda(p+q)-\lambda(q)=\lambda(1+r)$, on obtient $\frac{r}{1+r}\le\lambda(1+r)\le r$ par passage à la limite.
+
+\emph{Croissance.} Soient $r<s$ dans $\Q_+^*$. Alors $s/r=1+t$ avec $t:=(s-r)/r\in\Q_+^*$, et par l'équation fonctionnelle puis l'encadrement,
+\[
+\lambda(s)-\lambda(r)=\lambda(s/r)=\lambda(1+t)\ge\frac t{1+t}>0 .
+\]
+Donc $\lambda$ est strictement croissante.
+
+\medskip
+\noindent\textbf{5.} Soient $r<s$ dans $\Q\cap[\varepsilon,\infty[$. Par le calcul précédent et la majoration $\lambda(1+t)\le t$,
+\[
+0\le\lambda(s)-\lambda(r)=\lambda\Big(1+\frac{s-r}r\Big)\le\frac{s-r}{r}\le\frac{s-r}{\varepsilon}.
+\]
+Ainsi $\lambda$ est $\frac1\varepsilon$-lipschitzienne, donc uniformément continue, sur $\Q\cap[\varepsilon,\infty[$.
+
+\medskip
+\noindent\textbf{6.} \emph{Prolongement.} $\Q\cap[\varepsilon,\infty[$ est dense dans $[\varepsilon,\infty[$ et $\R$ est complet : le Théorème~1.1 fournit un unique prolongement continu $\lambda_\varepsilon$ de $\lambda$ à $[\varepsilon,\infty[$. Pour $\varepsilon'<\varepsilon$, $\lambda_{\varepsilon'}$ restreinte à $[\varepsilon,\infty[$ est un prolongement continu de $\lambda$, donc coïncide avec $\lambda_\varepsilon$ (unicité). On définit sans ambiguïté $\tilde\lambda(x):=\lambda_\varepsilon(x)$ pour $x\ge\varepsilon$ : c'est une fonction continue sur $\R_+^*=\bigcup_\varepsilon[\varepsilon,\infty[$.
+
+\emph{Identification.} Par densité et continuité, $\tilde\lambda$ vérifie $\tilde\lambda(xy)=\tilde\lambda(x)+\tilde\lambda(y)$ pour tous $x,y>0$, est croissante, et $\frac x{1+x}\le\tilde\lambda(1+x)\le x$ pour $x>0$. Posons $g:=\tilde\lambda\circ\exp:\R\to\R$ : $g$ est continue et additive, $g(s+t)=g(s)+g(t)$. Une fonction additive continue est linéaire : $g(t)=ct$ avec $c=g(1)$ (on vérifie $g(n t)=ng(t)$, puis $g(r)=rg(1)$ sur $\Q$, puis sur $\R$ par continuité). Donc $\tilde\lambda(x)=c\ln x$. Enfin l'encadrement donne, pour $x\to0^+$, $\tilde\lambda(1+x)/x\to1$, tandis que $c\ln(1+x)/x\to c$ : $c=1$ et
+\[
+\boxed{\ \tilde\lambda=\ln\ }\qquad\text{en particulier}\qquad\lambda(p)=\lim_{n\to\infty}(H_{pn}-H_n)=\ln p .
+\]
+\end{solution}
+
+\begin{pointcle}
+L'exercice est une illustration \emph{complète} du Théorème~1.1 de prolongement : (i) on construit une fonction sur une partie dense ($\Q_+^*$) ; (ii) on établit son uniforme continuité \emph{sur des morceaux} ($[\varepsilon,\infty[$, car $\lambda$ n'est pas uniformément continue près de $0$ : $\ln$ explose) ; (iii) on prolonge et on recolle par unicité. Le résultat $H_{pn}-H_n\to\ln p$ est cohérent avec le développement classique $H_n=\ln n+\gamma+o(1)$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.18 -- Extraite d'extraite}
+Soit $(x_n)_n$ une suite quelconque, $\varphi,\psi:\N\to\N$ deux extractrices. Qui de $(x_{\varphi(\psi(n))})_n$ ou de $(x_{\psi(\varphi(n))})_n$ est extraite de $(x_{\varphi(n)})_n$ ?
+\end{exo}
+
+\begin{solution}
+Posons $y_n:=x_{\varphi(n)}$. Alors $x_{\varphi(\psi(n))}=y_{\psi(n)}$ : la suite $(x_{\varphi(\psi(n))})_n$ est extraite de $(y_n)=(x_{\varphi(n)})$ via l'extractrice $\psi$. C'est donc $(x_{\varphi\circ\psi(n)})_n$, \emph{avec $\psi$ à l'intérieur}.
+
+En général $(x_{\psi(\varphi(n))})_n$ n'est pas extraite de $(x_{\varphi(n)})_n$ : avec $\varphi(n)=2n$ et $\psi(n)=2n+1$, on a $\varphi\circ\psi(n)=4n+2$ (indices pairs, donc parmi ceux de $(x_{2n})$) tandis que $\psi\circ\varphi(n)=4n+1$ (indices impairs, jamais parmi ceux de $(x_{2n})$). Les deux suites sont en revanche extraites de $(x_n)$, car $\varphi\circ\psi$ et $\psi\circ\varphi$ sont strictement croissantes.
+\end{solution}
+
+\begin{piege}
+Dans une extraction successive (TD1 ex.~10, ex.~11 ; Proposition~1.9), la nouvelle extractrice se compose \emph{à droite} : après $\varphi$, extraire encore donne $\varphi\circ\psi$, et non $\psi\circ\varphi$. Écrire $x_{\varphi(\psi(n))}$ et non $x_{\psi(\varphi(n))}$.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.19 -- Trois parties de $\R$}
+Est-ce que $\R$ est compact ? Et $[0,1]$ ? Et $[0,1[$ ?
+\end{exo}
+
+\begin{solution}
+\emph{$\R$ n'est pas compact.} La suite $x_n=n$ n'a aucune valeur d'adhérence : toute sous-suite $(\varphi(n))_n$ vérifie $\varphi(n)\ge n\to+\infty$ et ne converge pas (Exemple~1.7). Autre argument : un compact est borné (Proposition~1.10).
+
+\emph{$[0,1]$ est compact.} C'est le théorème de Bolzano--Weierstrass (Théorème~1.2) : toute suite de $[0,1]$ admet une sous-suite convergente, de limite dans $[0,1]$ car $[0,1]$ est fermé.
+
+\emph{$[0,1[$ n'est pas compact.} La suite $x_n=1-\frac1n$ est dans $[0,1[$ et converge (dans $\R$) vers $1$. Sa seule valeur d'adhérence dans $\R$ est $1$ (Exemple~1.8), qui n'appartient pas à $[0,1[$ : elle n'a aucune valeur d'adhérence \emph{dans $[0,1[$}. Autre argument : $[0,1[$ n'est pas fermé dans $\R$ (Proposition~1.10).
+\end{solution}
+
+\begin{commentaire}
+Les deux « non » illustrent les deux obstructions possibles dans $\R^d$ : non borné, ou non fermé (Corollaire~1.2). Attention à la définition : la valeur d'adhérence doit appartenir à la partie considérée. Le point $1$ est bien valeur d'adhérence de $(x_n)$ \emph{dans $\R$}, mais pas dans $[0,1[$.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 1.21 -- Fermé, précompact, mais pas compact}
+Montrer que $\Q\cap[0,1]$ est fermé dans $\Q$ et précompact, mais n'est pas compact.
+\end{exo}
+
+\begin{solution}
+\emph{Fermé dans $\Q$.} $\Q\cap[0,1]$ est la trace sur $\Q$ du fermé $[0,1]$ de $\R$ : c'est un fermé de $\Q$ pour la distance induite (Exercice~1.3, TD1 ex.~2).
+
+\emph{Précompact.} Soit $\varepsilon>0$ et $N\in\N^*$ avec $1/N<\varepsilon$. Les boules $B(k/N,\varepsilon)$, $k=0,\dots,N$, ont des centres rationnels et recouvrent $[0,1]$ : tout $x\in[0,1]$ est à distance $\le\frac1{2N}<\varepsilon$ du point $k/N$ le plus proche. Elles recouvrent a fortiori $\Q\cap[0,1]$ : c'est la Définition~1.22 (les centres sont même dans la partie, cf.\ Remarque~1.9).
+
+\emph{Non compact.} Soit $(x_n)$ une suite de rationnels de $[0,1]$ convergeant dans $\R$ vers $\sqrt2/2$ (troncatures décimales). Toute valeur d'adhérence de $(x_n)$ dans $\Q\cap[0,1]$ serait une valeur d'adhérence dans $\R$, donc égale à $\sqrt2/2\notin\Q$. Il n'y en a pas : $\Q\cap[0,1]$ n'est pas compact.
+\end{solution}
+
+\begin{pointcle}
+L'exemple montre que dans le Corollaire~1.4 (\emph{dans un espace complet}, compact $\iff$ fermé et précompact), l'hypothèse de complétude de l'espace ambiant ne peut être supprimée : $\Q$ n'est pas complet, et $\Q\cap[0,1]$ est fermé et précompact sans être compact. De façon équivalente, la bonne caractérisation intrinsèque est : \emph{compact $\iff$ complet et précompact}, et ici c'est la complétude qui manque (la suite $(x_n)$ est de Cauchy sans limite).
+\end{pointcle}
+
+% =====================================================================
+\section{Chapitre 2 -- Espaces vectoriels normés}
+% =====================================================================
+
+\begin{exo}{Exercice 2.3 -- La distance de $\Cz(\Omega)$ ne provient d'aucune norme}
+Montrer qu'il n'existe pas de norme correspondant à la distance $d_{\Cz(\Omega)}$ introduite à l'Exemple~2.5.
+\end{exo}
+
+\begin{solution}
+Notons $d:=d_{\Cz(\Omega)}$, construite à partir d'une suite exhaustive $(K_n)$ de compacts de l'ouvert non vide $\Omega$. Nous montrons qu'aucune norme $\mathcal N$ sur $\Cz(\Omega)$ ne définit \emph{la même topologie} que $d$ (a fortiori, aucune norme ne vérifie $d(f,g)=\mathcal N(f-g)$).
+
+\emph{Étape 1 : un sous-espace contenu dans une petite boule.} Fixons $N\in\N$ et posons $V_N:=\{f\in\Cz(\Omega) : f=0\text{ sur }K_N\}$, sous-espace vectoriel. Pour $f\in V_N$, on a $\norm f_{K_n}=0$ pour $n\le N$ (car $K_n\subset K_N$), donc
+\[
+d(0,f)=\sum_{n>N}\frac{\min\{1,\norm f_{K_n}\}}{2^n}\le\sum_{n>N}2^{-n}=2^{-N}.
+\]
+Ainsi $V_N\subset B_d(0,\rho)$ dès que $\rho>2^{-N}$.
+
+\emph{Étape 2 : $V_N\ne\{0\}$.} Il suffit de trouver $x_1\in\Omega\setminus K_N$ : la fonction $f:=d(K_N,\cdot)$ est alors continue (TD1 ex.~6), nulle sur $K_N$, et $f(x_1)>0$ car $K_N$ est fermé et $x_1\notin K_N$ (Corollaire~1.1). Or $\Omega\not\subset K_N$ : si $\Omega=\R^d$, $K_N\subset\Bf(0,N)$ est borné et $\Omega$ ne l'est pas ; sinon $F:=\R^d\setminus\Omega$ est non vide, et pour $a\in\Omega$, $b\in F$, posons $t^*:=\sup\{t\in[0,1] : a+s(b-a)\in\Omega\ \forall s\in[0,t]\}$ et $c:=a+t^*(b-a)$. Le point $c$ n'est pas dans $\Omega$ (sinon, $\Omega$ étant ouvert, on pourrait dépasser $t^*$, sauf si $t^*=1$, mais alors $c=b\notin\Omega$), donc $c\in F$, et les points $a+t(b-a)$, $t<t^*$, sont dans $\Omega$ et tendent vers $c$ : ils vérifient $d(F,\cdot)\to0$, donc l'un d'eux a $d(F,\cdot)<1/N$ et n'est pas dans $K_N$.
+
+\emph{Étape 3 : conclusion.} Supposons qu'une norme $\mathcal N$ définisse la même topologie que $d$. La boule $B_{\mathcal N}(0,1)$ est un ouvert contenant $0$, donc contient une boule $B_d(0,\rho)$ ; choisissons $N$ avec $2^{-N}<\rho$, de sorte que $V_N\subset B_{\mathcal N}(0,1)$. Soit $f\in V_N$ et $t>0$ : $tf\in V_N$ (sous-espace), donc $\mathcal N(tf)<1$, \ie{} $\mathcal N(f)<1/t$. En faisant $t\to+\infty$, $\mathcal N(f)=0$, donc $f=0$ : $V_N=\{0\}$, ce qui contredit l'étape 2.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Une boule d'un EVN ne contient jamais de droite vectorielle} (elle est « absorbante et bornée » : $tf\in B(0,1)$ pour tout $t$ force $f=0$). Une distance dont certaines boules contiennent des sous-espaces non triviaux ne peut donc venir d'une norme. C'est le cas ici parce que la topologie de $\Cz(\Omega)$ ne contrôle $f$ que « compact par compact » : les fonctions nulles sur un compact fixé, mais arbitrairement grandes ailleurs, sont \emph{topologiquement petites}. Comparer avec l'exercice~3.6 ci-dessous.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 2.4 -- Deux formes linéaires de norme $1$}
+Sur $E:=\Cz([0,1];\R)$ muni de la norme uniforme, montrer que l'évaluation $\delta_a:f\mapsto f(a)$ ($a\in[0,1]$) et l'intégrale $I:f\mapsto\int_0^1f$ appartiennent à la sphère unité de $\Lc(E,\R)$.
+\end{exo}
+
+\begin{solution}
+Les deux applications sont linéaires. \emph{Majoration :} pour $f\in E$,
+\[
+|\delta_a(f)|=|f(a)|\le\sup_{[0,1]}|f|=\norm f_\infty,\qquad
+|I(f)|=\Big|\int_0^1f\Big|\le\int_0^1|f|\le\norm f_\infty .
+\]
+Elles sont donc continues (Théorème~2.4 (iv)) et $\opnorm{\delta_a}\le1$, $\opnorm I\le1$ (TD2 ex.~6). \emph{Vecteur test :} la fonction constante $\mathbf 1$ vérifie $\norm{\mathbf 1}_\infty=1$, $\delta_a(\mathbf 1)=1$ et $I(\mathbf 1)=1$, d'où $\opnorm{\delta_a}\ge1$ et $\opnorm I\ge1$. Finalement $\opnorm{\delta_a}=\opnorm I=1$.
+\end{solution}
+
+\begin{commentaire}
+Le schéma « majoration $+$ vecteur test » est celui du TD2 ex.~7. Ici le sup est \emph{atteint} (par $\mathbf 1$) ; ce n'est pas toujours le cas (TD2 ex.~6, commentaire). Noter que $\delta_a$ n'est pas continue pour la norme $L^1$ sur $E$ (prendre des « pics » de hauteur $1$ et de base $1/n$ en $a$) : la continuité d'une forme linéaire dépend de la norme choisie sur l'espace de départ.
+\end{commentaire}
+
+% =====================================================================
+\section{Chapitre 3 -- Espaces de Banach}
+% =====================================================================
+
+\begin{exo}{Exercice 3.1 -- Caractérisation des Banach par les séries}
+Montrer qu'un EVN dans lequel toute série absolument convergente est convergente est un espace de Banach.
+\end{exo}
+
+\begin{solution}
+Soit $(x_n)$ une suite de Cauchy de $E$. Il s'agit de montrer qu'elle converge.
+
+\emph{Étape 1 : une sous-suite « rapidement de Cauchy ».} Pour chaque $k\in\N$, le critère de Cauchy avec $\varepsilon=2^{-k}$ fournit $N_k$ tel que $\norm{x_n-x_m}\le2^{-k}$ pour $n,m\ge N_k$. On construit par récurrence $\varphi(0):=N_0$ et $\varphi(k+1):=\max(N_{k+1},\varphi(k)+1)$ : $\varphi$ est strictement croissante et, pour tout $k$, $\varphi(k+1)>\varphi(k)\ge N_k$, donc
+\[
+\norm{x_{\varphi(k+1)}-x_{\varphi(k)}}\le2^{-k}.
+\]
+
+\emph{Étape 2 : une série télescopique absolument convergente.} Posons $u_k:=x_{\varphi(k+1)}-x_{\varphi(k)}$. Alors $\sum_k\norm{u_k}\le\sum_k2^{-k}<\infty$ : la série $\sum u_k$ est absolument convergente, donc convergente par hypothèse. Or ses sommes partielles sont télescopiques :
+\[
+\sum_{k=0}^{K-1}u_k=x_{\varphi(K)}-x_{\varphi(0)} .
+\]
+Ainsi $(x_{\varphi(K)})_K$ converge vers un certain $x\in E$.
+
+\emph{Étape 3 : une suite de Cauchy ayant une sous-suite convergente converge.} Soit $\varepsilon>0$ ; il existe $N$ tel que $\norm{x_n-x_m}\le\varepsilon$ pour $n,m\ge N$, et $K$ tel que $\varphi(K)\ge N$ et $\norm{x_{\varphi(K)}-x}\le\varepsilon$. Pour $n\ge N$, $\norm{x_n-x}\le\norm{x_n-x_{\varphi(K)}}+\norm{x_{\varphi(K)}-x}\le2\varepsilon$. Donc $x_n\to x$ : $E$ est complet.
+\end{solution}
+
+\begin{pointcle}
+Avec la Proposition~3.1, on obtient : \emph{un EVN est de Banach si et seulement si toute série absolument convergente y converge}. C'est ce critère que l'on utilise pour prouver la complétude des espaces $L^p$ (Théorème de Riesz--Fischer, Section~2.4.2). Les étapes 1 et 3 sont deux lemmes généraux sur les suites de Cauchy à connaître : on peut toujours en extraire une sous-suite à écarts $\le2^{-k}$, et il suffit qu'une sous-suite converge.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.3 -- Compacts en dimension infinie}
+En utilisant le théorème de Riesz, montrer qu'en dimension infinie une partie compacte est nécessairement d'intérieur vide. Un fermé borné d'intérieur vide est-il pour autant toujours compact en dimension infinie ?
+\end{exo}
+
+\begin{solution}
+\emph{Un compact est d'intérieur vide.} Soit $E$ un EVN de dimension infinie et $K\subset E$ compact. Supposons par l'absurde qu'il existe $a\in E$ et $r>0$ avec $B(a,r)\subset K$. Alors $\Bf(a,r/2)\subset B(a,r)\subset K$, et $\Bf(a,r/2)$ est un fermé contenu dans un compact, donc compact (Proposition~1.11). L'application $h:x\mapsto a+\frac r2x$ est continue et envoie $\Bf(0,1)$ sur $\Bf(a,r/2)$ ; sa réciproque $y\mapsto\frac2r(y-a)$ est continue et envoie $\Bf(a,r/2)$ sur $\Bf(0,1)$, qui est donc compacte comme image d'un compact par une application continue (Théorème~1.3). Le Théorème~3.1 de Riesz donne alors $\dim E<\infty$ : contradiction.
+
+\emph{La réciproque est fausse.} La sphère unité $S:=\{x : \norm x=1\}$ est fermée (TD1 ex.~4a) et bornée. Elle est d'intérieur vide dans tout EVN non nul : pour $x\in S$, les points $(1+\frac1n)x$ ne sont pas dans $S$ et tendent vers $x$, donc aucune boule centrée en $x$ n'est contenue dans $S$. Pourtant $S$ n'est pas compacte en dimension infinie : si elle l'était, $\Bf(0,1)$ serait l'image du compact $[0,1]\times S$ (Proposition~1.9) par l'application continue $(t,x)\mapsto tx$, donc compacte, ce qui contredit Riesz. Concrètement, dans $\ell^p(\N)$, la suite $(\mathbf e^k)_k$ de $S$ vérifie $\norm{\mathbf e^k-\mathbf e^j}_p=2^{1/p}$ et n'a pas de sous-suite de Cauchy.
+\end{solution}
+
+\begin{commentaire}
+En dimension infinie, les compacts sont « maigres » : d'intérieur vide, et en fait \emph{précompacts} (Proposition~1.13), ce qui est une condition bien plus restrictive que « borné ». Le TD1 ex.~9 et le TD2 ex.~2 discutent ce contraste. Conséquence pratique : en dimension infinie, aucun voisinage n'est compact (l'espace n'est pas \emph{localement compact}), ce qui interdit de nombreux arguments de la dimension finie (extraction dans une boule).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.4 -- $\Cz(\Omega)$ est complet, $\Cc(\Omega)$ ne l'est pas}
+Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $\Cz(\Omega)$ muni de la distance $d_{\Cz(\Omega)}$ de l'Exemple~2.5 est complet (espace de Fréchet). Montrer par contre que $\Cc(\Omega)$ n'est complet ni pour la norme uniforme, ni pour $d_{\Cz(\Omega)}$.
+\end{exo}
+
+\begin{solution}
+On note $d:=d_{\Cz(\Omega)}$ et $(K_n)$ la suite exhaustive de compacts utilisée, avec $K_n\subset\interieur{K_{n+1}}$ (TD2 ex.~3, complément). On utilise librement le TD2 ex.~4 : $d(f_j,f)\to0\iff\norm{f_j-f}_{K_n}\to0$ pour tout $n$.
+
+\medskip
+\noindent\textbf{Complétude de $(\Cz(\Omega),d)$.} Soit $(f_j)_j$ une suite de Cauchy pour $d$.
+
+\emph{Étape 1 : Cauchy sur chaque compact.} Pour $n$ fixé et $j,k\in\N$, $\min\{1,\norm{f_j-f_k}_{K_n}\}\le2^nd(f_j,f_k)$. Le critère de Cauchy pour $d$ montre donc que pour $j,k$ assez grands ce minimum est $<1$ et vaut $\norm{f_j-f_k}_{K_n}$, qui tend vers $0$ : la suite des restrictions $(f_{j|K_n})_j$ est de Cauchy dans $\Cz(K_n)$ pour la norme uniforme. Cet espace est complet ($K_n$ compact, $\R$ complet, Proposition~3.3) : il existe $g_n\in\Cz(K_n)$ avec $\norm{f_j-g_n}_{K_n}\to0$.
+
+\emph{Étape 2 : recollement.} Pour $x\in K_n\subset K_{n+1}$, $g_n(x)$ et $g_{n+1}(x)$ sont toutes deux la limite de la suite numérique $(f_j(x))_j$ : $g_{n+1}=g_n$ sur $K_n$. On définit donc sans ambiguïté $f:\Omega\to\R$ par $f(x):=g_n(x)$ pour $x\in K_n$ (les $K_n$ recouvrent $\Omega$).
+
+\emph{Étape 3 : $f$ est continue.} Soit $x\in\Omega$ et $n$ avec $x\in K_n$. Sur l'\emph{ouvert} $\interieur{K_{n+1}}$, qui contient $x$, $f$ coïncide avec la fonction continue $g_{n+1}$. La continuité étant une propriété locale, $f$ est continue en $x$.
+
+\emph{Étape 4 : convergence.} Pour tout $n$, $\norm{f_j-f}_{K_n}=\norm{f_j-g_n}_{K_n}\to0$, donc $d(f_j,f)\to0$ (TD2 ex.~4b). $(\Cz(\Omega),d)$ est complet.
+
+\medskip
+\noindent\textbf{Non-complétude de $\Cc(\Omega)$.} Rappelons que $\Cc(\Omega)$ est l'ensemble des $f\in\Cz(\Omega)$ dont le support $\supp f=\adh{\{f\ne0\}}$ (adhérence prise dans $\Omega$) est compact. L'idée : construire une fonction continue sur $\Omega$, à support non compact, mais « petite hors de $K_n$ », et l'approcher par des fonctions à support compact.
+
+\emph{Une fonction cible.} Soit $F:=\R^d\setminus\Omega$ et
+\[
+f(x):=\min\{1,d(F,x)\}\,e^{-\norm x}\qquad(x\in\Omega),
+\]
+avec la convention $\min\{1,d(\emptyset,x)\}=1$. Elle est continue, strictement positive sur $\Omega$ (Corollaire~1.1), donc $\supp f=\Omega$, qui n'est pas compact (un ouvert non vide de $\R^d$ n'est jamais compact, cf.\ exercice~2.3, étape 2) : $f\notin\Cc(\Omega)$. De plus, si $x\in\Omega\setminus K_n$, alors $\norm x>n$ ou $d(F,x)<1/n$, donc
+\[
+\sup_{\Omega\setminus K_n}f\le\max\big(e^{-n},\,1/n\big)\xrightarrow[n\to\infty]{}0 .
+\]
+
+\emph{Des troncatures.} Posons $\chi_n(x):=\dfrac{d(\Omega\setminus\interieur{K_{n+1}},x)}{d(\Omega\setminus\interieur{K_{n+1}},x)+d(K_n,x)}$. Le dénominateur ne s'annule pas (les fermés $K_n$ et $\Omega\setminus\interieur{K_{n+1}}$ de $\Omega$ sont disjoints, et $d(A,x)=0\iff x\in A$ pour $A$ fermé), donc $\chi_n$ est continue, à valeurs dans $[0,1]$, vaut $1$ sur $K_n$ et $0$ hors de $\interieur{K_{n+1}}$ ; son support est contenu dans le compact $K_{n+1}$. Ainsi $f_n:=\chi_nf\in\Cc(\Omega)$, et
+\[
+\norm{f-f_n}_\infty=\sup_{\Omega}\big|(1-\chi_n)f\big|\le\sup_{\Omega\setminus K_n}f\xrightarrow[n\to\infty]{}0 .
+\]
+
+\emph{Conclusion pour la norme uniforme.} $(f_n)$ converge uniformément vers $f$, donc est de Cauchy dans $\Cc(\Omega)$ pour $\norm\cdot_\infty$. Si elle convergeait uniformément vers un $g\in\Cc(\Omega)$, on aurait $g=f$ par unicité de la limite (dans l'espace des fonctions bornées) ; or $f\notin\Cc(\Omega)$.
+
+\emph{Conclusion pour $d$.} La convergence uniforme sur $\Omega$ entraîne la convergence uniforme sur chaque $K_n$, donc $d(f_n,f)\to0$ : $(f_n)$ est de Cauchy pour $d$, et sa limite dans $(\Cz(\Omega),d)$ est $f\notin\Cc(\Omega)$ ; par unicité de la limite, elle ne converge pas dans $\Cc(\Omega)$.
+\end{solution}
+
+\begin{pointcle}
+La preuve de complétude suit le modèle de la Proposition~3.3 : \emph{compléter « localement »} (sur chaque $K_n$), \emph{recoller}, puis vérifier que l'objet recollé est dans le bon espace. Le point délicat est l'étape 3 : la continuité de $f$ en $x\in K_n$ ne se lit pas sur $K_n$ (qui n'est pas un voisinage de $x$) mais sur $\interieur{K_{n+1}}$ ; c'est précisément pour cela qu'on a établi $K_n\subset\interieur{K_{n+1}}$ au TD2 ex.~3.
+\end{pointcle}
+
+\begin{commentaire}
+$\Cc(\Omega)$ n'est complet pour aucune de ces deux structures « raisonnables » : sa topologie naturelle (limite inductive) est plus compliquée et n'est pas métrisable ; c'est elle qui sert à définir les distributions (chapitre~6). La Remarque~2.5 du poly y fait allusion. L'adhérence de $\Cc(\Omega)$ pour la norme uniforme est l'espace $\Cz_0(\Omega)$ des fonctions continues « tendant vers $0$ au bord et à l'infini » (exactement celles qui vérifient $\sup_{\Omega\setminus K_n}|f|\to0$), qui est lui un Banach ; et son adhérence pour $d$ est $\Cz(\Omega)$ tout entier.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.5 -- L'équicontinuité uniforme passe à l'adhérence}
+Soit $(X,d)$ un espace métrique compact, $(F,\norm\cdot)$ un EVN et $H\subset\Cz(X;F)$ uniformément équicontinue. Montrer que $\adh H$ (adhérence pour la norme uniforme) l'est aussi.
+\end{exo}
+
+\begin{solution}
+Soit $\varepsilon>0$. Par hypothèse (Définition~3.2) il existe $\eta>0$ tel que
+\[
+\forall g\in H,\ \forall x,y\in X,\qquad d(x,y)<\eta\Rightarrow\norm{g(x)-g(y)}<\varepsilon/3 .
+\]
+Soit $f\in\adh H$ et $x,y\in X$ avec $d(x,y)<\eta$. Par caractérisation de l'adhérence, il existe $g\in H$ avec $\norm{f-g}_{\Cz(X;F)}<\varepsilon/3$, \ie{} $\norm{f(z)-g(z)}<\varepsilon/3$ pour tout $z\in X$. Alors
+\[
+\norm{f(x)-f(y)}\le\norm{f(x)-g(x)}+\norm{g(x)-g(y)}+\norm{g(y)-f(y)}<\frac\varepsilon3+\frac\varepsilon3+\frac\varepsilon3=\varepsilon .
+\]
+Le seuil $\eta$ ne dépend ni de $f\in\adh H$ ni de $x,y$ : $\adh H$ est uniformément équicontinue.
+
+\emph{Complément (utilisé dans le Corollaire~3.1) : le caractère borné passe aussi à l'adhérence.} Si $\norm g_{\Cz}\le M$ pour $g\in H$, alors pour $f\in\adh H$ et $g\in H$ avec $\norm{f-g}_{\Cz}<1$, $\norm f_{\Cz}\le M+1$.
+\end{solution}
+
+\begin{pointcle}
+C'est l'argument « $\varepsilon/3$ » : une propriété uniforme (en $x,y$) et « fermée » (stable par petites perturbations uniformes) passe à l'adhérence uniforme. Le même argument montre que la limite uniforme de fonctions continues est continue. Avec le Théorème~3.2 d'Arzelà--Ascoli, on obtient le Corollaire~3.1 : \emph{toute suite bornée et uniformément équicontinue de $\Cz(X;E)$ ($\dim E<\infty$) admet une sous-suite uniformément convergente}, qui est la forme la plus utilisée du théorème.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.6 -- Bornitude topologique ; $\Cinf([0,1])$ est un espace de Montel}
+Dans un espace vectoriel $V$ muni d'une distance $d$, une partie $A\subset V$ est dite \emph{topologiquement bornée} si pour toute suite scalaire $(\lambda_k)_k$ tendant vers $0$ et toute suite $(a_k)_k\in A^\N$, on a $\lambda_ka_k\to0$ dans $V$.
+\begin{enumerate}[label=\arabic*.]
+  \item Montrer que si $d$ provient d'une norme, bornitude topologique et bornitude métrique (diamètre fini) coïncident.
+  \item On munit $\Cinf([0,1])$ de la distance $d_{\Cinf}(f,g)=\sum_{n\in\N}2^{-n}\big(1\wedge\norm{f-g}_{n,[0,1]}\big)$. Montrer que les parties fermées et topologiquement bornées y sont compactes (espace de Montel).
+  \item Quel résultat vu plus tôt semble en contradiction avec cet exemple ? Pourquoi, finalement, tout va bien ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1.} Soit $d(x,y)=\norm{x-y}$ et $A\ne\emptyset$. Rappelons que $A$ est de diamètre fini si et seulement si $\sup_{a\in A}\norm a<\infty$ (si $\diam A<\infty$ et $a_0\in A$, $\norm a\le\norm{a_0}+\diam A$ ; réciproquement $\norm{a-b}\le\norm a+\norm b$).
+
+$(\Rightarrow)$ Si $\norm a\le R$ pour tout $a\in A$, alors $\norm{\lambda_ka_k}=|\lambda_k|\norm{a_k}\le R|\lambda_k|\to0$.
+
+$(\Leftarrow)$ Si $A$ n'est pas bornée, on peut choisir $a_k\in A$ avec $\norm{a_k}\ge k^2$. Avec $\lambda_k:=1/k\to0$, on a $\norm{\lambda_ka_k}\ge k\not\to0$ : $A$ n'est pas topologiquement bornée.
+
+\medskip
+\noindent\textbf{2.} On note $\norm f_n:=\norm f_{n,[0,1]}=\sup|f|+\max_{1\le k\le n}\sup|f^{(k)}|$ (Exemple~2.10 ; $\norm\cdot_0$ est la norme uniforme), suite croissante de normes sur $\Cinf([0,1])$, et $d:=d_{\Cinf}$. Comme au TD2 ex.~4b, on a
+\begin{equation}\label{eq:cvCinf}
+d(f_j,f)\to0\iff\forall n\in\N,\ \norm{f_j-f}_n\to0 ,
+\end{equation}
+avec la même preuve (le terme d'indice $n$ est majoré par $2^nd$ ; réciproquement on coupe la queue de la série).
+
+\emph{Étape 1 : $A$ topologiquement bornée $\iff$ $A$ bornée pour chaque norme $\norm\cdot_n$.} Si $M_n:=\sup_{a\in A}\norm a_n<\infty$ pour tout $n$, alors pour $\lambda_k\to0$ et $a_k\in A$, $\norm{\lambda_ka_k}_n\le M_n|\lambda_k|\to0$ pour chaque $n$, donc $\lambda_ka_k\to0$ par \eqref{eq:cvCinf}. Réciproquement, si $\sup_A\norm\cdot_{n_0}=\infty$ pour un $n_0$, on prend $a_k\in A$ avec $\norm{a_k}_{n_0}\ge k^2$ et $\lambda_k=1/k$ : alors $\norm{\lambda_ka_k}_{n_0}\ge k\ge1$, donc $d(\lambda_ka_k,0)\ge2^{-n_0}\min\{1,\norm{\lambda_ka_k}_{n_0}\}=2^{-n_0}\not\to0$.
+
+\emph{Étape 2 : extraction diagonale.} Soit $A$ fermée et topologiquement bornée, et $(f_j)_j\in A^\N$. Par l'étape 1, pour tout $n$, $\sup_j\norm{f_j}_n\le M_n$. Fixons $n$. La suite $(f_j^{(n)})_j$ est bornée dans $\Cz([0,1])$ (par $M_n$) et \emph{uniformément équicontinue} : par l'inégalité des accroissements finis, $|f_j^{(n)}(x)-f_j^{(n)}(y)|\le\sup|f_j^{(n+1)}|\,|x-y|\le M_{n+1}|x-y|$, constante de Lipschitz indépendante de $j$. Le Corollaire~3.1 (Arzelà--Ascoli) permet donc d'extraire de toute sous-suite de $(f_j^{(n)})_j$ une sous-suite uniformément convergente.
+
+On procède par \emph{extraction diagonale} : on extrait $\varphi_0$ telle que $(f_{\varphi_0(j)})_j$ converge uniformément ; de celle-ci on extrait $\varphi_0\circ\varphi_1$ telle que $(f'_{\varphi_0\circ\varphi_1(j)})_j$ converge uniformément (la convergence de $(f_{\varphi_0\circ\varphi_1(j)})$ subsiste) ; et ainsi de suite : à l'étape $n$, $\Phi_n:=\varphi_0\circ\dots\circ\varphi_n$ rend uniformément convergentes les suites $(f^{(k)}_{\Phi_n(j)})_j$ pour $k\le n$. On pose enfin $\varphi(j):=\Phi_j(j)$. C'est une extractrice ($\Phi_{j+1}(j+1)=\Phi_j(\varphi_{j+1}(j+1))\ge\Phi_j(j+1)>\Phi_j(j)$) et, pour tout $n$, $(\varphi(j))_{j\ge n}$ est extraite de $\Phi_n$ (car $\Phi_j=\Phi_n\circ\varphi_{n+1}\circ\cdots\circ\varphi_j$ pour $j\ge n$). Ainsi, \emph{pour tout $n$}, $(f^{(n)}_{\varphi(j)})_j$ converge uniformément sur $[0,1]$ vers une fonction $g_n\in\Cz([0,1])$.
+
+\emph{Étape 3 : la limite est $\Cinf$ et la convergence a lieu pour $d$.} On rappelle le théorème de dérivation des limites uniformes : si $u_j\to u$ uniformément et $u_j'\to v$ uniformément sur $[0,1]$, avec $u_j\in\mathcal C^1$, alors $u\in\mathcal C^1$ et $u'=v$ (on passe à la limite dans $u_j(x)=u_j(0)+\int_0^xu_j'$). Appliqué à $u_j=f^{(n)}_{\varphi(j)}$ : $g_n\in\mathcal C^1$ et $g_n'=g_{n+1}$. Par récurrence $g_0\in\Cinf([0,1])$ et $g_0^{(n)}=g_n$ pour tout $n$. Donc $\norm{f_{\varphi(j)}-g_0}_n\le\sum_{k\le n}\norm{f^{(k)}_{\varphi(j)}-g_k}_\infty\to0$ pour tout $n$, \ie{} $d(f_{\varphi(j)},g_0)\to0$ par \eqref{eq:cvCinf}. Enfin $A$ est fermée, donc $g_0\in A$ : toute suite de $A$ a une valeur d'adhérence dans $A$, \emph{$A$ est compacte}.
+
+\medskip
+\noindent\textbf{3.} \emph{Le résultat apparemment contredit :} le théorème de Riesz (Théorème~3.1) et l'exercice~3.3 : \emph{en dimension infinie, un fermé borné n'est pas compact en général, et un compact est d'intérieur vide}. Or $\Cinf([0,1])$ est de dimension infinie et l'on vient de montrer « fermé $+$ topologiquement borné $\Rightarrow$ compact ».
+
+\emph{Pourquoi tout va bien.} Le théorème de Riesz concerne les \emph{espaces vectoriels normés}, et sa « boule unité fermée » est une boule pour la norme. Ici la distance $d$ ne provient d'aucune norme ; plus précisément, \textbf{les boules de $d$ ne sont pas topologiquement bornées}. Pour le voir, fixons $\rho\in\,]0,1[$ et $N$ avec $2^{-N}<\rho$ ; si $\norm f_N\le\rho$, alors $d(0,f)\le\sum_{n\le N}2^{-n}\rho+\sum_{n>N}2^{-n}<2\rho+\rho=3\rho$, donc
+\[
+\{f : \norm f_N\le\rho\}\subset B_d(0,3\rho).
+\]
+Or l'ensemble de gauche n'est pas borné pour $\norm\cdot_{N+1}$ : les fonctions $h_k(x):=\frac{\rho}{2}\,k^{-N}\sin(kx)$ vérifient $\norm{h_k}_N\le\frac\rho2k^{-N}(1+k^N)\le\rho$ pour $k\ge1$, mais $\sup|h_k^{(N+1)}|=\frac\rho2k\to\infty$. Par l'étape 1 de la question 2, $B_d(0,3\rho)$ n'est donc pas topologiquement bornée, et la question 2 ne dit rien sur elle. Il n'y a pas de contradiction : dans $\Cinf([0,1])$, \emph{les compacts sont bien d'intérieur vide} (un compact contenant une boule contiendrait la partie non topologiquement bornée ci-dessus, mais un compact est topologiquement borné : si $\lambda_k\to0$, $a_k\in K$, toute sous-suite de $(\lambda_ka_k)$ a une sous-sous-suite convergeant vers $\lim\lambda_k\cdot(\text{valeur d'adhérence})=0$).
+
+Autre lecture : si $d$ provenait d'une norme, la question 1 identifierait bornitude topologique et métrique, la boule unité fermée serait compacte par la question 2, et Riesz donnerait $\dim\Cinf([0,1])<\infty$, absurde. La question 2 fournit donc une nouvelle preuve que $d_{\Cinf}$ n'est pas issue d'une norme (comparer avec l'exercice~2.3).
+\end{solution}
+
+\begin{pointcle}
+Deux outils techniques à retenir : (i) \textbf{l'extraction diagonale} $\varphi(j)=\Phi_j(j)$, qui rend convergentes \emph{simultanément} une infinité dénombrable de suites, chacune extractible séparément ; (ii) \textbf{la bonne notion de borné} dans un espace à semi-normes $(p_n)$ : borné pour \emph{chaque} $p_n$, ce qui n'a rien à voir avec être contenu dans une boule de $d$. L'espace $\Cinf([0,1])$ est un \emph{espace de Montel} : la compacité y est aussi confortable qu'en dimension finie, parce que le contrôle d'\emph{une dérivée de plus} fournit toujours l'équicontinuité qui manque à Arzelà--Ascoli. Il en va de même pour $\Cinf(\Omega)$, l'espace de Schwartz $\mathcal S(\R^d)$ (Exemple~2.12) et les fonctions holomorphes (théorème de Montel).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.7 -- Pas d'élément neutre pour la convolution dans $L^1(\R^d)$}
+Montrer que la convolution, comme loi interne sur $L^1(\R^d)$, n'admet pas d'élément neutre.
+\end{exo}
+
+\begin{solution}
+Supposons par l'absurde qu'il existe $e\in L^1(\R^d)$ tel que $f\star e=f$ (presque partout) pour toute $f\in L^1(\R^d)$. Appliquons cela à $f:=\mathbf 1_{B(0,r)}$ pour $r>0$ :
+\[
+(f\star e)(x)=\int_{\R^d}\mathbf 1_{B(0,r)}(x-y)\,e(y)\,dy=\int_{B(x,r)}e(y)\,dy=:g_r(x).
+\]
+\emph{$g_r$ est continue.} Pour $x_k\to x$, $\mathbf 1_{B(x_k,r)}(y)\to\mathbf 1_{B(x,r)}(y)$ pour tout $y$ hors de la sphère $\{\norm{y-x}=r\}$, qui est de mesure nulle, et $|\mathbf 1_{B(x_k,r)}e|\le|e|\in L^1$ : par convergence dominée, $g_r(x_k)\to g_r(x)$.
+
+\emph{Conséquence de l'hypothèse.} $g_r=\mathbf 1_{B(0,r)}$ presque partout. Sur l'ouvert $B(0,r)$, la fonction continue $g_r$ est donc égale à $1$ presque partout, donc partout (l'ensemble $\{g_r\ne1\}\cap B(0,r)$ est un ouvert de mesure nulle, donc vide). En particulier
+\[
+g_r(0)=\int_{B(0,r)}e(y)\,dy=1\qquad\text{pour tout }r>0 .
+\]
+\emph{Contradiction.} Par convergence dominée (domination par $|e|\in L^1$, et $\mathbf 1_{B(0,r)}\to\mathbf 1_{\{0\}}$ ponctuellement quand $r\to0$), $\int_{B(0,r)}|e|\to\int_{\{0\}}|e|=0$. Donc $\big|\int_{B(0,r)}e\big|\to0$, ce qui contredit $\int_{B(0,r)}e=1$.
+\end{solution}
+
+\begin{commentaire}
+L'élément neutre « voulu » est la masse de Dirac $\delta_0$ : $f\star\delta_0=f$, mais $\delta_0$ est une mesure, pas une fonction de $L^1$ (elle donnerait $\int_{B(0,r)}e=1$ pour tout $r$, exactement ce que l'argument interdit à une fonction intégrable). Le Théorème~3.6 et l'exercice~3.8 montrent que l'on peut toutefois \emph{approcher} $\delta_0$ par des fonctions $\rho_n\in L^1$ : $L^1(\R^d)$ est une algèbre de Banach commutative sans unité mais avec « unité approchée ». En termes de transformée de Fourier (plus tard) : $\widehat{f\star e}=\hat f\hat e$ forcerait $\hat e=1$, incompatible avec le lemme de Riemann--Lebesgue ($\hat e\to0$ à l'infini, TD2 ex.~8).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.8 -- Approximation de l'unité générale}
+Montrer que le Théorème~3.6 reste vrai pour une approximation de l'unité quelconque au sens de la Définition~3.4 : si $p\in[1,\infty[$, $f\in L^p(\R^d)$ et $(\rho_n)$ vérifie (i) $\sup_n\norm{\rho_n}_1=:M<\infty$, (ii) $\int\rho_n=1$, (iii) $\int_{|y|>\varepsilon}|\rho_n|\to0$ pour tout $\varepsilon>0$, alors $f\star\rho_n\to f$ dans $L^p(\R^d)$. Idem pour $p=\infty$ si $f$ est uniformément continue.
+\end{exo}
+
+\begin{solution}
+Notons $\omega(\delta):=\sup_{|h|\le\delta}\norm{\tau_hf-f}_p$, qui tend vers $0$ quand $\delta\to0$ par continuité des translations (Théorème~3.5 ; pour $p=\infty$ c'est l'uniforme continuité de $f$). Le produit $f\star\rho_n$ est bien défini dans $L^p$ par l'inégalité de Young (Théorème~3.4).
+
+\emph{Étape 1 : l'inégalité clé.} Soit $\varphi\in L^1(\R^d)$ d'intégrale $1$. Grâce à $\int\varphi=1$, pour presque tout $x$,
+\[
+(f\star\varphi)(x)-f(x)=\int_{\R^d}\big(f(x-y)-f(x)\big)\varphi(y)\,dy .
+\]
+Pour $p<\infty$, on écrit $|\varphi|=|\varphi|^{1/p}|\varphi|^{1/p'}$ et l'inégalité de Hölder en $y$ donne
+\[
+\big|(f\star\varphi)(x)-f(x)\big|^p\le\norm\varphi_1^{p/p'}\int_{\R^d}\big|f(x-y)-f(x)\big|^p|\varphi(y)|\,dy .
+\]
+On intègre en $x$ et l'on applique Fubini--Tonelli (tout est positif) :
+\begin{equation}\label{eq:cle}
+\norm{f\star\varphi-f}_p^p\le\norm\varphi_1^{p/p'}\int_{\R^d}\norm{\tau_yf-f}_p^p\,|\varphi(y)|\,dy .
+\end{equation}
+C'est l'inégalité (3.7) du poly, valable \emph{sans hypothèse de support} sur $\varphi$.
+
+\emph{Étape 2 : découpage de l'intégrale.} Fixons $\delta>0$ et appliquons \eqref{eq:cle} à $\varphi=\rho_n$. On coupe l'intégrale en $|y|\le\delta$ et $|y|>\delta$ :
+\begin{itemize}
+  \item pour $|y|\le\delta$ : $\norm{\tau_yf-f}_p\le\omega(\delta)$, donc cette partie est $\le\omega(\delta)^p\norm{\rho_n}_1\le M\,\omega(\delta)^p$ ;
+  \item pour $|y|>\delta$ : $\norm{\tau_yf-f}_p\le\norm{\tau_yf}_p+\norm f_p=2\norm f_p$ (invariance par translation), donc cette partie est $\le(2\norm f_p)^p\int_{|y|>\delta}|\rho_n|$.
+\end{itemize}
+Au total,
+\[
+\norm{f\star\rho_n-f}_p^p\le M^{p/p'}\Big(M\,\omega(\delta)^p+(2\norm f_p)^p\int_{|y|>\delta}|\rho_n(y)|\,dy\Big).
+\]
+
+\emph{Étape 3 : passage à la limite en deux temps.} À $\delta$ fixé, l'hypothèse (iii) fait tendre le second terme vers $0$ quand $n\to\infty$ :
+\[
+\limsup_{n\to\infty}\norm{f\star\rho_n-f}_p^p\le M^{1+p/p'}\,\omega(\delta)^p .
+\]
+Le membre de gauche ne dépend pas de $\delta$ ; en faisant $\delta\to0$, $\omega(\delta)\to0$ et donc $\norm{f\star\rho_n-f}_p\to0$.
+
+\emph{Cas $p=\infty$, $f$ uniformément continue.} Directement, pour presque tout $x$,
+\begin{align*}
+|(f\star\rho_n)(x)-f(x)|
+&\le\int_{|y|\le\delta}|f(x-y)-f(x)|\,|\rho_n(y)|\,dy+\int_{|y|>\delta}2\norm f_\infty|\rho_n(y)|\,dy\\
+&\le M\,\omega(\delta)+2\norm f_\infty\int_{|y|>\delta}|\rho_n| ,
+\end{align*}
+et l'on conclut de la même façon.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le découpage « près de $0$ / loin de $0$ »} est le mécanisme de toute approximation de l'unité : près de $0$, c'est la \emph{continuité des translations} (régularité de $f$ en moyenne $L^p$) qui agit, avec la masse totale $M$ comme facteur ; loin de $0$, c'est la \emph{concentration} (iii) de $\rho_n$ qui agit, avec la seule borne $2\norm f_p$. Le « passage à la limite en deux temps » ($n\to\infty$ puis $\delta\to0$, via une $\limsup$) est une figure de rédaction à maîtriser. L'hypothèse de support compact du Théorème~3.6 ne servait qu'à rendre le second terme identiquement nul pour $n$ grand.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 3.9 -- Une limite simple de formes linéaires continues qui ne l'est pas}
+Dans le cadre du Contre-exemple~2.1 ($E=\R[x]$, fonctions polynomiales sur $[0,1]$, norme uniforme), montrer que la forme linéaire discontinue $P\mapsto P'(1)$ est la limite simple des formes linéaires $A_n:P\mapsto n\big(P(1-\tfrac1n)-P(1)\big)$, et que chacune de celles-ci est continue. Résoudre l'apparente contradiction avec le Corollaire~3.3.
+\end{exo}
+
+\begin{solution}
+\emph{Continuité des $A_n$.} $A_n$ est linéaire et $|A_n(P)|\le n\big(|P(1-\tfrac1n)|+|P(1)|\big)\le2n\norm P_\infty$ : $A_n\in\Lc(E,\R)$ avec $\opnorm{A_n}\le2n$.
+
+\emph{Limite simple.} Pour $P$ fixé (fonction dérivable),
+\[
+A_n(P)=-\,\frac{P(1)-P(1-\frac1n)}{\frac1n}\xrightarrow[n\to\infty]{}-P'(1)
+\]
+(taux d'accroissement). Ainsi $(A_n)$ converge simplement vers $-\delta'_1:P\mapsto-P'(1)$, et $-\delta_1'$ est discontinue, comme $\delta_1'$ (Contre-exemple~2.1 : $\delta_1'(x^k)=k$ alors que $\norm{x^k}_\infty=1$). \emph{(Au signe près, c'est bien la forme linéaire de l'énoncé ; on peut aussi remplacer $A_n$ par $-A_n$.)}
+
+\emph{L'apparente contradiction.} Le Corollaire~3.3 affirme qu'une limite simple d'opérateurs continus est continue… \emph{lorsque l'espace de départ est un espace de Banach}. Or $(\R[x],\norm\cdot_\infty)$ n'est pas complet : c'est le TD2 ex.~1 (base dénombrable $(x^k)_k$), ou directement, les sommes partielles $\sum_{k\le n}x^k/k!$ forment une suite de Cauchy (elles convergent uniformément vers $e^x$) sans limite dans $\R[x]$ (une limite uniforme de polynômes qui serait un polynôme coïnciderait avec $e^x$ sur $[0,1]$, impossible : $e^x$ n'est pas polynomiale). L'hypothèse du corollaire n'est pas satisfaite, et il n'y a pas de contradiction.
+
+\emph{Ce qui se passe vraiment.} Le mécanisme du Corollaire~3.3 est Banach--Steinhaus : la bornitude ponctuelle $\sup_n|A_n(P)|<\infty$ (vraie ici, car $(A_n(P))_n$ converge) devrait entraîner $\sup_n\opnorm{A_n}<\infty$. Or $\opnorm{A_n}=2n\to\infty$ : pour le voir, on choisit par le théorème de Weierstrass un polynôme $P$ avec $\norm P_\infty\le1$, $P(1-\tfrac1n)\approx-1$ et $P(1)\approx1$, ce qui donne $A_n(P)\approx2n$. Sans complétude, la conclusion « uniforme » de Banach--Steinhaus tombe en défaut, alors même que l'hypothèse « ponctuelle » est satisfaite.
+\end{solution}
+
+\begin{piege}
+Le théorème de Banach--Steinhaus (Théorème~3.7) et son Corollaire~3.3 sont des conséquences du lemme de Baire, donc \emph{exigent la complétude de l'espace de départ} (celle de l'espace d'arrivée est sans importance). Cet exercice est le contre-exemple canonique montrant que l'hypothèse ne peut pas être supprimée. À rapprocher du TD1 ex.~7 (piège) : sur $\R[X]$, la dérivation fournissait déjà un contre-exemple à un énoncé « à la Baire » en l'absence de complétude.
+\end{piege}
+
+\end{document}
