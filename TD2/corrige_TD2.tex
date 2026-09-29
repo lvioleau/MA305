@@ -140,7 +140,7 @@ Cette distance a deux propriétés supplémentaires qui la distinguent d'une dis
 
 \emph{Étape 2 : extractions successives.} Par le théorème de Bolzano--Weierstrass (Théorème~1.2), la suite réelle bornée $(x^{(k)}_1)_k$ admet une sous-suite convergente : il existe une extractrice $\varphi_1$ et $\ell_1\in[-R,R]$ avec $x^{(\varphi_1(k))}_1\to\ell_1$. La suite $(x^{(\varphi_1(k))}_2)_k$ est encore bornée : on en extrait une sous-suite convergente via $\varphi_2$, $x^{(\varphi_1\circ\varphi_2(k))}_2\to\ell_2$ ; la première coordonnée converge toujours vers $\ell_1$ le long de $\varphi_1\circ\varphi_2$ (sous-suite d'une suite convergente). On itère $d$ fois et l'on pose $\varphi:=\varphi_1\circ\cdots\circ\varphi_d$ (extractrice comme composée d'extractrices) : pour chaque $i\in\{1,\dots,d\}$, $x^{(\varphi(k))}_i\to\ell_i$.
 
-\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} En notant $\ell:=(\ell_1,\dots,\ell_d)$, on a
+\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} Posons $\ell:=(\ell_1,\dots,\ell_d)$. Alors
 \[
 \norm{x^{(\varphi(k))}-\ell}^2=\sum_{i=1}^d\big|x^{(\varphi(k))}_i-\ell_i\big|^2\xrightarrow[k\to\infty]{}0
 \]
@@ -284,6 +284,53 @@ Si $K=\emptyset$ il n'y a rien à dire ; supposons $K\ne\emptyset$. Il s'agit d'
 \textbf{Prouver une séparabilité} suit presque toujours ce chemin : (1) un théorème de densité fournit une partie dense « à paramètres réels » (polynômes, fonctions en escalier, suites à support fini) ; (2) on rend les paramètres rationnels, ce qui donne une partie dénombrable ; (3) on vérifie que l'approximation par des paramètres rationnels ne coûte qu'un $\varepsilon$ et l'on conclut par transitivité de la densité. Comparer avec la Proposition~2.8 (séparabilité de $L^p$) et le Corollaire~2.2 ($\ell^p$).
 \end{methode}
 
+\begin{piege}
+\textbf{On ne peut pas appliquer Stone--Weierstrass directement à $\mathcal P_\Q$.} Le Théorème~2.2 demande une \emph{sous-algèbre} de $\Cz(K;\R)$, donc en particulier un sous-espace vectoriel \emph{réel}. Or $\mathcal P_\Q$ n'est stable que par multiplication par des rationnels ($\sqrt2\cdot\mathbf 1\notin\mathcal P_\Q$) : c'est une $\Q$-algèbre, et l'hypothèse « $\R$-espace vectoriel » est réellement utilisée dans la preuve (interpolation $v_1+(v_2-v_1)\frac{g-g(a)}{g(b)-g(a)}$ avec $v_1,v_2$ réels, approximation de $|f|$ par des polynômes à coefficients réels). L'étape 3 ci-dessus est précisément ce qui remplace cette hypothèse manquante : elle montre à la main que $\adh{\mathcal P_\Q}\supset\mathcal P$.
+\end{piege}
+
+\bigskip
+\noindent\textbf{Seconde solution, sans Stone--Weierstrass : par partitions de l'unité.} Elle suit le schéma de la preuve de la Proposition~2.8 (partition fine, uniforme continuité, valeurs rationnelles), en remplaçant les indicatrices de cellules, qui ne sont pas continues, par des « fonctions chapeau » continues. Elle a l'avantage de fonctionner pour tout espace métrique compact $X$ à la place de $K\subset\R^d$.
+
+\begin{solution}[bis]
+\textbf{Lemme (partition de l'unité continue subordonnée à un recouvrement fini).} \emph{Soit $(X,d)$ un espace métrique et $U_1,\dots,U_p$ des ouverts recouvrant $X$. Il existe des fonctions continues $\varphi_1,\dots,\varphi_p:X\to[0,1]$ telles que}
+\[
+\sum_{i=1}^p\varphi_i\equiv1\qquad\text{et}\qquad\varphi_i(x)\ne0\ \Longrightarrow\ x\in U_i\quad(1\le i\le p).
+\]
+
+\emph{Preuve du lemme.} Posons $\psi_i(x):=d(X\setminus U_i,\,x)$, avec la convention $\psi_i\equiv1$ si $U_i=X$. Chaque $\psi_i$ est continue ($1$-lipschitzienne, TD1 ex.~6), positive, et $\psi_i(x)>0\iff x\notin\adh{X\setminus U_i}=X\setminus U_i\iff x\in U_i$ (Corollaire~1.1, $X\setminus U_i$ étant fermé). Comme les $U_i$ recouvrent $X$, pour tout $x$ l'un au moins des $\psi_i(x)$ est $>0$ : la somme $\Psi:=\sum_j\psi_j$ est continue et \emph{ne s'annule pas}. On pose $\varphi_i:=\psi_i/\Psi$. Alors $\varphi_i$ est continue (quotient de fonctions continues à dénominateur non nul), à valeurs dans $[0,1]$, $\sum_i\varphi_i=\Psi/\Psi=1$, et $\varphi_i(x)\ne0\iff\psi_i(x)\ne0\iff x\in U_i$. \hfill$\square$
+
+\emph{Dans le cas concret utilisé ci-dessous}, $U_i=B(x_i,2\varepsilon)$ et l'on peut prendre directement $\psi_i(x)=\max\big(0,\,2\varepsilon-d(x,x_i)\big)$ : c'est un « chapeau » de hauteur $2\varepsilon$ centré en $x_i$, nul hors de $B(x_i,2\varepsilon)$ ; la normalisation par $\Psi$ est ce qui rend l'argument indépendant de toute régularité du réseau. (Sur une grille régulière de $\R^d$ de pas $h$, les produits de fonctions tente $\prod_k\max(0,1-|x_k-(x_i)_k|/h)$ forment déjà une partition de l'unité sans normalisation ; c'est l'interpolation $Q_1$ des éléments finis.)
+
+\medskip
+\noindent\emph{Étape 1 : des réseaux finis.} Soit $X$ un espace métrique compact non vide (ici $X=K$). Pour $n\ge1$, la précompacité de $X$ (Proposition~1.13) fournit un $2^{-n}$-réseau fini $R_n=\{x^n_1,\dots,x^n_{p_n}\}$, \ie{} $X=\bigcup_iB(x^n_i,2^{-n})$. On applique le lemme au recouvrement ouvert $U_i:=B(x^n_i,2^{1-n})$ : on obtient $\varphi^n_1,\dots,\varphi^n_{p_n}$ continues, positives, de somme $1$, avec $\varphi^n_i(x)\ne0\Rightarrow d(x,x^n_i)<2^{1-n}$.
+
+\emph{Étape 2 : l'opérateur d'interpolation.} Pour $f\in\Cz(X;\R)$, posons
+\[
+I_nf:=\sum_{i=1}^{p_n}f(x^n_i)\,\varphi^n_i\ \in\Cz(X;\R).
+\]
+Soit $\omega_f(\delta):=\sup\{|f(x)-f(y)| : d(x,y)<\delta\}$ le module de continuité de $f$ ; par le théorème de Heine (Théorème~1.3), $\omega_f(\delta)\to0$ quand $\delta\to0$. Pour $x\in X$, en utilisant $\sum_i\varphi^n_i(x)=1$,
+\begin{align*}
+\big|f(x)-I_nf(x)\big|&=\Big|\sum_{i=1}^{p_n}\big(f(x)-f(x^n_i)\big)\varphi^n_i(x)\Big|
+\le\sum_{i\,:\,\varphi^n_i(x)\ne0}\big|f(x)-f(x^n_i)\big|\,\varphi^n_i(x)\\
+&\le\omega_f(2^{1-n})\sum_i\varphi^n_i(x)=\omega_f(2^{1-n}),
+\end{align*}
+car seuls contribuent les indices $i$ tels que $\varphi^n_i(x)\ne0$, pour lesquels $d(x,x^n_i)<2^{1-n}$. Donc $\norm{f-I_nf}_\infty\le\omega_f(2^{1-n})\to0$.
+
+\emph{Étape 3 : rationalisation et dénombrabilité.} Posons
+\[
+\mathcal D:=\Big\{\sum_{i=1}^{p_n}r_i\,\varphi^n_i\ :\ n\ge1,\ (r_1,\dots,r_{p_n})\in\Q^{p_n}\Big\}.
+\]
+Pour $n$ fixé, l'ensemble des combinaisons est en bijection avec $\Q^{p_n}$, dénombrable ; $\mathcal D$ est une union dénombrable (sur $n$) d'ensembles dénombrables, donc dénombrable. Il est dense : soit $f\in\Cz(X;\R)$ et $\varepsilon>0$ ; on choisit $n$ avec $\omega_f(2^{1-n})\le\varepsilon/2$, puis des rationnels $r_i$ avec $|r_i-f(x^n_i)|\le\varepsilon/2$, et $g:=\sum_ir_i\varphi^n_i\in\mathcal D$ vérifie
+\[
+\norm{f-g}_\infty\le\norm{f-I_nf}_\infty+\Big\|\sum_i\big(f(x^n_i)-r_i\big)\varphi^n_i\Big\|_\infty\le\frac\varepsilon2+\frac\varepsilon2\sup_x\sum_i\varphi^n_i(x)=\varepsilon .
+\]
+Ainsi $\Cz(X;\R)$ est séparable, pour tout espace métrique compact $X$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Pourquoi des chapeaux et non des indicatrices.} La preuve de la Proposition~2.8 approche $f$ par une fonction constante par cellules ; en norme $L^p$ c'est licite, mais pour $\norm\cdot_\infty$ l'approximant doit lui-même être continu, sinon il n'est pas dans l'espace. La partition de l'unité fournit exactement des « indicatrices continues » : positives, de somme $1$, localisées. Les deux ingrédients de fond sont les mêmes : \emph{compacité} (réseau fini, uniforme continuité) et \emph{rationalisation} des valeurs. Le lemme lui-même est le prolongement naturel du « lemme d'Urysohn métrique » (TD1 ex.~6, commentaire) et servira à nouveau pour les distributions (chapitre~6, recollement local).
+\end{pointcle}
+
 \begin{commentaire}
 \begin{itemize}
   \item Le même argument, avec $\Q+i\Q$ et le Théorème~2.3, donne la séparabilité de $\Cz(K;\C)$ ; pour $\Cz(\Sun;\C)$ on peut aussi utiliser les polynômes trigonométriques à coefficients dans $\Q+i\Q$ (Exemple~2.4).
@@ -420,26 +467,25 @@ Donc $u_n\to0$ quand $|n|\to\infty$ : $\mathbf u\in c_0(\Z)$.
 L'application $\mathcal F$ est linéaire (chaque $c_n$ l'est), et cette inégalité est le critère (iv) du Théorème~2.4 : $\mathcal F$ est continue, de norme $\le1$ (en fait $=1$ : tester $f=e_0=1$, pour laquelle $c_0(f)=1$).
 
 \medskip
-\noindent\textbf{(c)} \emph{Étape 1 : extension de $c_n$ aux fonctions en escalier.} La formule $c_n(g)=\frac1{2\pi}\int_0^{2\pi}g\,\overline{e_n}$ garde un sens pour toute fonction $g$ bornée et intégrable sur $[0,2\pi]$, avec toujours $|c_n(g)|\le\norm g_\infty$ ; en particulier
+\noindent\textbf{(c)} \emph{Étape 1 : extension de $\mathcal F$ aux fonctions en escalier, avec la même constante.} La formule $c_n(g)=\frac1{2\pi}\int_0^{2\pi}g\,\overline{e_n}$ garde un sens pour toute fonction $g$ bornée et intégrable sur $[0,2\pi]$, avec toujours $|c_n(g)|\le\norm g_\infty$. Notons $\mathcal E$ l'espace vectoriel engendré par $\Cz(\Sun;\C)$ et les fonctions en escalier, muni de la norme uniforme. L'application $\mathcal F:g\mapsto(c_n(g))_{n\in\Z}$ est linéaire de $\mathcal E$ dans $\ell^\infty(\Z)$ et
 \begin{equation}\label{eq:lip}
-|c_n(f)-c_n(g)|=|c_n(f-g)|\le\norm{f-g}_\infty .
+\norm{\mathcal F(g)-\mathcal F(h)}_\infty=\sup_n|c_n(g-h)|\le\norm{g-h}_\infty\qquad(g,h\in\mathcal E):
 \end{equation}
+$\mathcal F$ est $1$-lipschitzienne, donc continue, sur $\mathcal E$. C'est la question (b), étendue au-delà des fonctions continues ; sans cette extension, la continuité de (b) ne dirait rien des fonctions en escalier.
 
-\emph{Étape 2 : les coefficients d'une fonction en escalier tendent vers $0$.} Pour $0\le a<b\le2\pi$ et $n\ne0$,
+\emph{Étape 2 : les fonctions en escalier sont envoyées dans $c_0(\Z)$.} Pour $0\le a<b\le2\pi$ et $n\ne0$,
 \[
 c_n(\mathbf 1_{[a,b[})=\frac1{2\pi}\int_a^be^{-int}\,dt=\frac1{2\pi}\cdot\frac{e^{-inb}-e^{-ina}}{-in},
 \qquad\text{donc}\qquad
 |c_n(\mathbf 1_{[a,b[})|\le\frac1{2\pi}\cdot\frac2{|n|}\xrightarrow[|n|\to\infty]{}0 .
 \]
-Par linéarité, $c_n(g)\to0$ pour toute fonction en escalier $g$ (combinaison linéaire finie d'indicatrices d'intervalles).
+Par linéarité, $\mathcal F(g)\in c_0(\Z)$ pour toute fonction en escalier $g$ (combinaison linéaire finie d'indicatrices d'intervalles).
 
-\emph{Étape 3 : densité.} Soit $f\in\Cz(\Sun;\C)$ ; $f$ est continue sur le compact $[0,2\pi]$, donc uniformément continue (Théorème~1.3 de Heine). Soit $\varepsilon>0$ et $\delta>0$ tel que $|t-s|<\delta\Rightarrow|f(t)-f(s)|\le\varepsilon/2$. Prenons $m$ avec $2\pi/m<\delta$, $t_k:=2\pi k/m$, et $g:=\sum_{k=0}^{m-1}f(t_k)\mathbf 1_{[t_k,t_{k+1}[}$. Pour $t\in[t_k,t_{k+1}[$, $|f(t)-g(t)|=|f(t)-f(t_k)|\le\varepsilon/2$ : donc $\norm{f-g}_\infty\le\varepsilon/2$.
+\emph{Étape 3 : densité.} Soit $f\in\Cz(\Sun;\C)$ ; $f$ est continue sur le compact $[0,2\pi]$, donc uniformément continue (Théorème~1.3 de Heine). Pour $m\ge1$, posons $t_k:=2\pi k/m$ et $g_m:=\sum_{k=0}^{m-1}f(t_k)\mathbf 1_{[t_k,t_{k+1}[}$. Pour $t\in[t_k,t_{k+1}[$, $|f(t)-g_m(t)|=|f(t)-f(t_k)|\le\omega_f(2\pi/m)$, où $\omega_f$ est le module de continuité uniforme de $f$ : donc $\norm{f-g_m}_\infty\to0$.
 
-\emph{Étape 4 : conclusion.} Avec ce $g$, l'étape 2 fournit $M$ tel que $|c_n(g)|\le\varepsilon/2$ pour $|n|\ge M$. Alors, par \eqref{eq:lip}, pour $|n|\ge M$,
-\[
-|c_n(f)|\le|c_n(f)-c_n(g)|+|c_n(g)|\le\norm{f-g}_\infty+\frac\varepsilon2\le\varepsilon .
-\]
-Donc $c_n(f)\to0$ quand $|n|\to\infty$ : $\mathcal F(f)\in c_0(\Z)$.
+\emph{Étape 4 : conclusion par « dense $+$ continu $+$ fermé ».} Par l'étape 1, $\mathcal F(g_m)\to\mathcal F(f)$ dans $\ell^\infty(\Z)$ ; par l'étape 2, $\mathcal F(g_m)\in c_0(\Z)$ pour tout $m$ ; par la question (a), $c_0(\Z)$ est fermé dans $\ell^\infty(\Z)$ : la limite $\mathcal F(f)$ appartient donc à $c_0(\Z)$ (caractérisation séquentielle des fermés, Proposition~1.3).
+
+\emph{Remarque.} On peut aussi conclure « à la main » sans citer (a) : pour $\varepsilon>0$, choisir $m$ avec $\norm{f-g_m}_\infty\le\varepsilon/2$, puis $M$ avec $|c_n(g_m)|\le\varepsilon/2$ pour $|n|\ge M$, et écrire $|c_n(f)|\le|c_n(f-g_m)|+|c_n(g_m)|\le\varepsilon$. Mais cet argument $\varepsilon/2$ n'est rien d'autre que la preuve de (a) recopiée avec $\mathbf u^{(k)}=\mathcal F(g_k)$ : l'énoncé a justement posé (a) et (b) pour qu'on n'ait pas à le refaire.
 \end{solution}
 
 \begin{pointcle}
