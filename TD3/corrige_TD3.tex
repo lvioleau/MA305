@@ -1,0 +1,467 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}3 -- Espaces de Banach}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} Notations du polycopié : $\Cz(X;E)$ muni de la norme uniforme $\norm f_\infty=\sup_X\norm{f(x)}$ lorsque $X$ est compact ; $\Cc(\Omega)$ fonctions continues à support compact ; $d_{\Cz(\Omega)}$ la distance de l'Exemple~2.5 associée à une suite exhaustive de compacts $(K_n)$ (TD2 ex.~3 et~4) ; $\tau_hf=f(\cdot-h)$. La compacité est prise au sens séquentiel (Définition~1.20). Les exercices 1, 2 et 6 reprennent les Exercices 3.1, 3.4 et 3.7 du poly, également corrigés dans le TD0 ; ils sont redonnés ici pour que la feuille soit autonome.
+
+Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+\end{commentaire}
+
+\section*{Complétude}
+
+% =====================================================================
+\begin{exo}{Exercice 1 (Exercice 3.1 du poly) -- Caractérisation des Banach par les séries}
+Montrer qu'un EVN dans lequel toute série absolument convergente est convergente est un espace de Banach.
+\end{exo}
+
+\begin{solution}
+Soit $(x_n)$ une suite de Cauchy de $E$. Il s'agit de montrer qu'elle converge.
+
+\emph{Étape 1 : une sous-suite « rapidement de Cauchy ».} Pour chaque $k\in\N$, le critère de Cauchy avec $\varepsilon=2^{-k}$ fournit $N_k$ tel que $\norm{x_n-x_m}\le2^{-k}$ pour $n,m\ge N_k$. On construit par récurrence $\varphi(0):=N_0$ et $\varphi(k+1):=\max(N_{k+1},\varphi(k)+1)$ : $\varphi$ est strictement croissante et, pour tout $k$, $\varphi(k+1)>\varphi(k)\ge N_k$, donc
+\[
+\norm{x_{\varphi(k+1)}-x_{\varphi(k)}}\le2^{-k}.
+\]
+
+\emph{Étape 2 : une série télescopique absolument convergente.} Posons $u_k:=x_{\varphi(k+1)}-x_{\varphi(k)}$. Alors $\sum_k\norm{u_k}\le\sum_k2^{-k}<\infty$ : la série $\sum u_k$ est absolument convergente, donc convergente par hypothèse. Or ses sommes partielles sont télescopiques :
+\[
+\sum_{k=0}^{K-1}u_k=x_{\varphi(K)}-x_{\varphi(0)} .
+\]
+Ainsi $(x_{\varphi(K)})_K$ converge vers un certain $x\in E$.
+
+\emph{Étape 3 : une suite de Cauchy ayant une sous-suite convergente converge.} Soit $\varepsilon>0$ ; il existe $N$ tel que $\norm{x_n-x_m}\le\varepsilon$ pour $n,m\ge N$, et $K$ tel que $\varphi(K)\ge N$ et $\norm{x_{\varphi(K)}-x}\le\varepsilon$. Pour $n\ge N$, $\norm{x_n-x}\le\norm{x_n-x_{\varphi(K)}}+\norm{x_{\varphi(K)}-x}\le2\varepsilon$. Donc $x_n\to x$ : $E$ est complet.
+\end{solution}
+
+\begin{pointcle}
+Avec la Proposition~3.1, on obtient : \emph{un EVN est de Banach si et seulement si toute série absolument convergente y converge}. C'est ce critère que l'on utilise pour prouver la complétude des espaces $L^p$ (théorème de Riesz--Fischer, Section~2.4.2). Les étapes 1 et 3 sont deux lemmes généraux sur les suites de Cauchy à connaître : on peut toujours en extraire une sous-suite à écarts $\le2^{-k}$, et il suffit qu'une sous-suite converge.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 2 (Exercice 3.4 du poly) -- $\Cz(\Omega)$ est complet, $\Cc(\Omega)$ ne l'est pas}
+Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $\Cz(\Omega)$ muni de la distance $d_{\Cz(\Omega)}$ de l'Exemple~2.5 est complet (espace de Fréchet). Montrer par contre que $\Cc(\Omega)$ n'est complet ni pour la norme uniforme, ni pour $d_{\Cz(\Omega)}$.
+\end{exo}
+
+\begin{solution}
+On note $d:=d_{\Cz(\Omega)}$ et $(K_n)$ la suite exhaustive de compacts utilisée, avec $K_n\subset\interieur{K_{n+1}}$ (TD2 ex.~3, complément). On utilise librement le TD2 ex.~4 : $d(f_j,f)\to0\iff\norm{f_j-f}_{K_n}\to0$ pour tout $n$.
+
+\medskip
+\noindent\textbf{Complétude de $(\Cz(\Omega),d)$.} Soit $(f_j)_j$ une suite de Cauchy pour $d$.
+
+\emph{Étape 1 : Cauchy sur chaque compact.} Pour $n$ fixé et $j,k\in\N$, $\min\{1,\norm{f_j-f_k}_{K_n}\}\le2^nd(f_j,f_k)$. Le critère de Cauchy pour $d$ montre donc que pour $j,k$ assez grands ce minimum est $<1$ et vaut $\norm{f_j-f_k}_{K_n}$, qui tend vers $0$ : la suite des restrictions $(f_{j|K_n})_j$ est de Cauchy dans $\Cz(K_n)$ pour la norme uniforme. Cet espace est complet ($K_n$ compact, $\R$ complet, Proposition~3.3) : il existe $g_n\in\Cz(K_n)$ avec $\norm{f_j-g_n}_{K_n}\to0$.
+
+\emph{Étape 2 : recollement.} Pour $x\in K_n\subset K_{n+1}$, $g_n(x)$ et $g_{n+1}(x)$ sont toutes deux la limite de la suite numérique $(f_j(x))_j$ : $g_{n+1}=g_n$ sur $K_n$. On définit donc sans ambiguïté $f:\Omega\to\R$ par $f(x):=g_n(x)$ pour $x\in K_n$ (les $K_n$ recouvrent $\Omega$).
+
+\emph{Étape 3 : $f$ est continue.} Soit $x\in\Omega$ et $n$ avec $x\in K_n$. Sur l'\emph{ouvert} $\interieur{K_{n+1}}$, qui contient $x$, $f$ coïncide avec la fonction continue $g_{n+1}$. La continuité étant une propriété locale, $f$ est continue en $x$.
+
+\emph{Étape 4 : convergence.} Pour tout $n$, $\norm{f_j-f}_{K_n}=\norm{f_j-g_n}_{K_n}\to0$, donc $d(f_j,f)\to0$ (TD2 ex.~4b). $(\Cz(\Omega),d)$ est complet.
+
+\medskip
+\noindent\textbf{Non-complétude de $\Cc(\Omega)$.} Rappelons que $\Cc(\Omega)$ est l'ensemble des $f\in\Cz(\Omega)$ dont le support $\supp f=\adh{\{f\ne0\}}$ (adhérence prise dans $\Omega$) est compact. L'idée : construire une fonction continue sur $\Omega$, à support non compact, mais « petite hors de $K_n$ », et l'approcher par des fonctions à support compact.
+
+\emph{Une fonction cible.} Soit $F:=\R^d\setminus\Omega$ et
+\[
+f(x):=\min\{1,d(F,x)\}\,e^{-\norm x}\qquad(x\in\Omega),
+\]
+avec la convention $\min\{1,d(\emptyset,x)\}=1$. Elle est continue, strictement positive sur $\Omega$ (Corollaire~1.1), donc $\supp f=\Omega$, qui n'est pas compact (un ouvert non vide de $\R^d$ n'est jamais compact, cf.\ TD0 ex.~2.3, étape 2) : $f\notin\Cc(\Omega)$. De plus, si $x\in\Omega\setminus K_n$, alors $\norm x>n$ ou $d(F,x)<1/n$, donc
+\[
+\sup_{\Omega\setminus K_n}f\le\max\big(e^{-n},\,1/n\big)\xrightarrow[n\to\infty]{}0 .
+\]
+
+\emph{Des troncatures.} Posons $\chi_n(x):=\dfrac{d(\Omega\setminus\interieur{K_{n+1}},x)}{d(\Omega\setminus\interieur{K_{n+1}},x)+d(K_n,x)}$. Le dénominateur ne s'annule pas (les fermés $K_n$ et $\Omega\setminus\interieur{K_{n+1}}$ de $\Omega$ sont disjoints, et $d(A,x)=0\iff x\in A$ pour $A$ fermé), donc $\chi_n$ est continue, à valeurs dans $[0,1]$, vaut $1$ sur $K_n$ et $0$ hors de $\interieur{K_{n+1}}$ ; son support est contenu dans le compact $K_{n+1}$. Ainsi $f_n:=\chi_nf\in\Cc(\Omega)$, et
+\[
+\norm{f-f_n}_\infty=\sup_{\Omega}\big|(1-\chi_n)f\big|\le\sup_{\Omega\setminus K_n}f\xrightarrow[n\to\infty]{}0 .
+\]
+
+\emph{Conclusion : « complet $\Rightarrow$ fermé ».} Rappelons la moitié facile de la Proposition~1.8, valable dans \emph{tout} espace métrique $X$ (pas nécessairement complet) : \emph{une partie $A\subset X$ complète pour la distance induite est fermée dans $X$}. En effet, si $(a_n)\in A^\N$ converge dans $X$ vers $x$, elle est de Cauchy, donc converge dans $A$ vers un $a\in A$ ; par unicité de la limite dans $X$, $x=a\in A$. Par contraposée, \emph{il suffit d'exhiber une suite de $\Cc(\Omega)$ convergeant, dans un espace ambiant, vers une limite hors de $\Cc(\Omega)$}.
+
+\begin{itemize}
+  \item \emph{Norme uniforme.} Dans l'espace ambiant $\mathcal B(\Omega)$ des fonctions bornées (Remarque~2.4), ou dans $\Cz_b(\Omega)$, on a $\norm{f_n-f}_\infty\to0$ avec $f_n\in\Cc(\Omega)$ et $f\notin\Cc(\Omega)$ : $\Cc(\Omega)$ n'est pas fermé, donc pas complet.
+  \item \emph{Distance $d$.} La convergence uniforme sur $\Omega$ entraîne la convergence uniforme sur chaque $K_n$, donc $d(f_n,f)\to0$ dans l'espace ambiant $(\Cz(\Omega),d)$, dont on vient d'établir la complétude ; à nouveau $f\notin\Cc(\Omega)$, et $\Cc(\Omega)$ n'est ni fermé ni complet pour $d$.
+\end{itemize}
+
+\emph{Complément : les adhérences.} L'autre moitié de la Proposition~1.8 (fermé $\Rightarrow$ complet, dans un ambiant complet) dit que $\adh{\Cc(\Omega)}$ est, elle, complète. Pour la norme uniforme, cette adhérence est l'espace $\Cz_0(\Omega)$ des fonctions continues « nulles au bord et à l'infini », \ie{} telles que $\sup_{\Omega\setminus K_n}|g|\to0$ (le calcul ci-dessus montre $\supset$ ; pour $\subset$, une limite uniforme de fonctions à support compact vérifie cette condition par un argument $\varepsilon/2$). Pour $d$, l'adhérence est $\Cz(\Omega)$ tout entier : si $g\in\Cz(\Omega)$, alors $\chi_ng\in\Cc(\Omega)$ et $\chi_ng=g$ sur $K_m$ dès que $n\ge m$, donc $\norm{\chi_ng-g}_{K_m}=0$ pour $n\ge m$ et $d(\chi_ng,g)\to0$ par le TD2 ex.~4b : \emph{$\Cc(\Omega)$ est dense dans $(\Cz(\Omega),d)$}.
+\end{solution}
+
+\begin{pointcle}
+La preuve de complétude suit le modèle de la Proposition~3.3 : \emph{compléter « localement »} (sur chaque $K_n$), \emph{recoller}, puis vérifier que l'objet recollé est dans le bon espace. Le point délicat est l'étape 3 : la continuité de $f$ en $x\in K_n$ ne se lit pas sur $K_n$ (qui n'est pas un voisinage de $x$) mais sur $\interieur{K_{n+1}}$ ; c'est précisément pour cela qu'on a établi $K_n\subset\interieur{K_{n+1}}$ au TD2 ex.~3.
+\end{pointcle}
+
+\begin{commentaire}
+$\Cc(\Omega)$ n'est complet pour aucune de ces deux structures « raisonnables » : sa topologie naturelle (limite inductive) est plus compliquée et n'est pas métrisable ; c'est elle qui sert à définir les distributions (chapitre~6). La Remarque~2.5 du poly y fait allusion. L'adhérence de $\Cc(\Omega)$ pour la norme uniforme est l'espace $\Cz_0(\Omega)$ des fonctions continues « tendant vers $0$ au bord et à l'infini » (exactement celles qui vérifient $\sup_{\Omega\setminus K_n}|f|\to0$), qui est lui un Banach ; et son adhérence pour $d$ est $\Cz(\Omega)$ tout entier.
+\end{commentaire}
+
+\section*{Équicontinuité et compacité}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Équicontinuité et uniforme équicontinuité sur un compact}
+Soient $(X_1,d_1)$ et $(X_2,d_2)$ deux espaces métriques, $X_1$ compact, et $A\subset\Cz(X_1;X_2)$. Montrer l'équivalence entre :
+\begin{enumerate}[label=\alph*)]
+  \item $A$ est \emph{uniformément équicontinue} : $\forall\varepsilon>0,\ \exists\delta>0,\ \forall f\in A,\ \forall x,y\in X_1,\ d_1(x,y)<\delta\Rightarrow d_2(f(x),f(y))<\varepsilon$ ;
+  \item $A$ est \emph{équicontinue} : $\forall x\in X_1,\ \forall\varepsilon>0,\ \exists\delta>0,\ \forall f\in A,\ \forall y\in X_1,\ d_1(x,y)<\delta\Rightarrow d_2(f(x),f(y))<\varepsilon$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{a) $\Rightarrow$ b).} Dans a), le seuil $\delta$ ne dépend que de $\varepsilon$ ; il convient a fortiori en chaque point $x$ fixé (où l'on aurait le droit de le faire dépendre de $x$). C'est le même rapport qu'entre uniforme continuité et continuité (Exercice~1.11 du poly, TD0).
+
+\medskip
+\noindent\textbf{b) $\Rightarrow$ a), première preuve : par l'absurde et extraction.} C'est la preuve du théorème de Heine (Théorème~1.3) avec un indice supplémentaire. Supposons $A$ non uniformément équicontinue. La négation de a) fournit $\varepsilon>0$ tel que, pour tout $n\ge1$, le seuil $\delta=1/n$ ne convient pas : il existe $f_n\in A$ et $x_n,y_n\in X_1$ avec
+\[
+d_1(x_n,y_n)<\tfrac1n\qquad\text{et}\qquad d_2\big(f_n(x_n),f_n(y_n)\big)\ge\varepsilon .
+\]
+\emph{Le point à ne pas rater : la fonction $f_n$ dépend de $n$.} Par compacité de $X_1$, extrayons $x_{\varphi(n)}\to a\in X_1$ ; comme $d_1(x_n,y_n)\to0$, on a aussi $y_{\varphi(n)}\to a$. Appliquons b) \emph{au point $a$} avec $\varepsilon/2$ : il existe $\delta_a>0$ tel que, pour toute $f\in A$ et tout $z\in X_1$, $d_1(z,a)<\delta_a\Rightarrow d_2(f(z),f(a))<\varepsilon/2$. Pour $n$ assez grand, $x_{\varphi(n)}$ et $y_{\varphi(n)}$ sont dans $B(a,\delta_a)$, et en appliquant cela à $f=f_{\varphi(n)}$ (licite : $\delta_a$ ne dépend pas de $f$),
+\[
+d_2\big(f_{\varphi(n)}(x_{\varphi(n)}),f_{\varphi(n)}(y_{\varphi(n)})\big)\le d_2\big(f_{\varphi(n)}(x_{\varphi(n)}),f_{\varphi(n)}(a)\big)+d_2\big(f_{\varphi(n)}(a),f_{\varphi(n)}(y_{\varphi(n)})\big)<\varepsilon ,
+\]
+ce qui contredit l'inégalité $\ge\varepsilon$. On n'a extrait qu'une sous-suite de \emph{points}, jamais de \emph{fonctions} : l'équicontinuité au point limite remplace la continuité de « la » fonction dans Heine, et c'est là que l'uniformité en $f$ de $\delta_a$ est utilisée.
+
+\medskip
+\noindent\textbf{b) $\Rightarrow$ a), seconde preuve : par recouvrement fini (Borel--Lebesgue).} Fixons $\varepsilon>0$. Pour chaque $a\in X_1$, b) avec $\varepsilon/2$ donne $\delta_a>0$ tel que
+\begin{equation}\label{eq:equi-a}
+\forall f\in A,\ \forall z\in X_1,\qquad d_1(z,a)<\delta_a\Rightarrow d_2(f(z),f(a))<\varepsilon/2 .
+\end{equation}
+Les boules $B(a,\delta_a/2)$, $a\in X_1$, recouvrent $X_1$. Par compacité (Théorème~1.4), on en extrait un sous-recouvrement fini $B(a_1,\delta_{a_1}/2),\dots,B(a_p,\delta_{a_p}/2)$, et l'on pose
+\[
+\delta:=\tfrac12\min_{1\le k\le p}\delta_{a_k}>0 ,
+\]
+minimum d'un nombre \emph{fini} de réels strictement positifs : c'est ici que la compacité intervient. Soient $x,y\in X_1$ avec $d_1(x,y)<\delta$ et $f\in A$. Le point $x$ est dans l'une des boules, disons $d_1(x,a_k)<\delta_{a_k}/2$, et alors $d_1(y,a_k)\le d_1(y,x)+d_1(x,a_k)<\delta+\delta_{a_k}/2\le\delta_{a_k}$. On applique \eqref{eq:equi-a} au point $a_k$, pour $x$ et pour $y$, avec la même $f$ :
+\[
+d_2(f(x),f(y))\le d_2(f(x),f(a_k))+d_2(f(a_k),f(y))<\varepsilon .
+\]
+Le seuil $\delta$ ne dépend que de $\varepsilon$ : $A$ est uniformément équicontinue.
+\end{solution}
+
+\begin{pointcle}
+Le parallèle est exact avec « continue / uniformément continue » pour une seule fonction : \emph{sur un compact, les deux notions coïncident} (Heine), et c'est pour cela que beaucoup d'énoncés d'Arzelà--Ascoli disent simplement « équicontinue ». Le mécanisme est toujours le même : la compacité transforme une information \emph{locale} (un $\delta_a$ par point) en une information \emph{globale} (un $\delta$ pour tous), soit par extraction d'une sous-suite, soit par extraction d'un sous-recouvrement fini.
+\end{pointcle}
+
+\begin{piege}
+Sans compacité, l'équivalence tombe : sur $\R$, la famille $\{x\mapsto x^2+c : c\in\R\}$ est équicontinue en tout point ($\delta_a\approx\varepsilon/(2|a|+1)$) mais pas uniformément ($\delta_a\to0$ quand $|a|\to\infty$ ; ou bien $(x_n,y_n)=(n,n+\frac1n)$ partent à l'infini et l'extraction échoue). En revanche $\{x\mapsto\sin(tx) : t\in\R\}$ n'est équicontinue en aucun point : l'équicontinuité est une vraie restriction, pas une conséquence de la continuité de chaque fonction.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Bornitude et équicontinuité passent à l'adhérence}
+\begin{enumerate}[label=\alph*)]
+  \item Soit $(X,d)$ un espace métrique et $A\subset X$. Montrer que $A$ est borné si et seulement si $\adh A$ est borné.
+  \item Soient $(X_1,d_1)$, $(X_2,d_2)$ métriques, $X_1$ compact, et $A\subset\Cz(X_1;X_2)$ (muni de la distance uniforme). Montrer que $A$ est équicontinue si et seulement si $\adh A$ l'est, et de même pour l'uniforme équicontinuité.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{a)} Le sens $(\Leftarrow)$ est immédiat : $A\subset\adh A$ donc $\diam A\le\diam\adh A$. Pour $(\Rightarrow)$, montrons $\diam\adh A\le\diam A$. Soient $x,y\in\adh A$ et $\eta>0$. Par la Proposition~1.2, il existe $a,b\in A$ avec $d(x,a)<\eta$ et $d(y,b)<\eta$, d'où
+\[
+d(x,y)\le d(x,a)+d(a,b)+d(b,y)<\diam A+2\eta .
+\]
+En prenant le sup sur $x,y$ puis $\eta\to0$ : $\diam\adh A\le\diam A$. Ainsi $\diam\adh A=\diam A$, et l'un est fini si et seulement si l'autre l'est. (C'était le préliminaire du TD1 ex.~8.)
+
+\medskip
+\noindent\textbf{b)} Rappelons (Exemple~1.10) que, $X_1$ étant compact, $d_\infty(f,g):=\sup_{x\in X_1}d_2(f(x),g(x))$ est une distance sur $\Cz(X_1;X_2)$ ; l'adhérence $\adh A$ est prise pour cette distance. Dans les deux cas, $(\Leftarrow)$ est immédiat car $A\subset\adh A$ (une propriété « pour tout $f\in\adh A$ » vaut a fortiori pour tout $f\in A$).
+
+\emph{Équicontinuité $(\Rightarrow)$.} Fixons $x\in X_1$ et $\varepsilon>0$. L'équicontinuité de $A$ en $x$ avec $\varepsilon/3$ donne $\delta>0$ tel que $d_1(x,y)<\delta\Rightarrow d_2(g(x),g(y))<\varepsilon/3$ pour toute $g\in A$. Soit $f\in\adh A$ : il existe $g\in A$ avec $d_\infty(f,g)<\varepsilon/3$, \ie{} $d_2(f(z),g(z))<\varepsilon/3$ pour \emph{tout} $z\in X_1$. Alors, pour $d_1(x,y)<\delta$,
+\[
+d_2(f(x),f(y))\le d_2(f(x),g(x))+d_2(g(x),g(y))+d_2(g(y),f(y))<\frac\varepsilon3+\frac\varepsilon3+\frac\varepsilon3=\varepsilon .
+\]
+Le seuil $\delta$ ne dépend pas de $f\in\adh A$ : $\adh A$ est équicontinue en $x$.
+
+\emph{Uniforme équicontinuité $(\Rightarrow)$.} Même calcul en prenant le $\delta$ de l'uniforme équicontinuité de $A$ (indépendant de $x$) : le $\delta$ obtenu pour $\adh A$ est alors aussi indépendant de $x$. C'est l'Exercice~3.5 du poly.
+
+\emph{Remarque.} Par l'exercice~3, sur le compact $X_1$ les deux propriétés sont de toute façon équivalentes, et il suffisait de traiter l'une des deux.
+\end{solution}
+
+\begin{pointcle}
+C'est l'argument « $\varepsilon/3$ » : une propriété \emph{uniforme en la fonction} et \emph{stable par petite perturbation uniforme} passe à l'adhérence uniforme. Le même argument prouve que la limite uniforme de fonctions continues est continue. L'intérêt pratique est le Corollaire~3.1 du poly : pour appliquer Arzelà--Ascoli (Théorème~3.2), qui demande une partie \emph{fermée}, bornée et uniformément équicontinue, on remplace $\{f_n\}$ par son adhérence, et a) et b) garantissent que celle-ci vérifie encore les deux autres hypothèses. C'est exactement ce qui sert à l'exercice~5.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Compacts de $\Cz([0,1];\R)$}
+Déterminer si les ensembles suivants sont compacts dans $(\Cz([0,1];\R),\norm\cdot_\infty)$ :
+\begin{enumerate}[label=(\alph*)]
+  \item $A=\{f\text{ continue} : \norm f_\infty\le1\}$ ;
+  \item $A=\{f\text{ polynôme} : \norm f_\infty\le1\}$ ;
+  \item $A_N=\{f\text{ polynôme de degré}\le N : \norm f_\infty\le1\}$ ;
+  \item $\adh A$, où $A=\{f\text{ dérivable} : |f'|\le1\}$ ;
+  \item $\adh A$, où $A=\{f\text{ dérivable} : f(1)=2,\ |f'|\le1\}$ ;
+  \item $\adh A$, où $A=\{f : |f(0)|\le3\ \text{et}\ |f(x)-f(y)|\le5|x-y|^{1/3}\ \forall x\ne y\}$ ;
+  \item $A=\{f : |f(x)-f(y)|\le4|x-y|^2\ \forall x\ne y\}$ ;
+  \item $A=\{f : |f(1/2)|+\frac{|f(x)-f(y)|}{|x-y|^{3/2}}\le4\ \forall x\ne y\}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+L'outil est le Théorème~3.2 d'Arzelà--Ascoli, ici avec $X=[0,1]$ compact et $E=\R$ : \emph{une partie de $\Cz([0,1];\R)$ est compacte si et seulement si elle est fermée, bornée et uniformément équicontinue}. Grâce à l'exercice~4, pour une adhérence $\adh A$ il suffit de vérifier que $A$ est bornée et uniformément équicontinue. Pour montrer qu'une partie n'est pas compacte, on exhibe l'hypothèse qui manque, ou une suite sans sous-suite uniformément convergente.
+
+\medskip
+\noindent\textbf{(a) Non compact.} $A$ est la boule unité fermée : fermée et bornée. Elle n'est pas uniformément équicontinue : $f_n(x)=x^n\in A$ vérifie $f_n(1)-f_n(1-\frac1n)=1-(1-\frac1n)^n\to1-e^{-1}>0$ alors que $\frac1n\to0$. Directement : $(f_n)$ converge simplement vers $\mathbf 1_{\{1\}}$, discontinue, donc aucune sous-suite ne converge uniformément (une limite uniforme de fonctions continues est continue, et elle coïnciderait avec la limite simple). C'est aussi le théorème de Riesz (Théorème~3.1) : $\Cz([0,1])$ est de dimension infinie.
+
+\medskip
+\noindent\textbf{(b) Non compact.} Même suite $f_n(x)=x^n$, formée de polynômes de $A$ : pas de sous-suite uniformément convergente. Autre raison : $A$ n'est pas fermée. Par le théorème de Weierstrass (Exemple~2.3), $g(x)=\frac12|x-\frac12|$ est limite uniforme de polynômes $P_n$ ; comme $\norm g_\infty=\frac14$, on a $\norm{P_n}_\infty\le1$ pour $n$ grand, donc $P_n\in A$, mais $g\notin A$ (non dérivable en $\frac12$). Un compact étant fermé (Proposition~1.10), $A$ n'est pas compact.
+
+\medskip
+\noindent\textbf{(c) Compact.} Soit $E_N:=\R_N[x]$ l'espace des fonctions polynomiales de degré $\le N$ sur $[0,1]$ : c'est un sous-espace vectoriel de dimension finie $N+1$ de $\Cz([0,1])$ (une fonction polynomiale nulle sur $[0,1]$ a une infinité de racines, donc est le polynôme nul : la famille $(1,x,\dots,x^N)$ est libre). L'ensemble $A_N$ est la boule unité fermée de $(E_N,\norm\cdot_\infty)$, EVN de dimension finie : elle est compacte par le Corollaire~2.1 (fermé borné en dimension finie). La compacité est une propriété intrinsèque (Définition~1.20 ne fait intervenir que des suites de $A_N$ et la distance induite), donc $A_N$ est aussi un compact de $\Cz([0,1])$.
+
+\emph{Vérification directe via Arzelà--Ascoli.} Bornée : oui. Fermée : $E_N$ est fermé (Proposition~3.2) et la boule unité fermée est fermée, donc $A_N=E_N\cap\Bf(0,1)$ est fermé. Uniformément équicontinue : sur $E_N$ toutes les normes sont équivalentes (Théorème~2.1), en particulier $\norm{P'}_\infty\le C_N\norm P_\infty$ pour $P\in E_N$ (inégalité de Markov), donc les éléments de $A_N$ sont $C_N$-lipschitziens.
+
+\medskip
+\noindent\textbf{(d) Non compact.} Les fonctions de $A$ sont $1$-lipschitziennes (inégalité des accroissements finis), donc $A$ est uniformément équicontinue ($\delta=\varepsilon$). Mais $A$ n'est pas bornée : toutes les constantes $c\in\R$ sont dans $A$ et $\norm{c}_\infty=|c|$. Par l'exercice~4a, $\adh A$ n'est pas bornée, donc pas compacte (Proposition~1.10).
+
+\medskip
+\noindent\textbf{(e) Compact.} \emph{Bornée :} pour $f\in A$ et $x\in[0,1]$, $|f(x)|\le|f(1)|+|f(x)-f(1)|\le2+|x-1|\le3$. \emph{Uniformément équicontinue :} $|f(x)-f(y)|\le|x-y|$ (accroissements finis). Par l'exercice~4, $\adh A$ est bornée, uniformément équicontinue, et fermée par construction : Arzelà--Ascoli donne la compacité de $\adh A$. (Le TD ne demande pas d'identifier $\adh A$ ; c'est l'ensemble des fonctions $1$-lipschitziennes valant $2$ en $1$, les fonctions lipschitziennes non dérivables étant limites uniformes de fonctions $\mathcal C^1$ de même constante, par régularisation.)
+
+\medskip
+\noindent\textbf{(f) Compact.} \emph{Bornée :} $|f(x)|\le|f(0)|+5|x|^{1/3}\le8$. \emph{Uniformément équicontinue :} $|f(x)-f(y)|\le5|x-y|^{1/3}<\varepsilon$ dès que $|x-y|<(\varepsilon/5)^3$, seuil indépendant de $f$ (les fonctions sont \emph{höldériennes} d'exposant $\frac13$ avec constante commune). Donc $\adh A$ est compact. Ici on peut même vérifier que $A$ est déjà fermée : si $f_n\to f$ uniformément avec $f_n\in A$, les inégalités $|f_n(0)|\le3$ et $|f_n(x)-f_n(y)|\le5|x-y|^{1/3}$ passent à la limite \emph{ponctuellement} ; donc $\adh A=A$ est compact.
+
+\medskip
+\noindent\textbf{(g) Non compact.} L'exposant $2>1$ force la constance : pour $x\in[0,1]$ et $h\ne0$,
+\[
+\Big|\frac{f(x+h)-f(x)}{h}\Big|\le4|h|\xrightarrow[h\to0]{}0 ,
+\]
+donc $f$ est dérivable de dérivée nulle, donc constante. Ainsi $A=\{c\cdot\mathbf 1 : c\in\R\}$ est une droite vectorielle : fermée (dimension finie, Proposition~3.2), uniformément équicontinue, mais \emph{non bornée}. Pas compact.
+
+\medskip
+\noindent\textbf{(h) Compact.} Même argument avec l'exposant $\frac32>1$ : la condition $\frac{|f(x)-f(y)|}{|x-y|^{3/2}}\le4-|f(\frac12)|\le4$ force $f$ constante. La condition se réduit alors à $|f(\frac12)|\le4$ (le quotient est nul), donc $A=\{c\cdot\mathbf 1 : |c|\le4\}$. C'est l'image du compact $[-4,4]$ par l'application continue (isométrique) $c\mapsto c\cdot\mathbf 1$ : compact par le Théorème~1.3. Directement : $A$ est un segment d'une droite, fermé, borné, dans un sous-espace de dimension $1$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le réflexe Arzelà--Ascoli.} Devant une partie de $\Cz(K)$, on passe en revue les trois hypothèses : (1) \emph{bornée} — chercher si des constantes arbitraires sont admises (d, g) ; (2) \emph{uniformément équicontinue} — une borne commune sur la dérivée, une constante de Lipschitz ou de Hölder commune la fournit (d--h), la seule bornitude jamais (a, b : les $x^n$) ; (3) \emph{fermée} — automatique pour une adhérence, à vérifier sinon (b n'est pas fermé, f l'est car les inégalités définissantes passent à la limite simple). Deux pièges d'énoncé : un exposant de Hölder $>1$ ne définit que des constantes (g, h), et « polynôme de degré $\le N$ » place en dimension finie, où fermé borné suffit (c).
+\end{pointcle}
+
+\begin{commentaire}
+Le contraste (a)/(c) est le théorème de Riesz en action : la boule unité de $\R_N[x]$ est compacte pour tout $N$, celle de $\Cz([0,1])=\adh{\bigcup_N\R_N[x]}$ ne l'est pas. Le contraste (d)/(e) montre que l'équicontinuité ne contrôle que les \emph{oscillations} ; il faut une information ponctuelle (une valeur fixée, $f(1)=2$ ou $|f(0)|\le3$) pour contrôler la \emph{position}. C'est la structure de tous les critères de compacité en analyse : « contrôle d'une dérivée (ou d'un module de continuité) $+$ contrôle en un point ».
+\end{commentaire}
+
+\section*{Convolution et opérateurs}
+
+% =====================================================================
+\begin{exo}{Exercice 6 (Exercice 3.7 du poly) -- Pas d'élément neutre pour la convolution dans $L^1(\R^d)$}
+Montrer que la convolution, comme loi interne sur $L^1(\R^d)$, n'admet pas d'élément neutre.
+\end{exo}
+
+\begin{solution}
+Supposons par l'absurde qu'il existe $e\in L^1(\R^d)$ tel que $f\star e=f$ (presque partout) pour toute $f\in L^1(\R^d)$. Appliquons cela à $f:=\mathbf 1_{B(0,r)}$ pour $r>0$ :
+\[
+(f\star e)(x)=\int_{\R^d}\mathbf 1_{B(0,r)}(x-y)\,e(y)\,dy=\int_{B(x,r)}e(y)\,dy=:g_r(x).
+\]
+\emph{$g_r$ est continue.} Pour $x_k\to x$, $\mathbf 1_{B(x_k,r)}(y)\to\mathbf 1_{B(x,r)}(y)$ pour tout $y$ hors de la sphère $\{\norm{y-x}=r\}$, qui est de mesure nulle, et $|\mathbf 1_{B(x_k,r)}e|\le|e|\in L^1$ : par convergence dominée, $g_r(x_k)\to g_r(x)$.
+
+\emph{Conséquence de l'hypothèse.} $g_r=\mathbf 1_{B(0,r)}$ presque partout. Sur l'ouvert $B(0,r)$, la fonction continue $g_r$ est donc égale à $1$ presque partout, donc partout (l'ensemble $\{g_r\ne1\}\cap B(0,r)$ est un ouvert de mesure nulle, donc vide). En particulier
+\[
+g_r(0)=\int_{B(0,r)}e(y)\,dy=1\qquad\text{pour tout }r>0 .
+\]
+\emph{Contradiction.} Par convergence dominée (domination par $|e|\in L^1$, et $\mathbf 1_{B(0,r)}\to\mathbf 1_{\{0\}}$ ponctuellement quand $r\to0$), $\int_{B(0,r)}|e|\to\int_{\{0\}}|e|=0$. Donc $\big|\int_{B(0,r)}e\big|\to0$, ce qui contredit $\int_{B(0,r)}e=1$.
+\end{solution}
+
+\begin{commentaire}
+L'élément neutre « voulu » est la masse de Dirac $\delta_0$ : $f\star\delta_0=f$, mais $\delta_0$ est une mesure, pas une fonction de $L^1$ (elle donnerait $\int_{B(0,r)}e=1$ pour tout $r$, exactement ce que l'argument interdit à une fonction intégrable). Le Théorème~3.6 et l'Exercice~3.8 du poly (TD0) montrent que l'on peut toutefois \emph{approcher} $\delta_0$ par des fonctions $\rho_n\in L^1$ : $L^1(\R^d)$ est une algèbre de Banach commutative sans unité mais avec « unité approchée ». En termes de transformée de Fourier (plus tard) : $\widehat{f\star e}=\hat f\hat e$ forcerait $\hat e=1$, incompatible avec le lemme de Riemann--Lebesgue ($\hat e\to0$ à l'infini, TD2 ex.~8).
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Convolution $L^p\star L^{p'}$}
+Soient $1\le p,q\le\infty$ avec $\frac1p+\frac1q=1$, $f\in L^p(\R^d)$ et $g\in L^q(\R^d)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f\star g$ est bornée et uniformément continue.
+  \item Montrer que si $1<p,q<\infty$, $f\star g$ tend vers $0$ à l'infini.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Définition en tout point et bornitude.} Pour $x\in\R^d$ fixé, la fonction $y\mapsto f(x-y)$ est dans $L^p$ avec la même norme que $f$ (invariance de la mesure de Lebesgue par $y\mapsto x-y$), donc par l'inégalité de Hölder $y\mapsto f(x-y)g(y)$ est intégrable et
+\[
+|(f\star g)(x)|=\Big|\int_{\R^d}f(x-y)g(y)\,dy\Big|\le\norm{f(x-\cdot)}_p\norm g_q=\norm f_p\norm g_q .
+\]
+Ainsi $f\star g$ est définie \emph{en tout point} (et pas seulement presque partout) et $\norm{f\star g}_\infty\le\norm f_p\norm g_q$.
+
+\emph{Uniforme continuité, cas $p<\infty$.} Pour $x,h\in\R^d$, avec la notation $\tau_hf=f(\cdot-h)$ (Définition~3.3),
+\[
+(f\star g)(x+h)-(f\star g)(x)=\int_{\R^d}\big(f(x+h-y)-f(x-y)\big)g(y)\,dy=\big((\tau_{-h}f-f)\star g\big)(x),
+\]
+donc, par la bornitude appliquée à $\tau_{-h}f-f\in L^p$,
+\[
+\sup_{x\in\R^d}|(f\star g)(x+h)-(f\star g)(x)|\le\norm{\tau_{-h}f-f}_p\norm g_q\xrightarrow[h\to0]{}0
+\]
+par continuité des translations dans $L^p$, $p<\infty$ (Théorème~3.5). La majoration est uniforme en $x$ : c'est l'uniforme continuité.
+
+\emph{Cas $p=\infty$.} Alors $q=1$ et le théorème~3.5 ne s'applique pas à $f$ (les translations ne sont pas continues dans $L^\infty$ : penser à $\mathbf 1_{[0,1]}$). On utilise la commutativité $f\star g=g\star f$ (changement de variable $y\mapsto x-y$) et l'on refait le calcul en translatant $g\in L^1$ : $\sup_x|(f\star g)(x+h)-(f\star g)(x)|\le\norm f_\infty\norm{\tau_{-h}g-g}_1\to0$.
+
+\medskip
+\noindent\textbf{(b)} On suppose $1<p,q<\infty$. Notons $\Cz_0(\R^d)$ l'espace des fonctions continues tendant vers $0$ à l'infini.
+
+\emph{Étape 1 : le cas des fonctions à support compact.} Si $\varphi,\psi\in\Cc(\R^d)$ ont leurs supports dans $B(0,R)$, alors $(\varphi\star\psi)(x)=\int\varphi(x-y)\psi(y)\,dy$ est nul dès que $|x|\ge2R$ : pour $|y|<R$ on a $|x-y|>R$ et $\varphi(x-y)=0$. Donc $\varphi\star\psi\in\Cc(\R^d)\subset\Cz_0(\R^d)$.
+
+\emph{Étape 2 : densité et continuité.} Par le Théorème~A.4, $\Cc(\R^d)$ est dense dans $L^p$ et dans $L^q$ \emph{car $p,q<\infty$}. Soit $\varepsilon>0$, et $\varphi,\psi\in\Cc(\R^d)$ avec $\norm{f-\varphi}_p\le\varepsilon$ et $\norm{g-\psi}_q\le\varepsilon$. Par bilinéarité et la borne de (a),
+\[
+\norm{f\star g-\varphi\star\psi}_\infty\le\norm{(f-\varphi)\star g}_\infty+\norm{\varphi\star(g-\psi)}_\infty\le\varepsilon\norm g_q+\big(\norm f_p+\varepsilon\big)\varepsilon .
+\]
+Donc $f\star g$ est limite uniforme de fonctions de $\Cc(\R^d)$.
+
+\emph{Étape 3 : $\Cz_0(\R^d)$ est fermé pour la norme uniforme.} Si $u_n\to u$ uniformément avec $u_n\in\Cz_0$, pour $\varepsilon>0$ on prend $n$ avec $\norm{u-u_n}_\infty\le\varepsilon/2$, puis $R$ avec $|u_n(x)|\le\varepsilon/2$ pour $|x|\ge R$ ; alors $|u(x)|\le\varepsilon$ pour $|x|\ge R$. (C'est l'argument du TD2 ex.~8a pour $c_0(\Z)$.) Par conséquent $f\star g\in\Cz_0(\R^d)$.
+\end{solution}
+
+\begin{pointcle}
+Encore le principe « \textbf{dense $+$ continu $+$ fermé} » (TD2 ex.~8) : la propriété « tend vers $0$ à l'infini » est vraie sur une partie dense ($\Cc\times\Cc$), elle est stable par limite uniforme ($\Cz_0$ fermé), et la convolution est continue $L^p\times L^q\to L^\infty$ (c'est (a), qui est un énoncé de \emph{continuité bilinéaire}, Proposition~2.2). En (a), l'uniforme continuité provient de la continuité des translations, \ie{} de la régularité « en moyenne » d'une fonction $L^p$ : la convolution \emph{régularise}, une fonction $L^p$ quelconque convolée avec une fonction $L^{p'}$ devient continue.
+\end{pointcle}
+
+\begin{piege}
+L'hypothèse $1<p,q<\infty$ de (b) est indispensable : pour $p=1$, $q=\infty$, $f=\mathbf 1_{[0,1]^d}$ et $g\equiv1$ donnent $f\star g\equiv1$, qui ne tend pas vers $0$. Ce qui casse est la densité de $\Cc$ dans $L^\infty$ (fausse : l'adhérence uniforme de $\Cc$ est $\Cz_0\subsetneq L^\infty$). Noter aussi que (a) reste vrai pour $\{p,q\}=\{1,\infty\}$, mais qu'il faut translater le facteur $L^1$ et non le facteur $L^\infty$.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Une forme linéaire de norme $1$ qui n'atteint pas sa norme}
+Soit $(a_n)_{n\in\N}$ une suite de $]0,1[$ tendant vers $0$. On définit sur $\ell^1(\N)$ la forme linéaire $\langle\ell_a,\mathbf x\rangle:=\sum_{n\in\N}(1-a_n)x_n$.
+\begin{enumerate}[label=\alph*)]
+  \item Montrer que $\norm{\ell_a}_{\Lc(\ell^1(\N),\R)}=1$.
+  \item Montrer que pour tout $\mathbf x$ de la sphère unité de $\ell^1(\N)$, $\langle\ell_a,\mathbf x\rangle<1$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{a)} \emph{Bonne définition et majoration.} Pour $\mathbf x\in\ell^1(\N)$, comme $0<1-a_n<1$,
+\[
+\sum_n|(1-a_n)x_n|\le\sum_n|x_n|=\norm{\mathbf x}_1<\infty ,
+\]
+donc la série définissant $\langle\ell_a,\mathbf x\rangle$ converge absolument, $\ell_a$ est bien définie, linéaire (linéarité de la somme d'une série), et $|\langle\ell_a,\mathbf x\rangle|\le\norm{\mathbf x}_1$ : $\ell_a$ est continue de norme $\le1$ (Théorème~2.4, TD2 ex.~6).
+
+\emph{Minoration par des vecteurs tests.} Pour $k\in\N$, la suite $\mathbf e^k$ (nulle sauf un $1$ en position $k$) vérifie $\norm{\mathbf e^k}_1=1$ et $\langle\ell_a,\mathbf e^k\rangle=1-a_k$. Donc $\norm{\ell_a}\ge1-a_k$ pour tout $k$, et comme $a_k\to0$, $\norm{\ell_a}\ge1$. Finalement $\norm{\ell_a}=1$.
+
+\medskip
+\noindent\textbf{b)} Soit $\norm{\mathbf x}_1=1$. Alors
+\[
+\langle\ell_a,\mathbf x\rangle\le\sum_n(1-a_n)|x_n|=\sum_n|x_n|-\sum_na_n|x_n|=1-\sum_na_n|x_n| .
+\]
+Comme $\mathbf x\ne0$, il existe $n_0$ avec $|x_{n_0}|>0$, et $a_{n_0}>0$ : la dernière somme est $\ge a_{n_0}|x_{n_0}|>0$. Donc $\langle\ell_a,\mathbf x\rangle<1$. (Pour des suites complexes, le même calcul donne $|\langle\ell_a,\mathbf x\rangle|<1$.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le sup définissant une norme d'opérateur n'est pas toujours atteint.} Ici $\norm{\ell_a}=\sup_{\norm{\mathbf x}_1=1}|\langle\ell_a,\mathbf x\rangle|=1$ est approché (par les $\mathbf e^k$, $k\to\infty$) mais jamais atteint. Comparer : sur un espace de dimension finie, la sphère unité est compacte et le sup est toujours un max (Corollaire~1.3) ; sur $\ell^1$, la sphère unité n'est pas compacte (Riesz) et les $\mathbf e^k$ « fuient » sans converger. Le TD2 ex.~7 (norme de $\Phi_N$) présentait le même phénomène dans $\Cz(\Sun)$.
+\end{pointcle}
+
+\begin{commentaire}
+Le poly (Exercice~5.1) identifiera le dual de $\ell^1(\N)$ à $\ell^\infty(\N)$ : $\ell_a$ correspond à la suite $\mathbf u=(1-a_n)_n\in\ell^\infty$, dont la norme $\sup_n(1-a_n)=1$ est elle-même un sup non atteint. Une forme linéaire $\mathbf u\in\ell^\infty$ atteint sa norme sur $\ell^1$ si et seulement si $|u_n|=\norm{\mathbf u}_\infty$ pour au moins un $n$. Le théorème de James (hors programme) affirme que dans un espace de Banach \emph{non réflexif} il existe toujours des formes linéaires continues n'atteignant pas leur norme, alors que dans un espace réflexif (par exemple $\ell^p$, $1<p<\infty$, ou un Hilbert) toutes l'atteignent.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 9 -- Limite simple d'une suite d'opérateurs}
+Soient $(X,\norm\cdot_X)$ et $(Y,\norm\cdot_Y)$ deux EVN sur $\C$, $(f_n)_{n\ge1}\subset\Lc(X,Y)$ une suite convergeant en tout point, et $f(x):=\lim_nf_n(x)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f$ est linéaire.
+  \item Montrer que $\sup_{\norm x_X=1}\norm{f(x)}_Y\le\liminf_n\norm{f_n}_{\Lc(X,Y)}$.
+  \item Montrer par un contre-exemple que $f$ n'est pas forcément continue.
+  \item Montrer que $f$ est continue si $X$ est complet, ou si $(f_n)$ possède une sous-suite bornée.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $x,y\in X$ et $\lambda\in\C$, on a $f_n(\lambda x+y)=\lambda f_n(x)+f_n(y)$ pour tout $n$. Le membre de gauche tend vers $f(\lambda x+y)$ ; le membre de droite tend vers $\lambda f(x)+f(y)$ car les opérations de $Y$ sont continues (si $u_n\to u$ et $v_n\to v$, alors $\lambda u_n+v_n\to\lambda u+v$, par $\norm{\lambda u_n+v_n-\lambda u-v}\le|\lambda|\norm{u_n-u}+\norm{v_n-v}$). Par unicité de la limite, $f(\lambda x+y)=\lambda f(x)+f(y)$.
+
+\medskip
+\noindent\textbf{(b)} Soit $x$ avec $\norm x_X=1$. Pour tout $n$, $\norm{f_n(x)}_Y\le\norm{f_n}_{\Lc(X,Y)}\norm x_X=\norm{f_n}_{\Lc(X,Y)}$. Par continuité de la norme ($1$-lipschitzienne, Remarque~2.2), $\norm{f_n(x)}_Y\to\norm{f(x)}_Y$ ; en passant à la limite inférieure dans l'inégalité (si $u_n\le v_n$ pour tout $n$, alors $\liminf u_n\le\liminf v_n$, et ici $\liminf u_n=\lim u_n$),
+\[
+\norm{f(x)}_Y\le\liminf_{n\to\infty}\norm{f_n}_{\Lc(X,Y)} .
+\]
+Le membre de droite ne dépend pas de $x$ ; on prend le sup sur la sphère unité. Noter que cette $\liminf$ peut valoir $+\infty$ (auquel cas l'énoncé est vide) : c'est précisément la situation de (c).
+
+\medskip
+\noindent\textbf{(c)} Prenons $X=c_{<\infty}(\N)$, l'espace des suites complexes à support fini, muni de la norme $\norm\cdot_\infty$, $Y=\C$, et
+\[
+f_n(\mathbf x):=\sum_{k=0}^nk\,x_k .
+\]
+Chaque $f_n$ est linéaire et continue : $|f_n(\mathbf x)|\le\big(\sum_{k\le n}k\big)\norm{\mathbf x}_\infty$. Pour $\mathbf x\in c_{<\infty}$, nulle au-delà d'un rang $K$, on a $f_n(\mathbf x)=\sum_{k\le K}kx_k$ dès que $n\ge K$ : la suite $(f_n(\mathbf x))_n$ est stationnaire, donc convergente, de limite $f(\mathbf x)=\sum_kkx_k$ (somme finie). Mais $f$ n'est pas continue : $f(\mathbf e^k)=k$ avec $\norm{\mathbf e^k}_\infty=1$, donc $f$ n'est pas bornée sur la sphère unité (Théorème~2.4 (iii)). Ici $\norm{f_n}=\sum_{k\le n}k\to\infty$, en cohérence avec (b).
+
+\emph{Variante :} l'Exercice~3.9 du poly (TD0) : $X=\R[x]$ sur $[0,1]$ avec la norme uniforme, $A_n(P)=n(P(1-\frac1n)-P(1))\to-P'(1)$, forme linéaire discontinue.
+
+\medskip
+\noindent\textbf{(d)} \emph{Si $X$ est complet.} Pour tout $x$, la suite $(f_n(x))_n$ converge, donc est bornée : la famille $(f_n)_n$ est \emph{ponctuellement bornée}. Le théorème de Banach--Steinhaus (Théorème~3.7), applicable car $X$ est un espace de Banach, donne $M:=\sup_n\norm{f_n}_{\Lc(X,Y)}<\infty$. Alors par (b), $\sup_{\norm x=1}\norm{f(x)}_Y\le\liminf\norm{f_n}\le M<\infty$ : $f$ est bornée sur la sphère unité, donc continue (Théorème~2.4), avec $\norm f\le\liminf\norm{f_n}$. C'est le Corollaire~3.3.
+
+\emph{Si $(f_n)$ a une sous-suite bornée.} Soit $(f_{\varphi(n)})_n$ avec $\norm{f_{\varphi(n)}}\le M$ pour tout $n$. Pour tout $x$, $f(x)=\lim_nf_{\varphi(n)}(x)$ (sous-suite d'une suite convergente) et $\norm{f_{\varphi(n)}(x)}_Y\le M\norm x_X$ ; en passant à la limite, $\norm{f(x)}_Y\le M\norm x_X$. Donc $f$ est continue, sans aucune hypothèse de complétude. (De façon équivalente : $\liminf_n\norm{f_n}\le\liminf_n\norm{f_{\varphi(n)}}\le M$, et l'on conclut par (b).)
+\end{solution}
+
+\begin{pointcle}
+Ce qui manque dans (c) est exactement ce que Banach--Steinhaus fournit dans (d) : \textbf{passer d'une borne ponctuelle à une borne uniforme}, et cela exige la complétude de l'espace de \emph{départ} (l'espace d'arrivée ne joue aucun rôle ; le contre-exemple a $Y=\C$ complet). La seconde hypothèse de (d) court-circuite Banach--Steinhaus : si l'on connaît déjà une borne uniforme le long d'une sous-suite, la limite est continue. Le contre-exemple de (c) vit sur $c_{<\infty}(\N)$, qui n'est complet pour aucune norme (TD2 ex.~1 : base dénombrable $(\mathbf e^k)_k$).
+\end{pointcle}
+
+\begin{commentaire}
+L'inégalité (b) est une \emph{semi-continuité inférieure} : la norme d'opérateur ne peut que « descendre » par passage à la limite simple, et elle peut descendre strictement. Exemple : sur $\ell^2(\N)$, les projections $f_n(\mathbf x)=x_n\mathbf e^n$ vérifient $\norm{f_n}=1$ et $f_n(\mathbf x)\to0$ pour tout $\mathbf x$ (car $x_n\to0$), donc $f=0$ et $\norm f=0<1=\liminf\norm{f_n}$. La convergence simple d'opérateurs (« convergence forte ») est donc beaucoup plus faible que la convergence en norme dans $\Lc(X,Y)$ ; c'est le début du chapitre~4.
+\end{commentaire}
+
+\end{document}
