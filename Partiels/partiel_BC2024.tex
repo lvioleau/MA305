@@ -1,0 +1,257 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Partiel 2024--2025, groupes BC -- Sujet et corrigé détaillé}
+\author{}
+\date{Entraînement, octobre 2026}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Mode d'emploi.} Sujet d'origine : Sorbonne Université, M1, 4M005, partiel des groupes BC, novembre 2024 ; barème sur 20 (Ex.~1 : 5, Ex.~2 : 10, Ex.~3 : 5, Ex.~4 : 10 -- le total officiel fait 30, on rapporte à 20). Durée conseillée : \textbf{2\,h sans document}, copie rédigée au propre, avant d'ouvrir la partie « Corrigé ».
+
+\textbf{Programme couvert.} Ex.~1 : chapitre 3 (Banach--Steinhaus) et chapitre 4 (Riesz). Ex.~2 : chapitre 4 (bases hilbertiennes, convergence faible). Ex.~3 : chapitre 3 (Arzelà--Ascoli). Ex.~4 : chapitre 1 (compacité dans $\R^d$). Si le chapitre 4 n'est pas encore vu, composer sur les exercices 1.1, 3 et 4 (barème /13) et revenir sur l'exercice 2 plus tard.
+
+\textbf{Correspondance avec les TD}, à lire \emph{après} avoir composé : Ex.~3 est une variante du TD3 ex.~5 (la borne ponctuelle $f(1)=2$ est remplacée par une borne intégrale) ; Ex.~4 est le TD1 ex.~6 et ex.~11 (commentaire) et le TD0 ex.~1.1 ; Ex.~2 est l'Exercice~4.10 du poly et la Proposition~4.8.
+\end{commentaire}
+
+\section*{Sujet}
+
+\begin{exo}{Exercice 1 -- Questions de cours (5 points)}
+\begin{enumerate}[label=\arabic*.]
+  \item (2 pts) Énoncer le théorème de Banach--Steinhaus.
+  \item (3 pts) Énoncer et démontrer le théorème de représentation de Riesz dans les espaces de Hilbert.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Question de TD (10 points)}
+Soit $H$ un espace de Hilbert séparable et $(e_n)_{n\ge1}$ une base hilbertienne de $H$. On note $\langle\cdot,\cdot\rangle$ le produit scalaire et $\norm\cdot$ la norme associée.
+\begin{enumerate}[label=\arabic*.]
+  \item (3 pts) Soit $(f_n)$ une suite bornée de $H$ telle que $\langle f_n,e_k\rangle\to0$ pour tout $k\ge1$. Montrer que $f_n\rightharpoonup0$.
+  \item (2 pts) Montrer que $e_n\rightharpoonup0$.
+  \item (2 pts) Soit $(a_n)_{n\ge1}$ une suite de scalaires. Donner une condition nécessaire et suffisante pour que la série $\sum_{n\ge1}a_ne_n$ converge dans $H$.
+  \item (2 pts) On suppose que la série converge et l'on pose $x:=\sum_{n=1}^\infty a_ne_n$. Calculer $a_n$ en fonction de $x$, et $\norm x$ en fonction de $(a_n)$.
+  \item (1 pt) Montrer que $a_n\to0$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 (5 points)}
+Soit
+\[
+A:=\Big\{f\in\mathcal C^1([0,1];\R)\ :\ \Big|\int_0^1f(x)\,dx\Big|\le1\ \text{ et }\ |f'(x)|\le1\ \text{pour tout }x\in[0,1]\Big\}.
+\]
+Déterminer si $A$ est compact ou non dans $\Cz([0,1];\R)$ muni de la norme uniforme.
+\end{exo}
+
+\begin{exo}{Exercice 4 (10 points)}
+Soit $E=\R^d$ ($d\ge1$) muni d'une norme $\norm\cdot$ et $A$ une partie non vide de $E$. Pour $x_0\in E$ on pose $d(x_0,A):=\inf_{x\in A}\norm{x-x_0}$.
+\begin{enumerate}[label=\arabic*.]
+  \item (3 pts) Montrer que $x_0\mapsto d(x_0,A)$ est continue sur $E$.
+  \item (2 pts) On suppose $A$ compact. Montrer que pour tout $x_0\in E$ il existe $a_0\in A$ tel que $d(x_0,A)=\norm{a_0-x_0}$.
+  \item (3 pts) Montrer que le résultat précédent reste vrai si l'on suppose seulement $A$ fermé.
+  \item (2 pts) En déduire que si $A$ est un fermé et $B$ un compact de $E$, disjoints, il existe $\delta>0$ tel que $\norm{x-y}\ge\delta$ pour tous $x\in A$, $y\in B$.
+\end{enumerate}
+\end{exo}
+
+\newpage
+\section*{Corrigé}
+
+% =====================================================================
+\subsection*{Exercice 1 -- Questions de cours}
+
+\begin{solution}
+\textbf{1. Banach--Steinhaus (Théorème~3.7).} \emph{Soient $(E,\norm\cdot_E)$ un espace de Banach, $(F,\norm\cdot_F)$ un EVN et $(T_i)_{i\in I}$ une famille de $\Lc(E,F)$. Si la famille est ponctuellement bornée, $\forall x\in E,\ \sup_{i\in I}\norm{T_i(x)}_F<\infty$, alors elle est bornée en norme d'opérateur : $\sup_{i\in I}\opnorm{T_i}_{E\to F}<\infty$.}
+
+\textbf{2. Représentation de Riesz (Théorème~4.6).} \emph{Soit $H$ un espace de Hilbert. Pour toute forme linéaire continue $\ell\in\Lc(H,\K)$ il existe un unique $y\in H$ tel que $\ell(x)=\langle x,y\rangle$ pour tout $x\in H$ ; de plus $\norm\ell_{\Lc(H,\K)}=\norm y$.}
+
+\emph{Preuve.} \emph{Unicité :} si $\langle x,y\rangle=\langle x,y'\rangle$ pour tout $x$, alors $\langle x,y-y'\rangle=0$ pour tout $x$, en particulier pour $x=y-y'$, d'où $\norm{y-y'}^2=0$.
+
+\emph{Existence.} Si $\ell=0$, $y=0$ convient. Sinon, $N:=\Ker\ell$ est un sous-espace fermé (image réciproque du fermé $\{0\}$ par une application continue), strict. Par le théorème de projection orthogonale (Corollaire~4.1), $H=N\oplus N^\perp$ avec $N^\perp\ne\{0\}$ ; choisissons $z\in N^\perp$ avec $\norm z=1$. Pour $x\in H$, le vecteur $\ell(x)z-\ell(z)x$ est dans $N$ (sa valeur par $\ell$ est $\ell(x)\ell(z)-\ell(z)\ell(x)=0$), donc orthogonal à $z$ :
+\[
+0=\langle\ell(x)z-\ell(z)x,\,z\rangle=\ell(x)\norm z^2-\ell(z)\langle x,z\rangle ,
+\qquad\text{soit}\qquad \ell(x)=\langle x,\,\overline{\ell(z)}\,z\rangle .
+\]
+On pose $y:=\overline{\ell(z)}z$ (dans le cas réel, $y=\ell(z)z$). \emph{Norme :} par Cauchy--Schwarz, $|\ell(x)|=|\langle x,y\rangle|\le\norm x\norm y$, donc $\norm\ell\le\norm y$ ; et $\ell(y)=\norm y^2$ donne $\norm\ell\ge\norm y$ (vecteur test $y/\norm y$). \hfill$\square$
+\end{solution}
+
+\begin{piege}
+\textbf{Ce qu'un correcteur attend dans une question de cours :} l'énoncé \emph{complet} (hypothèse « $E$ de Banach » pour Banach--Steinhaus, « unique » et « $\norm\ell=\norm y$ » pour Riesz), puis une preuve où chaque outil est nommé (projection orthogonale, Cauchy--Schwarz) et où le cas $\ell=0$ est traité. La preuve de Riesz tient en dix lignes ; la connaître par cœur est un investissement rentable, elle tombe à chaque session.
+\end{piege}
+
+% =====================================================================
+\subsection*{Exercice 2 -- Question de TD}
+
+\begin{solution}
+\noindent\textbf{1.} Rappelons (Définition~4.11) que $f_n\rightharpoonup0$ signifie $\langle f_n,z\rangle\to0$ pour \emph{tout} $z\in H$. L'hypothèse ne le donne que pour $z=e_k$ ; par linéarité, pour tout $z\in V:=\Vect(e_k : k\ge1)$ (combinaisons linéaires \emph{finies}). On étend à $H$ par densité de $V$ (Théorème~4.5 : tout $x\in H$ est limite de ses sommes partielles $\sum_{k\le K}\langle x,e_k\rangle e_k\in V$) et par la borne $M:=\sup_n\norm{f_n}<\infty$.
+
+Soit $z\in H$ et $\varepsilon>0$. Choisissons $v\in V$ avec $\norm{z-v}\le\varepsilon/(2M+1)$, puis $N$ tel que $|\langle f_n,v\rangle|\le\varepsilon/2$ pour $n\ge N$. Alors, pour $n\ge N$, par Cauchy--Schwarz,
+\[
+|\langle f_n,z\rangle|\le|\langle f_n,v\rangle|+|\langle f_n,z-v\rangle|\le\frac\varepsilon2+M\norm{z-v}\le\varepsilon .
+\]
+Donc $f_n\rightharpoonup0$.
+
+\medskip
+\noindent\textbf{2.} La suite $(e_n)$ est bornée ($\norm{e_n}=1$) et, pour $k$ fixé, $\langle e_n,e_k\rangle=\delta_{nk}=0$ dès que $n>k$ : donc $\langle e_n,e_k\rangle\to0$. La question 1 donne $e_n\rightharpoonup0$ (Proposition~4.8). Noter que $(e_n)$ ne converge \emph{pas} fortement : $\norm{e_n-e_m}=\sqrt2$ pour $n\ne m$, elle n'est pas de Cauchy.
+
+\medskip
+\noindent\textbf{3.} Les vecteurs $a_ne_n$ sont deux à deux orthogonaux, de normes $\norm{a_ne_n}=|a_n|$. Par la Proposition~4.4 (convergence des séries orthogonales), \emph{la série $\sum a_ne_n$ converge dans $H$ si et seulement si $\sum_{n\ge1}|a_n|^2<\infty$}, \ie{} $(a_n)\in\ell^2$.
+
+\emph{Preuve rapide du sens utile.} Les sommes partielles $S_N=\sum_{n\le N}a_ne_n$ vérifient, par Pythagore, $\norm{S_N-S_M}^2=\sum_{M<n\le N}|a_n|^2$ pour $M<N$. Donc $(S_N)$ est de Cauchy dans $H$ si et seulement si $\sum|a_n|^2$ vérifie le critère de Cauchy dans $\R$, \ie{} converge ; et $H$ est complet.
+
+\medskip
+\noindent\textbf{4.} Pour $k$ fixé, l'application $u\mapsto\langle u,e_k\rangle$ est continue (Cauchy--Schwarz), donc
+\[
+\langle x,e_k\rangle=\lim_{N\to\infty}\langle S_N,e_k\rangle=\lim_{N\to\infty}\sum_{n\le N}a_n\langle e_n,e_k\rangle=a_k .
+\]
+De même, la norme étant continue, $\norm x^2=\lim_N\norm{S_N}^2=\lim_N\sum_{n\le N}|a_n|^2=\sum_{n\ge1}|a_n|^2$ (Parseval, Théorème~4.5). Ainsi $a_n=\langle x,e_n\rangle$ et $\norm x=\big(\sum|a_n|^2\big)^{1/2}$.
+
+\medskip
+\noindent\textbf{5.} Le terme général d'une série convergente tend vers $0$ : $\sum|a_n|^2<\infty$ implique $|a_n|^2\to0$. Autre lecture : $a_n=\langle x,e_n\rangle\to0$ car $e_n\rightharpoonup0$ (question 2), ce qui est exactement la Proposition~4.8 appliquée à $z=x$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le critère de convergence faible par une partie dense} (question 1) : \emph{une suite bornée converge faiblement vers $x$ dès que $\langle f_n,z\rangle\to\langle x,z\rangle$ pour $z$ dans une partie dense (ou totale)}. La bornitude est indispensable : sans elle, $f_n:=n\,e_n$ vérifie $\langle f_n,e_k\rangle\to0$ pour tout $k$ mais ne converge pas faiblement ($\langle f_n,z\rangle=n\,\overline{\langle z,e_n\rangle}$ avec $z=\sum e_n/n$ ne tend pas vers $0$). Le schéma « $\varepsilon/2$ + borne uniforme + densité » est celui du prolongement des applications uniformément continues (Théorème~1.1) et du TD2 ex.~8.
+\end{pointcle}
+
+% =====================================================================
+\subsection*{Exercice 3}
+
+\begin{solution}
+Nous allons montrer que \emph{$A$ n'est pas compact, mais que $\adh A$ l'est} (on dit que $A$ est \emph{relativement compact}). Un compact étant fermé (Proposition~1.10), il suffit, pour la première assertion, de montrer que $A$ n'est pas fermé.
+
+\emph{$\adh A$ est compact : Arzelà--Ascoli (Théorème~3.2).} Il faut vérifier que $A$ est bornée et uniformément équicontinue ; ces deux propriétés passent à l'adhérence (TD3 ex.~4), qui est fermée.
+
+\emph{Uniforme équicontinuité.} Pour $f\in A$ et $x,y\in[0,1]$, l'inégalité des accroissements finis donne $|f(x)-f(y)|\le\sup|f'|\,|x-y|\le|x-y|$ : les éléments de $A$ sont $1$-lipschitziens, et $\delta=\varepsilon$ convient pour tous.
+
+\emph{Bornitude : c'est le point qui diffère du TD.} On ne dispose pas d'une valeur de $f$ en un point, seulement de sa moyenne. Soit $f\in A$. La fonction $f$ est continue, donc par le théorème des valeurs intermédiaires (ou le théorème de la moyenne) il existe $x_0\in[0,1]$ tel que $f(x_0)=\int_0^1f$, d'où $|f(x_0)|\le1$. Alors, pour tout $x\in[0,1]$,
+\[
+|f(x)|\le|f(x_0)|+|f(x)-f(x_0)|\le1+|x-x_0|\le2 .
+\]
+Ainsi $\norm f_\infty\le2$ pour $f\in A$ : $A$ est bornée. (Variante sans TVI : $|f(x)|\le|f(x)-f(t)|+|f(t)|\le1+|f(t)|$ pour tout $t$, puis intégrer en $t$ : $|f(x)|\le1+\int_0^1|f(t)|dt$… ce qui ne suffit pas car on contrôle $|\int f|$ et non $\int|f|$ ; d'où l'intérêt du TVI.)
+
+Par Arzelà--Ascoli, $\adh A$ est compact.
+
+\emph{$A$ n'est pas fermé.} Prenons $g(x):=|x-\tfrac12|-\tfrac14$ : elle est $1$-lipschitzienne, d'intégrale $\int_0^1|x-\frac12|dx-\frac14=\frac14-\frac14=0$, mais n'est pas dérivable en $\frac12$, donc $g\notin A$. Montrons $g\in\adh A$. Pour $n\ge1$, soit $g_n$ la fonction obtenue en remplaçant $g$ sur $[\frac12-\frac1n,\frac12+\frac1n]$ par l'arc de parabole $x\mapsto\frac n2(x-\frac12)^2+\frac1{2n}-\frac14$ : on vérifie que $g_n$ est $\mathcal C^1$ (raccord des valeurs et des dérivées $\pm1$ en $\frac12\pm\frac1n$), que $|g_n'|\le1$ (sur l'arc, $|g_n'(x)|=n|x-\frac12|\le1$), et que $0\le g_n-g\le\frac1{2n}$ avec support dans un intervalle de longueur $\frac2n$, de sorte que $|\int_0^1g_n|\le\frac1{n^2}\le1$. Donc $g_n\in A$ et $\norm{g_n-g}_\infty\le\frac1{2n}\to0$ : $g\in\adh A\setminus A$.
+
+\emph{Conclusion.} $A$ n'est pas compact (non fermé) ; $\adh A$ est compact.
+\end{solution}
+
+\begin{piege}
+\textbf{Lire l'énoncé : $A$ ou $\adh A$ ?} Le corrigé officiel (manuscrit) conclut « $\adh A$ est compact » ; la question posée porte sur $A$, qui ne l'est pas, pour la raison habituelle : \emph{une condition de dérivabilité ne passe pas à la limite uniforme}. Au TD3 ex.~5 l'énoncé prenait soin de demander la compacité de $\adh A$ dans les cas (d), (e), (f) ; ici il ne le fait pas, et la réponse complète doit mentionner les deux. En examen, répondre « relativement compact, non compact car non fermé, exemple : … » rapporte tous les points ; répondre « compact par Ascoli » sans discuter la fermeture en perd.
+
+\textbf{La variante « borne intégrale ».} C'est la modification typique d'un exercice de TD : au lieu de $|f(0)|\le3$ ou $f(1)=2$, une information \emph{en moyenne}. Le réflexe : convertir la moyenne en une valeur ponctuelle par le TVI, puis conclure par la constante de Lipschitz. Même astuce si la condition était $\int_0^1|f|\le1$ (il existe $x_0$ avec $|f(x_0)|\le1$, sinon $\int|f|>1$) ou $\int_0^1f^2\le1$.
+\end{piege}
+
+% =====================================================================
+\subsection*{Exercice 4}
+
+\begin{solution}
+\noindent\textbf{1.} Soient $x_0,y_0\in E$. Pour tout $x\in A$, $\norm{x-x_0}\le\norm{x-y_0}+\norm{y_0-x_0}$. Le membre de gauche est minoré par $d(x_0,A)$, donc $d(x_0,A)-\norm{y_0-x_0}\le\norm{x-y_0}$ pour tout $x\in A$ ; le réel de gauche est un minorant de $\{\norm{x-y_0}:x\in A\}$, donc inférieur à sa borne inférieure : $d(x_0,A)-\norm{y_0-x_0}\le d(y_0,A)$. Par symétrie,
+\[
+|d(x_0,A)-d(y_0,A)|\le\norm{x_0-y_0} :
+\]
+l'application est $1$-lipschitzienne, donc continue. (TD1 ex.~6.)
+
+\medskip
+\noindent\textbf{2.} La fonction $x\mapsto\norm{x-x_0}$ est continue sur $E$ ($1$-lipschitzienne par l'inégalité triangulaire renversée) et $A$ est compact non vide : elle atteint sa borne inférieure sur $A$ (Corollaire~1.3) en un point $a_0\in A$, et $\norm{a_0-x_0}=\inf_{x\in A}\norm{x-x_0}=d(x_0,A)$.
+
+\emph{Variante par suite minimisante.} Par définition de l'inf, il existe $x_n\in A$ avec $\norm{x_n-x_0}\to d(x_0,A)$. Par compacité, $x_{\varphi(n)}\to a_0\in A$, et par continuité de la norme,
+\[
+\norm{a_0-x_0}=\lim_n\norm{x_{\varphi(n)}-x_0}=d(x_0,A).
+\]
+
+\medskip
+\noindent\textbf{3.} \emph{On se ramène au cas compact en tronquant.} Soit $r:=d(x_0,A)+1$ et $A_r:=A\cap\Bf(x_0,r)$. L'ensemble $A_r$ est fermé (intersection de deux fermés), borné (contenu dans une boule), donc \emph{compact dans $E=\R^d$} (Corollaire~2.1 : en dimension finie, toute norme est équivalente à la norme euclidienne et les compacts sont les fermés bornés). Il est non vide : par définition de l'inf, il existe $x\in A$ avec $\norm{x-x_0}<d(x_0,A)+1=r$. Enfin $d(x_0,A_r)=d(x_0,A)$ : l'inégalité $\ge$ vient de $A_r\subset A$, et pour $\le$, tout $x\in A\setminus A_r$ vérifie $\norm{x-x_0}>r>d(x_0,A)$ et ne peut donc pas approcher l'inf. On applique la question 2 à $A_r$ : il existe $a_0\in A_r\subset A$ avec $\norm{a_0-x_0}=d(x_0,A_r)=d(x_0,A)$.
+
+\medskip
+\noindent\textbf{4.} \emph{Première preuve, par la question 3.} L'application $y\mapsto d(y,A)$ est continue (question 1) sur le compact non vide $B$, donc atteint son minimum en un $y_0\in B$ : $\delta:=d(y_0,A)=\min_Bd(\cdot,A)$. Par la question 3 ($A$ fermé), il existe $a_0\in A$ avec $\norm{a_0-y_0}=\delta$ ; si $\delta=0$, alors $a_0=y_0\in A\cap B=\emptyset$, absurde. Donc $\delta>0$, et pour $x\in A$, $y\in B$ : $\norm{x-y}\ge d(y,A)\ge\delta$.
+
+\emph{Seconde preuve, par l'absurde et extraction (celle du corrigé officiel).} Sinon, il existe $x_n\in A$, $y_n\in B$ avec $\norm{x_n-y_n}\to0$. Par compacité de $B$, $y_{\varphi(n)}\to y_0\in B$ ; alors $x_{\varphi(n)}=y_{\varphi(n)}+(x_{\varphi(n)}-y_{\varphi(n)})\to y_0$, et comme $A$ est fermé, $y_0\in A$ : contradiction avec $A\cap B=\emptyset$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Les deux idées de l'exercice.} (i) \emph{Tronquer pour se ramener à un compact} (question 3) : en dimension finie, « fermé $+$ borné $=$ compact » permet de remplacer un fermé par sa trace sur une grosse boule ; en dimension infinie, c'est faux et la question 3 tombe en défaut (TD1 ex.~11, commentaire : un fermé de $\ell^2$ dont la distance à un point n'est pas atteinte). (ii) \emph{Un compact et un fermé disjoints sont à distance strictement positive} (question 4), alors que deux fermés disjoints peuvent être à distance nulle ($\N$ et $\{n+\frac1n\}$). La seconde preuve de 4 ne demande pas la dimension finie : elle vaut dans tout espace métrique.
+\end{pointcle}
+
+\begin{commentaire}
+\textbf{Bilan du sujet.} Les 30 points se répartissent en : cours (5), Hilbert (10), Ascoli (5), compacité dans $\R^d$ (10). Les exercices 3 et 4 sont entièrement couverts par les TD1 et TD3 ; la seule nouveauté est la discussion « $A$ versus $\adh A$ » de l'exercice 3. Pour l'exercice 2, retenir les trois résultats qui reviennent dans tous les sujets : $e_n\rightharpoonup0$, critère de convergence faible par densité (suite bornée), et $\sum a_ne_n$ converge $\iff(a_n)\in\ell^2$.
+\end{commentaire}
+
+\end{document}
