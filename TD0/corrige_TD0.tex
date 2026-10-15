@@ -37,6 +37,9 @@
 \newcommand{\ie}{c'est-à-dire}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
 
 % ---------- Environnements ----------
 \newtcolorbox{exo}[1]{
@@ -74,7 +77,7 @@
 \newtheorem*{solution}{Solution}
 
 \title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
-\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 3)}
+\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 4)}
 \author{}
 \date{Année universitaire 2026--2027}
 
@@ -82,12 +85,12 @@
 \maketitle
 
 \begin{commentaire}
-\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1, 2 et 3) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
+\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 4) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
 \begin{itemize}
   \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
   \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
 \end{itemize}
-Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
+Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
 \end{commentaire}
 
 \tableofcontents
@@ -748,5 +751,603 @@ A_n(P)=-\,\frac{P(1)-P(1-\frac1n)}{\frac1n}\xrightarrow[n\to\infty]{}-P'(1)
 \begin{piege}
 Le théorème de Banach--Steinhaus (Théorème~3.7) et son Corollaire~3.3 sont des conséquences du lemme de Baire, donc \emph{exigent la complétude de l'espace de départ} (celle de l'espace d'arrivée est sans importance). Cet exercice est le contre-exemple canonique montrant que l'hypothèse ne peut pas être supprimée. À rapprocher du TD1 ex.~7 (piège) : sur $\R[X]$, la dérivation fournissait déjà un contre-exemple à un énoncé « à la Baire » en l'absence de complétude.
 \end{piege}
+
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemples 3.4 et 3.5 -- Séries de Fourier : divergence ponctuelle et non-surjectivité de $f\mapsto(c_n(f))_n$}
+On note $E:=\Cz(\Sun;\C)$ (fonctions continues $2\pi$-périodiques, Exemple~2.2) muni de la norme uniforme, et pour $f\in E$, $n\in\Z$, $N\in\N$, $x\in\R$,
+\[
+c_n(f):=\frac1{2\pi}\int_0^{2\pi}f(t)e^{-int}\,dt,\qquad
+S_N(f)(x):=\sum_{|n|\le N}c_n(f)e^{inx},
+\]
+\[
+D_N(t):=\sum_{|n|\le N}e^{int},\qquad
+L_N:=\frac1{2\pi}\int_0^{2\pi}|D_N(t)|\,dt .
+\]
+On rappelle (TD2 ex.~8) que $c:f\mapsto(c_n(f))_{n\in\Z}$ envoie $E$ dans $c_0(\Z)$ et est linéaire continue de norme $1$ lorsque $c_0(\Z)$ est muni de la norme de $\ell^\infty(\Z)$.
+
+\medskip
+\noindent\textbf{Partie A -- Les sommes partielles de Fourier en $0$.}
+\begin{enumerate}[label=(\alph*)]
+  \item Justifier que $E$ est un espace de Banach.
+  \item Montrer que $S_N(f)(x)=\frac1{2\pi}\int_0^{2\pi}f(t)D_N(x-t)\,dt$, que $D_N$ est réelle, paire, d'intégrale $2\pi$ sur $[0,2\pi]$, et que $D_N(t)=\dfrac{\sin((N+\frac12)t)}{\sin(t/2)}$ pour $t\notin2\pi\Z$, $D_N(0)=2N+1=\norm{D_N}_\infty$.
+  \item Montrer que $\Phi_N:f\mapsto S_N(f)(0)$ est une forme linéaire continue sur $E$ et que $\opnorm{\Phi_N}=L_N$. Pourquoi tester $\Phi_N$ sur $D_N$ ne permet-il pas de le voir ?
+  \item Montrer l'encadrement $\dfrac4{\pi^2}\ln(N+1)\le L_N\le1+\ln(2N+1)$. En déduire que $(\Phi_N)_N$ n'est pas bornée dans $\Lc(E,\C)$.
+\end{enumerate}
+
+\noindent\textbf{Partie B -- Divergence de séries de Fourier (Exemple 3.4).}
+\begin{enumerate}[label=(\alph*),resume]
+  \item En déduire l'existence de $f\in E$ dont la série de Fourier diverge en $0$.
+  \item Montrer que l'ensemble des $f\in E$ dont la série de Fourier diverge en $0$ est dense dans $E$. Qu'en est-il en un point $x_0$ quelconque ? En une famille dénombrable de points ?
+\end{enumerate}
+
+\noindent\textbf{Partie C -- Non-surjectivité de $c$ (Exemple 3.5).}
+\begin{enumerate}[label=(\alph*),resume]
+  \item Calculer $c(D_N)$ et $\norm{c(D_N)}_\infty$.
+  \item On suppose $c$ surjective. Montrer qu'il existe $r>0$ tel que, pour tout $N$, il existe $g_N\in E$ vérifiant $\norm{g_N}_\infty<1$ et $c(g_N)=\tfrac r2\,c(D_N)$. Conclure à une contradiction en appliquant $\Phi_N$ à $g_N$.
+  \item Montrer que $c$ est injective (on pourra utiliser la densité des polynômes trigonométriques, Exemple~2.4). En déduire une seconde preuve, plus courte, de (h) : c'est celle du polycopié. Où l'injectivité y intervient-elle ?
+  \item Montrer que $c(E)$ est dense dans $c_0(\Z)$ mais n'est pas fermée.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\Sun$ est compact ($\{z\in\C:|z|=1\}$ est fermé borné dans $\C\simeq\R^2$) et $\C$ est complet : la Proposition~3.3 donne que $(\Cz(\Sun;\C),\norm\cdot_\infty)$ est un espace de Banach. (Sans le cercle : $E$ s'identifie au noyau de la forme linéaire continue $f\mapsto f(2\pi)-f(0)$ sur l'espace de Banach $\Cz([0,2\pi];\C)$ ; c'est un sous-espace fermé, donc complet.)
+
+\medskip
+\noindent\textbf{(b)} La somme définissant $S_N(f)$ est finie, donc par linéarité de l'intégrale
+\[
+S_N(f)(x)=\frac1{2\pi}\int_0^{2\pi}f(t)\sum_{|n|\le N}e^{in(x-t)}\,dt=\frac1{2\pi}\int_0^{2\pi}f(t)D_N(x-t)\,dt .
+\]
+Le changement d'indice $n\mapsto-n$ donne $\overline{D_N}=D_N=D_N(-\,\cdot)$ : $D_N$ est réelle et paire (explicitement $D_N(t)=1+2\sum_{n=1}^N\cos(nt)$). Comme $\frac1{2\pi}\int_0^{2\pi}e^{int}\,dt=\mathbf 1_{n=0}$, on a $\frac1{2\pi}\int_0^{2\pi}D_N=1$. Pour $t\notin2\pi\Z$, $e^{it}\ne1$ et $D_N(t)$ est une somme géométrique de raison $e^{it}$, de premier terme $e^{-iNt}$, à $2N+1$ termes :
+\[
+D_N(t)=e^{-iNt}\,\frac{e^{i(2N+1)t}-1}{e^{it}-1}
+=\frac{e^{i(N+\frac12)t}-e^{-i(N+\frac12)t}}{e^{it/2}-e^{-it/2}}
+=\frac{\sin((N+\frac12)t)}{\sin(t/2)}
+\]
+(on a multiplié haut et bas par $e^{-it/2}$). Enfin $|D_N(t)|\le\sum_{|n|\le N}1=2N+1=D_N(0)$, d'où $\norm{D_N}_\infty=2N+1$.
+
+\medskip
+\noindent\textbf{(c)} C'est le TD2 ex.~7 (b) ; rappelons l'argument. Par (b) en $x=0$ et parité de $D_N$, $\Phi_N(f)=\frac1{2\pi}\int_0^{2\pi}f\,D_N$, expression linéaire en $f$, et
+\[
+|\Phi_N(f)|\le\frac1{2\pi}\int_0^{2\pi}|f|\,|D_N|\le L_N\norm f_\infty ,
+\]
+donc $\Phi_N\in\Lc(E,\C)$ avec $\opnorm{\Phi_N}\le L_N$ (Théorème~2.4 (iv)). Pour l'inégalité inverse, le vecteur test « idéal » serait $\sgn(D_N)$ (pour avoir $f\,D_N=|D_N|$ avec $|f|\le1$), mais il est discontinu aux zéros de $D_N$ : on le régularise en $f_n:=D_N/(\frac1n+|D_N|)$, $n\ge1$, qui est continue, $2\pi$-périodique, réelle, avec $|f_n|<1$. Comme $D_N$ est réelle, $f_nD_N=|D_N|^2/(\frac1n+|D_N|)\ge|D_N|-\frac1n$, donc
+\[
+\opnorm{\Phi_N}\ge\Phi_N(f_n)=\frac1{2\pi}\int_0^{2\pi}\frac{|D_N|^2}{\frac1n+|D_N|}\ge L_N-\frac1n\xrightarrow[n\to\infty]{}L_N .
+\]
+D'où $\opnorm{\Phi_N}=L_N$. \emph{Pourquoi pas $D_N$ ?} $D_N$ est un polynôme trigonométrique de degré $N$, donc $S_N(D_N)=D_N$ et $\Phi_N(D_N)=D_N(0)=2N+1=\norm{D_N}_\infty$ : le quotient $|\Phi_N(D_N)|/\norm{D_N}_\infty$ vaut $1$ et ne renseigne pas sur $\opnorm{\Phi_N}$.
+
+\medskip
+\noindent\textbf{(d)} Par parité, $L_N=\frac1\pi\int_0^\pi|D_N|$. Sur $]0,\pi]$, la concavité de $\sin$ sur $[0,\pi/2]$ donne $\frac t\pi\le\sin\frac t2\le\frac t2$.
+
+\emph{Minoration.} $|D_N(t)|\ge\dfrac{2|\sin((N+\frac12)t)|}{t}$, et le changement de variable $u=(N+\frac12)t$ donne
+\[
+\int_0^\pi|D_N|\ge2\int_0^{(N+\frac12)\pi}\frac{|\sin u|}{u}\,du
+\ge2\sum_{k=1}^N\int_{(k-1)\pi}^{k\pi}\frac{|\sin u|}{u}\,du
+\ge2\sum_{k=1}^N\frac1{k\pi}\int_{(k-1)\pi}^{k\pi}|\sin u|\,du
+\]
+\[
+\phantom{\int_0^\pi|D_N|}=\frac4\pi\sum_{k=1}^N\frac1k\ge\frac4\pi\ln(N+1),
+\]
+où l'on a utilisé $\int_{(k-1)\pi}^{k\pi}|\sin|=2$ et la comparaison série--intégrale $\frac1k\ge\int_k^{k+1}\frac{du}u$. Donc $L_N\ge\frac4{\pi^2}\ln(N+1)$.
+
+\emph{Majoration.} $|D_N(t)|\le\min\big(2N+1,\frac\pi t\big)$ sur $]0,\pi]$. En coupant en $t_0:=\frac\pi{2N+1}$,
+\[
+\int_0^\pi|D_N|\le(2N+1)t_0+\int_{t_0}^\pi\frac\pi t\,dt=\pi+\pi\ln\frac\pi{t_0}=\pi\big(1+\ln(2N+1)\big),
+\]
+d'où $L_N\le1+\ln(2N+1)$. En particulier $\opnorm{\Phi_N}=L_N\to+\infty$ : la famille $(\Phi_N)_N$ n'est pas bornée dans $\Lc(E,\C)$ (mais elle ne croît que logarithmiquement).
+
+\medskip
+\noindent\textbf{(e)} Le Théorème~3.7 (Banach--Steinhaus) s'applique sur l'espace de Banach $E$ (question (a)) : si $(\Phi_N)_N$ était ponctuellement bornée, elle serait bornée dans $\Lc(E,\C)$, ce que (d) exclut. Par contraposée, il existe $f\in E$ telle que $\sup_N|\Phi_N(f)|=\sup_N|S_N(f)(0)|=+\infty$. La suite $(S_N(f)(0))_N$ n'étant pas bornée, elle ne converge pas : la série de Fourier de la fonction continue $f$ diverge en $0$.
+
+\medskip
+\noindent\textbf{(f)} Reprenons la preuve du Théorème~3.7. Pour $n\in\N$, l'ensemble
+\[
+K_n:=\{f\in E:\ \forall N\in\N,\ |\Phi_N(f)|\le n\}=\bigcap_{N\in\N}\Phi_N^{-1}\big(\overline{B}_\C(0,n)\big)
+\]
+est fermé (intersection d'images réciproques de fermés par des applications continues), et $B:=\{f\in E:\sup_N|\Phi_N(f)|<\infty\}=\bigcup_{n\in\N}K_n$. Chaque $K_n$ est d'intérieur vide : sinon $B_E(a,r)\subset K_n$ pour certains $a\in E$, $r>0$, et pour $z\in B_E(0,1)$ et tout $N$, en écrivant $z=\frac{(a+rz)-a}r$ avec $a,a+rz\in K_n$, il vient $|\Phi_N(z)|\le\frac{2n}r$, soit $\sup_N\opnorm{\Phi_N}\le\frac{2n}r<\infty$, contredisant (d). Par le Lemme~1.1 de Baire (ii), $B$ est d'intérieur vide, et son complémentaire $E\setminus B=\bigcap_n(E\setminus K_n)$, intersection dénombrable d'ouverts denses, est dense (Lemme~1.1 (i)) : \emph{l'ensemble $G_0$ des $f\in E$ dont la série de Fourier diverge en $0$ est un $G_\delta$ dense}. Toute fonction continue est donc limite uniforme de fonctions continues dont la série de Fourier diverge en $0$.
+
+\emph{En $x_0$ quelconque.} La translation $\tau_{x_0}:f\mapsto f(\cdot+x_0)$ est une isométrie linéaire bijective de $E$, et le changement de variable dans (b) donne $S_N(\tau_{x_0}f)(0)=S_N(f)(x_0)$. Donc $f\mapsto S_N(f)(x_0)$ vaut $\Phi_N\circ\tau_{x_0}$, de norme $L_N$, et tout ce qui précède s'applique : l'ensemble $G_{x_0}$ des $f$ dont la série de Fourier diverge en $x_0$ est un $G_\delta$ dense.
+
+\emph{Famille dénombrable.} Pour une suite $(x_j)_{j\in\N}$ (par exemple une énumération de $\Q\cap[0,2\pi]$), $\bigcap_jG_{x_j}$ est une intersection dénombrable de $G_\delta$ denses, donc encore un $G_\delta$ dense (Lemme~1.1 (i)) : il existe des fonctions continues, et « génériquement » toutes, dont la série de Fourier diverge en tout point d'une partie dénombrable dense de $\Sun$.
+
+\medskip
+\noindent\textbf{(g)} $c_n(D_N)=\frac1{2\pi}\sum_{|k|\le N}\int_0^{2\pi}e^{i(k-n)t}\,dt=\mathbf 1_{|n|\le N}$ : $c(D_N)$ est l'indicatrice de $\{-N,\dots,N\}$, suite à support fini, et $\norm{c(D_N)}_\infty=1$.
+
+\medskip
+\noindent\textbf{(h)} Supposons $c:E\to F:=c_0(\Z)$ surjective. $E$ et $F$ sont des espaces de Banach ($F$ est fermé dans $\ell^\infty(\Z)$, TD2 ex.~8 (a)), et $c$ est linéaire continue : par le Théorème~3.8 de l'application ouverte, $c(B_E(0,1))$ est un ouvert de $F$ contenant $c(0)=0$, donc il existe $r>0$ tel que $B_F(0,r)\subset c(B_E(0,1))$. Puisque $\norm{\frac r2c(D_N)}_\infty=\frac r2<r$, il existe $g_N\in B_E(0,1)$ tel que $c(g_N)=\frac r2c(D_N)$, c'est-à-dire $c_n(g_N)=\frac r2\mathbf 1_{|n|\le N}$. Alors
+\[
+\Phi_N(g_N)=\sum_{|n|\le N}c_n(g_N)=\frac r2(2N+1),
+\qquad\text{mais}\qquad
+|\Phi_N(g_N)|\le\opnorm{\Phi_N}\norm{g_N}_\infty\le L_N\le1+\ln(2N+1)
+\]
+par (c) et (d). L'inégalité $\frac r2(2N+1)\le1+\ln(2N+1)$ est fausse pour $N$ grand : contradiction. Donc $c$ n'est pas surjective.
+
+\medskip
+\noindent\textbf{(i)} \emph{Injectivité.} Soit $f\in E$ avec $c(f)=0$. Pour tout polynôme trigonométrique $P=\sum_{|k|\le M}a_ke^{ikt}$, on a $\int_0^{2\pi}f\,\overline P=2\pi\sum_k\overline{a_k}\,c_k(f)=0$. Par l'Exemple~2.4 (Stone--Weierstrass), il existe des polynômes trigonométriques $P_m\to f$ uniformément ; alors
+\[
+\int_0^{2\pi}|f|^2=\int_0^{2\pi}f\,\overline f=\lim_m\int_0^{2\pi}f\,\overline{P_m}=0
+\]
+(car $|\int f(\overline f-\overline{P_m})|\le2\pi\norm f_\infty\norm{f-P_m}_\infty\to0$). La fonction $|f|^2$ étant continue, positive, d'intégrale nulle, elle est nulle : $f=0$. (Le polycopié obtient l'injectivité à l'Exemple~4.8 par la théorie $L^2$.)
+
+\emph{Seconde preuve de (h).} Avec les notations de (h), $c(g_N-\frac r2D_N)=0$, donc par injectivité $g_N=\frac r2D_N$ et $\norm{D_N}_\infty=\frac2r\norm{g_N}_\infty<\frac2r$, ce qui contredit $\norm{D_N}_\infty=2N+1\to\infty$. Plus généralement, le même raisonnement (homogénéité) montre que si $c$ est bijective, alors $\norm f_\infty\le\frac2r\norm{c(f)}_\infty$ pour tout $f\in E$ : c'est l'inégalité $\norm f_\infty\le K\norm{c(f)}_\infty$ de l'Exemple~3.5 du polycopié, et c'est exactement le Corollaire~3.4 (continuité automatique de $c^{-1}$). L'injectivité intervient pour identifier l'antécédent $g_N$ fourni par le théorème de l'application ouverte à $\frac r2D_N$ : sans elle, on sait seulement qu'\emph{un} antécédent de $\frac r2c(D_N)$ est petit, pas que $\frac r2D_N$ l'est, et c'est pourquoi la preuve (h) a dû passer par $\Phi_N$.
+
+\medskip
+\noindent\textbf{(j)} \emph{Densité.} Pour un polynôme trigonométrique $P=\sum_{|k|\le M}a_ke^{ikt}$, le calcul de (g) donne $c(P)=(a_k)_k$ (prolongée par $0$) : $c(E)$ contient toutes les suites à support fini. Celles-ci sont denses dans $c_0(\Z)$ : si $\mathbf u\in c_0(\Z)$ et $\varepsilon>0$, il existe $M$ tel que $|u_k|\le\varepsilon$ pour $|k|>M$, et la troncature $\mathbf u\mathbf 1_{|k|\le M}$ est à distance $\le\varepsilon$ de $\mathbf u$ (c'est l'argument de la Proposition~2.3, qui échoue dans $\ell^\infty$ mais fonctionne dans $c_0$). Donc $\adh{c(E)}=c_0(\Z)$.
+\emph{Non fermée.} Si $c(E)$ était fermée, on aurait $c(E)=\adh{c(E)}=c_0(\Z)$, contredisant (h).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Du « uniforme » au « ponctuel ».} Partie B : on n'a construit aucune $f$ explicite. On a montré que les $\Phi_N$ sont grands uniformément (avec des fonctions tests $f_n$ \emph{qui dépendent de $N$}), et Banach--Steinhaus fournit une seule $f$ mauvaise pour tous les $N$ à la fois ; c'est la Remarque~3.4 lue à l'envers, et cela repose sur le lemme de Baire, donc sur la complétude de $E$ (comparer avec l'exercice~3.9). Le lemme de Baire donne même mieux que l'existence : la divergence est \emph{générique} ($G_\delta$ dense), et stable par intersection dénombrable. On ne peut pas aller jusqu'à « divergence en tout point » : le théorème de Carleson (1966) affirme que la série de Fourier d'une fonction continue (et même $L^2$) converge presque partout.
+\end{pointcle}
+
+\begin{piege}
+\textbf{Application ouverte et minoration.} Pour $T\in\Lc(E,F)$ surjective entre Banach, le Théorème~3.8 fournit $B_F(0,r)\subset T(B_E(0,1))$, ce qui dit que tout $y$ petit a \emph{un} antécédent petit. En déduire $\norm x_E\le K\norm{Tx}_F$ pour tout $x$ demande de plus l'injectivité de $T$ (Corollaire~3.4). L'Exemple~3.5 du polycopié utilise cette inégalité sans le dire, donc utilise implicitement l'injectivité de $c$ (question (i), ou Exemple~4.8) ; la question (h) montre comment s'en passer, au prix d'une majoration de $L_N$. Autre point : la question (j) montre que $c$ est d'image \emph{dense} sans être surjective. Image dense $\ne$ image égale : la densité ne se transporte pas en égalité sans un argument de fermeture, qui fait ici précisément défaut.
+\end{piege}
+
+\begin{commentaire}
+\textbf{Le noyau de Dirichlet change de signe.} Toute la partie A repose sur le fait que $\int_0^{2\pi}D_N=2\pi$ reste borné alors que $\int_0^{2\pi}|D_N|=2\pi L_N\sim2\ln N$ explose. Le noyau de Fejér $F_N:=\frac1{N+1}\sum_{k\le N}D_k$ est, lui, \emph{positif} (c'est $\frac1{N+1}\big(\frac{\sin((N+1)t/2)}{\sin(t/2)}\big)^2$), donc de norme $L^1$ égale à $1$ : les moyennes de Cesàro $\sigma_N(f)=\frac1{N+1}\sum_{k\le N}S_k(f)$ convergent uniformément vers $f$ pour toute $f\in E$ (théorème de Fejér). C'est la raison profonde pour laquelle « Fourier converge en moyenne de Cesàro mais pas ponctuellement » : un opérateur de convolution $f\mapsto f\star k$ a pour norme $\norm k_1$ sur $(\Cz,\norm\cdot_\infty)$, et les $k$ positifs d'intégrale $1$ sont uniformément bornés. Les constantes $L_N$ sont les \emph{constantes de Lebesgue} ; on peut montrer $L_N=\frac4{\pi^2}\ln N+O(1)$, de sorte que la minoration de (d) est optimale.
+\end{commentaire}
+
+
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 3.2 -- $\mathcal C^m([a,b])$ est un espace de Banach}
+Pour $f\in\mathcal C^m([a,b])$ on pose $\norm f_{m}:=\sum_{k=0}^m\norm{f^{(k)}}_\infty$ (norme équivalente à celle de l'Exemple~2.10).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $(\mathcal C^1([a,b]),\norm\cdot_1)$ est un espace de Banach.
+  \item En déduire que $(\mathcal C^m([a,b]),\norm\cdot_m)$ est un espace de Banach pour tout $m\in\N$.
+  \item Montrer que $\mathcal C^1([a,b])$ muni de la seule norme uniforme $\norm\cdot_\infty$ n'est pas complet, de deux façons : directement, puis à l'aide de l'Exemple~3.6.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $(f_n)_n$ une suite de Cauchy pour $\norm\cdot_1$. Comme $\norm{f_n-f_m}_\infty\le\norm{f_n-f_m}_1$ et $\norm{f_n'-f_m'}_\infty\le\norm{f_n-f_m}_1$, les suites $(f_n)_n$ et $(f_n')_n$ sont de Cauchy dans $(\Cz([a,b]),\norm\cdot_\infty)$, qui est complet (Proposition~3.3) : il existe $f,g\in\Cz([a,b])$ avec $f_n\to f$ et $f_n'\to g$ uniformément. Il reste à voir que $f\in\mathcal C^1$ et $f'=g$. Pour tout $n$ et $x\in[a,b]$, le théorème fondamental de l'analyse donne
+\[
+f_n(x)=f_n(a)+\int_a^xf_n'(t)\,dt .
+\]
+Le membre de gauche tend vers $f(x)$ ; à droite $f_n(a)\to f(a)$ et $\big|\int_a^x(f_n'-g)\big|\le(b-a)\norm{f_n'-g}_\infty\to0$ (la convergence uniforme permet d'intervertir limite et intégrale sur un segment). Donc $f(x)=f(a)+\int_a^xg(t)\,dt$ pour tout $x$, et comme $g$ est continue, $f$ est de classe $\mathcal C^1$ avec $f'=g$. Enfin $\norm{f_n-f}_1=\norm{f_n-f}_\infty+\norm{f_n'-g}_\infty\to0$ : la suite converge dans $(\mathcal C^1([a,b]),\norm\cdot_1)$.
+
+\medskip
+\noindent\textbf{(b)} Récurrence sur $m$, le cas $m=0$ étant la Proposition~3.3 et $m=1$ la question (a). Supposons $(\mathcal C^{m}([a,b]),\norm\cdot_{m})$ complet et soit $(f_n)_n$ de Cauchy pour $\norm\cdot_{m+1}$. Alors $(f_n)_n$ est de Cauchy pour $\norm\cdot_1$ (car $\norm\cdot_1\le\norm\cdot_{m+1}$) et $(f_n')_n$ est de Cauchy pour $\norm\cdot_m$ (car $\norm{h'}_m=\sum_{k=1}^{m+1}\norm{h^{(k)}}_\infty\le\norm h_{m+1}$). Par (a), $f_n\to f$ dans $\mathcal C^1$, et par hypothèse de récurrence $f_n'\to g$ dans $\mathcal C^m$. Par unicité de la limite uniforme, $g=f'$ (les deux sont limites uniformes de $(f_n')$). Donc $f'\in\mathcal C^m$, \ie{} $f\in\mathcal C^{m+1}$, et $\norm{f_n-f}_{m+1}=\norm{f_n-f}_\infty+\norm{f_n'-f'}_m\to0$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Directement.} Sur $[a,b]=[-1,1]$, posons $f_n(x):=\sqrt{x^2+1/n}$. Chaque $f_n$ est $\mathcal C^\infty$ et $|f_n(x)-|x||=\frac{1/n}{\sqrt{x^2+1/n}+|x|}\le\frac1{\sqrt n}$, donc $f_n\to|x|$ uniformément : $(f_n)$ est de Cauchy pour $\norm\cdot_\infty$ dans $\mathcal C^1([-1,1])$, mais sa seule limite possible, $x\mapsto|x|$, n'est pas dérivable en $0$. Pas de limite dans $\mathcal C^1$ : l'espace n'est pas complet. (Plus conceptuellement : $\mathcal C^1$ est dense dans $\Cz([a,b])$ par le théorème de Weierstrass, et strict ; une partie dense et stricte n'est jamais complète, Proposition~1.8 et exercice~3.9.)
+
+\emph{Par l'Exemple~3.6.} Sur $\mathcal C^1([a,b])$, $\norm\cdot_\infty\le\norm\cdot_1$. Si $\norm\cdot_\infty$ rendait $\mathcal C^1([a,b])$ complet, l'Exemple~3.6 (\ie{} le Corollaire~3.4 appliqué à l'identité $(\mathcal C^1,\norm\cdot_1)\to(\mathcal C^1,\norm\cdot_\infty)$, continue et bijective entre deux Banach) donnerait l'équivalence des deux normes, donc une constante $C$ avec $\norm{f'}_\infty\le C\norm f_\infty$ pour toute $f\in\mathcal C^1$. C'est faux : sur $[0,1]$, $f_n(x)=x^n$ vérifie $\norm{f_n}_\infty=1$ et $\norm{f_n'}_\infty=n$. Donc $\norm\cdot_\infty$ ne rend pas $\mathcal C^1$ complet ; et le même argument montre qu'\emph{aucune} norme majorée par $\norm\cdot_1$ et non équivalente à elle ne le peut.
+\end{solution}
+
+\begin{piege}
+\textbf{Dimension $d\ge2$ et compacts quelconques.} L'Exemple~2.10 définit $\mathcal C^1(K)$ comme l'espace des restrictions à $K$ de fonctions $\mathcal C^1(\R^d)$. Si $K$ est d'intérieur vide (un point, un segment de $\R^2$, un Cantor), les dérivées partielles sur $K$ ne sont pas déterminées par la restriction de $f$ ($K=\{0\}$ : $f|_K$ ne dit rien de $f'(0)$), et l'expression de l'Exemple~2.10 n'est pas une norme sur l'espace des restrictions, mais sur celui des « jets » $(f,\partial_1f,\dots,\partial_df)|_K$. La preuve ci-dessus s'adapte sans peine à $K=\adh\Omega$ pour $\Omega$ ouvert borné \emph{convexe} (remplacer le théorème fondamental par $f(x)-f(y)=\int_0^1\nabla f(y+t(x-y))\cdot(x-y)\,dt$ le long des segments, contenus dans $K$) ; le cas général relève du théorème d'extension de Whitney, hors programme.
+\end{piege}
+
+\begin{pointcle}
+\textbf{Le mécanisme.} Pour montrer qu'un espace de fonctions défini par des conditions de régularité est complet, on fait converger séparément chaque dérivée dans un espace complet connu ($\Cz$, $L^p$), puis on \emph{identifie} la limite des dérivées comme la dérivée de la limite grâce à une formule intégrale (théorème fondamental, ou intégration par parties contre des fonctions test pour les espaces de Sobolev, chapitre~6). La norme doit contrôler toutes les dérivées qui entrent dans la définition de l'espace, faute de quoi (question (c)) la complétude est perdue.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 3.3 -- Approximations de l'unité issues d'une fonction}
+Soit $\rho\in L^1(\R^d)$ d'intégrale $1$ et, pour $n\ge1$, $\rho_n(x):=n^d\rho(nx)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $(\rho_n)_{n\ge1}$ est une approximation de l'unité (Définition~3.4). Que dire du support de $\rho_n$ si $\supp\rho\subset\Bf(0,1)$ ?
+  \item Montrer qu'une approximation de l'unité n'a jamais de limite dans $L^1(\R^d)$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Le changement de variables linéaire $y=nx$, de jacobien $n^d$, donne pour toute fonction intégrable $h$ : $\int_{\R^d}n^dh(nx)\,dx=\int_{\R^d}h(y)\,dy$.
+\begin{itemize}
+  \item[(i)] $\norm{\rho_n}_1=\int n^d|\rho(nx)|\,dx=\int|\rho(y)|\,dy=\norm\rho_1$ : la suite est bornée dans $L^1$ (toutes les normes sont égales).
+  \item[(ii)] $\int\rho_n=\int\rho=1$.
+  \item[(iii)] Pour $\varepsilon>0$, $\int_{|x|>\varepsilon}|\rho_n(x)|\,dx=\int_{|y|>n\varepsilon}|\rho(y)|\,dy=\int\mathbf 1_{|y|>n\varepsilon}|\rho(y)|\,dy$. L'intégrande tend vers $0$ en tout point quand $n\to\infty$ et est dominé par $|\rho|\in L^1$ : par convergence dominée, $\norm{\mathbf 1_{|x|>\varepsilon}\rho_n}_1\to0$.
+\end{itemize}
+Si $\supp\rho\subset\Bf(0,1)$, alors $\rho_n(x)\ne0$ impose $|nx|\le1$ : $\supp\rho_n\subset\Bf(0,1/n)$. Les $\rho_n$ se concentrent en $0$ tout en gardant une masse $1$ ; c'est ce qu'utilise la preuve du Théorème~3.6.
+
+\medskip
+\noindent\textbf{(b)} Supposons $\rho_n\to e$ dans $L^1(\R^d)$. Soit $f\in\Cc(\R^d)$ ; par l'inégalité de Young (Théorème~3.4, cas $p=1$), $\norm{f\star\rho_n-f\star e}_1\le\norm f_1\norm{\rho_n-e}_1\to0$. Mais le Théorème~3.6 donne $f\star\rho_n\to f$ dans $L^1$ (si $\rho$ n'est pas à support dans $\Bf(0,1)$, l'exercice~3.8 l'étend à toute approximation de l'unité). Par unicité de la limite, $f\star e=f$ pour toute $f\in\Cc(\R^d)$, puis par densité et continuité de $g\mapsto g\star e$ sur $L^1$ (Young encore), pour toute $f\in L^1$ : $e$ serait un élément neutre pour la convolution, ce qu'interdit l'exercice~3.7. Donc $(\rho_n)$ ne converge pas dans $L^1$.
+
+Plus directement : par (iii), pour tout $\varepsilon$, $\int_{|x|>\varepsilon}|e|=\lim\int_{|x|>\varepsilon}|\rho_n|=0$, donc $e=0$ p.p., alors que $\int e=\lim\int\rho_n=1$ (l'intégrale est continue pour $\norm\cdot_1$). Contradiction.
+\end{solution}
+
+\begin{commentaire}
+Une approximation de l'unité est une suite qui « tend vers la masse de Dirac $\delta_0$ », laquelle n'est pas une fonction : c'est exactement ce que dit (b), et c'est le point de départ de la théorie des distributions (chapitre~6), où $\rho_n\to\delta_0$ a un sens. Exemples : $\rho=\mathbf 1_{\Bf(0,1)}/|\Bf(0,1)|$ (moyennes locales), la gaussienne $\rho(x)=(2\pi)^{-d/2}e^{-|x|^2/2}$ (noyau de la chaleur, support non compact), ou une fonction $\mathcal C^\infty_c$ positive d'intégrale $1$ (régularisation : $f\star\rho_n$ est alors $\mathcal C^\infty$ et converge vers $f$ dans $L^p$, c'est la preuve de la densité de $\mathcal C^\infty_c$ dans $L^p$).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Remarque 3.8 -- Théorème du graphe fermé et applications}
+Soient $E$, $F$ deux espaces de Banach et $T:E\to F$ une application \emph{linéaire} (non supposée continue). On munit $E\times F$ de la norme $\norm{(x,y)}:=\norm x_E+\norm y_F$ et l'on note $\Gamma_T:=\{(x,T(x)):x\in E\}$ le graphe de $T$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $E\times F$ est un espace de Banach et que $\Gamma_T$ en est un sous-espace vectoriel.
+  \item \emph{(Graphe fermé.)} Montrer que $T$ est continue si et seulement si $\Gamma_T$ est fermé dans $E\times F$, \ie{} si et seulement si : pour toute suite $(x_n)$ de $E$, [$x_n\to x$ et $T(x_n)\to y$] $\Rightarrow$ $y=T(x)$.
+  \item \emph{(Hellinger--Toeplitz.)} Soit $H$ un espace de Hilbert et $T:H\to H$ linéaire telle que $\ps{T(x)}y=\ps x{T(y)}$ pour tous $x,y$. Montrer que $T$ est continue.
+  \item Montrer que l'hypothèse de complétude ne peut être supprimée ni dans le Corollaire~3.4 ni dans (b) : étudier $\mathrm{Id}:(\Cz([0,1]),\norm\cdot_\infty)\to(\Cz([0,1]),\norm\cdot_1)$ et la dérivation $D:(\mathcal C^1([0,1]),\norm\cdot_\infty)\to(\Cz([0,1]),\norm\cdot_\infty)$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} La norme produit induit la distance $D_1$ de l'Exemple~1.3, pour laquelle une suite converge (resp. est de Cauchy) si et seulement si ses deux composantes le sont (exercice~1.7, TD1 ex.~5) ; $E$ et $F$ étant complets, $E\times F$ l'est. $\Gamma_T$ est un sous-espace vectoriel car $T$ est linéaire : $\lambda(x,Tx)+(x',Tx')=(\lambda x+x',T(\lambda x+x'))$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Équivalence des deux formulations.} $\Gamma_T$ est fermé si et seulement si toute limite $(x,y)$ d'une suite $(x_n,T(x_n))$ de $\Gamma_T$ est dans $\Gamma_T$, \ie{} $y=T(x)$ (Proposition~1.3) ; et $(x_n,T(x_n))\to(x,y)$ signifie $x_n\to x$ et $T(x_n)\to y$.
+
+\emph{($\Rightarrow$)} Si $T$ est continue et $x_n\to x$, $T(x_n)\to y$, alors $T(x_n)\to T(x)$ par continuité et $y=T(x)$ par unicité de la limite. (Ce sens ne demande aucune complétude.)
+
+\emph{($\Leftarrow$)} Supposons $\Gamma_T$ fermé. C'est alors un sous-espace fermé de l'espace de Banach $E\times F$, donc un espace de Banach (Proposition~1.8). L'application $\pi:\Gamma_T\to E$, $(x,T(x))\mapsto x$, est linéaire, continue ($\norm{\pi(x,Tx)}=\norm x\le\norm{(x,Tx)}$), bijective (surjective par définition de $\Gamma_T$ ; injective car $\pi(x,Tx)=0\Rightarrow x=0\Rightarrow(x,Tx)=(0,0)$). Par le Corollaire~3.4 (continuité automatique), $\pi^{-1}:x\mapsto(x,T(x))$ est continue : il existe $C$ avec $\norm x+\norm{T(x)}\le C\norm x$ pour tout $x$, d'où $\norm{T(x)}\le C\norm x$ et $T$ est continue.
+
+\medskip
+\noindent\textbf{(c)} $H$ est complet, on applique (b) avec $E=F=H$. Soient $x_n\to x$ et $T(x_n)\to y$. Pour tout $z\in H$, par continuité du produit scalaire (Proposition~4.2) et symétrie de $T$,
+\[
+\ps yz=\lim_n\ps{T(x_n)}z=\lim_n\ps{x_n}{T(z)}=\ps x{T(z)}=\ps{T(x)}z .
+\]
+Donc $y-T(x)\perp z$ pour tout $z$, en particulier pour $z=y-T(x)$ : $y=T(x)$. Le graphe est fermé et $T$ est continue. Noter que la symétrie permet de « faire passer $T$ de l'autre côté », là où il agit sur le vecteur \emph{fixe} $z$, ce qui remplace la continuité manquante.
+
+\medskip
+\noindent\textbf{(d)} \emph{Corollaire~3.4.} $\mathrm{Id}:(\Cz,\norm\cdot_\infty)\to(\Cz,\norm\cdot_1)$ est linéaire, bijective, continue car $\norm f_1=\int_0^1|f|\le\norm f_\infty$. Son inverse n'est pas continu : les bosses $f_n(x):=\max(0,1-n|x-\tfrac12|)$ vérifient $\norm{f_n}_\infty=1$ et $\norm{f_n}_1=1/n\to0$. L'hypothèse en défaut est la complétude de l'espace d'arrivée $(\Cz([0,1]),\norm\cdot_1)$ (dense et strict dans $L^1([0,1])$, Théorème~A.4).
+
+\emph{Graphe fermé.} Le graphe de $D:f\mapsto f'$ est fermé : si $f_n\to f$ et $f_n'\to g$ uniformément, alors $f'=g$ (c'est exactement l'argument de l'Exemple~3.2 (a) ci-dessus). Pourtant $D$ n'est pas continue : $\norm{x^n}_\infty=1$ et $\norm{D(x^n)}_\infty=n$. L'hypothèse en défaut est la complétude de l'espace de départ $(\mathcal C^1([0,1]),\norm\cdot_\infty)$ (Exemple~3.2 (c)).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Utilité du graphe fermé.} Pour prouver la continuité de $T$ directement, il faut, de $x_n\to x$, déduire $T(x_n)\to T(x)$ — c'est-à-dire \emph{prouver la convergence} de $(T(x_n))$. Avec le graphe fermé, on a le droit de \emph{supposer} que $(T(x_n))$ converge vers un certain $y$, et il ne reste qu'à identifier $y=T(x)$, ce qui est en général beaucoup plus facile (en testant contre des vecteurs, comme en (c), ou par une formule intégrale, comme pour $D$). Le prix : la complétude des deux espaces. Les trois théorèmes de Baire du paragraphe~3.3 (Banach--Steinhaus, application ouverte, graphe fermé) sont trois faces du même principe, « en présence de complétude, une propriété ponctuelle ou algébrique devient automatiquement uniforme ou topologique ».
+\end{pointcle}
+
+\begin{commentaire}
+\textbf{Portée de Hellinger--Toeplitz.} Les opérateurs symétriques de la physique ($-\Delta$, $i\,d/dx$, la multiplication par $x$ sur $L^2(\R)$) ne sont pas bornés : par (c), ils ne peuvent donc pas être définis sur tout $L^2$, et l'on doit les considérer sur un domaine dense (opérateurs non bornés). C'est aussi pourquoi la Définition~4.10 d'un opérateur auto-adjoint suppose $T$ continu : sur tout l'espace, la symétrie implique la continuité, et il n'y a rien à ajouter.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Réciproque de la Proposition 3.4 -- Complétude de $\Lc(E,F)$}
+Soient $E\ne\{0\}$ et $F$ deux EVN. On suppose que $(\Lc(E,F),\opnorm\cdot)$ est complet et que $E$ admet une forme linéaire continue non nulle $\varphi$ (c'est toujours le cas, par le théorème de Hahn--Banach, Théorème~5.2 ; c'est évident si $E$ est un Hilbert ou un $\Cz(X)$). Montrer que $F$ est complet.
+\end{exo}
+
+\begin{solution}
+Fixons $x_0\in E$ avec $\varphi(x_0)=1$ (possible, $\varphi\ne0$). Pour $y\in F$, notons $T_y:=\varphi(\cdot)\,y:x\mapsto\varphi(x)y$, opérateur de rang $1$. Il est linéaire continu et $\opnorm{T_y}=\opnorm\varphi\,\norm y$ : en effet $\norm{T_y(x)}=|\varphi(x)|\norm y\le\opnorm\varphi\norm x\norm y$, et en prenant le sup sur la boule unité, $\opnorm{T_y}=\sup_{\norm x\le1}|\varphi(x)|\cdot\norm y=\opnorm\varphi\norm y$. L'application $y\mapsto T_y$ est donc linéaire et c'est une isométrie à la constante $\opnorm\varphi>0$ près.
+
+Soit $(y_n)$ une suite de Cauchy de $F$. Alors $\opnorm{T_{y_n}-T_{y_m}}=\opnorm{T_{y_n-y_m}}=\opnorm\varphi\norm{y_n-y_m}$ : $(T_{y_n})$ est de Cauchy dans $\Lc(E,F)$, donc converge vers un $T\in\Lc(E,F)$. En évaluant en $x_0$ : $\norm{y_n-T(x_0)}=\norm{T_{y_n}(x_0)-T(x_0)}\le\opnorm{T_{y_n}-T}\norm{x_0}\to0$. Donc $y_n\to T(x_0)$ : $F$ est complet.
+\end{solution}
+
+\begin{commentaire}
+La Proposition~3.4 et sa réciproque disent que \emph{la complétude de $\Lc(E,F)$ ne dépend que de $F$} : $F$ se plonge isométriquement dans $\Lc(E,F)$ (via $y\mapsto\varphi(\cdot)y$), et $\Lc(E,F)$ est à son tour un sous-espace fermé de l'espace des fonctions bornées de la boule unité de $E$ dans $F$ (la preuve de la Proposition~3.4 est celle de la Remarque~2.4). En particulier le dual $E'=\Lc(E,\K)$ est \emph{toujours} un Banach, même si $E$ ne l'est pas (Proposition~5.1), et $\Lc(E,F)=\Lc(\adh E,F)$ par prolongement (Théorème~1.1) lorsque $F$ est complet : remplacer $E$ par son complété ne change rien.
+\end{commentaire}
+
+% =====================================================================
+\section{Chapitre 4 -- Espaces de Hilbert}
+
+\begin{commentaire}
+Dans tout ce chapitre, $H$ désigne un espace de Hilbert sur $\K=\R$ ou $\C$, de produit scalaire $\ps\cdot\cdot$ linéaire à gauche et semi-linéaire à droite (Définition~4.1). On utilise constamment l'identité (4.1) du polycopié, $\norm{a+b}^2=\norm a^2+2\,\mathrm{Re}\ps ab+\norm b^2$, et sa conséquence, l'identité du parallélogramme (4.2). Aucun exercice du chapitre~4 ne figure sur les feuilles de TD : ils sont donc tous corrigés ici, ainsi que trois développements d'exemples du polycopié (Exemple~4.6 et Remarque~4.4, Exemple~4.7, Proposition~4.8).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.1 -- L'identité du parallélogramme caractérise les normes euclidiennes}
+Soit $(E,\norm\cdot)$ un EVN réel dont la norme satisfait l'identité du parallélogramme (4.2) : $\norm{x+y}^2+\norm{x-y}^2=2(\norm x^2+\norm y^2)$. On pose $\ps xy:=\frac12\big(\norm{x+y}^2-\norm x^2-\norm y^2\big)$.
+\begin{enumerate}[label=(\arabic*)]
+  \item Montrer que $\ps\cdot\cdot$ est symétrique, positive et séparée.
+  \item Pour $y\in E$ fixé, montrer que $x\mapsto\ps xy$ est additive.
+  \item En déduire que $\ps{\lambda x}y=\lambda\ps xy$ pour (successivement) $\lambda\in\N$, $\Z$, $\Q$, $\R$, puis conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1)} La symétrie est évidente sur la formule ($\norm{x+y}=\norm{y+x}$). Pour $x=y$, $\ps xx=\frac12(\norm{2x}^2-2\norm x^2)=\frac12(4-2)\norm x^2=\norm x^2\ge0$, et $\ps xx=0\Rightarrow\norm x=0\Rightarrow x=0$. On notera au passage $\ps0y=\frac12(\norm y^2-0-\norm y^2)=0$.
+
+\medskip
+\noindent\textbf{(2)} Soient $x,y,z\in E$ et notons $w:=x+y$. Il s'agit de montrer $\ps wz=\ps xz+\ps yz$. On calcule chaque membre à l'aide du parallélogramme.
+
+\emph{Membre de gauche.} Le parallélogramme pour le couple $(w+z,z)$ s'écrit $\norm{w+2z}^2+\norm w^2=2\norm{w+z}^2+2\norm z^2$, d'où $\norm{w+z}^2=\frac12\norm{w+2z}^2+\frac12\norm w^2-\norm z^2$ et
+\[
+\ps wz=\frac12\big(\norm{w+z}^2-\norm w^2-\norm z^2\big)=\frac14\big(\norm{w+2z}^2-\norm w^2\big)-\norm z^2 .
+\]
+
+\emph{Membre de droite.} Par définition, $\ps xz+\ps yz=\frac12\big(\norm{x+z}^2+\norm{y+z}^2\big)-\frac12\big(\norm x^2+\norm y^2\big)-\norm z^2$. Le parallélogramme pour $(x+z,y+z)$ donne $\norm{w+2z}^2+\norm{x-y}^2=2\norm{x+z}^2+2\norm{y+z}^2$, et pour $(x,y)$ : $\norm w^2+\norm{x-y}^2=2\norm x^2+2\norm y^2$. En soustrayant, $\norm{w+2z}^2-\norm w^2=2\big(\norm{x+z}^2+\norm{y+z}^2\big)-2\big(\norm x^2+\norm y^2\big)$, donc
+\[
+\ps xz+\ps yz=\frac14\big(\norm{w+2z}^2-\norm w^2\big)-\norm z^2 .
+\]
+Les deux membres coïncident : $x\mapsto\ps xy$ est additive.
+
+\medskip
+\noindent\textbf{(3)} Fixons $x,y$. \emph{$\lambda\in\N$} : récurrence à partir de $\ps0y=0$ et de l'additivité, $\ps{(n+1)x}y=\ps{nx}y+\ps xy$. \emph{$\lambda\in\Z$} : $0=\ps0y=\ps{x+(-x)}y=\ps xy+\ps{-x}y$, donc $\ps{-x}y=-\ps xy$, puis $\ps{-nx}y=-n\ps xy$. \emph{$\lambda\in\Q$} : pour $q\in\N^*$, $\ps xy=\ps{q\,(x/q)}y=q\ps{x/q}y$, donc $\ps{x/q}y=\frac1q\ps xy$ et $\ps{\frac pq x}y=p\ps{x/q}y=\frac pq\ps xy$. \emph{$\lambda\in\R$} : l'application $\lambda\mapsto\ps{\lambda x}y=\frac12(\norm{\lambda x+y}^2-\lambda^2\norm x^2-\norm y^2)$ est continue sur $\R$ (composée de la norme, continue, et d'applications affines), de même que $\lambda\mapsto\lambda\ps xy$ ; elles coïncident sur $\Q$, dense dans $\R$, donc partout.
+
+\emph{Conclusion.} $\ps\cdot\cdot$ est linéaire à gauche (additive et homogène), symétrique donc bilinéaire, positive et séparée : c'est un produit scalaire, et $\ps xx=\norm x^2$ montre que $\norm\cdot$ en dérive.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Théorème de Jordan--von Neumann.} Un EVN est préhilbertien \emph{si et seulement si} sa norme vérifie l'identité du parallélogramme. Le sens direct est l'identité (4.1) ; le sens réciproque est cet exercice, dont la seule difficulté est l'additivité (2), le reste étant un passage $\N\to\Z\to\Q\to\R$ classique où la continuité de la norme fait le dernier pas. Dans le cas complexe, on utilise l'identité de polarisation $\ps xy=\frac14\sum_{k=0}^3 i^k\norm{x+i^ky}^2$ et le même schéma. Ce critère est l'outil pour montrer qu'une norme \emph{n'est pas} hilbertienne : il suffit d'exhiber deux vecteurs violant (4.2) (Exemple~4.4, exercice~4.2).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.2 -- $L^p(\Omega)$ n'est pas préhilbertien pour $p\neq2$}
+Soit $\Omega$ un ouvert de $\R^d$ et $p\in[1,\infty]$ différent de $2$. Montrer que $L^p(\Omega)$ n'est pas un espace préhilbertien.
+\end{exo}
+
+\begin{solution}
+On imite l'Exemple~4.4 (qui traite $\ell^p$ avec $e_k,e_m$) : il faut deux fonctions « disjointes » de même norme. $\Omega$ étant un ouvert non vide, il contient une boule, donc deux boules ouvertes disjointes $A$ et $B$ de même rayon ; elles ont même mesure $m\in\,]0,\infty[$. Posons $f:=\mathbf 1_A$ et $g:=\mathbf 1_B$, éléments de $L^p(\Omega)$ pour tout $p$. Comme $A\cap B=\emptyset$, $|f\pm g|=\mathbf 1_{A\cup B}$, d'où, pour $p<\infty$,
+\[
+\norm{f+g}_p=\norm{f-g}_p=(2m)^{1/p},\qquad\norm f_p=\norm g_p=m^{1/p}.
+\]
+L'identité du parallélogramme (4.2) s'écrirait $2(2m)^{2/p}=2\big(m^{2/p}+m^{2/p}\big)$, soit $2^{2/p}=2$, soit $p=2$. Pour $p\ne2$ elle est donc fausse pour ce couple $(f,g)$, et la norme $\norm\cdot_p$ ne dérive d'aucun produit scalaire (sinon (4.1) donnerait (4.2) pour tous les couples). Pour $p=\infty$ : $\norm{f\pm g}_\infty=\norm f_\infty=\norm g_\infty=1$ et (4.2) s'écrirait $1+1=2(1+1)$, faux.
+\end{solution}
+
+\begin{commentaire}
+Le même argument montre que $(\Cz([0,1]),\norm\cdot_\infty)$ n'est pas préhilbertien : prendre deux « bosses » continues à supports disjoints, de norme $1$. Les normes $\norm\cdot_1$ et $\norm\cdot_\infty$ sont les plus éloignées de la structure euclidienne (leurs boules unité en dimension $2$ sont des carrés : aucune « rondeur »), ce qui se traduit par exemple par l'absence d'unicité de la projection sur un convexe fermé (comparer avec le Théorème~4.1) : dans $(\R^2,\norm\cdot_\infty)$, tous les points du segment $\{(0,t):|t|\le1\}$ réalisent la distance de $(1,0)$ à la droite $\{x=0\}$.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.3 -- Réciproque de Pythagore}
+Établir la réciproque de l'implication $x\perp y\Rightarrow\norm{x+y}^2=\norm x^2+\norm y^2$ dans le cas d'un espace préhilbertien réel, et la questionner dans le cas complexe.
+\end{exo}
+
+\begin{solution}
+D'après (4.1), $\norm{x+y}^2=\norm x^2+\norm y^2+2\,\mathrm{Re}\ps xy$ dans tous les cas. L'égalité de Pythagore équivaut donc à $\mathrm{Re}\ps xy=0$.
+
+\emph{Cas réel.} $\mathrm{Re}\ps xy=\ps xy$, donc $\norm{x+y}^2=\norm x^2+\norm y^2\iff x\perp y$ : la réciproque est vraie.
+
+\emph{Cas complexe.} La réciproque est fausse : dans $H=\C$ muni de $\ps zw=z\bar w$, prendre $x=1$ et $y=i$. Alors $\norm{x+y}^2=|1+i|^2=2=\norm x^2+\norm y^2$, mais $\ps xy=1\cdot\bar i=-i\ne0$. Ce qui est vrai en général : $x\perp y$ si et seulement si $\norm{x+\lambda y}^2=\norm x^2+|\lambda|^2\norm y^2$ pour tout $\lambda\in\C$ (ou seulement pour $\lambda\in\{1,i\}$), car $\mathrm{Re}\ps x{\lambda y}=\mathrm{Re}(\bar\lambda\ps xy)$ vaut $\mathrm{Re}\ps xy$ pour $\lambda=1$ et $\mathrm{Im}\ps xy$ pour $\lambda=i$. C'est exactement le mécanisme utilisé dans la preuve du Corollaire~4.1 (prendre $\lambda\in\{\pm1,\pm i\}$ pour passer de $\mathrm{Re}\ps{x-P_F(x)}{\lambda z}\le0$ à $x-P_F(x)\in F^\perp$).
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.4 -- $\Cc(\Omega)$ muni de la norme $L^2$}
+On munit $\Cc(\Omega)$ de la norme $L^2(\Omega)$. Est-ce un espace de Hilbert ?
+\end{exo}
+
+\begin{solution}
+\emph{C'est un espace préhilbertien.} Toute $f\in\Cc(\Omega)$ est bornée à support compact, donc dans $L^2(\Omega)$, et $\ps fg:=\int_\Omega f\bar g$ est la restriction du produit scalaire de $L^2(\Omega)$ (Exemple~4.2) au sous-espace $\Cc(\Omega)$ ; la séparation est même plus forte que dans $L^2$ : si $f$ est continue et $\int|f|^2=0$, alors $|f|^2$ est continue positive d'intégrale nulle, donc $f\equiv0$ (pas seulement presque partout). La norme $\norm\cdot_2$ en dérive.
+
+\emph{Ce n'est pas un espace de Hilbert.} Par le Théorème~A.4, $\Cc(\Omega)$ est dense dans $L^2(\Omega)$. Or il en est une partie stricte : soit $B$ une boule ouverte avec $\adh B\subset\Omega$ ; la classe de $\mathbf 1_B$ est dans $L^2(\Omega)$ mais ne contient aucune fonction continue. En effet, si $g$ est continue sur $\Omega$ et $g=\mathbf 1_B$ presque partout, alors $g-1$ est continue et nulle p.p. sur l'ouvert $B$, donc nulle sur $B$ (une fonction continue non nulle en un point est non nulle sur une boule, de mesure $>0$) ; de même $g=0$ sur l'ouvert $\Omega\setminus\adh B$. En un point $x_0\in\partial B\subset\Omega$, $g(x_0)$ vaut à la fois $\lim g=1$ depuis $B$ et $\lim g=0$ depuis $\Omega\setminus\adh B$ : contradiction. Ainsi $\Cc(\Omega)$ est une partie dense et stricte de l'espace complet $L^2(\Omega)$ ; elle n'est donc pas fermée, donc pas complète (Proposition~1.8 : dans un espace complet, complet $\iff$ fermé). Ce n'est pas un espace de Hilbert.
+
+Concrètement, une suite $(\varphi_n)\subset\Cc(\Omega)$ convergeant dans $L^2$ vers $\mathbf 1_B$ (fournie par le Théorème~A.4) est de Cauchy pour $\norm\cdot_2$ sans limite dans $\Cc(\Omega)$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Dense et strict $\Rightarrow$ non complet.} C'est le même principe que pour $\R[x]\subset\Cz([0,1])$ (exercice~3.9) ou $\Cc(\Omega)\subset\Cz_0(\Omega)$ (exercice~3.4). L'espace de Hilbert « naturel » contenant $(\Cc(\Omega),\norm\cdot_2)$ est son complété, qui n'est autre que $L^2(\Omega)$ : c'est l'une des façons de \emph{définir} $L^2$ sans théorie de la mesure. L'exercice~4.5 montre une conséquence concrète de la non-complétude : le théorème de représentation de Riesz y tombe en défaut.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 4.6 et Remarque 4.4 -- La base canonique de $\ell^2$ ; double orthogonal}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que la famille $(e_k)_{k\in\N}$ est une base hilbertienne de $\ell^2(\N)$, et que $\Vect(e_k:k\in\N)=c_{<\infty}(\N)$ n'est pas $\ell^2(\N)$ : une base hilbertienne n'est pas une base algébrique.
+  \item Soit $A$ une partie d'un espace de Hilbert $H$. Montrer que $A^\perp=(\Vect A)^\perp=(\adh{\Vect A})^\perp$ puis que $(A^\perp)^\perp=\adh{\Vect A}$.
+  \item En déduire un sous-espace $V$ de $\ell^2(\N)$ tel que $V\subsetneq(V^\perp)^\perp$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Orthonormalité :} $\ps{e_k}{e_m}=\sum_n\mathbf 1_{n=k}\mathbf 1_{n=m}=\mathbf 1_{k=m}$. \emph{Totalité :} par le Théorème~4.3 il suffit de montrer $\{e_k:k\in\N\}^\perp=\{0\}$ ; or pour $\mathbf u\in\ell^2$, $\ps{\mathbf u}{e_k}=u_k$, donc $\mathbf u\perp e_k$ pour tout $k$ force $\mathbf u=0$. \emph{Espace engendré :} une combinaison linéaire \emph{finie} des $e_k$ est une suite à support fini, et réciproquement $\mathbf u=\sum_{k\le N}u_ke_k$ si $u_k=0$ pour $k>N$ : $\Vect(e_k)=c_{<\infty}(\N)$. Ce sous-espace est dense (Proposition~2.3) mais strict : $\mathbf u=(1/(n+1))_n\in\ell^2\setminus c_{<\infty}$. La « décomposition » $\mathbf u=\sum_k u_ke_k$ du Théorème~4.5 est une série convergente (Proposition~4.4), pas une somme finie.
+
+\medskip
+\noindent\textbf{(b)} \emph{Première égalité.} $A\subset\Vect A$ donne $(\Vect A)^\perp\subset A^\perp$ (l'orthogonalité à plus de vecteurs est plus contraignante). Réciproquement, si $x\perp a$ pour tout $a\in A$, alors par linéarité du produit scalaire à gauche $x\perp\sum\lambda_ia_i$ : $x\in(\Vect A)^\perp$. \emph{Deuxième égalité.} De même $(\adh{\Vect A})^\perp\subset(\Vect A)^\perp$, et si $x\in(\Vect A)^\perp$ et $v=\lim v_n$ avec $v_n\in\Vect A$, la continuité du produit scalaire (Proposition~4.2) donne $\ps vx=\lim\ps{v_n}x=0$. \emph{Double orthogonal.} Posons $F:=\adh{\Vect A}$, sous-espace fermé. Le Théorème~4.2 donne $(F^\perp)^\perp=F$, et comme $A^\perp=F^\perp$ par ce qui précède, $(A^\perp)^\perp=(F^\perp)^\perp=F=\adh{\Vect A}$.
+
+\medskip
+\noindent\textbf{(c)} Prendre $V:=c_{<\infty}(\N)$. Par (a), $V^\perp=\{e_k\}^\perp=\{0\}$ (orthogonal à tous les $e_k$, donc à $V$ qu'ils engendrent, et réciproquement), donc $(V^\perp)^\perp=\{0\}^\perp=\ell^2(\N)\supsetneq V$. Conformément à (b), $(V^\perp)^\perp=\adh V=\ell^2(\N)$.
+\end{solution}
+
+\begin{pointcle}
+$(A^\perp)^\perp=\adh{\Vect A}$ est la formule à retenir : le double orthogonal est le plus petit sous-espace \emph{fermé} contenant $A$. Elle contient le Théorème~4.3 ($A$ totale $\iff A^\perp=\{0\}$) et explique la Remarque~4.4 : l'égalité $(V^\perp)^\perp=V$ pour un sous-espace $V$ équivaut à sa fermeture.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 4.7 -- La base hilbertienne de Fourier de $L^2(J_{2\pi})$}
+On note $J_{2\pi}:=\,]0,2\pi[$, $e_k(x):=e^{ikx}$ et, pour $f\in L^2(J_{2\pi})$, $c_k(f):=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_k}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\big(\tfrac1{\sqrt{2\pi}}e_k\big)_{k\in\Z}$ est une famille orthonormée de $L^2(J_{2\pi})$.
+  \item Montrer qu'elle est totale. En déduire que pour tout $f\in L^2(J_{2\pi})$, $f=\sum_{k\in\Z}c_k(f)e_k$ au sens $L^2$, avec $\frac1{2\pi}\norm f_2^2=\sum_{k\in\Z}|c_k(f)|^2$ (Parseval), et que $c_k(f)\to0$ quand $|k|\to\infty$.
+  \item Montrer que $f\mapsto(c_k(f))_{k\in\Z}$ est une bijection linéaire de $L^2(J_{2\pi})$ sur $\ell^2(\Z)$, isométrique à la constante $\sqrt{2\pi}$ près. Comparer avec l'exercice « Exemples~3.4 et 3.5 » du chapitre~3.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Les $e_k$ sont continues bornées, donc dans $L^2(J_{2\pi})$, et $\ps{e_k}{e_m}=\int_0^{2\pi}e^{i(k-m)x}\,dx=2\pi\,\mathbf 1_{k=m}$ : $\norm{e_k}_2^2=2\pi$ et $e_k\perp e_m$ pour $k\ne m$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Totalité.} Notons $\mathcal T:=\Vect(e_k:k\in\Z)$ (polynômes trigonométriques). Soit $f\in L^2(J_{2\pi})$ et $\varepsilon>0$. Par le Théorème~A.4, il existe $\varphi\in\Cc(J_{2\pi})$ avec $\norm{f-\varphi}_2\le\varepsilon$. Comme $\varphi$ est nulle au voisinage de $0$ et de $2\pi$, elle se prolonge en une fonction continue $2\pi$-périodique sur $\R$, \ie{} un élément de $\Cz(\Sun;\C)$ (Exemple~2.2). Par l'Exemple~2.4 (Stone--Weierstrass), il existe $P\in\mathcal T$ avec $\norm{\varphi-P}_\infty\le\varepsilon$. Enfin, la convergence uniforme domine la convergence $L^2$ sur un intervalle borné : $\norm{\varphi-P}_2=\big(\int_0^{2\pi}|\varphi-P|^2\big)^{1/2}\le\sqrt{2\pi}\norm{\varphi-P}_\infty\le\sqrt{2\pi}\,\varepsilon$ (c'est le cas $p=2$, $q=\infty$ de la Proposition~2.7). Donc $\norm{f-P}_2\le(1+\sqrt{2\pi})\varepsilon$ : $\mathcal T$ est dense, la famille est totale.
+
+\emph{Décomposition.} La famille $(\tfrac1{\sqrt{2\pi}}e_k)_{k\in\Z}$ est orthonormée et totale, donc (après énumération de $\Z$) une base hilbertienne de l'espace séparable $L^2(J_{2\pi})$ (Proposition~2.8). Le Théorème~4.5 donne
+\[
+f=\sum_{k\in\Z}\Big\langle f,\tfrac{e_k}{\sqrt{2\pi}}\Big\rangle\tfrac{e_k}{\sqrt{2\pi}}=\sum_{k\in\Z}\frac{\ps f{e_k}}{2\pi}e_k=\sum_{k\in\Z}c_k(f)e_k
+\quad\text{dans }L^2,
+\]
+\[
+\norm f_2^2=\sum_{k\in\Z}\Big|\frac{\ps f{e_k}}{\sqrt{2\pi}}\Big|^2=2\pi\sum_{k\in\Z}|c_k(f)|^2 .
+\]
+(Les sommes sur $\Z$ sont des séries orthogonales : par la Proposition~4.4, elles convergent indépendamment de l'ordre d'énumération, et toute façon de faire tendre les sommes partielles vers $\Z$ donne la même limite ; en particulier les sommes symétriques $\sum_{|k|\le N}$.) Enfin, la série $\sum_k|c_k(f)|^2$ converge, donc son terme général tend vers $0$ : $c_k(f)\to0$. C'est le lemme de Riemann--Lebesgue dans $L^2$ (comparer avec sa version $\Cz$ du TD2 ex.~8, obtenue par un argument de densité analogue).
+
+\medskip
+\noindent\textbf{(c)} L'application $c:f\mapsto(c_k(f))_k$ est linéaire et, par Parseval, $\norm{c(f)}_{\ell^2(\Z)}=\frac1{\sqrt{2\pi}}\norm f_2$ : c'est une isométrie à la constante près, donc injective. La surjectivité est la Proposition~4.4 : si $(a_k)\in\ell^2(\Z)$, la série orthogonale $\sum_ka_ke_k$ vérifie $\sum_k\norm{a_ke_k}_2^2=2\pi\sum|a_k|^2<\infty$, donc converge dans $L^2$ vers un $f$, et par continuité du produit scalaire $c_k(f)=\frac1{2\pi}\ps f{e_k}=a_k$. C'est le Corollaire~4.2 (tout Hilbert séparable est isométrique à $\ell^2$), ici sous le nom de théorème de Riesz--Fischer pour les séries de Fourier.
+
+\emph{Comparaison.} Dans l'exercice « Exemples~3.4 et 3.5 », la même application $c$, restreinte à $\Cz(\Sun;\C)$ et à valeurs dans $c_0(\Z)$ (normes uniforme et $\ell^\infty$), était injective, d'image dense, mais \emph{non surjective}. Dans le cadre $L^2\to\ell^2$, elle devient bijective et isométrique : c'est la structure hilbertienne (et seulement elle) qui rend les coefficients de Fourier « parfaits ». L'injectivité de $c$ sur $\Cz(\Sun)$ se lit d'ailleurs ici : $\Cz(\Sun;\C)\subset L^2(J_{2\pi})$ et $c(f)=0\Rightarrow\norm f_2=0\Rightarrow f=0$ p.p., donc partout par continuité (c'est l'Exemple~4.8).
+\end{solution}
+
+\begin{piege}
+\textbf{Convergence $L^2$, pas ponctuelle.} L'égalité $f=\sum_kc_k(f)e_k$ signifie $\norm{f-S_N(f)}_2\to0$ ; elle ne dit rien de $S_N(f)(x)$ en un point $x$ donné, et l'exercice du chapitre~3 montre que cette convergence ponctuelle peut échouer même pour $f$ continue. Le théorème de Carleson affirme qu'elle a lieu presque partout, mais c'est un résultat très difficile, sans rapport avec la structure hilbertienne.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.5 -- Une forme linéaire continue non représentable dans un préhilbertien}
+Soit $H:=(\Cz([0,1];\R),\norm\cdot_2)$. Montrer que $H'$ contient des éléments qui ne sont pas de la forme $f\mapsto\ps fg$ avec $g\in\Cz([0,1];\R)$.
+\end{exo}
+
+\begin{solution}
+Considérons $\varphi(f):=\int_0^{1/2}f(t)\,dt$. Elle est linéaire et, par Cauchy--Schwarz dans $L^2([0,1])$, $|\varphi(f)|=\big|\int_0^1f\,\mathbf 1_{[0,1/2]}\big|\le\norm{\mathbf 1_{[0,1/2]}}_2\norm f_2=\frac1{\sqrt2}\norm f_2$ : $\varphi\in H'$ (Théorème~2.4 (iv)).
+
+Supposons qu'il existe $g\in\Cz([0,1];\R)$ telle que $\varphi(f)=\int_0^1fg$ pour toute $f\in H$, et posons $h:=g-\mathbf 1_{[0,1/2]}$, de sorte que $\int_0^1fh=0$ pour toute $f$ continue. Sur $]0,\tfrac12[$, $h=g-1$ est continue. Prenons $\psi(t):=t(\tfrac12-t)$ pour $t\in[0,\tfrac12]$ et $\psi:=0$ ailleurs : $\psi$ est continue, positive, strictement positive sur $]0,\tfrac12[$, nulle sur $[\tfrac12,1]$. La fonction $f:=(g-1)\psi$ est continue sur $[0,1]$ et
+\[
+0=\int_0^1fh=\int_0^{1/2}(g-1)^2\psi .
+\]
+L'intégrande est continue et positive sur $[0,\tfrac12]$, donc nulle, donc $g=1$ sur $]0,\tfrac12[$. Le même argument avec $\psi(t):=(t-\tfrac12)(1-t)$ sur $[\tfrac12,1]$ (et $f:=g\psi$) donne $g=0$ sur $]\tfrac12,1[$. Par continuité de $g$ en $\tfrac12$, on obtiendrait $1=g(\tfrac12)=0$ : contradiction. Donc $\varphi$ n'est représentée par aucune fonction continue.
+\end{solution}
+
+\begin{piege}
+\textbf{Ne pas prendre une évaluation.} La forme $f\mapsto f(\tfrac12)$ n'est \emph{pas} continue pour $\norm\cdot_2$ (des bosses de hauteur $1$ et de largeur $1/n$ en $\tfrac12$ ont une norme $L^2$ tendant vers $0$) : elle n'est pas dans $H'$ et ne convient pas. Il faut une forme continue pour $\norm\cdot_2$ qui soit représentée, dans le complété $L^2([0,1])$, par un élément \emph{non continu} ($\mathbf 1_{[0,1/2]}$ ici). \textbf{Morale :} le théorème de représentation de Riesz (Théorème~4.6) exige la complétude. Dans le préhilbertien $H$, l'application $g\mapsto\ps\cdot g$ reste une isométrie $H\to H'$ (la preuve de l'isométrie n'utilise pas la complétude), mais elle n'est pas surjective : $H'$ s'identifie en fait au dual de son complété, $L^2([0,1])'\simeq L^2([0,1])\supsetneq\Cz([0,1])$.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.6 -- Théorème de Riesz sans séparabilité}
+Soit $H$ un espace de Hilbert quelconque et $\varphi\in H'$ non nulle.
+\begin{enumerate}[label=(\arabic*)]
+  \item Montrer que $F:=\Ker\varphi$ admet un supplémentaire orthogonal non trivial.
+  \item En utilisant la structure vectorielle de $\Phi(H)$, montrer que l'on peut supposer l'existence de $z_\varphi\in F^\perp$ de norme $1$ tel que $\varphi(z_\varphi)=1$.
+  \item Pour $x\in H$, que peut-on dire de $x-\varphi(x)z_\varphi$ ? Conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1)} $F=\varphi^{-1}(\{0\})$ est un sous-espace fermé ($\varphi$ est linéaire continue). Le Théorème~4.2 donne $H=F\oplus^\perp F^\perp$ et $(F^\perp)^\perp=F$. Si l'on avait $F^\perp=\{0\}$, alors $F=(F^\perp)^\perp=\{0\}^\perp=H$, \ie{} $\varphi=0$, exclu. Donc $F^\perp\ne\{0\}$. (Notons que, contrairement à la preuve du Théorème~4.6, on n'a utilisé ici que le théorème de projection, valable sans séparabilité.)
+
+\medskip
+\noindent\textbf{(2)} L'ensemble $\Phi(H)=\{\Phi_z:z\in H\}$ est un sous-espace vectoriel de $H'$ : $\lambda\Phi_z+\mu\Phi_w=\Phi_{\bar\lambda z+\bar\mu w}$ (semi-linéarité à droite). Il suffit donc de montrer que $\lambda\varphi\in\Phi(H)$ pour \emph{un} scalaire $\lambda\ne0$ ; autrement dit on peut remplacer $\varphi$ par n'importe quel multiple non nul. Choisissons $z\in F^\perp$ de norme $1$ (possible par (1)). Alors $\varphi(z)\ne0$, car sinon $z\in F\cap F^\perp=\{0\}$. Quitte à remplacer $\varphi$ par $\varphi/\varphi(z)$ (qui a même noyau $F$), on peut supposer $\varphi(z)=1$ ; on pose $z_\varphi:=z$.
+
+\medskip
+\noindent\textbf{(3)} $\varphi\big(x-\varphi(x)z_\varphi\big)=\varphi(x)-\varphi(x)\varphi(z_\varphi)=0$, donc $x-\varphi(x)z_\varphi\in F$, donc est orthogonal à $z_\varphi\in F^\perp$ :
+\[
+0=\ps{x-\varphi(x)z_\varphi}{z_\varphi}=\ps x{z_\varphi}-\varphi(x)\norm{z_\varphi}^2=\ps x{z_\varphi}-\varphi(x).
+\]
+Ainsi $\varphi(x)=\ps x{z_\varphi}$ pour tout $x$ : $\varphi=\Phi_{z_\varphi}$. Pour la forme initiale $\varphi_0=\lambda\varphi$ (avec $\lambda=\varphi_0(z)$), on obtient $\varphi_0=\lambda\Phi_{z_\varphi}=\Phi_{\bar\lambda z_\varphi}$. L'application $\Phi$ est surjective, et le Théorème~4.6 vaut sans hypothèse de séparabilité.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Deux preuves de Riesz.} Celle du polycopié (Théorème~4.6) construit $z=\sum\varphi(e_k)e_k$ coordonnée par coordonnée dans une base hilbertienne : elle est « calculatoire » et demande la séparabilité. Celle-ci est géométrique : le noyau d'une forme linéaire continue non nulle est un hyperplan fermé, son orthogonal est une droite (on vient de montrer que $F^\perp=\K z_\varphi$ : tout $w\in F^\perp$ vérifie $w-\varphi(w)z_\varphi\in F\cap F^\perp=\{0\}$), et $\varphi$ est « la coordonnée le long de cette droite ». Le seul ingrédient est le théorème de projection, donc la complétude (exercice~4.5 pour son rôle).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.7 -- Multiplicateurs diagonaux sur $\ell^2$ ; opérateurs compacts}
+Soit $a\in\ell^\infty(\N;\R)$ une suite réelle et $M_a:\mathbf u\mapsto a\mathbf u=(a_nu_n)_n$.
+\begin{enumerate}[label=(\arabic*)]
+  \item Montrer que $M_a$ est un opérateur auto-adjoint de $\ell^2(\N;\C)$.
+  \item Montrer que $M_a$ est compact si et seulement si $a\in c_0(\N)$.
+\end{enumerate}
+\emph{Complément (Proposition~4.7).} Déterminer les valeurs propres et espaces propres de $M_a$ ; vérifier directement sur cet exemple les assertions de la Proposition~4.7, et démontrer ses deux premières (« comme en dimension finie »).
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1)} Pour $\mathbf u\in\ell^2$, $\sum|a_nu_n|^2\le\norm a_\infty^2\sum|u_n|^2$, donc $a\mathbf u\in\ell^2$ et $\norm{M_a\mathbf u}_2\le\norm a_\infty\norm{\mathbf u}_2$ : $M_a$ est linéaire continu, $\opnorm{M_a}\le\norm a_\infty$ (avec égalité : $M_ae_n=a_ne_n$ donne $\opnorm{M_a}\ge|a_n|$ pour tout $n$). Auto-adjoint : les $a_n$ étant réels,
+\[
+\ps{M_a\mathbf u}{\mathbf v}=\sum_na_nu_n\overline{v_n}=\sum_nu_n\overline{a_nv_n}=\ps{\mathbf u}{M_a\mathbf v},
+\]
+donc $M_a^\star=M_a$ (unicité de l'adjoint, Proposition~4.6).
+
+\medskip
+\noindent\textbf{(2)} Notons $B$ la boule unité fermée de $\ell^2$. Rappelons que $M_a$ est compact si $M_a(B)$ est relativement compacte, \ie{} (Corollaire~1.4, $\ell^2$ étant complet) précompacte.
+
+\emph{($\Leftarrow$)} Supposons $a_n\to0$. Pour $N\in\N$, notons $a^N:=a\mathbf 1_{n\le N}$ (suite tronquée). Alors $M_a-M_{a^N}=M_{a-a^N}$ et, par (1), $\opnorm{M_a-M_{a^N}}\le\sup_{n>N}|a_n|=:\varepsilon_N\to0$. Soit $\varepsilon>0$ et $N$ tel que $\varepsilon_N\le\varepsilon$. L'image $M_{a^N}(B)$ est contenue dans la boule de rayon $\norm a_\infty$ du sous-espace $\Vect(e_0,\dots,e_N)$, de dimension finie : elle est bornée en dimension finie, donc précompacte (Corollaire~2.1), et recouverte par un nombre fini de boules $B(y_j,\varepsilon)$. Pour $\mathbf u\in B$, $\norm{M_a\mathbf u-M_{a^N}\mathbf u}\le\varepsilon$ et $M_{a^N}\mathbf u\in B(y_j,\varepsilon)$ pour un $j$, donc $M_a\mathbf u\in B(y_j,2\varepsilon)$. Ainsi $M_a(B)$ est recouverte par un nombre fini de boules de rayon $2\varepsilon$, pour tout $\varepsilon>0$ : elle est précompacte, et $M_a$ est compact.
+
+\emph{($\Rightarrow$)} Supposons $a\notin c_0$ : il existe $\varepsilon>0$ et une infinité d'indices $n$ avec $|a_n|\ge\varepsilon$ ; notons $I$ cet ensemble. Les $e_n$, $n\in I$, sont dans $B$, et pour $n\ne m$ dans $I$, par Pythagore,
+\[
+\norm{M_ae_n-M_ae_m}_2^2=\norm{a_ne_n-a_me_m}_2^2=a_n^2+a_m^2\ge2\varepsilon^2 .
+\]
+La suite $(M_ae_n)_{n\in I}$ n'a donc aucune sous-suite de Cauchy, donc aucune sous-suite convergente : $M_a(B)$ n'est pas relativement compacte (compacité séquentielle, Définition~1.20). Donc $M_a$ compact $\Rightarrow a\in c_0$.
+
+\medskip
+\noindent\textbf{Complément.} \emph{Spectre ponctuel.} $M_a\mathbf u=\lambda\mathbf u$ équivaut à $(a_n-\lambda)u_n=0$ pour tout $n$. Si $\lambda\notin\{a_n:n\in\N\}$, cela force $\mathbf u=0$ ; si $\lambda=a_{n_0}$, les solutions sont les suites supportées dans $I_\lambda:=\{n:a_n=\lambda\}$ : $E_\lambda=\adh{\Vect}(e_n:n\in I_\lambda)$, de dimension $\#I_\lambda\in\N^*\cup\{\infty\}$. Donc $\nu(M_a)=\{a_n:n\in\N\}$, ensemble réel (cohérent avec la Proposition~4.7), les $E_\lambda$ étant deux à deux orthogonaux (supports disjoints). Si $a\in c_0$ (cas compact) : $\nu(M_a)$ est borné, dénombrable, n'a que $0$ comme point d'accumulation possible ($a_n\to0$), et pour $\lambda\ne0$, $I_\lambda$ est fini (sinon $a_n\not\to0$ le long de $I_\lambda$), donc $\dim E_\lambda<\infty$ : toutes les assertions de la Proposition~4.7 se vérifient à la main. Si $a\notin c_0$, par exemple $a\equiv1$ ($M_a=\mathrm{Id}$) : $E_1=\ell^2$ est de dimension infinie, ce qui confirme que l'hypothèse de compacité est nécessaire.
+
+\emph{Les deux premières assertions de la Proposition~4.7.} Soit $T$ auto-adjoint, $Tx=\lambda x$ avec $x\ne0$. Alors $\lambda\norm x^2=\ps{Tx}x=\ps x{Tx}=\ps x{\lambda x}=\bar\lambda\norm x^2$, donc $\lambda=\bar\lambda\in\R$. Si de plus $Ty=\mu y$ avec $\mu\ne\lambda$ : $\lambda\ps xy=\ps{Tx}y=\ps x{Ty}=\bar\mu\ps xy=\mu\ps xy$ (car $\mu\in\R$), donc $(\lambda-\mu)\ps xy=0$ et $x\perp y$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Compacité des opérateurs.} Un opérateur de rang fini est compact (image de la boule bornée en dimension finie), et une \emph{limite en norme d'opérateurs} d'opérateurs compacts est compacte : c'est exactement l'argument « $\varepsilon$-réseau à $2\varepsilon$ près » du sens ($\Leftarrow$), à retenir. Inversement, un opérateur compact ne peut pas « séparer » une suite orthonormée (sens ($\Rightarrow$)) : c'est le mécanisme de la preuve de la Proposition~4.7. L'opérateur $M_a$ est le modèle de tous les opérateurs auto-adjoints compacts : le théorème spectral (chapitre~5) dit que tout tel opérateur est un $M_a$ dans une base hilbertienne adaptée, avec $a\in c_0$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.8 -- Faiblement de Cauchy implique faiblement convergente}
+Soit $(x_n)_n\in H^\N$ telle que pour tout $z\in H$ la suite scalaire $(\ps{x_n}z)_n$ est convergente. Démontrer que $(x_n)_n$ converge faiblement.
+\end{exo}
+
+\begin{solution}
+Pour $z\in H$ posons $\varphi(z):=\lim_n\ps z{x_n}$ (limite du conjugué de $\ps{x_n}z$, qui existe par hypothèse). L'application $\varphi$ est linéaire, comme limite simple des formes linéaires $\Phi_{x_n}=\ps\cdot{x_n}$. Pour sa continuité, on utilise Banach--Steinhaus (Théorème~3.7) sur l'espace de Banach $H$ : la famille $(\Phi_{x_n})_n\subset H'$ est ponctuellement bornée (une suite scalaire convergente est bornée), donc bornée dans $H'$ : $\sup_n\opnorm{\Phi_{x_n}}=\sup_n\norm{x_n}=:M<\infty$ (l'égalité $\opnorm{\Phi_z}=\norm z$ est l'isométrie du Théorème~4.6). Par passage à la limite dans $|\ps z{x_n}|\le M\norm z$, on obtient $|\varphi(z)|\le M\norm z$ : $\varphi\in H'$. (On peut aussi invoquer directement le Corollaire~3.3.) Par le théorème de représentation de Riesz (Théorème~4.6, ou exercice~4.6), il existe $x\in H$ avec $\varphi=\Phi_x$, \ie{} $\lim_n\ps z{x_n}=\ps zx$ pour tout $z$. En conjuguant, $\ps{x_n}z\to\ps xz$ pour tout $z\in H$ : $(x_n)_n\rightharpoonup x$.
+\end{solution}
+
+\begin{piege}
+\textbf{La complétude est indispensable deux fois} (Banach--Steinhaus et Riesz). Contre-exemple dans le préhilbertien $V=c_{<\infty}(\N)$ muni de la norme $\ell^2$ : $x_n:=\sum_{k=1}^ne_k/k$. Pour $\mathbf z\in V$, à support dans $[0,N]$, $\ps{x_n}{\mathbf z}=\sum_{k=1}^{\min(n,N)}\overline{z_k}/k$ est constante pour $n\ge N$, donc convergente. Mais une limite faible $x\in V$ devrait vérifier $\ps x{e_k}=\lim_n\ps{x_n}{e_k}=1/k$ pour tout $k\ge1$, donc avoir un support infini : impossible. Dans le complété $\ell^2$, la limite faible (et même forte) existe : $(1/k)_{k\ge1}$.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.9 -- Les opérateurs sont faiblement continus}
+Montrer que tout opérateur $T$ sur $H$ est séquentiellement faiblement continu : $x_n\rightharpoonup x\Rightarrow T(x_n)\rightharpoonup T(x)$.
+\end{exo}
+
+\begin{solution}
+Soit $z\in H$. Par définition de l'adjoint (Proposition~4.6), $\ps{T(x_n)}z=\ps{x_n}{T^\star(z)}$, et par convergence faible de $(x_n)$ testée contre le vecteur $T^\star(z)$, $\ps{x_n}{T^\star(z)}\to\ps x{T^\star(z)}=\ps{T(x)}z$. Ceci valant pour tout $z$, $T(x_n)\rightharpoonup T(x)$.
+
+Sans adjoint : la forme linéaire $z'\mapsto\ps{T(z')}z$ est continue (composée de $T$ et de $\Phi_z$), donc représentée par un vecteur $w_z$ (Riesz) ; alors $\ps{T(x_n)}z=\ps{x_n}{w_z}\to\ps x{w_z}=\ps{T(x)}z$. (Et $w_z=T^\star z$ : c'est la construction de l'adjoint.)
+\end{solution}
+
+\begin{commentaire}
+L'énoncé dit qu'un opérateur transporte la convergence faible en convergence faible. Un opérateur \emph{compact} fait mieux : il transporte la convergence faible en convergence \emph{forte}. Esquisse : si $x_n\rightharpoonup x$, $(x_n)$ est bornée (exercice~4.10), donc $(T x_n)$ est relativement compacte ; toute valeur d'adhérence forte $y$ de $(Tx_n)$ est aussi limite faible d'une sous-suite, donc $y=Tx$ par unicité de la limite faible et par cet exercice ; une suite relativement compacte ayant une unique valeur d'adhérence converge (TD1 ex.~10). Appliqué à $M_a$ avec $a\in c_0$ et $x_n=e_n\rightharpoonup0$ : $M_ae_n=a_ne_n\to0$ fortement, ce qui est bien le cas.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.10 -- Produit scalaire d'une suite faiblement convergente et d'une suite fortement convergente}
+Soient $(x_n)_n,(y_n)_n\in H^\N$ avec $x_n\rightharpoonup x$ et $y_n\to y$.
+\begin{enumerate}[label=(\arabic*)]
+  \item Montrer que $(x_n)_n$ est bornée.
+  \item Montrer que $\ps{x_n}{y_n}\to\ps xy$.
+  \item Et si les deux suites convergent faiblement ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1)} C'est l'argument de l'exercice~4.8 : les formes $\Phi_{x_n}=\ps\cdot{x_n}\in H'$ sont ponctuellement bornées ($\ps z{x_n}=\overline{\ps{x_n}z}$ converge pour tout $z$), donc, $H$ étant complet, bornées dans $H'$ par Banach--Steinhaus (Théorème~3.7) : $\sup_n\norm{x_n}=\sup_n\opnorm{\Phi_{x_n}}<\infty$.
+
+\medskip
+\noindent\textbf{(2)} En insérant $\ps{x_n}y$ et en utilisant Cauchy--Schwarz,
+\[
+|\ps{x_n}{y_n}-\ps xy|\le|\ps{x_n}{y_n-y}|+|\ps{x_n-x}y|\le\Big(\sup_k\norm{x_k}\Big)\norm{y_n-y}+|\ps{x_n-x}y| .
+\]
+Le premier terme tend vers $0$ par (1) et convergence forte de $(y_n)$, le second par convergence faible de $(x_n)$ testée contre $y$.
+
+\medskip
+\noindent\textbf{(3)} C'est faux : dans $\ell^2(\N)$, $x_n=y_n=e_n\rightharpoonup0$ (Proposition~4.8, ou exercice~4.11), mais $\ps{e_n}{e_n}=1\not\to\ps00=0$. Le produit scalaire est continu pour (faible, forte) et (forte, faible), pas pour (faible, faible). En particulier la norme n'est pas faiblement continue, seulement \emph{semi-continue inférieurement} : si $x_n\rightharpoonup x$, alors $\norm x^2=\lim\ps{x_n}x\le\liminf\norm{x_n}\norm x$, donc $\norm x\le\liminf\norm{x_n}$, avec inégalité stricte possible ($e_n$).
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.11 et Proposition 4.8 -- Faible $=$ forte si et seulement si la dimension est finie}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que toute suite orthonormée $(e_k)_k$ de $H$ converge faiblement vers $0$ (ce qui contient la Proposition~4.8).
+  \item Montrer que dans $H$ la convergence forte équivaut à la convergence faible si et seulement si $H$ est de dimension finie.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $z\in H$. L'inégalité de Bessel (Proposition~4.5) donne $\sum_k|\ps z{e_k}|^2\le\norm z^2<\infty$ ; le terme général d'une série convergente tend vers $0$, donc $\ps{e_k}z=\overline{\ps z{e_k}}\to0=\ps0z$. Ainsi $e_k\rightharpoonup0$, alors que $\norm{e_k}=1$ : $(e_k)$ ne converge pas fortement vers $0$, ni vers autre chose (une limite forte serait aussi limite faible, donc nulle, par unicité de la limite faible).
+
+\medskip
+\noindent\textbf{(b)} \emph{Dimension finie $\Rightarrow$ faible $=$ forte.} La convergence forte implique toujours la faible (Proposition~4.9). Réciproquement, soit $(e_1,\dots,e_d)$ une base orthonormée de $H$ (Gram--Schmidt sur une base) et $x_n\rightharpoonup x$. Les coordonnées convergent : $\ps{x_n-x}{e_k}\to0$ pour chaque $k\le d$, donc, par Pythagore dans la base orthonormée,
+\[
+\norm{x_n-x}^2=\sum_{k=1}^d|\ps{x_n-x}{e_k}|^2\xrightarrow[n\to\infty]{}0
+\]
+(somme \emph{finie} de termes tendant vers $0$). \emph{Dimension infinie $\Rightarrow$ faible $\ne$ forte.} Si $\dim H=\infty$, on construit une suite libre $(b_k)_k$ (choisir $b_{k+1}\notin\Vect(b_0,\dots,b_k)$, qui est un sous-espace strict) puis, par le procédé de Gram--Schmidt (preuve du Théorème~4.4, qui n'utilise pas la séparabilité), une suite orthonormée $(e_k)_k$. Par (a), $e_k\rightharpoonup0$ sans converger fortement : les deux convergences diffèrent.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Pourquoi la dimension finie sauve tout.} La convergence faible est la convergence « coordonnée par coordonnée » (Remarque~4.8 et suivantes). En dimension finie, la norme est contrôlée par un nombre \emph{fini} de coordonnées, et une somme finie de suites tendant vers $0$ tend vers $0$. En dimension infinie, chaque coordonnée de $e_k$ tend vers $0$, mais la « masse » $\norm{e_k}=1$ s'échappe vers les coordonnées d'indice élevé : c'est le phénomène de \emph{fuite} ou de \emph{perte de compacité}, le même qui fait que la boule unité n'est pas compacte (Théorème~3.1 de Riesz). L'Exemple~4.10 en donne une version oscillante : $e^{ikx}\rightharpoonup0$ dans $L^2(J_{2\pi})$ (Riemann--Lebesgue), la masse ne s'échappe pas « à l'infini » mais dans des oscillations de plus en plus rapides.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 4.12 -- La convergence faible n'est pas métrisable en dimension infinie}
+Soit $H$ de dimension infinie. On suppose qu'il existe une distance $d$ sur $H$ produisant la convergence faible (\ie{} $d(x_n,x)\to0\iff x_n\rightharpoonup x$), et l'on considère une suite orthonormée $(e_k)_k$ ainsi que $A:=\{e_m+me_n:n,m\in\N\}$.
+\begin{enumerate}[label=(\arabic*)]
+  \item Montrer que pour tout $m\in\N$, $e_m$ est dans l'adhérence de $A$ au sens de $d$.
+  \item En déduire que $0$ est également dans cette adhérence.
+  \item Montrer qu'une suite convergente dans $(H,d)$ est bornée dans $(H,\norm\cdot)$.
+  \item Montrer qu'il n'existe pas de suite à valeurs dans $A$ qui converge vers $0$. Qu'en déduire ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1)} Fixons $m$. Par l'exercice~4.11 (a), $e_n\rightharpoonup0$ quand $n\to\infty$, donc $e_m+me_n\rightharpoonup e_m$ (la convergence faible est compatible avec les combinaisons linéaires, par linéarité du produit scalaire). Comme $d$ produit la convergence faible, $d(e_m+me_n,e_m)\to0$. Les $e_m+me_n$ étant dans $A$, $e_m\in\adh A^{\,d}$ (caractérisation séquentielle de l'adhérence dans l'espace métrique $(H,d)$, Proposition~1.3).
+
+\medskip
+\noindent\textbf{(2)} De même $e_m\rightharpoonup0$ quand $m\to\infty$, donc $d(e_m,0)\to0$. L'adhérence $\adh A^{\,d}$ est fermée dans $(H,d)$ et contient tous les $e_m$ par (1) ; elle contient donc leur limite $0$.
+
+\medskip
+\noindent\textbf{(3)} Si $d(x_n,x)\to0$, alors $x_n\rightharpoonup x$ par hypothèse sur $d$, et l'exercice~4.10 (1) (Banach--Steinhaus) montre que $(x_n)$ est bornée en norme.
+
+\medskip
+\noindent\textbf{(4)} Supposons qu'une suite $(a_j)_j$ d'éléments de $A$ converge vers $0$ dans $(H,d)$, et écrivons $a_j=e_{m_j}+m_je_{n_j}$. Par (3), $(a_j)$ est bornée en norme ; or $\norm{a_j}\ge m_j$ (si $n_j\ne m_j$, Pythagore donne $\norm{a_j}^2=1+m_j^2$ ; si $n_j=m_j$, $a_j=(1+m_j)e_{m_j}$). Donc $(m_j)$ est une suite d'entiers bornée : elle prend un nombre fini de valeurs, et l'une d'elles, disons $m$, est prise une infinité de fois. Quitte à extraire (une sous-suite converge encore vers $0$ pour $d$), $m_j=m$ pour tout $j$. Mais alors $a_j\rightharpoonup0$ imposerait $\ps{a_j}{e_m}\to0$, alors que $\ps{a_j}{e_m}=1+m\,\mathbf 1_{n_j=m}\ge1$ : contradiction.
+
+\emph{Conclusion.} Dans l'espace métrique $(H,d)$, $0$ est adhérent à $A$ par (2), donc limite d'une suite d'éléments de $A$ (Proposition~1.3) ; (4) l'interdit. L'hypothèse est absurde : aucune distance sur $H$ ne produit la convergence faible.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Où est la contradiction ?} Dans un espace métrique, « adhérent » et « limite d'une suite » coïncident (Proposition~1.3). Pour la topologie faible (Remarque~4.11), $0$ est bien dans l'adhérence \emph{topologique} de $A$ (toute « tranche » $W^N_\varepsilon$ contenant $0$ rencontre $A$ : fixer $m$ grand pour que $|\ps{e_m}{z_k}|$ soient petits, puis $n$ grand), mais aucune \emph{suite} de $A$ n'y converge, parce qu'une suite faiblement convergente est bornée (Banach--Steinhaus) alors que $A$ n'est borné dans aucune direction utile. La topologie faible n'est donc pas séquentielle, a fortiori pas métrisable. En revanche, sa restriction à la boule unité (ou à tout borné) \emph{est} métrisable lorsque $H$ est séparable : c'est ce qui rend les suites utilisables en pratique (compacité faible séquentielle de la boule unité, chapitre~5).
+\end{pointcle}
 
 \end{document}
