@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}5 -- Dualité et convergences faibles (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~5 du polycopié, complémentaire des exercices du poly et des développements du TD0. On note $V^\perp:=\{f\in E':f|_V=0\}$ l'annulateur d'un sous-espace $V$ ; le théorème de Hahn--Banach est admis dans sa version générale pour les espaces non séparables. Le corrigé détaillé est dans \texttt{corrige\_TD5.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative : 1, 2, 5 (fondamentaux) ; 3, 4, 8 (classiques d'examen) ; 6, 7 (plus longs).
+\end{commentaire}
+
+\section*{Dualité et Hahn--Banach}
+
+\begin{exo}{Exercice 1 -- Ce que donne Hahn--Banach}
+Soit $E$ un EVN séparable.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $a\in E\setminus\{0\}$. Montrer qu'il existe $f\in E'$ avec $\opnorm f=1$ et $f(a)=\norm a$. En déduire la \emph{formule duale de la norme} : $\norm x=\max\{|f(x)|:f\in E',\ \opnorm f\le1\}$ pour tout $x\in E$.
+  \item Soit $V$ un sous-espace de $E$ et $a\in E$ avec $d:=\dist(a,V)>0$. Montrer qu'il existe $f\in E'$ avec $f|_V=0$, $f(a)=d$ et $\opnorm f=1$. \emph{Indication : définir $f$ sur $V\oplus\K a$.}
+  \item En déduire : $V$ est dense dans $E$ si et seulement si $V^\perp=\{0\}$. Comparer avec le Théorème~4.3.
+  \item Montrer que si $E'$ est séparable, alors $E$ est séparable. La réciproque est-elle vraie ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Transposée d'un opérateur}
+Soient $E,F$ deux EVN séparables et $T\in\Lc(E,F)$. On définit la \emph{transposée} $T':F'\to E'$ par $T'(g):=g\circ T$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T'\in\Lc(F',E')$ et que $\opnorm{T'}=\opnorm T$.
+  \item Montrer que $\Ker T'=(\Ima T)^\perp$. En déduire : $\Ima T$ est dense si et seulement si $T'$ est injective.
+  \item Montrer que $\Ker T=\{x\in E:\ f(x)=0\ \forall f\in\Ima T'\}$. En déduire : $T$ est injective si et seulement si $\Ima T'$ sépare les points de $E$ (pour tout $x\ne0$ il existe $f\in\Ima T'$ avec $f(x)\ne0$).
+  \item Sur $E=\ell^p(\N)$, $1\le p<\infty$, soit $S$ le décalage à droite. Calculer $S'$ sous l'identification $(\ell^p)'=\ell^{p'}$, et retrouver $\Ima S=\{e_0\}^{\perp}$ à partir de (b). Comparer avec l'adjoint hilbertien (TD4 ex.~5).
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 -- Dual d'un sous-espace et d'un quotient}
+Soit $E$ un EVN séparable et $V$ un sous-espace fermé. On rappelle que $E/V$ est un EVN pour $\norm{[x]}:=\dist(x,V)$, et que $\pi:E\to E/V$ est linéaire continue de norme $\le1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Theta:(E/V)'\to V^\perp$, $\varphi\mapsto\varphi\circ\pi$, est une isométrie linéaire surjective : « $(E/V)'=V^\perp$ ».
+  \item Soit $R:E'\to V'$ la restriction $f\mapsto f|_V$. Montrer que $R$ est linéaire continue de norme $\le1$, de noyau $V^\perp$, et surjective. Montrer que l'application induite $\bar R:E'/V^\perp\to V'$ est une isométrie bijective : « $V'=E'/V^\perp$ ».
+  \item Expliquer pourquoi il n'existe pas en général d'isométrie linéaire $V'\to E'$ inverse à droite de $R$. Montrer qu'il en existe une si $E$ est un espace de Hilbert.
+\end{enumerate}
+\end{exo}
+
+\section*{Convergences faibles}
+
+\begin{exo}{Exercice 4 -- Convergence faible dans $L^p$ : oscillation et concentration}
+Soit $1<p<\infty$ et $I=]0,1[$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f_n\wk f$ dans $L^p(I)$ si et seulement si $(f_n)$ est bornée dans $L^p(I)$ et $\int_a^bf_n\to\int_a^bf$ pour tous $0\le a<b\le1$.
+  \item \emph{(Oscillation.)} Montrer que $f_n(x):=\sin(2\pi nx)$ converge faiblement vers $0$ dans $L^p(I)$ mais pas fortement. Que dire de $g_n:=f_n^2$ ?
+  \item \emph{(Concentration.)} Soit $h_n:=n^{1/p}\mathbf 1_{]0,1/n[}$. Montrer que $h_n\wk0$ dans $L^p(I)$, que $\norm{h_n}_p=1$, et que $h_n\to0$ p.p. Que se passe-t-il pour $p=1$ ?
+  \item \emph{(Limite faible d'une suite bornée convergeant p.p.)} Soit $(f_n)$ bornée dans $L^p(I)$ avec $f_n\to f$ p.p. Montrer que $f\in L^p(I)$ et $f_n\wk f$. \emph{Indication : lemme de Fatou, puis Egorov ou densité.}
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 5 -- Convergence préfaible dans le dual de $\Cz([0,1])$}
+Soit $E:=\Cz([0,1];\R)$ muni de la norme uniforme. Pour $x\in[0,1]$, $\delta_x\in E'$ désigne l'évaluation $f\mapsto f(x)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\opnorm{\delta_x}=1$ et que $\opnorm{\delta_x-\delta_y}=2$ pour $x\ne y$. En déduire que la sphère unité de $E'$ n'est pas (fortement) séquentiellement compacte, et que $E'$ n'est pas séparable.
+  \item Montrer que $\delta_{x_n}\wks\delta_x$ si et seulement si $x_n\to x$.
+  \item Montrer que $\Lambda_n:=\frac1n\sum_{k=1}^n\delta_{k/n}$ converge préfaiblement vers $\Lambda:f\mapsto\int_0^1f$. Quelle est la norme de $\Lambda_n$ et de $\Lambda$ ?
+  \item Soit $(\mu_n)$ une suite bornée de $E'$. Que dit le Théorème~5.4 ? Montrer que si de plus chaque $\mu_n$ est \emph{positive} ($f\ge0\Rightarrow\mu_n(f)\ge0$), toute limite préfaible l'est aussi, et que $\opnorm{\mu_n}=\mu_n(\mathbf 1)$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 6 -- Espaces réflexifs}
+Soit $E$ un espace de Banach séparable. On dit que $E$ est réflexif si $J:E\to E''$ est surjective (Remarque~5.6).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $E$ est réflexif, alors $E'$ est séparable. \emph{Indication : exercice~1d appliqué à $E'$.}
+  \item Montrer que si $E$ est réflexif, toute suite bornée de $E$ admet une sous-suite faiblement convergente.
+  \item En déduire que si $E$ est réflexif, toute $f\in E'$ atteint sa norme : il existe $x\in E$ unitaire avec $f(x)=\opnorm f$.
+  \item Montrer que $c_0(\N)$ et $\Cz([0,1])$ ne sont pas réflexifs, de deux façons : par (c), et par (b).
+  \item Soit $V$ un sous-espace fermé de $E$ réflexif. Montrer que $V$ est réflexif. \emph{Indication : pour $\xi\in V''$, considérer $\xi\circ R\in E''$ avec $R$ la restriction de l'exercice~3b, puis utiliser l'exercice~1b.}
+\end{enumerate}
+\end{exo}
+
+\section*{Théorème spectral}
+
+\begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales}
+Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]0,1[;\R)$, $T_Kf(x):=\int_0^1K(x,y)f(y)\,dy$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_K$ est un opérateur auto-adjoint compact de $H$, à valeurs dans $\Cz([0,1])$.
+  \item Soit $(e_n)_n$ une base hilbertienne de vecteurs propres de $T_K$, $T_Ke_n=\lambda_ne_n$ (Théorème~5.5). Montrer que $(e_n\otimes e_m)_{n,m}$, où $(e_n\otimes e_m)(x,y):=e_n(x)e_m(y)$, est une base hilbertienne de $L^2(]0,1[^2)$.
+  \item En déduire $K=\sum_n\lambda_n\,e_n\otimes e_n$ dans $L^2(]0,1[^2)$ et $\sum_n\lambda_n^2=\iint K^2<\infty$.
+  \item Soit $\mu\in\R$ tel que $1/\mu\notin\nu(T_K)$ et $g\in H$. Montrer que l'équation intégrale $f(x)-\mu\int_0^1K(x,y)f(y)\,dy=g(x)$ a une unique solution $f\in H$, donnée par $f=\sum_n\frac{\ps g{e_n}}{1-\mu\lambda_n}e_n$. Que se passe-t-il si $1/\mu\in\nu(T_K)$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 8 -- Quotient de Rayleigh et principe du min-max}
+Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjoint compact \emph{positif} ($\ps{Tx}x\ge0$), et $\lambda_1\ge\lambda_2\ge\dots\ge0$ ses valeurs propres rangées par ordre décroissant avec multiplicité, $(e_n)$ une base hilbertienne associée. On pose $\mathcal R(x):=\ps{Tx}x/\norm x^2$ pour $x\ne0$ (quotient de Rayleigh).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\lambda_1=\max_{x\ne0}\mathcal R(x)$, atteint exactement sur $E_{\lambda_1}\setminus\{0\}$.
+  \item Montrer que $\lambda_{n+1}=\max\{\mathcal R(x):x\ne0,\ x\perp e_1,\dots,e_n\}$.
+  \item \emph{(Courant--Fischer.)} Montrer que pour tout sous-espace $V$ de dimension $n$, $\min_{x\in V\setminus\{0\}}\mathcal R(x)\le\lambda_n$, avec égalité pour $V=\Vect(e_1,\dots,e_n)$. En déduire $\lambda_n=\max_{\dim V=n}\ \min_{x\in V\setminus\{0\}}\mathcal R(x)$.
+  \item En déduire la \emph{monotonie} : si $S$ est un autre opérateur auto-adjoint compact positif avec $\ps{Sx}x\le\ps{Tx}x$ pour tout $x$, alors $\lambda_n(S)\le\lambda_n(T)$ pour tout $n$.
+\end{enumerate}
+\end{exo}
+
+\end{document}

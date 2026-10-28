@@ -1,0 +1,194 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}4 -- Espaces de Hilbert (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~4 du polycopié, complémentaire des exercices du poly (corrigés dans le TD0). Les exercices~7 et~8 préparent le chapitre~5. Le corrigé détaillé est dans \texttt{corrige\_TD4.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative : 1, 3, 4, 5 (fondamentaux) ; 2, 6, 8 (classiques d'examen) ; 7, 9 (plus longs).
+\end{commentaire}
+
+\section*{Projections et dualité}
+
+\begin{exo}{Exercice 1 -- Projections sur des convexes fermés : calculs et propriétés}
+Soit $H$ un espace de Hilbert et $C\subset H$ un convexe fermé non vide. On note $P_C$ la projection sur $C$ (Théorème~4.1), caractérisée par : $P_C(x)\in C$ et $\Re\ps{x-P_C(x)}{y-P_C(x)}\le0$ pour tout $y\in C$.
+\begin{enumerate}[label=(\alph*)]
+  \item Déterminer $P_C$ lorsque $C=\Bf(0,R)$ est la boule fermée de rayon $R>0$.
+  \item On prend $H=L^2(\Omega;\R)$ et $C:=\{f\in H : f\ge0\text{ p.p.}\}$. Montrer que $C$ est un convexe fermé et que $P_C(f)=f^+:=\max(f,0)$.
+  \item Soient $a\in H\setminus\{0\}$, $c\in\K$ et $A:=\{y\in H:\ps ya=c\}$. Montrer que $A$ est un convexe fermé, calculer $P_A(x)$ et $d(x,A)$.
+  \item Montrer que $P_C$ est $1$-lipschitzienne : $\norm{P_C(x)-P_C(y)}\le\norm{x-y}$. Est-elle linéaire ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Théorème de Lax--Milgram}
+Soit $H$ un espace de Hilbert réel et $a:H\times H\to\R$ une forme bilinéaire \emph{continue} ($\exists M$, $|a(x,y)|\le M\norm x\norm y$) et \emph{coercive} ($\exists\alpha>0$, $a(x,x)\ge\alpha\norm x^2$). On ne suppose pas $a$ symétrique.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer qu'il existe un unique opérateur $A\in\Lc(H)$ tel que $a(x,y)=\ps{Ax}y$ pour tous $x,y$, et que $\opnorm A\le M$.
+  \item Montrer que $\norm{Ax}\ge\alpha\norm x$ pour tout $x$. En déduire que $A$ est injectif et que $\Ima A$ est fermée.
+  \item Montrer que $\Ima A$ est dense. Conclure que $A$ est bijectif et que $\opnorm{A^{-1}}\le1/\alpha$.
+  \item \emph{(Lax--Milgram.)} En déduire que pour toute $\varphi\in H'$ il existe un unique $u\in H$ tel que $a(u,v)=\varphi(v)$ pour tout $v\in H$, et que $\norm u\le\opnorm\varphi/\alpha$.
+  \item On suppose de plus $a$ symétrique. Montrer que $u$ est l'unique minimiseur sur $H$ de $J(v):=\frac12a(v,v)-\varphi(v)$.
+  \item \emph{Application.} Sur $H=\ell^2(\N;\R)$, on pose $a(u,v):=\sum_{n\ge0}u_nv_n+\sum_{n\ge0}(u_{n+1}-u_n)(v_{n+1}-v_n)$. Vérifier les hypothèses et interpréter l'équation $a(u,\cdot)=\ps\cdot b$ pour $b\in\ell^2$ comme une équation aux différences.
+\end{enumerate}
+\end{exo}
+
+\section*{Bases hilbertiennes}
+
+\begin{exo}{Exercice 3 -- Parseval en action : $\zeta(2)$, inégalité de Wirtinger, convergence uniforme}
+On munit $L^2(0,2\pi)$ du produit scalaire \emph{normalisé} $\ps fg:=\frac1{2\pi}\int_0^{2\pi}f\,\overline g$ (proportionnel au produit scalaire usuel, donc même orthogonalité et même convergence). Pour ce produit scalaire, la famille $(e_k)_{k\in\Z}$, $e_k(x)=e^{ikx}$, est une base hilbertienne (Exemple~4.7, où elle apparaît comme $(e_k/\sqrt{2\pi})$ pour le produit scalaire usuel), et les coordonnées de $f$ sont ses coefficients de Fourier $c_k(f)=\ps f{e_k}=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_k}$. L'identité de Parseval s'écrit donc $\frac1{2\pi}\int_0^{2\pi}|f|^2=\sum_{k\in\Z}|c_k(f)|^2$.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer les coefficients de Fourier de $f(x)=x$ sur $]0,2\pi[$ et en déduire $\sum_{k\ge1}\frac1{k^2}=\frac{\pi^2}6$.
+  \item Soit $f\in\mathcal C^1(\R;\C)$ $2\pi$-périodique. Montrer que $c_k(f')=ik\,c_k(f)$. En déduire l'\emph{inégalité de Wirtinger} : si $\int_0^{2\pi}f=0$, alors $\int_0^{2\pi}|f|^2\le\int_0^{2\pi}|f'|^2$, avec égalité si et seulement si $f(x)=\alpha e^{ix}+\beta e^{-ix}$.
+  \item Soit $f\in\mathcal C^1(\R;\C)$ $2\pi$-périodique. Montrer que $\sum_{k\in\Z}|c_k(f)|<\infty$ et que la série de Fourier de $f$ converge \emph{uniformément} vers $f$. Comparer avec le TD0 (Exemple~3.4).
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 4 -- Polynômes de Legendre}
+On travaille dans $H=L^2(]-1,1[;\R)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Appliquer le procédé de Gram--Schmidt à $(1,x,x^2)$ et donner les trois premiers polynômes orthonormés $P_0,P_1,P_2$.
+  \item On note $(P_n)_{n\in\N}$ la suite obtenue en poursuivant le procédé sur $(x^n)_n$. Montrer que c'est une base hilbertienne de $H$.
+  \item En déduire : si $f\in H$ vérifie $\int_{-1}^1x^nf(x)\,dx=0$ pour tout $n\in\N$, alors $f=0$.
+  \item Montrer que $P_n$ est de degré exactement $n$ et possède $n$ racines distinctes dans $]-1,1[$.
+\end{enumerate}
+\end{exo}
+
+\section*{Opérateurs}
+
+\begin{exo}{Exercice 5 -- Adjoint : propriétés générales et opérateur de décalage}
+Soient $S,T$ des opérateurs sur $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer : $(T^\star)^\star=T$, $(ST)^\star=T^\star S^\star$, $\opnorm{T^\star}=\opnorm T$ et $\opnorm{T^\star T}=\opnorm T^2$.
+  \item Montrer que $\Ker T^\star=(\Ima T)^\perp$ et $\adh{\Ima T}=(\Ker T^\star)^\perp$. En déduire : $T$ injectif $\iff$ $\Ima T^\star$ dense.
+  \item Sur $H=\ell^2(\N)$, soit $S$ le \emph{décalage à droite} : $S(u_0,u_1,u_2,\dots):=(0,u_0,u_1,\dots)$. Calculer $S^\star$, puis $S^\star S$ et $SS^\star$. Montrer que $S$ est une isométrie non surjective, et identifier $\Ima S$.
+  \item Déterminer les valeurs propres de $S$ et de $S^\star$.
+  \item Montrer que $S^n\rightharpoonup0$ (\ie{} $S^nu\rightharpoonup0$ pour tout $u$) mais que $(S^nu)_n$ ne converge fortement pour aucun $u\ne0$. Que dire de $(S^\star)^n$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 6 -- Somme de deux sous-espaces fermés}
+Soient $F,G$ deux sous-espaces fermés de $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $F\perp G$, alors $F+G$ est fermé.
+  \item Montrer que si $G$ est de dimension finie, alors $F+G$ est fermé. \emph{Indication : écrire $G=(G\cap F)\oplus G'$ et montrer que $\dist(g',F)\ge c\norm{g'}$ sur $G'$.}
+  \item Dans $H=\ell^2(\N)$, on pose $f_n:=e_{2n}$, $g_n:=e_{2n}+\frac1{n+1}e_{2n+1}$, $F:=\adh{\Vect}(f_n:n\in\N)$ et $G:=\adh{\Vect}(g_n:n\in\N)$. Montrer que $F\cap G=\{0\}$, que $F+G$ est dense dans $H$, mais que $F+G\ne H$. Conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 7 -- Norme d'un opérateur auto-adjoint ; vers le théorème spectral}
+Soit $T$ un opérateur sur $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose $T$ auto-adjoint. Montrer que $\ps{Tx}x\in\R$ pour tout $x$, et que $m:=\sup_{\norm x=1}|\ps{Tx}x|\le\opnorm T$.
+  \item On suppose $T$ auto-adjoint. Montrer l'identité $4\Re\ps{Tx}y=\ps{T(x+y)}{x+y}-\ps{T(x-y)}{x-y}$ et en déduire $\opnorm T=m$.
+  \item On suppose $\K=\C$ (sans hypothèse sur $T$). Montrer que si $\ps{Tx}x=0$ pour tout $x$, alors $T=0$. Que se passe-t-il si $\K=\R$ ?
+  \item On suppose $T$ auto-adjoint et \emph{compact} (Remarque~4.7), $T\ne0$. Montrer que $\opnorm T$ ou $-\opnorm T$ est une valeur propre de $T$.
+\end{enumerate}
+\end{exo}
+
+\section*{Convergence faible}
+
+\begin{exo}{Exercice 8 -- Convergence faible : critères et compacité}
+Soit $H$ un espace de Hilbert séparable, $(e_k)_{k\in\N}$ une base hilbertienne.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $x_n\to x$ (fortement) si et seulement si $x_n\rightharpoonup x$ et $\norm{x_n}\to\norm x$.
+  \item Montrer que si $(x_n)$ est \emph{bornée} et si $\ps{x_n}{e_k}\to\ps x{e_k}$ pour tout $k$, alors $x_n\rightharpoonup x$. Montrer par un exemple que l'hypothèse « bornée » ne peut être supprimée.
+  \item \emph{(Compacité faible de la boule unité.)} Montrer que de toute suite bornée de $H$ on peut extraire une sous-suite faiblement convergente.
+  \item Soit $T$ un opérateur compact. Montrer que si $x_n\rightharpoonup x$, alors $Tx_n\to Tx$ fortement. Réciproquement, montrer qu'un opérateur transformant toute suite faiblement convergente en suite fortement convergente est compact.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 9 -- Théorème ergodique de von Neumann}
+Soit $U$ un opérateur sur $H$ avec $\opnorm U\le1$ (une \emph{contraction}). On pose $F:=\Ker(U-\mathrm{Id})$ (vecteurs invariants) et, pour $N\ge1$, $A_N:=\frac1N\sum_{k=0}^{N-1}U^k$ (moyennes de Cesàro).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Ker(U-\mathrm{Id})=\Ker(U^\star-\mathrm{Id})$. \emph{Indication : développer $\norm{U^\star x-x}^2$ pour $x\in F$.}
+  \item En déduire que $F^\perp=\adh{\Ima(U-\mathrm{Id})}$.
+  \item Montrer que $A_Nx\to x$ pour $x\in F$, et que $A_Nx\to0$ pour $x\in\Ima(U-\mathrm{Id})$, puis pour $x\in\adh{\Ima(U-\mathrm{Id})}$.
+  \item Conclure : pour tout $x\in H$, $A_Nx\to P_F(x)$ (projection orthogonale sur $F$).
+  \item \emph{Application.} Sur $H=L^2(J_{2\pi})$ identifié aux fonctions $2\pi$-périodiques, soit $\alpha\in\R$ avec $\alpha/2\pi\notin\Q$ et $Uf:=f(\cdot+\alpha)$. Déterminer $F$ et interpréter la conclusion de (d).
+\end{enumerate}
+\end{exo}
+
+\end{document}

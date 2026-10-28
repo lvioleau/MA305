@@ -38,6 +38,8 @@
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\dist}{dist}
 \newcommand{\Sun}{\mathbb{S}^1}
 \newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
 
@@ -77,7 +79,7 @@
 \newtheorem*{solution}{Solution}
 
 \title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
-\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 4)}
+\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 5)}
 \author{}
 \date{Année universitaire 2026--2027}
 
@@ -85,12 +87,12 @@
 \maketitle
 
 \begin{commentaire}
-\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 4) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
+\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 5) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
 \begin{itemize}
   \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
   \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
 \end{itemize}
-Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
+Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
 \end{commentaire}
 
 \tableofcontents
@@ -1348,6 +1350,214 @@ Soit $H$ de dimension infinie. On suppose qu'il existe une distance $d$ sur $H$ 
 
 \begin{pointcle}
 \textbf{Où est la contradiction ?} Dans un espace métrique, « adhérent » et « limite d'une suite » coïncident (Proposition~1.3). Pour la topologie faible (Remarque~4.11), $0$ est bien dans l'adhérence \emph{topologique} de $A$ (toute « tranche » $W^N_\varepsilon$ contenant $0$ rencontre $A$ : fixer $m$ grand pour que $|\ps{e_m}{z_k}|$ soient petits, puis $n$ grand), mais aucune \emph{suite} de $A$ n'y converge, parce qu'une suite faiblement convergente est bornée (Banach--Steinhaus) alors que $A$ n'est borné dans aucune direction utile. La topologie faible n'est donc pas séquentielle, a fortiori pas métrisable. En revanche, sa restriction à la boule unité (ou à tout borné) \emph{est} métrisable lorsque $H$ est séparable : c'est ce qui rend les suites utilisables en pratique (compacité faible séquentielle de la boule unité, chapitre~5).
+\end{pointcle}
+
+
+% =====================================================================
+\section{Chapitre 5 -- Dualité et convergences faibles}
+
+\begin{commentaire}
+Dans ce chapitre, $E'=\Lc(E,\K)$ désigne le dual topologique d'un EVN $E$, muni de la norme $\opnorm\cdot$ (Définition~4.8, Proposition~5.1) ; $J:E\to E''$ est l'injection canonique du Théorème~5.3 ; $\rightharpoonup$ et $\rightharpoonup^\star$ désignent les convergences faible (Définition~5.2) et préfaible (Définition~5.3). Pour $p\in[1,\infty]$, $p'$ est l'exposant conjugué et $\Phi:\ell^{p'}\to(\ell^p)'$, $\Phi_u(v)=\sum_kv_ku_k$, l'application du Théorème~5.1. Le chapitre ne contient que trois exercices ; on y ajoute cinq développements d'énoncés que le polycopié laisse au lecteur : la non-surjectivité de $\Phi$ pour $p=\infty$ et la non-réflexivité de $c_0$ et $\ell^1$ (Remarques~5.1 et 5.6), la caractérisation de la convergence faible dans $\ell^p$ (Exemple~5.1 et Proposition~5.5), un opérateur compact hilbertien sans valeur propre (Remarque~5.14), les conséquences du théorème spectral (Théorème~5.5), et l'échec de la compacité faible dans $L^1$ (Corollaire~5.3).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 5.1 -- Le dual de $\ell^1(\N)$ est $\ell^\infty(\N)$}
+Montrer, avec la structure de preuve du Théorème~5.1, que l'application $\Phi:\ell^\infty(\N)\to\ell^1(\N)'$, $\Phi_u(v):=\sum_kv_ku_k$, est une isométrie linéaire surjective.
+\end{exo}
+
+\begin{solution}
+\emph{$\Phi$ est bien définie, linéaire, de norme $\le1$.} Pour $u\in\ell^\infty$ et $v\in\ell^1$, $\sum_k|v_ku_k|\le\norm u_\infty\norm v_1<\infty$ : la série converge absolument, $\Phi_u$ est linéaire en $v$ et $|\Phi_u(v)|\le\norm u_\infty\norm v_1$, donc $\Phi_u\in(\ell^1)'$ avec $\opnorm{\Phi_u}\le\norm u_\infty$. La linéarité de $u\mapsto\Phi_u$ est claire.
+
+\emph{Isométrie.} Pour $k\in\N$, $e_k\in\ell^1$ avec $\norm{e_k}_1=1$ et $\Phi_u(e_k)=u_k$, donc $\opnorm{\Phi_u}\ge|u_k|$ pour tout $k$, soit $\opnorm{\Phi_u}\ge\sup_k|u_k|=\norm u_\infty$. (Ici pas besoin de densité ni de suite test compliquée : la norme $\ell^\infty$ est un sup de coordonnées, et les $e_k$ suffisent.)
+
+\emph{Surjectivité.} Soit $\varphi\in(\ell^1)'$. Le candidat naturel est $u:=(\varphi(e_k))_k$. Il est dans $\ell^\infty$ : $|u_k|=|\varphi(e_k)|\le\opnorm\varphi\norm{e_k}_1=\opnorm\varphi$. Montrons $\Phi_u=\varphi$. Les deux formes coïncident sur chaque $e_k$, donc par linéarité sur $c_{<\infty}(\N)$ ; or $c_{<\infty}$ est dense dans $\ell^1$ (Proposition~2.3, $p=1<\infty$), et deux formes linéaires continues égales sur une partie dense sont égales : pour $v\in\ell^1$, $v^N:=v\mathbf 1_{k\le N}\to v$ dans $\ell^1$ (reste d'une série convergente), d'où $\varphi(v)=\lim\varphi(v^N)=\lim\Phi_u(v^N)=\Phi_u(v)$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le schéma « candidat $(\varphi(e_k))_k$, puis densité ».} C'est celui des Théorèmes~4.6 et 5.1 : une forme linéaire continue est déterminée par ses valeurs sur les $e_k$ dès que $(e_k)$ est totale, et le seul travail est de vérifier que la suite des valeurs est dans le bon espace ($\ell^2$, $\ell^{p'}$, $\ell^\infty$). Pour $p=1$ c'est immédiat ($|\varphi(e_k)|\le\opnorm\varphi$) ; pour $1<p<\infty$ il faut l'astuce de troncature du Théorème~5.1. Le point commun indispensable : la \emph{densité de $c_{<\infty}$ dans $\ell^p$}, vraie pour $p<\infty$ et fausse pour $p=\infty$ — c'est exactement pourquoi l'énoncé « $(\ell^p)'=\ell^{p'}$ » s'arrête à $p<\infty$ (voir le développement suivant).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Remarques 5.1 et 5.6 -- Le dual de $c_0$ ; $\ell^1$ n'est pas le dual de $\ell^\infty$ ; non-réflexivité}
+On note $c_0(\N)$ le sous-espace fermé de $\ell^\infty(\N)$ des suites tendant vers $0$ (TD2 ex.~8), muni de $\norm\cdot_\infty$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Psi:\ell^1(\N)\to c_0(\N)'$, $\Psi_u(v):=\sum_kv_ku_k$, est une isométrie linéaire surjective : « $(c_0)'=\ell^1$ ».
+  \item En déduire que $c_0(\N)''$ s'identifie isométriquement à $\ell^\infty(\N)$, l'injection $J$ du Théorème~5.3 correspondant à l'inclusion $c_0\subset\ell^\infty$. Conclure que $c_0(\N)$ n'est pas réflexif.
+  \item Montrer que $\Phi:\ell^1(\N)\to\ell^\infty(\N)'$, $\Phi_u(v)=\sum v_ku_k$, est une isométrie non surjective (Remarque~5.1). \emph{On admettra le théorème de Hahn--Banach sans hypothèse de séparabilité (Remarque~5.3).} En déduire que $\ell^1(\N)$ n'est pas réflexif.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Définition et majoration :} pour $u\in\ell^1$, $v\in c_0\subset\ell^\infty$, $|\sum v_ku_k|\le\norm v_\infty\norm u_1$, donc $\Psi_u\in(c_0)'$, $\opnorm{\Psi_u}\le\norm u_1$. \emph{Isométrie :} pour $N\in\N$, la suite $v^N:=(\sgn(u_k)\mathbf 1_{k\le N})_k$ (avec $\sgn z:=\bar z/|z|$ si $z\ne0$, $0$ sinon) est à support fini, donc dans $c_0$, de norme $\le1$, et $\Psi_u(v^N)=\sum_{k\le N}|u_k|$. D'où $\opnorm{\Psi_u}\ge\sum_{k\le N}|u_k|$ pour tout $N$, soit $\opnorm{\Psi_u}\ge\norm u_1$. \emph{Surjectivité :} soit $\varphi\in(c_0)'$ et $u:=(\varphi(e_k))_k$. Avec le même $v^N$ (qui est dans $c_0$), $\sum_{k\le N}|u_k|=\sum_{k\le N}\sgn(u_k)\varphi(e_k)=\varphi(v^N)\le\opnorm\varphi\norm{v^N}_\infty\le\opnorm\varphi$ ; donc $u\in\ell^1$ avec $\norm u_1\le\opnorm\varphi$. Enfin $\Psi_u$ et $\varphi$ coïncident sur les $e_k$, donc sur $c_{<\infty}$, qui est dense dans $c_0$ (pour $v\in c_0$, $\norm{v-v\mathbf 1_{k\le N}}_\infty=\sup_{k>N}|v_k|\to0$) : $\Psi_u=\varphi$ par continuité.
+
+\medskip
+\noindent\textbf{(b)} Par (a), $(c_0)'\simeq\ell^1$ isométriquement via $\Psi$ ; par l'Exercice~5.1, $(\ell^1)'\simeq\ell^\infty$ via $\Phi$. Donc $(c_0)''=((c_0)')'\simeq(\ell^1)'\simeq\ell^\infty$, la composée étant encore une isométrie linéaire surjective. Explicitons-la : à $w\in\ell^\infty$ correspond la forme $\Phi_w\in(\ell^1)'$, puis, par transport via $\Psi$, l'élément $\xi_w:\Psi_u\mapsto\Phi_w(u)=\sum_ku_kw_k$ de $(c_0)''$. Pour $x\in c_0$, $J_x(\Psi_u)=\Psi_u(x)=\sum_kx_ku_k=\xi_x(\Psi_u)$ : ainsi $J_x=\xi_x$, et \emph{$J$ s'identifie à l'inclusion $c_0\hookrightarrow\ell^\infty$}. Cette inclusion n'est pas surjective (la suite constante $\mathbf 1\in\ell^\infty\setminus c_0$) : $J$ n'est pas surjective, $c_0$ n'est pas réflexif. On peut aussi conclure sans expliciter : si $J$ était surjective, $\ell^\infty\simeq c_0''=J(c_0)\simeq c_0$ serait séparable (image isométrique d'un espace séparable : $c_{<\infty}$ à coefficients rationnels est dense dans $c_0$), ce que l'Exercice~2.6 interdit.
+
+\medskip
+\noindent\textbf{(c)} \emph{Isométrie :} même calcul qu'en (a), les $v^N$ étant dans $\ell^\infty$. \emph{Non-surjectivité.} Soit $c\subset\ell^\infty$ le sous-espace (fermé) des suites convergentes et $L:c\to\K$, $L(v):=\lim_kv_k$. $L$ est linéaire, et $|L(v)|\le\norm v_\infty$ avec égalité pour $v=\mathbf 1$ : $\opnorm L=1$. Par Hahn--Banach (version générale, Remarque~5.3 — $\ell^\infty$ n'est pas séparable, le Théorème~5.2 ne s'applique pas), $L$ se prolonge en $\tilde L\in(\ell^\infty)'$ de norme $1$. Supposons $\tilde L=\Phi_u$ pour un $u\in\ell^1$. Comme $e_k\in c_0\subset c$ et $L(e_k)=0$, on a $u_k=\Phi_u(e_k)=\tilde L(e_k)=0$ pour tout $k$, donc $u=0$ et $\tilde L=0$, contredisant $\tilde L(\mathbf 1)=1$. Donc $\tilde L\notin\Phi(\ell^1)$. (Un tel prolongement s'appelle une \emph{limite de Banach} ; on peut le choisir positif et invariant par décalage.)
+
+\emph{Non-réflexivité de $\ell^1$.} $(\ell^1)''=(\ell^\infty)'$ via $\Phi$ (Exercice~5.1), et sous cette identification $J:\ell^1\to(\ell^\infty)'$ est $u\mapsto\Phi_u$ (même calcul qu'en (b)). Elle n'est pas surjective d'après ce qui précède : $\ell^1$ n'est pas réflexif.
+\end{solution}
+
+\begin{piege}
+\textbf{Duals successifs de $c_0$ : ne pas confondre les rôles.} Les identifications sont $(c_0)'=\ell^1$, $(\ell^1)'=\ell^\infty$, mais $(\ell^\infty)'\supsetneq\ell^1$. Les duals successifs de $c_0$ sont donc $\ell^1$, $\ell^\infty$, $(\ell^\infty)'$, de plus en plus gros : prendre le dual ne « revient » jamais à $c_0$. Pour $1<p<\infty$ au contraire, $(\ell^p)''=(\ell^{p'})'=\ell^p$ et le Théorème~5.1 montre que cette identification est bien $J$ : les $\ell^p$ sont réflexifs. La frontière est la même que pour la densité de $c_{<\infty}$ et la séparabilité : $\ell^1$ et $\ell^\infty$ sont les deux « mauvais » exposants, et ils le sont l'un à cause de l'autre.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 5.1 et Proposition 5.5 -- Convergence faible dans $\ell^p$}
+Soit $1<p<\infty$, $(u^n)_n$ une suite de $\ell^p(\N)$ et $u\in\ell^p(\N)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $u^n\rightharpoonup u$ si et seulement si $(u^n)_n$ est bornée dans $\ell^p$ et $u^n_k\to u_k$ pour tout $k\in\N$ (convergence coordonnée par coordonnée).
+  \item Montrer que l'hypothèse de bornitude ne peut être retirée, et que la convergence faible n'implique pas la convergence forte.
+  \item Montrer que si $u^n\rightharpoonup u$ et $\norm{u^n}_p\to\norm u_p$, alors $u^n\to u$ fortement. \emph{Indication : on pourra admettre la convexité uniforme de $\ell^p$, ou traiter le cas $p=2$.}
+  \item Que deviennent ces énoncés pour $p=1$ ? \emph{(On montrera que dans $\ell^1$, $e_n\not\rightharpoonup0$.)}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Par le Théorème~5.1, $u^n\rightharpoonup u$ signifie $\sum_ku^n_kv_k\to\sum_ku_kv_k$ pour tout $v\in\ell^{p'}$.
+
+($\Rightarrow$) La bornitude est la Proposition~5.5. La convergence des coordonnées s'obtient en testant contre $v=e_k\in\ell^{p'}$.
+
+($\Leftarrow$) Soit $M:=\sup_n\norm{u^n}_p$, $v\in\ell^{p'}$ et $\varepsilon>0$. Comme $p'<\infty$, $c_{<\infty}$ est dense dans $\ell^{p'}$ : il existe $N$ avec $\norm{v-v^N}_{p'}\le\varepsilon$, $v^N:=v\mathbf 1_{k\le N}$. Par Hölder,
+\[
+\Big|\sum_k(u^n_k-u_k)v_k\Big|\le\Big|\sum_{k\le N}(u^n_k-u_k)v_k\Big|+\norm{u^n-u}_p\norm{v-v^N}_{p'}\le\sum_{k\le N}|u^n_k-u_k||v_k|+(M+\norm u_p)\varepsilon .
+\]
+La somme finie tend vers $0$ ; donc $\limsup_n|\sum(u^n_k-u_k)v_k|\le(M+\norm u_p)\varepsilon$ pour tout $\varepsilon$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Bornitude nécessaire :} $u^n:=ne_n$ converge coordonnée par coordonnée vers $0$, mais pour $v:=(1/(k+1))_k$ — qui est dans $\ell^{p'}$ car $p'>1$ — on a $\sum_ku^n_kv_k=n/(n+1)\to1\ne0$. \emph{Faible $\not\Rightarrow$ forte :} $e_n\rightharpoonup0$ par (a) (bornée, coordonnées $\to0$ ; c'est l'Exemple~5.1), alors que $\norm{e_n}_p=1$. Au passage, c'est le cas d'inégalité stricte dans la Proposition~5.5 : $0=\norm0<\liminf\norm{e_n}=1$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Cas $p=2$ :} $\norm{u^n-u}_2^2=\norm{u^n}_2^2-2\Re\ps{u^n}u+\norm u_2^2\to0$ (TD4 ex.~8a). \emph{Cas général :} on utilise la \emph{convexité uniforme} de $\ell^p$ : pour tout $\varepsilon>0$ il existe $\delta>0$ tel que $\norm x_p,\norm y_p\le1$ et $\norm{x-y}_p\ge\varepsilon$ impliquent $\norm{(x+y)/2}_p\le1-\delta$ (inégalités de Clarkson). Quitte à normaliser (si $u=0$ c'est fini ; sinon $u^n/\norm{u^n}_p\rightharpoonup u/\norm u_p$ par (a)), supposons $\norm u_p=1$ et $\norm{u^n}_p\to1$. Par Hahn--Banach (ou directement : $v:=(\sgn(u_k)|u_k|^{p-1})_k\in\ell^{p'}$, $\norm v_{p'}=1$, $\sum u_kv_k=1$), il existe $v\in\ell^{p'}$ unitaire avec $\Phi_v(u)=1$. Alors $\Phi_v\big(\frac{u^n+u}2\big)\to1$ et $\norm{\frac{u^n+u}2}_p\le\frac{\norm{u^n}_p+1}2\to1$, donc $\norm{\frac{u^n+u}2}_p\to1$. Si l'on avait $\norm{u^n-u}_p\ge\varepsilon$ le long d'une sous-suite, la convexité uniforme (appliquée à $u^n/\norm{u^n}_p$ et $u$, à une erreur $o(1)$ près) donnerait $\limsup\norm{\frac{u^n+u}2}_p\le1-\delta$ : contradiction. Donc $u^n\to u$.
+
+\medskip
+\noindent\textbf{(d)} Pour $p=1$, le dual est $\ell^\infty$ (Exercice~5.1), et la preuve de ($\Leftarrow$) en (a) échoue : $c_{<\infty}$ n'est pas dense dans $\ell^\infty$. De fait, $(e_n)$ est bornée, converge coordonnée par coordonnée vers $0$, mais pour $v:=\mathbf 1\in\ell^\infty$, $\Phi_{\mathbf 1}(e_n)=1\not\to0$ : $e_n\not\rightharpoonup0$ dans $\ell^1$. ($\Rightarrow$) reste vrai. Le phénomène est général : dans $\ell^1$, toute suite faiblement convergente converge fortement (théorème de Schur, hors programme), ce qui n'empêche pas la convergence faible d'être une notion différente de la forte au niveau des topologies.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Tester sur une partie totale du dual.} Pour vérifier une convergence faible, on n'a pas besoin de tous les $v\in\ell^{p'}$ : une partie dont l'espace engendré est dense suffit, \emph{à condition que la suite soit bornée}. C'est le même énoncé que le TD4 ex.~8b dans un Hilbert, et le même mécanisme que Banach--Steinhaus (hypothèse ponctuelle $+$ bornitude $\Rightarrow$ conclusion uniforme). La bornitude est fournie gratuitement quand on \emph{sait} que la suite converge faiblement (Proposition~5.5), mais doit être vérifiée quand on veut le \emph{prouver}.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 5.2 -- La norme d'une forme linéaire sur $\ell^p$ est atteinte}
+Pour $1<p<\infty$, montrer que pour tout $\varphi\in\ell^p(\N)'$ il existe $v\in\ell^p(\N)$ avec $\norm v_p=1$ et $\varphi(v)=\opnorm\varphi$. Que dire pour $p=1$ et pour $c_0(\N)$ ?
+\end{exo}
+
+\begin{solution}
+Par le Théorème~5.1, $\varphi=\Phi_u$ pour un $u\in\ell^{p'}$ avec $\norm u_{p'}=\opnorm\varphi$. Si $u=0$, tout $v$ unitaire convient. Sinon posons
+\[
+v_k:=\frac{\sgn(u_k)\,|u_k|^{p'-1}}{\norm u_{p'}^{p'-1}}\qquad(\sgn z=\bar z/|z|,\ \sgn0=0).
+\]
+Comme $(p'-1)p=p'$ (car $p=p'/(p'-1)$), $\sum_k|v_k|^p=\norm u_{p'}^{-p'}\sum_k|u_k|^{p'}=1$ : $v\in\ell^p$, $\norm v_p=1$. Et $\Phi_u(v)=\norm u_{p'}^{1-p'}\sum_k|u_k|^{p'}=\norm u_{p'}=\opnorm\varphi$. C'est le cas d'égalité de Hölder : $|v_k|^p$ et $|u_k|^{p'}$ proportionnels, et $v_ku_k\ge0$.
+
+\emph{Pour $p=1$ :} $\varphi=\Phi_u$ avec $u\in\ell^\infty$, et la norme est atteinte si et seulement si $\sup_k|u_k|$ est un maximum : pour $u_k=1-\frac1{k+1}$, $\opnorm{\Phi_u}=1$ mais $|\Phi_u(v)|\le\sum_k|v_k||u_k|<\norm v_1$ dès que $v\ne0$. \emph{Pour $c_0$ :} $\varphi=\Psi_u$, $u\in\ell^1$ (développement précédent), et $|\Psi_u(v)|=|\sum v_ku_k|<\norm u_1\norm v_\infty$ dès que $u$ a un support infini, puisque $|v_k|<\norm v_\infty$ pour $k$ grand ($v\to0$) : aucune forme à support infini n'atteint sa norme (comparer avec le TD3 ex.~8).
+\end{solution}
+
+\begin{commentaire}
+Le théorème de James (hors programme) affirme qu'un Banach est réflexif si et seulement si \emph{toute} forme linéaire continue atteint sa norme : les exemples $\ell^p$ ($1<p<\infty$), $\ell^1$ et $c_0$ en sont les illustrations élémentaires. L'autre lecture de cet exercice : la boule unité de $\ell^p$, $1<p<\infty$, est faiblement séquentiellement compacte (Banach--Alaoglu + réflexivité), et une forme linéaire continue, donc faiblement continue, y atteint son sup — c'est l'argument de compacité faible qui remplace Bolzano--Weierstrass en dimension infinie.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 5.3 -- Banach--Alaoglu sans séparabilité}
+Pour $n\in\N$, soit $T_n:\ell^\infty(\N)\to\K$, $u\mapsto u_n$. Montrer que $T_n$ est dans la sphère unité de $\ell^\infty(\N)'$, et que $(T_n)_n$ n'admet aucune sous-suite préfaiblement convergente. Et donc ?
+\end{exo}
+
+\begin{solution}
+$T_n$ est linéaire, $|T_n(u)|=|u_n|\le\norm u_\infty$, avec égalité pour $u=e_n$ : $\opnorm{T_n}=1$. Soit $\varphi$ une extractrice. Définissons $u\in\ell^\infty$ par $u_{\varphi(2j)}:=1$, $u_{\varphi(2j+1)}:=0$ pour tout $j$, et $u_k:=0$ ailleurs (c'est bien défini, $\varphi$ étant injective). Alors $T_{\varphi(n)}(u)=u_{\varphi(n)}$ vaut alternativement $1$ et $0$ : la suite $(T_{\varphi(n)}(u))_n$ diverge. Donc $(T_{\varphi(n)})_n$ ne converge pas préfaiblement (la convergence préfaible est la convergence simple sur $\ell^\infty$, Définition~5.3), pour toute extractrice $\varphi$.
+
+\emph{Et donc ?} La suite $(T_n)$ est bornée dans le dual de $\ell^\infty$ et n'a pas de sous-suite préfaiblement convergente : la conclusion du Théorème~5.4 de Banach--Alaoglu est en défaut pour $E=\ell^\infty$. Comme ce théorème s'applique à tout EVN séparable, $\ell^\infty(\N)$ n'est pas séparable — seconde preuve de l'Exercice~2.6. Plus précisément, l'hypothèse de séparabilité du Théorème~5.4 n'est pas un artefact de la preuve (extraction diagonale sur une partie dénombrable dense) : sans elle, la compacité \emph{séquentielle} tombe. (La version topologique de Banach--Alaoglu, « la boule unité du dual est préfaiblement compacte », reste vraie sans séparabilité, mais compacité et compacité séquentielle diffèrent pour les topologies non métrisables, cf.\ Exercice~4.12.)
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Remarque 5.14 -- Un opérateur compact sans valeur propre : l'opérateur de Volterra}
+Sur $H:=L^2(]0,1[;\C)$, on pose $Vf(x):=\int_0^xf(t)\,dt$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $V$ est un opérateur sur $H$, à valeurs dans $\Cz([0,1])$, et calculer son adjoint $V^\star$.
+  \item Montrer que $V$ est compact. \emph{Indication : Arzelà--Ascoli.}
+  \item Montrer que $V$ est injectif et n'a aucune valeur propre. Commenter au regard du Lemme~5.1.
+  \item Montrer que $V+V^\star$ est de rang $1$. En déduire que $V$ n'est pas auto-adjoint, et calculer les valeurs propres de l'opérateur auto-adjoint compact $V^\star V$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $f\in L^2(0,1)\subset L^1(0,1)$ (Cauchy--Schwarz sur un intervalle borné), $Vf$ est bien définie, et pour $x\le y$, $|Vf(y)-Vf(x)|=|\int_x^yf|\le\sqrt{y-x}\,\norm f_2$ : $Vf$ est $\frac12$-höldérienne, donc continue, avec $\norm{Vf}_\infty\le\norm f_2$ et a fortiori $\norm{Vf}_2\le\norm f_2$. $V$ est linéaire : c'est un opérateur, $\opnorm V\le1$. Adjoint : par Fubini (tout est intégrable sur $[0,1]^2$),
+\[
+\ps{Vf}g=\int_0^1\Big(\int_0^xf(t)\,dt\Big)\overline{g(x)}\,dx=\int_0^1f(t)\overline{\Big(\int_t^1g(x)\,dx\Big)}\,dt=\ps f{V^\star g},\qquad V^\star g(t)=\int_t^1g(x)\,dx .
+\]
+
+\medskip
+\noindent\textbf{(b)} Soit $B$ la boule unité de $H$. Par (a), $V(B)$ est une partie de $\Cz([0,1])$ bornée (par $1$ en norme uniforme) et uniformément équicontinue (module $\sqrt{|y-x|}$ commun). Par Arzelà--Ascoli (Théorème~3.2, Corollaire~3.1), toute suite de $V(B)$ a une sous-suite uniformément convergente, donc convergente dans $L^2$ (la norme $L^2$ est dominée par la norme uniforme sur $[0,1]$). Ainsi $V(B)$ est relativement compacte dans $H$ : $V$ est compact.
+
+\medskip
+\noindent\textbf{(c)} Si $Vf=0$, alors $\int_0^xf=0$ pour tout $x$, et par le théorème de dérivation de Lebesgue (ou : $\int_a^bf=0$ pour tous $a<b$, donc $f\perp$ fonctions en escalier, denses dans $L^2$) $f=0$ : $V$ est injectif, donc $0$ n'est pas valeur propre. Soit $\lambda\ne0$ et $Vf=\lambda f$. Alors $f=\lambda^{-1}Vf$ est continue (par (a)), donc $Vf$ est de classe $\mathcal C^1$ avec $(Vf)'=f$, donc $f$ est $\mathcal C^1$ et $f=\lambda^{-1}Vf$ donne $\lambda f'=f$, $f(0)=\lambda^{-1}Vf(0)=0$. L'unique solution de $f'=f/\lambda$, $f(0)=0$ est $f=0$. Donc \emph{$V$ n'a aucune valeur propre}, alors qu'il est compact sur un Hilbert : l'hypothèse d'auto-adjonction du Lemme~5.1 est indispensable (c'est la « vérification » demandée par la Remarque~5.14). Le spectre de $V$ est réduit à $\{0\}$ (admis), ce qui ne contredit rien : $0$ est dans le spectre sans être valeur propre, comme pour $M_a$, $a_n=1/(n+1)$ (TD0 ex.~4.7).
+
+\medskip
+\noindent\textbf{(d)} $(V+V^\star)f(x)=\int_0^xf+\int_x^1f=\int_0^1f=\ps f{\mathbf 1}$ : $V+V^\star=\ps\cdot{\mathbf 1}\mathbf 1$ est de rang $1$. Si $V$ était auto-adjoint, $V+V^\star=2V$ serait de rang $1$, donc non injectif, contredisant (c). L'opérateur $V^\star V$ est auto-adjoint ($(V^\star V)^\star=V^\star V$), compact (composé d'un compact et d'un continu) et positif. Cherchons ses valeurs propres : $V^\star Vf=\mu f$ avec $\mu\ne0$ ($V^\star V$ est injectif : $\ps{V^\star Vf}f=\norm{Vf}^2$). Alors $f=\mu^{-1}V^\star Vf$ est $\mathcal C^2$ (deux intégrations), et en dérivant deux fois, $V^\star Vf(t)=\int_t^1\int_0^xf$ donne $(V^\star Vf)'=-Vf$, $(V^\star Vf)''=-f$ : donc $\mu f''=-f$, avec $f(1)=\mu^{-1}V^\star Vf(1)=0$ et $f'(0)=-\mu^{-1}Vf(0)=0$. Les solutions non nulles de $f''+\mu^{-1}f=0$, $f'(0)=0$, $f(1)=0$ sont $f(t)=\cos(\omega t)$ avec $\omega=\mu^{-1/2}$ et $\cos\omega=0$, soit $\omega=(k+\frac12)\pi$, $k\in\N$. Donc
+\[
+\nu(V^\star V)=\Big\{\frac1{(k+\frac12)^2\pi^2}:k\in\N\Big\},
+\]
+et, par le Théorème~5.5, $\big(\sqrt2\cos((k+\tfrac12)\pi t)\big)_{k\in\N}$ est une base hilbertienne de $L^2(0,1)$.
+(Au passage, $\opnorm V^2=\opnorm{V^\star V}=\max\nu(V^\star V)=4/\pi^2$, TD4 ex.~5a et 7b : $\opnorm V=2/\pi$.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Compact $\ne$ diagonalisable.} Le théorème spectral demande \emph{compact et auto-adjoint} ; chacune des hypothèses est nécessaire : $M_a$ avec $a\notin c_0$ est auto-adjoint non compact et peut n'avoir que des espaces propres de dimension infinie ; $V$ est compact non auto-adjoint et n'a aucun vecteur propre. En revanche $V^\star V$, toujours auto-adjoint compact positif, se diagonalise, et ses valeurs propres $\mu_k$ (les carrés des \emph{valeurs singulières} de $V$) mesurent « combien $V$ est compact » : ici $\mu_k\sim1/(\pi^2k^2)$. Le calcul des vecteurs propres par une équation différentielle est le lien classique entre opérateurs intégraux et problèmes de Sturm--Liouville.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Théorème 5.5 -- Conséquences du théorème spectral}
+Soit $H$ un espace de Hilbert séparable de dimension infinie et $T$ un opérateur auto-adjoint compact. Par le Théorème~5.5 et la Proposition~4.7, il existe une base hilbertienne $(e_n)_{n\in\N}$ et une suite réelle $(\lambda_n)_n$ avec $Te_n=\lambda_ne_n$ pour tout $n$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\lambda_n\to0$ et que, pour tout $x\in H$, $Tx=\sum_n\lambda_n\ps x{e_n}e_n$ (convergence dans $H$). En déduire $\opnorm T=\sup_n|\lambda_n|$.
+  \item Réciproquement, soit $(\mu_n)$ une suite réelle et $Sx:=\sum_n\mu_n\ps x{e_n}e_n$. À quelle condition $S$ est-il un opérateur ? auto-adjoint ? compact ?
+  \item \emph{(Racine carrée.)} On suppose $T$ positif ($\ps{Tx}x\ge0$ pour tout $x$). Montrer que $\lambda_n\ge0$ et qu'il existe un unique opérateur auto-adjoint compact positif $R$ tel que $R^2=T$.
+  \item \emph{(Alternative de Fredholm, cas diagonal.)} Soit $\lambda\in\K\setminus\{0\}$. Montrer que $T-\lambda\mathrm{Id}$ est injectif si et seulement s'il est surjectif, et que dans ce cas son inverse est continu. Que se passe-t-il pour $\lambda=0$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Les $\lambda_n$ sont les valeurs propres de $T$ (avec répétition selon la multiplicité). Par la Proposition~4.7, pour tout $\varepsilon>0$, $\{\lambda:|\lambda|\ge\varepsilon\}\cap\nu(T)$ est fini et chaque espace propre associé est de dimension finie ; donc $\{n:|\lambda_n|\ge\varepsilon\}$ est fini, \ie{} $\lambda_n\to0$. (Argument direct : $e_n\rightharpoonup0$ par la Proposition~4.8, donc $Te_n=\lambda_ne_n\to0$ fortement par la Proposition~5.8, et $\norm{\lambda_ne_n}=|\lambda_n|$.) Pour $x\in H$, $x=\sum\ps x{e_n}e_n$ (Théorème~4.5) et, $T$ étant linéaire continue, $Tx=\sum_n\ps x{e_n}Te_n=\sum_n\lambda_n\ps x{e_n}e_n$. Par Parseval, $\norm{Tx}^2=\sum|\lambda_n|^2|\ps x{e_n}|^2\le\sup|\lambda_n|^2\norm x^2$, et $\norm{Te_n}=|\lambda_n|$ donne l'inégalité inverse : $\opnorm T=\sup_n|\lambda_n|=\max_n|\lambda_n|$ (le sup est atteint puisque $\lambda_n\to0$ ; comparer avec le TD4 ex.~7d).
+
+\medskip
+\noindent\textbf{(b)} C'est l'exercice~4.7 transporté par l'isométrie $x\mapsto(\ps x{e_n})_n$ de $H$ sur $\ell^2$ (Corollaire~4.2), qui conjugue $S$ au multiplicateur $M_\mu$. Donc : $S$ est bien défini sur tout $H$ et continu si et seulement si $\mu\in\ell^\infty$ (si $\mu$ est bornée, la série converge par la Proposition~4.4 et $\norm{Sx}\le\norm\mu_\infty\norm x$ par Parseval ; sinon $\norm{Se_n}=|\mu_n|$ n'est pas borné) ; il est alors auto-adjoint car les $\mu_n$ sont réels ; et compact si et seulement si $\mu\in c_0$. Ainsi \emph{les opérateurs auto-adjoints compacts sont exactement les $S$ avec $\mu\in c_0$ réelle, dans une base hilbertienne convenable} (Remarque~5.15).
+
+\medskip
+\noindent\textbf{(c)} $\lambda_n=\ps{Te_n}{e_n}\ge0$. Posons $Rx:=\sum_n\sqrt{\lambda_n}\ps x{e_n}e_n$ : par (b), $R$ est auto-adjoint compact ($\sqrt{\lambda_n}\to0$), positif ($\ps{Rx}x=\sum\sqrt{\lambda_n}|\ps x{e_n}|^2\ge0$), et $R^2e_n=\lambda_ne_n$, donc $R^2=T$ sur une partie totale, donc partout par continuité. \emph{Unicité :} soit $R'$ auto-adjoint compact positif avec $R'^2=T$. $R'$ commute avec $T=R'^2$, donc stabilise chaque espace propre $E_\lambda$ de $T$ (si $Tx=\lambda x$, $TR'x=R'Tx=\lambda R'x$). Sur $E_\lambda$ (de dimension finie si $\lambda\ne0$, fermé sinon), $R'$ induit un opérateur auto-adjoint positif de carré $\lambda\,\mathrm{Id}$ ; par le théorème spectral appliqué à $R'|_{E_\lambda}$, ses valeurs propres $\rho$ vérifient $\rho^2=\lambda$ et $\rho\ge0$, donc $\rho=\sqrt\lambda$ et $R'|_{E_\lambda}=\sqrt\lambda\,\mathrm{Id}$ (un auto-adjoint compact dont la seule valeur propre est $\sqrt\lambda$ et qui est diagonalisable vaut $\sqrt\lambda\,\mathrm{Id}$ — pour $\lambda=0$, $R'|_{E_0}$ est auto-adjoint de carré nul, donc $\norm{R'x}^2=\ps{R'^2x}x=0$). Donc $R'=R$ sur chaque $E_\lambda$, et $\bigoplus E_\lambda$ est dense (Théorème~5.5) : $R'=R$.
+
+\medskip
+\noindent\textbf{(d)} Dans la base $(e_n)$, $(T-\lambda\mathrm{Id})x=\sum(\lambda_n-\lambda)\ps x{e_n}e_n$. \emph{Injectif} $\iff\lambda_n\ne\lambda$ pour tout $n$ $\iff\lambda\notin\nu(T)$. \emph{Surjectif} : si $\lambda\notin\nu(T)$, comme $\lambda\ne0$ et $\lambda_n\to0$, on a $|\lambda_n-\lambda|\ge\delta>0$ pour tout $n$ (seul un nombre fini de $\lambda_n$ sont proches de $\lambda$, et aucun n'est égal) ; alors pour $y\in H$, $x:=\sum(\lambda_n-\lambda)^{-1}\ps y{e_n}e_n$ converge ($|(\lambda_n-\lambda)^{-1}\ps y{e_n}|\le\delta^{-1}|\ps y{e_n}|$, Proposition~4.4) et $(T-\lambda\mathrm{Id})x=y$ : surjectif, avec $\norm x\le\delta^{-1}\norm y$, donc inverse continu de norme $\le1/\delta=1/\dist(\lambda,\nu(T))$. Réciproquement, si $\lambda\in\nu(T)$, $T-\lambda\mathrm{Id}$ n'est pas injectif, et pas surjectif non plus ($e_n$ avec $\lambda_n=\lambda$ est orthogonal à l'image, qui est $\subset\{e_n\}^\perp$). D'où l'\emph{alternative} : pour $\lambda\ne0$, ou bien $Tx-\lambda x=y$ a une unique solution pour tout $y$, ou bien $\lambda$ est valeur propre (et l'équation homogène a des solutions non nulles). \emph{Pour $\lambda=0$ :} $T$ peut être injectif sans être surjectif ($\lambda_n=1/(n+1)$, image dense non fermée, TD0 ex.~4.7) ; en dimension infinie, $T$ compact n'est jamais surjectif (TD0, chapitre~4). L'alternative tombe, et le spectre de $T$ est $\nu(T)\cup\{0\}$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Ce que le théorème spectral permet de calculer.} Une fois $T$ diagonalisé, tout se lit sur la suite $(\lambda_n)$ : norme, compacité, positivité, racine carrée, inverse de $T-\lambda\mathrm{Id}$, et plus généralement $f(T):=\sum f(\lambda_n)\ps\cdot{e_n}e_n$ pour toute fonction $f$ bornée sur $\nu(T)$ (calcul fonctionnel). La question (d) est l'\emph{alternative de Fredholm}, vraie pour tout opérateur compact (non nécessairement auto-adjoint, hors programme) : « $T-\lambda\mathrm{Id}$ injectif $\Rightarrow$ surjectif » pour $\lambda\ne0$, qui rétablit en dimension infinie, pour les perturbations compactes de l'identité, l'équivalence injectif/surjectif de la dimension finie. C'est l'outil qui résout les équations intégrales $u-\lambda Ku=f$ (Fredholm, 1903) et qui, via la réduction des problèmes aux limites à des opérateurs intégraux compacts (inverses de $-\Delta$), fournit les bases hilbertiennes de fonctions propres du chapitre~6.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Corollaire 5.3 -- Compacité faible dans $L^q$, et son échec dans $L^1$}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $1<q<\infty$, $(f_n)$ bornée dans $L^q(\Omega)$ et $f$ la limite fournie par le Corollaire~5.3 le long d'une sous-suite. Montrer que $\norm f_q\le\liminf\norm{f_{n_k}}_q$.
+  \item Soit $(\rho_n)$ une approximation de l'unité sur $\R^d$ issue de $\rho\in\Cc(\R^d)$, $\rho\ge0$ (Exemple~3.3). Montrer qu'il n'existe aucune $f\in L^1(\R^d)$ et aucune sous-suite $(\rho_{n_k})$ telles que $\int\rho_{n_k}g\to\int fg$ pour toute $g\in\Cc(\R^d)$. En déduire que la conclusion du Corollaire~5.3 est fausse pour $q=1$.
+  \item Où la preuve du Corollaire~5.3 utilise-t-elle $q>1$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Par le Théorème~5.6 (identification $L^q=(L^p)'$, $p=q'$), la convergence du Corollaire~5.3 est la convergence préfaible $T_{f_{n_k}}\rightharpoonup^\star T_f$ dans $(L^p)'$, et $g\mapsto T_g$ est une isométrie $L^q\to(L^p)'$ (Lemme~2.2). La Proposition~5.7 (avec $E=L^p$, Banach) donne $\opnorm{T_f}\le\liminf\opnorm{T_{f_{n_k}}}$, soit $\norm f_q\le\liminf\norm{f_{n_k}}_q$. Directement : pour $g\in L^p$ unitaire, $|\int fg|=\lim|\int f_{n_k}g|\le\liminf\norm{f_{n_k}}_q$, et le sup en $g$ vaut $\norm f_q$.
+
+\medskip
+\noindent\textbf{(b)} Supposons une telle $f$ et une telle sous-suite. Fixons $g\in\Cc(\R^d)$. Comme $\rho_{n}$ est positive, d'intégrale $1$ et à support dans $\Bf(0,1/n)$ (Exemple~3.3 et TD0 ex.~3.3),
+\[
+\Big|\int\rho_{n}g-g(0)\Big|=\Big|\int\rho_{n}(x)\big(g(x)-g(0)\big)dx\Big|\le\sup_{|x|\le1/n}|g(x)-g(0)|\xrightarrow[n\to\infty]{}0
+\]
+par continuité de $g$ en $0$. Donc $\int fg=g(0)$ pour toute $g\in\Cc(\R^d)$. En prenant $g\in\Cc(\R^d\setminus\{0\})$, on obtient $\int fg=0$ pour toute $g\in\Cc$ de l'ouvert $\R^d\setminus\{0\}$, donc $f=0$ p.p. sur $U:=\R^d\setminus\{0\}$ : en effet, pour tout pavé $B$ avec $\adh B\subset U$, on approche $\mathbf 1_B$ par des $g_n\in\Cc(U)$, $0\le g_n\le1$, $g_n\to\mathbf 1_B$ simplement, et la convergence dominée (par $|f|\in L^1$) donne $\int_Bf=0$ ; une fonction intégrable d'intégrale nulle sur tout pavé est nulle p.p. (théorème de différentiation de Lebesgue). Comme $\{0\}$ est négligeable, $f=0$ p.p. sur $\R^d$. Mais alors $g(0)=\int fg=0$ pour toute $g\in\Cc(\R^d)$, absurde. Donc $(\rho_n)$, bornée dans $L^1$ (norme $1$), n'a aucune sous-suite convergeant au sens du Corollaire~5.3 avec $q=1$, $p=\infty$ — même en ne testant que contre $g\in\Cc\subset L^\infty$. La « limite » existe, mais c'est la masse de Dirac $\delta_0$, qui n'est pas une fonction (TD0 ex.~3.3b).
+
+\medskip
+\noindent\textbf{(c)} La preuve combine Banach--Alaoglu (Théorème~5.4) dans $(L^p)'$ \emph{avec $L^p$ séparable} (Proposition~2.8 : $p<\infty$), et l'identification $(L^p)'=L^q$ du Théorème~5.6 (\emph{$p<\infty$} encore). Pour $q=1$, l'exposant conjugué est $p=\infty$ : $L^\infty$ n'est pas séparable (TD2 ex.~9), et surtout $(L^\infty)'\ne L^1$ (même phénomène que $(\ell^\infty)'\ne\ell^1$). Banach--Alaoglu appliqué au dual de l'espace séparable $\Cz_0(\R^d)$ (fonctions continues tendant vers $0$ à l'infini) fournit bien une sous-suite de $(\rho_n)$ convergeant préfaiblement — mais vers un élément de $\Cz_0(\R^d)'$, l'espace des \emph{mesures} de Radon finies, et non de $L^1$ : c'est $\delta_0$. L'espace $L^1$ n'est le dual d'aucun espace normé (fait hors programme), et c'est la raison profonde de l'absence de compacité faible : les suites bornées de $L^1$ peuvent \emph{concentrer} leur masse en un point (ou la faire fuir à l'infini, $\rho(\cdot-n)$), et la limite sort de $L^1$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{$1<q<\infty$ : le bon cadre pour les méthodes variationnelles.} Dans $L^q$, $1<q<\infty$ (réflexif), toute suite bornée a une sous-suite faiblement convergente et la norme est faiblement s.c.i. (question (a)) : une suite minimisante bornée fournit un minimiseur. Dans $L^1$ et $L^\infty$ ce schéma échoue — $L^1$ par concentration (question (b)), $L^\infty$ parce que sa convergence préfaible (contre $L^1$) existe bien (Corollaire~5.3 avec $q=\infty$) mais ne passe pas aux non-linéarités. Le remède, pour $L^1$, est de sortir de l'espace (mesures) ou d'ajouter une hypothèse d'\emph{équi-intégrabilité} (théorème de Dunford--Pettis, hors programme), qui interdit précisément la concentration.
 \end{pointcle}
 
 \end{document}

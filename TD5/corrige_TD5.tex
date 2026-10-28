@@ -1,0 +1,347 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}5 -- Dualité et convergences faibles}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} $E$ désigne un EVN, $E'=\Lc(E,\K)$ son dual muni de $\opnorm\cdot$, $E''$ son bidual et $J:E\to E''$ l'injection canonique (Théorème~5.3). Pour $V\subset E$ on note $V^\perp:=\{f\in E':f|_V=0\}$ l'\emph{annulateur} de $V$ (sous-espace fermé de $E'$ ; dans un Hilbert, il correspond à l'orthogonal via Riesz). On utilise librement le théorème de Hahn--Banach (Théorème~5.2) ; pour un espace non séparable on admet sa version générale (Remarque~5.3). Les convergences faible ($\wk$, Définition~5.2) et préfaible ($\wks$, Définition~5.3), Banach--Alaoglu (Théorème~5.4), le théorème spectral (Théorème~5.5) et la dualité $L^p$ (Théorème~5.6) sont supposés connus.
+
+Cette feuille ne figure pas parmi les feuilles officielles du cours ; elle complète les exercices du polycopié et les développements du TD0 (dual de $c_0$, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité dans $L^q$). Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+\end{commentaire}
+
+\section*{Dualité et Hahn--Banach}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Ce que donne Hahn--Banach}
+Soit $E$ un EVN séparable.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $a\in E\setminus\{0\}$. Montrer qu'il existe $f\in E'$ avec $\opnorm f=1$ et $f(a)=\norm a$. En déduire la \emph{formule duale de la norme} : $\norm x=\max\{|f(x)|:f\in E',\ \opnorm f\le1\}$ pour tout $x\in E$.
+  \item Soit $V$ un sous-espace de $E$ et $a\in E$ avec $d:=\dist(a,V)>0$. Montrer qu'il existe $f\in E'$ avec $f|_V=0$, $f(a)=d$ et $\opnorm f=1$. \emph{Indication : définir $f$ sur $V\oplus\K a$.}
+  \item En déduire : $V$ est dense dans $E$ si et seulement si $V^\perp=\{0\}$. Comparer avec le Théorème~4.3.
+  \item Montrer que si $E'$ est séparable, alors $E$ est séparable. La réciproque est-elle vraie ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Sur la droite $\K a$, posons $f_0(\lambda a):=\lambda\norm a$. C'est une forme linéaire avec $|f_0(\lambda a)|=|\lambda|\norm a=\norm{\lambda a}$, donc $\opnorm{f_0}=1$. Par Hahn--Banach, elle se prolonge en $f\in E'$ de norme $1$, et $f(a)=f_0(a)=\norm a$. Pour la formule : $|g(x)|\le\opnorm g\norm x\le\norm x$ si $\opnorm g\le1$, donc le sup est $\le\norm x$ ; et pour $x\ne0$ la forme $f$ construite pour $a=x$ réalise $|f(x)|=\norm x$ : le sup est atteint, c'est un max. (Pour $x=0$, tout est nul.)
+
+\medskip
+\noindent\textbf{(b)} Comme $d>0$, $a\notin\adh V$, et en particulier $a\notin V$ : la somme $W:=V\oplus\K a$ est directe. Définissons $f_0:W\to\K$ par $f_0(v+\lambda a):=\lambda d$. C'est linéaire, nulle sur $V$, et $f_0(a)=d$. Norme : pour $\lambda\ne0$, $\norm{v+\lambda a}=|\lambda|\,\norm{a+\lambda^{-1}v}\ge|\lambda|\,\dist(a,V)=|\lambda|d=|f_0(v+\lambda a)|$ (car $-\lambda^{-1}v\in V$) ; pour $\lambda=0$ c'est $0\le\norm v$. Donc $\opnorm{f_0}\le1$. Inversement, soit $(v_n)\subset V$ avec $\norm{a-v_n}\to d$ ; alors $f_0(a-v_n)=d$ et $\norm{a-v_n}\to d$, donc $\opnorm{f_0}\ge d/\norm{a-v_n}\to1$. Ainsi $\opnorm{f_0}=1$, et Hahn--Banach fournit $f\in E'$ prolongeant $f_0$ avec $\opnorm f=1$.
+
+\medskip
+\noindent\textbf{(c)} Si $V$ est dense et $f\in V^\perp$, alors $f$ est nulle sur une partie dense, donc nulle par continuité : $V^\perp=\{0\}$. Réciproquement, si $V$ n'est pas dense, il existe $a\notin\adh V$, \ie{} $\dist(a,V)>0$, et (b) fournit $f\in V^\perp$ non nulle ($f(a)=d\ne0$). C'est l'analogue banachique du Théorème~4.3 ($A$ totale $\iff A^\perp=\{0\}$) : dans un Hilbert, $V^\perp$ (annulateur) s'identifie à l'orthogonal de $V$ via Riesz, et Hahn--Banach y est remplacé par la projection orthogonale — c'est la seule différence entre les deux preuves.
+
+\medskip
+\noindent\textbf{(d)} Soit $(f_n)_n$ dense dans $E'$. Pour chaque $n$ avec $f_n\ne0$, choisissons $x_n\in E$ unitaire avec $|f_n(x_n)|\ge\frac12\opnorm{f_n}$ (définition du sup). Posons $V:=\Vect(x_n:n\in\N)$ ; les combinaisons linéaires finies à coefficients dans $\Q$ (ou $\Q+i\Q$) des $x_n$ forment une partie dénombrable dense dans $V$, donc $\adh V$ est séparable, et il suffit de montrer $\adh V=E$. Par (c), soit $f\in V^\perp$ ; montrons $f=0$. Par densité, il existe une sous-suite $f_{n_k}\to f$ dans $E'$. Alors
+\[
+\tfrac12\opnorm{f_{n_k}}\le|f_{n_k}(x_{n_k})|=|f_{n_k}(x_{n_k})-f(x_{n_k})|\le\opnorm{f_{n_k}-f}\to0
+\]
+(car $f(x_{n_k})=0$, $x_{n_k}\in V$). Donc $\opnorm{f_{n_k}}\to0$, et $f=\lim f_{n_k}=0$. \emph{Réciproque fausse :} $\ell^1$ est séparable, mais $(\ell^1)'=\ell^\infty$ (Exercice~5.1) ne l'est pas (Exercice~2.6). De même $\Cz([0,1])$ est séparable (Weierstrass) alors que son dual contient les $\delta_x$, deux à deux à distance $2$ (exercice~5 ci-dessous).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Hahn--Banach fabrique des formes linéaires sur mesure.} Les quatre questions sont les usages standard : (a) il y a toujours une forme de norme $1$ qui « voit » un vecteur donné à sa vraie taille, d'où la formule duale $\norm x=\max_{\opnorm f\le1}|f(x)|$ (symétrique de la définition $\opnorm f=\sup_{\norm x\le1}|f(x)|$) ; (b) on peut séparer un point d'un sous-espace fermé par une forme qui s'annule sur le sous-espace ; (c) la densité se teste par dualité ; (d) le dual « contrôle » l'espace. Le mode d'emploi est toujours le même : définir la forme sur un petit sous-espace où le calcul est explicite, vérifier sa norme là, prolonger.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Transposée d'un opérateur}
+Soient $E,F$ deux EVN séparables et $T\in\Lc(E,F)$. On définit la \emph{transposée} $T':F'\to E'$ par $T'(g):=g\circ T$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T'\in\Lc(F',E')$ et que $\opnorm{T'}=\opnorm T$.
+  \item Montrer que $\Ker T'=(\Ima T)^\perp$. En déduire : $\Ima T$ est dense si et seulement si $T'$ est injective.
+  \item Montrer que $\Ker T=\{x\in E:\ f(x)=0\ \forall f\in\Ima T'\}$. En déduire : $T$ est injective si et seulement si $\Ima T'$ sépare les points de $E$ (pour tout $x\ne0$ il existe $f\in\Ima T'$ avec $f(x)\ne0$).
+  \item Sur $E=\ell^p(\N)$, $1\le p<\infty$, soit $S$ le décalage à droite. Calculer $S'$ sous l'identification $(\ell^p)'=\ell^{p'}$, et retrouver $\Ima S=\{e_0\}^{\perp}$ à partir de (b). Comparer avec l'adjoint hilbertien (TD4 ex.~5).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $g\circ T$ est linéaire continue, avec $|g(Tx)|\le\opnorm g\opnorm T\norm x$ : $T'g\in E'$ et $\opnorm{T'g}\le\opnorm T\opnorm g$. $T'$ est clairement linéaire, donc $T'\in\Lc(F',E')$ avec $\opnorm{T'}\le\opnorm T$. Pour l'égalité, soit $x\in E$ unitaire avec $Tx\ne0$ ; par l'exercice~1a, il existe $g\in F'$ unitaire avec $g(Tx)=\norm{Tx}$. Alors $\opnorm{T'}\ge\opnorm{T'g}\ge|T'g(x)|=|g(Tx)|=\norm{Tx}$. En prenant le sup sur $x$ : $\opnorm{T'}\ge\opnorm T$. (C'est ici qu'intervient Hahn--Banach : sans lui, on ne saurait pas que $F'$ est assez gros pour mesurer $\norm{Tx}$.)
+
+\medskip
+\noindent\textbf{(b)} $g\in\Ker T'\iff g\circ T=0\iff g(Tx)=0\ \forall x\iff g\in(\Ima T)^\perp$. Par l'exercice~1c, $\Ima T$ dense $\iff(\Ima T)^\perp=\{0\}\iff\Ker T'=\{0\}$.
+
+\medskip
+\noindent\textbf{(c)} Si $Tx=0$, alors $(T'g)(x)=g(Tx)=0$ pour tout $g$. Réciproquement, si $g(Tx)=0$ pour tout $g\in F'$, alors $Tx=0$ par l'exercice~1a (un vecteur non nul est vu par une forme de norme $1$). D'où l'égalité, qui se lit : $\Ker T=\{0\}$ si et seulement si aucun $x\ne0$ n'est annulé par tout $\Ima T'$, \ie{} si et seulement si $\Ima T'$ sépare les points. (Noter l'asymétrie avec (b) : la densité en norme de $\Ima T'$ dans $E'$ suffirait, par l'exercice~1a, mais c'est plus que nécessaire ; l'hypothèse naturelle est une densité « préfaible », parce que c'est contre $E$ que l'on teste.)
+
+\medskip
+\noindent\textbf{(d)} Pour $v\in\ell^{p'}$ (identifié à $\Phi_v\in(\ell^p)'$) et $u\in\ell^p$, $\Phi_v(Su)=\sum_{k\ge1}u_{k-1}v_k=\sum_{m\ge0}u_mv_{m+1}=\Phi_{S^\star v}(u)$ avec $S^\star v:=(v_1,v_2,\dots)$ : la transposée est le décalage à gauche sur $\ell^{p'}$, même formule que l'adjoint hilbertien ($p=2$). $\Ker S'=\{v:v_1=v_2=\dots=0\}=\K e_0$, donc par (b) $(\Ima S)^\perp=\K\Phi_{e_0}$, \ie{} $\adh{\Ima S}=\{u:u_0=0\}$ (exercice~1c appliqué au sous-espace $\Ima S$, ou directement : $\Ima S$ est fermé car $S$ est une isométrie, exercice TD4). Pour $p=\infty$ l'identification $(\ell^\infty)'=\ell^1$ est fausse et la transposée vit dans un espace plus gros ; c'est le seul cas où « transposée » et « décalage à gauche sur $\ell^{p'}$ » diffèrent.
+\end{solution}
+
+\begin{commentaire}
+La transposée généralise l'adjoint hilbertien, à ceci près que $T'$ va de $F'$ dans $E'$ et non de $F$ dans $E$ : dans un Hilbert, l'isométrie de Riesz $H\simeq H'$ permet de ramener $T'$ sur $H$, et c'est $T^\star$ (à une conjugaison près dans le cas complexe). Les identités $\Ker T'=(\Ima T)^\perp$ et $\opnorm{T'}=\opnorm T$ sont les mêmes qu'au TD4 ex.~5 ; la seule nouveauté est que Hahn--Banach remplace Riesz. Le théorème de l'image fermée de Banach (hors programme) complète le tableau : $\Ima T$ est fermée si et seulement si $\Ima T'$ l'est, et alors $\Ima T=(\Ker T')^{\perp}$ au sens des annulateurs.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Dual d'un sous-espace et d'un quotient}
+Soit $E$ un EVN séparable et $V$ un sous-espace fermé. On rappelle que $E/V$ est un EVN pour $\norm{[x]}:=\dist(x,V)$, et que $\pi:E\to E/V$ est linéaire continue de norme $\le1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Theta:(E/V)'\to V^\perp$, $\varphi\mapsto\varphi\circ\pi$, est une isométrie linéaire surjective : « $(E/V)'=V^\perp$ ».
+  \item Soit $R:E'\to V'$ la restriction $f\mapsto f|_V$. Montrer que $R$ est linéaire continue de norme $\le1$, de noyau $V^\perp$, et surjective. Montrer que l'application induite $\bar R:E'/V^\perp\to V'$ est une isométrie bijective : « $V'=E'/V^\perp$ ».
+  \item Expliquer pourquoi il n'existe pas en général d'isométrie linéaire $V'\to E'$ inverse à droite de $R$. Montrer qu'il en existe une si $E$ est un espace de Hilbert.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\varphi\circ\pi$ est linéaire continue, nulle sur $V=\Ker\pi$ : $\Theta(\varphi)\in V^\perp$, et $\Theta$ est linéaire. \emph{Isométrie :} $|\varphi(\pi x)|\le\opnorm\varphi\,\dist(x,V)\le\opnorm\varphi\norm x$ donne $\opnorm{\Theta\varphi}\le\opnorm\varphi$. Inversement, pour $\xi\in E/V$ et $\varepsilon>0$, il existe $x\in\xi$ (un représentant) avec $\norm x\le\norm\xi+\varepsilon$ (définition de l'inf) ; donc $|\varphi(\xi)|=|\Theta\varphi(x)|\le\opnorm{\Theta\varphi}(\norm\xi+\varepsilon)$, d'où $\opnorm\varphi\le\opnorm{\Theta\varphi}$. \emph{Surjectivité :} soit $f\in V^\perp$. Comme $f$ est nulle sur $V$, elle passe au quotient : $\varphi([x]):=f(x)$ est bien définie, linéaire, et $|\varphi([x])|=|f(x-v)|\le\opnorm f\norm{x-v}$ pour tout $v\in V$, donc $|\varphi(\xi)|\le\opnorm f\norm\xi$ : $\varphi\in(E/V)'$ et $\Theta\varphi=f$.
+
+\medskip
+\noindent\textbf{(b)} $R$ est linéaire, $|f(v)|\le\opnorm f\norm v$ donne $\opnorm{Rf}\le\opnorm f$, et $\Ker R=V^\perp$ par définition. \emph{Surjectivité :} c'est Hahn--Banach, et même mieux — tout $\varphi\in V'$ a un antécédent $\tilde\varphi$ de \emph{même} norme. \emph{Isométrie du quotient :} $\bar R([f]):=Rf$ est bien définie et bijective (surjective car $R$ l'est, injective par passage au quotient par le noyau). Norme : $\opnorm{\bar R[f]}=\opnorm{Rf}=\opnorm{R(f+g)}\le\opnorm{f+g}$ pour tout $g\in V^\perp$, d'où $\opnorm{\bar R[f]}\le\dist(f,V^\perp)=\norm{[f]}$. Inversement, si $\varphi=Rf$, soit $\tilde\varphi$ un prolongement de Hahn--Banach de norme $\opnorm\varphi$ ; alors $f-\tilde\varphi\in V^\perp$, donc $[f]=[\tilde\varphi]$ et $\norm{[f]}\le\opnorm{\tilde\varphi}=\opnorm\varphi=\opnorm{\bar R[f]}$.
+
+\medskip
+\noindent\textbf{(c)} Un inverse à droite linéaire $L:V'\to E'$ de $R$ (\ie{} $R\circ L=\mathrm{Id}$, un \emph{choix linéaire de prolongement}) est équivalent à un supplémentaire fermé de $V^\perp$ dans $E'$ (à savoir $\Ima L$) ; cela n'existe pas toujours : pour $V=c_0\subset E=\ell^\infty$, on peut montrer qu'aucun prolongement linéaire continu $(c_0)'\to(\ell^\infty)'$ n'existe (théorème de Phillips, hors programme). Hahn--Banach fournit un prolongement \emph{pour chaque} $\varphi$, sans cohérence linéaire entre eux (Remarque~5.4). Dans un Hilbert $H$, la projection orthogonale $P_V$ (Corollaire~4.1) a pour norme $1$ et $L(\varphi):=\varphi\circ P_V$ convient : $R(L\varphi)=\varphi$ car $P_V|_V=\mathrm{Id}$, $L$ est linéaire, et $\opnorm{L\varphi}\le\opnorm\varphi\opnorm{P_V}=\opnorm\varphi$ avec égalité en restreignant à $V$. C'est l'« isométrie linéaire $V'\to E'$ » qui n'existe que grâce à la structure hilbertienne — plus généralement dès que $V$ admet un projecteur continu de norme $1$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Les deux identifications à retenir :} $(E/V)'\simeq V^\perp$ (les formes sur le quotient sont les formes qui tuent $V$) et $V'\simeq E'/V^\perp$ (les formes sur $V$ sont les formes sur $E$ modulo celles qui tuent $V$). Dans un Hilbert, $V^\perp$ est l'orthogonal et $E'/V^\perp\simeq(V^\perp)^\perp=V$ : les deux énoncés redonnent $H=V\oplus V^\perp$. Dans un Banach général, ils sont ce qui reste de la décomposition orthogonale — un quotient, pas un supplémentaire.
+\end{pointcle}
+
+\section*{Convergences faibles}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Convergence faible dans $L^p$ : oscillation et concentration}
+Soit $1<p<\infty$ et $I=]0,1[$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f_n\wk f$ dans $L^p(I)$ si et seulement si $(f_n)$ est bornée dans $L^p(I)$ et $\int_a^bf_n\to\int_a^bf$ pour tous $0\le a<b\le1$.
+  \item \emph{(Oscillation.)} Montrer que $f_n(x):=\sin(2\pi nx)$ converge faiblement vers $0$ dans $L^p(I)$ mais pas fortement. Que dire de $g_n:=f_n^2$ ?
+  \item \emph{(Concentration.)} Soit $h_n:=n^{1/p}\mathbf 1_{]0,1/n[}$. Montrer que $h_n\wk0$ dans $L^p(I)$, que $\norm{h_n}_p=1$, et que $h_n\to0$ p.p. Que se passe-t-il pour $p=1$ ?
+  \item \emph{(Limite faible d'une suite bornée convergeant p.p.)} Soit $(f_n)$ bornée dans $L^p(I)$ avec $f_n\to f$ p.p. Montrer que $f\in L^p(I)$ et $f_n\wk f$. \emph{Indication : lemme de Fatou, puis Egorov ou densité.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Par le Théorème~5.6, $f_n\wk f$ signifie $\int f_ng\to\int fg$ pour tout $g\in L^{p'}(I)$. ($\Rightarrow$) Bornitude : Proposition~5.5. Les intégrales sur $]a,b[$ : tester $g=\mathbf 1_{]a,b[}\in L^{p'}$. ($\Leftarrow$) Soit $M:=\sup\norm{f_n}_p$ (et $\norm f_p<\infty$). Par linéarité, $\int f_ng\to\int fg$ pour toute fonction en escalier $g$. Celles-ci sont denses dans $L^{p'}(I)$ car $p'<\infty$ (Théorème~A.4 et approximation uniforme des fonctions continues à support compact par des fonctions en escalier). Pour $g\in L^{p'}$ et $\varepsilon>0$, soit $g_\varepsilon$ en escalier avec $\norm{g-g_\varepsilon}_{p'}\le\varepsilon$ ; par Hölder,
+\[
+\Big|\int(f_n-f)g\Big|\le\Big|\int(f_n-f)g_\varepsilon\Big|+(M+\norm f_p)\varepsilon ,
+\]
+et le premier terme tend vers $0$. Donc $\limsup|\int(f_n-f)g|\le(M+\norm f_p)\varepsilon$ pour tout $\varepsilon$.
+
+\medskip
+\noindent\textbf{(b)} $\norm{f_n}_p\le1$ : bornée. Pour $0\le a<b\le1$, $\int_a^b\sin(2\pi nx)\,dx=\frac{\cos(2\pi na)-\cos(2\pi nb)}{2\pi n}\to0$. Par (a), $f_n\wk0$ (c'est le lemme de Riemann--Lebesgue, version $L^p$). Pas fortement : $\norm{f_n}_p^p=\int_0^1|\sin(2\pi nx)|^p\,dx=\int_0^1|\sin(2\pi y)|^p\,dy=:c_p>0$ par le changement de variable $y=nx$ et périodicité. Pour $g_n=\sin^2(2\pi nx)=\frac12-\frac12\cos(4\pi nx)$ : le même calcul donne $g_n\wk\frac12$, et non vers $0^2=0$. \emph{La convergence faible ne passe pas aux non-linéarités} : $f_n\wk0$ mais $f_n^2\wk\frac12$. La limite faible du carré est la moyenne du carré sur une période ; c'est le phénomène de base de l'homogénéisation et des mesures de Young.
+
+\medskip
+\noindent\textbf{(c)} $\norm{h_n}_p^p=n\cdot\frac1n=1$. Pour $0\le a<b\le1$ : si $a>0$, $\int_a^bh_n=0$ dès que $1/n\le a$ ; si $a=0$, $\int_0^bh_n=n^{1/p}\min(b,1/n)=n^{1/p-1}\to0$ (car $p>1$). Par (a), $h_n\wk0$. Et $h_n(x)=0$ dès que $n>1/x$ : convergence p.p. vers $0$. Pour $p=1$ : $h_n=n\mathbf 1_{]0,1/n[}$, $\int_0^bh_n=1$ pour $n\ge1/b$ : la « limite » devrait charger le point $0$ d'une masse $1$, ce que ne fait aucune fonction de $L^1$. $(h_n)$ n'a aucune sous-suite faiblement convergente dans $L^1$ (c'est l'approximation de l'unité du TD0, développement sur le Corollaire~5.3). Pour $p>1$, la masse $L^p$ concentrée en $0$ « disparaît » à la limite faible, parce que $\int_0^{1/n}|h_n|=n^{1/p-1}\to0$ : le facteur $n^{1/p}$ est trop petit pour que la masse $L^1$ survive.
+
+\medskip
+\noindent\textbf{(d)} Par Fatou, $\int|f|^p=\int\liminf|f_n|^p\le\liminf\int|f_n|^p\le M^p$ : $f\in L^p$. Fixons $0\le a<b\le1$ et $\varepsilon>0$. Par le théorème d'Egorov, il existe $A\subset]a,b[$ mesurable avec $|{]a,b[}\setminus A|\le\varepsilon$ et $f_n\to f$ uniformément sur $A$. Alors
+\[
+\Big|\int_a^b(f_n-f)\Big|\le\int_A|f_n-f|+\int_{]a,b[\setminus A}|f_n-f|
+\le\sup_A|f_n-f|+\norm{f_n-f}_p\,|{]a,b[}\setminus A|^{1/p'}
+\]
+\[
+\phantom{\Big|\int_a^b(f_n-f)\Big|}\le\sup_A|f_n-f|+2M\varepsilon^{1/p'}
+\]
+(Hölder sur le second morceau). Le premier terme tend vers $0$ ; donc $\limsup|\int_a^b(f_n-f)|\le2M\varepsilon^{1/p'}$, pour tout $\varepsilon>0$ : $\int_a^bf_n\to\int_a^bf$. Avec la bornitude, (a) conclut. (Pour $p=1$ l'argument échoue, $p'=\infty$ et $\varepsilon^{1/p'}=1$ ; c'est le cas (c).)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Deux façons de ne pas converger fortement en convergeant faiblement.} L'\emph{oscillation} (b) : la fonction garde sa taille mais oscille de plus en plus vite, et seules ses moyennes convergent ; la limite faible d'une fonction de l'oscillation est la moyenne de cette fonction, pas la fonction de la limite. La \emph{concentration} (c) : la masse se rassemble sur un ensemble de mesure tendant vers $0$, et la limite faible l'oublie. Le critère (a) — bornitude $+$ convergence testée sur une partie totale du dual — est le même qu'au TD4 ex.~8 et au TD0 (Exemple~5.1) ; la question (d) en est l'application la plus utile : \emph{bornée dans $L^p$ et convergente p.p. $\Rightarrow$ faiblement convergente}, ce qui est faux dans $L^1$.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Convergence préfaible dans le dual de $\Cz([0,1])$}
+Soit $E:=\Cz([0,1];\R)$ muni de la norme uniforme. Pour $x\in[0,1]$, $\delta_x\in E'$ désigne l'évaluation $f\mapsto f(x)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\opnorm{\delta_x}=1$ et que $\opnorm{\delta_x-\delta_y}=2$ pour $x\ne y$. En déduire que la sphère unité de $E'$ n'est pas (fortement) séquentiellement compacte, et que $E'$ n'est pas séparable.
+  \item Montrer que $\delta_{x_n}\wks\delta_x$ si et seulement si $x_n\to x$.
+  \item Montrer que $\Lambda_n:=\frac1n\sum_{k=1}^n\delta_{k/n}$ converge préfaiblement vers $\Lambda:f\mapsto\int_0^1f$. Quelle est la norme de $\Lambda_n$ et de $\Lambda$ ?
+  \item Soit $(\mu_n)$ une suite bornée de $E'$. Que dit le Théorème~5.4 ? Montrer que si de plus chaque $\mu_n$ est \emph{positive} ($f\ge0\Rightarrow\mu_n(f)\ge0$), toute limite préfaible l'est aussi, et que $\opnorm{\mu_n}=\mu_n(\mathbf 1)$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $|\delta_x(f)|=|f(x)|\le\norm f_\infty$, égalité pour $f=\mathbf 1$ : $\opnorm{\delta_x}=1$. Pour $x\ne y$, $|(\delta_x-\delta_y)(f)|=|f(x)-f(y)|\le2\norm f_\infty$, et la fonction affine par morceaux $f$ valant $1$ en $x$, $-1$ en $y$, de norme $1$ (Urysohn élémentaire) donne $(\delta_x-\delta_y)(f)=2$. Donc la suite $(\delta_{1/n})_n$ est dans la sphère unité de $E'$, et ses termes sont deux à deux à distance $2$ : aucune sous-suite n'est de Cauchy. La boule unité de $E'$ n'est pas compacte (Riesz, Théorème~3.1, puisque $E'$ est de dimension infinie), et ici on le voit directement. \emph{Non-séparabilité :} les boules $B(\delta_x,1)$, $x\in[0,1]$, sont deux à deux disjointes et en quantité indénombrable ; une partie dense devrait rencontrer chacune (argument de l'Exercice~2.6).
+
+\medskip
+\noindent\textbf{(b)} $\delta_{x_n}\wks\delta_x$ signifie $f(x_n)\to f(x)$ pour toute $f\in E$. ($\Leftarrow$) continuité de $f$. ($\Rightarrow$) prendre $f=\mathrm{id}$ : $x_n\to x$. Ainsi $x\mapsto\delta_x$ est un plongement de $[0,1]$ dans $E'$, isométrique à un facteur près pour la convergence préfaible, totalement discontinu pour la norme. Banach--Alaoglu s'applique ($E$ est séparable, Weierstrass) : $(\delta_{x_n})$ a une sous-suite préfaiblement convergente — c'est Bolzano--Weierstrass pour $(x_n)$, retrouvé par un détour.
+
+\medskip
+\noindent\textbf{(c)} $\Lambda_n(f)=\frac1n\sum_{k=1}^nf(k/n)$ est une somme de Riemann, qui converge vers $\int_0^1f$ pour toute $f$ continue (uniforme continuité, Heine). Donc $\Lambda_n\wks\Lambda$. Normes : $|\Lambda_n(f)|\le\norm f_\infty$ avec égalité pour $f=\mathbf 1$, idem pour $\Lambda$ : toutes valent $1$. Ici la norme passe à la limite (pas de perte), contrairement à (a) ; la convergence n'est pas forte pour autant : pour $\varepsilon>0$, soit $f$ continue, $0\le f\le1$, nulle aux points $k/n$ et d'intégrale $\ge1-\varepsilon$ (bosses entre les points) ; alors $(\Lambda_n-\Lambda)(f)=-\int_0^1f\le-(1-\varepsilon)$, donc $\opnorm{\Lambda_n-\Lambda}\ge1$ pour tout $n$.
+
+\medskip
+\noindent\textbf{(d)} Banach--Alaoglu : $(\mu_n)$ admet une sous-suite $\mu_{n_k}\wks\mu\in E'$, avec $\opnorm\mu\le\liminf\opnorm{\mu_{n_k}}$. \emph{Positivité :} si $f\ge0$, $\mu(f)=\lim\mu_{n_k}(f)\ge0$. \emph{Norme d'une forme positive :} pour $\norm f_\infty\le1$, on a $-\mathbf 1\le f\le\mathbf 1$, donc par positivité et linéarité $-\mu_n(\mathbf 1)\le\mu_n(f)\le\mu_n(\mathbf 1)$, soit $|\mu_n(f)|\le\mu_n(\mathbf 1)$ ; et $f=\mathbf 1$ réalise l'égalité. Donc $\opnorm{\mu_n}=\mu_n(\mathbf 1)$, et de même $\opnorm\mu=\mu(\mathbf 1)=\lim\mu_{n_k}(\mathbf 1)=\lim\opnorm{\mu_{n_k}}$ : pour les formes positives, la norme passe à la limite préfaible (pas de perte de masse sur un compact).
+\end{solution}
+
+\begin{commentaire}
+Le dual de $\Cz([0,1])$ est l'espace des mesures de Radon signées sur $[0,1]$ (théorème de représentation de Riesz--Markov, hors programme), $\delta_x$ étant la masse de Dirac et $\Lambda$ la mesure de Lebesgue. La convergence préfaible y est la \emph{convergence étroite} des probabilistes, et la question (c) dit que la mesure uniforme discrète sur $\{k/n\}$ converge étroitement vers Lebesgue — c'est la forme la plus simple de la loi des grands nombres déterministe, ou du théorème d'équirépartition (comparer avec le TD4 ex.~9e). La question (d) est le théorème de Prokhorov sur un compact : toute suite de probabilités a une sous-suite étroitement convergente vers une probabilité. Le Lemme~5.2 du polycopié (partie positive d'une forme linéaire) est l'outil qui permet d'étendre ceci aux formes signées.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 6 -- Espaces réflexifs}
+Soit $E$ un espace de Banach séparable. On dit que $E$ est réflexif si $J:E\to E''$ est surjective (Remarque~5.6).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $E$ est réflexif, alors $E'$ est séparable. \emph{Indication : exercice~1d appliqué à $E'$.}
+  \item Montrer que si $E$ est réflexif, toute suite bornée de $E$ admet une sous-suite faiblement convergente.
+  \item En déduire que si $E$ est réflexif, toute $f\in E'$ atteint sa norme : il existe $x\in E$ unitaire avec $f(x)=\opnorm f$.
+  \item Montrer que $c_0(\N)$ et $\Cz([0,1])$ ne sont pas réflexifs, de deux façons : par (c), et par (b).
+  \item Soit $V$ un sous-espace fermé de $E$ réflexif. Montrer que $V$ est réflexif. \emph{Indication : pour $\xi\in V''$, considérer $\xi\circ R\in E''$ avec $R$ la restriction de l'exercice~3b, puis utiliser l'exercice~1b.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $E''=J(E)$ est séparable, comme image isométrique de $E$ séparable (une partie dénombrable dense de $E$ a pour image une partie dénombrable dense de $J(E)$). Par l'exercice~1d appliqué à l'espace $E'$ (dont le dual $E''$ est séparable), $E'$ est séparable.
+
+\medskip
+\noindent\textbf{(b)} Soit $(x_n)$ bornée dans $E$. La suite $(Jx_n)$ est bornée dans $E''=(E')'$, et $E'$ est séparable par (a) : le Théorème~5.4 (Banach--Alaoglu dans le dual de $E'$) donne une sous-suite $Jx_{n_k}\wks\xi\in E''$, \ie{} $f(x_{n_k})=Jx_{n_k}(f)\to\xi(f)$ pour tout $f\in E'$. Par réflexivité, $\xi=Jx$ pour un $x\in E$, et la convergence s'écrit $f(x_{n_k})\to f(x)$ pour tout $f\in E'$ : $x_{n_k}\wk x$.
+
+\medskip
+\noindent\textbf{(c)} Soit $f\in E'$, $f\ne0$, et $(x_n)$ unitaires avec $f(x_n)\to\opnorm f$ (définition du sup, quitte à multiplier $x_n$ par un scalaire de module $1$ pour rendre $f(x_n)$ réel positif). Par (b), une sous-suite $x_{n_k}\wk x$. Alors $f(x)=\lim f(x_{n_k})=\opnorm f$ (une forme linéaire continue est faiblement continue, par définition) et $\norm x\le\liminf\norm{x_{n_k}}=1$ (Proposition~5.5). Comme $\opnorm f=f(x)\le\opnorm f\norm x$, on a $\norm x\ge1$, donc $\norm x=1$ : $f$ atteint sa norme en $x$.
+
+\medskip
+\noindent\textbf{(d)} \emph{Par (c) :} dans $c_0$, la forme $\Psi_u$ avec $u=(2^{-k})_k\in\ell^1$ n'atteint pas sa norme (TD0, Exercice~5.2 : aucune forme à support infini ne l'atteint). Dans $\Cz([0,1])$, $\Lambda_0(f):=\int_0^{1/2}f-\int_{1/2}^1f$ est de norme $1$ (tester des $f$ continues proches de $\sgn(\frac12-x)$) et $|\Lambda_0(f)|<1$ pour toute $f$ continue de norme $\le1$ (égalité forcerait $f=1$ sur $[0,\frac12[$ et $f=-1$ sur $]\frac12,1]$, impossible par continuité en $\frac12$). \emph{Par (b) :} dans $c_0$, la suite $s_n:=e_0+\dots+e_n$ est bornée (norme $1$) ; si une sous-suite $s_{n_k}\wk s\in c_0$, en testant contre $\Psi_{e_j}$ (coordonnée $j$) on obtient $s_j=\lim(s_{n_k})_j=1$ pour tout $j$, donc $s=\mathbf 1\notin c_0$ : contradiction. Dans $\Cz([0,1])$, $f_n(x):=x^n$ est bornée ; si $f_{n_k}\wk f$, en testant contre $\delta_x$ on obtient $f(x)=\lim x^{n_k}=\mathbf 1_{x=1}$, discontinue : contradiction. Dans les deux cas la limite faible « voudrait » sortir de l'espace — vers $\ell^\infty$, vers les fonctions bornées — ce qui est le symptôme de la non-réflexivité.
+
+\medskip
+\noindent\textbf{(e)} Soit $\xi\in V''$. L'application $\xi\circ R:E'\to\K$, $f\mapsto\xi(f|_V)$, est linéaire continue ($|\xi(Rf)|\le\opnorm\xi\opnorm{Rf}\le\opnorm\xi\opnorm f$) : c'est un élément de $E''$, donc par réflexivité de $E$ il existe $x\in E$ avec $\xi(f|_V)=f(x)$ pour tout $f\in E'$. \emph{$x\in V$ :} sinon, $V$ étant fermé, $\dist(x,V)>0$ et l'exercice~1b fournit $f\in V^\perp$ avec $f(x)\ne0$ ; mais $f|_V=0$ donne $\xi(f|_V)=0=f(x)$, contradiction. \emph{$\xi=J_Vx$ :} pour $\varphi\in V'$, soit $f\in E'$ un prolongement (Hahn--Banach, $R$ surjective) ; alors $\xi(\varphi)=\xi(Rf)=f(x)=\varphi(x)$ car $x\in V$. Donc $\xi=J_V(x)$ et $J_V$ est surjective.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Réflexif = on peut extraire.} Les espaces réflexifs sont ceux où la boule unité est faiblement séquentiellement compacte (question (b), et réciproque vraie, théorème d'Eberlein--Šmulian hors programme) ; les exemples du cours sont les Hilbert, $\ell^p$ et $L^p$ pour $1<p<\infty$ (Théorèmes~5.1 et 5.6, Remarque~5.16). Les contre-exemples sont $c_0$, $\ell^1$, $\ell^\infty$, $L^1$, $L^\infty$, $\Cz(K)$ : dans tous, on trouve une suite bornée dont la limite faible « n'existe pas dans l'espace » (question (d)), et une forme linéaire qui n'atteint pas sa norme (question (c), théorème de James pour la réciproque). La question (e) montre que la réflexivité passe aux sous-espaces fermés ; elle passe aussi aux quotients et au dual ($E$ réflexif $\iff E'$ réflexif), mais jamais à un sous-espace dense strict ni à un espace plus gros : $c_0\subset\ell^\infty$ et $\ell^1\subset\ell^2$ n'héritent de rien.
+\end{pointcle}
+
+\section*{Théorème spectral}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales}
+Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]0,1[;\R)$, $T_Kf(x):=\int_0^1K(x,y)f(y)\,dy$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_K$ est un opérateur auto-adjoint compact de $H$, à valeurs dans $\Cz([0,1])$.
+  \item Soit $(e_n)_n$ une base hilbertienne de vecteurs propres de $T_K$, $T_Ke_n=\lambda_ne_n$ (Théorème~5.5). Montrer que $(e_n\otimes e_m)_{n,m}$, où $(e_n\otimes e_m)(x,y):=e_n(x)e_m(y)$, est une base hilbertienne de $L^2(]0,1[^2)$.
+  \item En déduire $K=\sum_n\lambda_n\,e_n\otimes e_n$ dans $L^2(]0,1[^2)$ et $\sum_n\lambda_n^2=\iint K^2<\infty$.
+  \item Soit $\mu\in\R$ tel que $1/\mu\notin\nu(T_K)$ et $g\in H$. Montrer que l'équation intégrale $f(x)-\mu\int_0^1K(x,y)f(y)\,dy=g(x)$ a une unique solution $f\in H$, donnée par $f=\sum_n\frac{\ps g{e_n}}{1-\mu\lambda_n}e_n$. Que se passe-t-il si $1/\mu\in\nu(T_K)$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $K$ est continue sur le compact $[0,1]^2$, donc bornée par $\norm K_\infty$ et uniformément continue (Heine). Pour $f\in H$, par Cauchy--Schwarz $|T_Kf(x)|\le\norm{K(x,\cdot)}_2\norm f_2\le\norm K_\infty\norm f_2$, et $|T_Kf(x)-T_Kf(x')|\le\norm{K(x,\cdot)-K(x',\cdot)}_2\norm f_2\le\omega(|x-x'|)\norm f_2$, où $\omega$ est le module de continuité uniforme de $K$. Donc $T_Kf\in\Cz([0,1])$, $T_K$ est linéaire continu de norme $\le\norm K_\infty$, et $T_K(B)$ est bornée et uniformément équicontinue dans $\Cz([0,1])$ : relativement compacte par Arzelà--Ascoli, donc dans $L^2$ (norme $L^2\le$ norme uniforme sur $[0,1]$). $T_K$ est compact. Auto-adjoint : par Fubini et symétrie de $K$, $\ps{T_Kf}g=\iint K(x,y)f(y)g(x)\,dx\,dy=\iint K(y,x)f(y)g(x)\,dy\,dx=\ps f{T_Kg}$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Orthonormalité :} par Fubini, $\ps{e_n\otimes e_m}{e_{n'}\otimes e_{m'}}=\ps{e_n}{e_{n'}}\ps{e_m}{e_{m'}}=\delta_{nn'}\delta_{mm'}$. \emph{Totalité :} soit $G\in L^2(]0,1[^2)$ orthogonale à tous les $e_n\otimes e_m$. Pour $m$ fixé, posons $h_m(x):=\int_0^1G(x,y)e_m(y)\,dy$ ; par Cauchy--Schwarz et Fubini, $h_m\in L^2(]0,1[)$ et $\ps{h_m}{e_n}=\ps G{e_n\otimes e_m}=0$ pour tout $n$. La famille $(e_n)$ étant totale, $h_m=0$ p.p., pour tout $m$. Donc pour presque tout $x$ (une union dénombrable de négligeables), $\ps{G(x,\cdot)}{e_m}=0$ pour tout $m$, où $G(x,\cdot)\in L^2(]0,1[)$ pour presque tout $x$ (Fubini) ; par totalité, $G(x,\cdot)=0$ p.p. pour presque tout $x$, et $G=0$ p.p. (Fubini encore). Par le Théorème~4.3, la famille est totale, donc c'est une base hilbertienne (après énumération de $\N^2$).
+
+\medskip
+\noindent\textbf{(c)} Coefficients de $K$ dans cette base :
+\[
+\ps K{e_n\otimes e_m}=\int_0^1\Big(\int_0^1K(x,y)e_m(y)\,dy\Big)e_n(x)\,dx=\ps{T_Ke_m}{e_n}=\lambda_m\delta_{nm}.
+\] Par le Théorème~4.5, $K=\sum_{n,m}\ps K{e_n\otimes e_m}e_n\otimes e_m=\sum_n\lambda_ne_n\otimes e_n$ dans $L^2(]0,1[^2)$, et Parseval donne $\iint K^2=\sum_n\lambda_n^2$. En particulier $\lambda_n\to0$ « quadratiquement » : les opérateurs à noyau $L^2$ (dits de Hilbert--Schmidt) ont des valeurs propres de carré sommable, ce qui est plus fort que la seule convergence vers $0$ d'un opérateur compact quelconque (comparer : $M_a$ avec $a_n=1/\sqrt{n+1}$ est compact sans être de Hilbert--Schmidt).
+
+\medskip
+\noindent\textbf{(d)} L'équation s'écrit $(\mathrm{Id}-\mu T_K)f=g$, soit, pour $\mu\ne0$, $(T_K-\mu^{-1}\mathrm{Id})f=-\mu^{-1}g$. Par l'alternative de Fredholm (TD0, développement sur le Théorème~5.5, question (d)), $T_K-\mu^{-1}\mathrm{Id}$ est bijectif d'inverse continu dès que $\mu^{-1}\notin\nu(T_K)$ et $\mu^{-1}\ne0$ ; pour $\mu=0$ l'équation est $f=g$. Explicitement, en décomposant $f=\sum\ps f{e_n}e_n$ et $g=\sum\ps g{e_n}e_n$, l'équation équivaut à $(1-\mu\lambda_n)\ps f{e_n}=\ps g{e_n}$ pour tout $n$ ; comme $1-\mu\lambda_n\ne0$ et $\lambda_n\to0$, $|1-\mu\lambda_n|\ge\delta>0$ pour tout $n$, et $f:=\sum\frac{\ps g{e_n}}{1-\mu\lambda_n}e_n$ converge (Proposition~4.4) avec $\norm f\le\delta^{-1}\norm g$. Si $\mu^{-1}=\lambda_{n_0}\in\nu(T_K)$ : l'équation homogène a les solutions non nulles $E_{\lambda_{n_0}}$, et l'équation avec second membre n'a de solution que si $\ps g{e_n}=0$ pour tout $n$ avec $\lambda_n=\lambda_{n_0}$, \ie{} $g\perp E_{\lambda_{n_0}}$ ; la solution est alors définie à un élément de $E_{\lambda_{n_0}}$ près. C'est l'\emph{alternative de Fredholm} sous sa forme classique : ou bien unicité pour tout second membre, ou bien existence seulement sous une condition d'orthogonalité, avec non-unicité.
+\end{solution}
+
+\begin{commentaire}
+C'est le cadre historique du théorème spectral : Fredholm (1903) puis Hilbert (1904--1910) ont étudié les équations intégrales $f-\mu T_Kf=g$ avant que la notion d'espace de Hilbert n'existe. Les problèmes de Sturm--Liouville ($-(pu')'+qu=\lambda u$ avec conditions aux bords) s'y ramènent : l'inverse de l'opérateur différentiel est un opérateur à noyau continu symétrique (la \emph{fonction de Green}), auto-adjoint compact, dont les fonctions propres forment une base hilbertienne — c'est ainsi qu'on obtient les bases de Fourier, de Legendre, de Bessel\dots\ La question (b) donne au passage la base hilbertienne « produit » de $L^2$ d'un carré, outil standard pour séparer les variables.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Quotient de Rayleigh et principe du min-max}
+Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjoint compact \emph{positif} ($\ps{Tx}x\ge0$), et $\lambda_1\ge\lambda_2\ge\dots\ge0$ ses valeurs propres rangées par ordre décroissant avec multiplicité, $(e_n)$ une base hilbertienne associée. On pose $\mathcal R(x):=\ps{Tx}x/\norm x^2$ pour $x\ne0$ (quotient de Rayleigh).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\lambda_1=\max_{x\ne0}\mathcal R(x)$, atteint exactement sur $E_{\lambda_1}\setminus\{0\}$.
+  \item Montrer que $\lambda_{n+1}=\max\{\mathcal R(x):x\ne0,\ x\perp e_1,\dots,e_n\}$.
+  \item \emph{(Courant--Fischer.)} Montrer que pour tout sous-espace $V$ de dimension $n$, $\min_{x\in V\setminus\{0\}}\mathcal R(x)\le\lambda_n$, avec égalité pour $V=\Vect(e_1,\dots,e_n)$. En déduire $\lambda_n=\max_{\dim V=n}\ \min_{x\in V\setminus\{0\}}\mathcal R(x)$.
+  \item En déduire la \emph{monotonie} : si $S$ est un autre opérateur auto-adjoint compact positif avec $\ps{Sx}x\le\ps{Tx}x$ pour tout $x$, alors $\lambda_n(S)\le\lambda_n(T)$ pour tout $n$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $x=\sum x_ne_n$ (coordonnées $x_n=\ps x{e_n}$), $\ps{Tx}x=\sum_n\lambda_n|x_n|^2\le\lambda_1\sum|x_n|^2=\lambda_1\norm x^2$, donc $\mathcal R(x)\le\lambda_1$, avec égalité pour $x=e_1$. Égalité si et seulement si $\sum(\lambda_1-\lambda_n)|x_n|^2=0$, \ie{} $x_n=0$ dès que $\lambda_n<\lambda_1$, \ie{} $x\in E_{\lambda_1}$.
+
+\medskip
+\noindent\textbf{(b)} Si $x\perp e_1,\dots,e_n$, alors $x=\sum_{k>n}x_ke_k$ et $\ps{Tx}x=\sum_{k>n}\lambda_k|x_k|^2\le\lambda_{n+1}\norm x^2$ ; égalité pour $x=e_{n+1}$.
+
+\medskip
+\noindent\textbf{(c)} Soit $V$ de dimension $n$ et $W:=\Vect(e_1,\dots,e_{n-1})^\perp$. Comme $\dim V=n>n-1=\operatorname{codim}W$, on a $V\cap W\ne\{0\}$ (la projection de $V$ sur $\Vect(e_1,\dots,e_{n-1})$ a un noyau non trivial par le théorème du rang). Soit $x\in V\cap W$ non nul ; par (b) (avec $n-1$), $\mathcal R(x)\le\lambda_n$, donc $\min_{V\setminus\{0\}}\mathcal R\le\lambda_n$ (le min existe : $\mathcal R$ est continue sur la sphère unité de $V$, compacte). Pour $V_0=\Vect(e_1,\dots,e_n)$ et $x\in V_0$, $\ps{Tx}x=\sum_{k\le n}\lambda_k|x_k|^2\ge\lambda_n\norm x^2$, avec égalité en $e_n$ : $\min_{V_0\setminus\{0\}}\mathcal R=\lambda_n$. D'où $\lambda_n=\max_{\dim V=n}\min_{x\in V\setminus\{0\}}\mathcal R(x)$.
+
+\medskip
+\noindent\textbf{(d)} Pour tout $V$ de dimension $n$ et $x\in V\setminus\{0\}$, $\mathcal R_S(x)\le\mathcal R_T(x)$, donc $\min_V\mathcal R_S\le\min_V\mathcal R_T\le\lambda_n(T)$ ; en prenant le max sur $V$, $\lambda_n(S)\le\lambda_n(T)$. (Noter que ce raisonnement n'utilise \emph{pas} les vecteurs propres de $S$ : c'est tout l'intérêt de la caractérisation variationnelle de (c), qui ne fait intervenir que la forme quadratique.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Les valeurs propres sans les vecteurs propres.} Le principe du min-max caractérise chaque $\lambda_n$ par un problème d'optimisation sur la seule forme quadratique $x\mapsto\ps{Tx}x$, sans référence aux vecteurs propres des rangs précédents. C'est ce qui permet de \emph{comparer} des opérateurs ((d)), d'encadrer des valeurs propres par des sous-espaces test (méthode de Rayleigh--Ritz, base des méthodes numériques), et, pour les problèmes aux limites, de montrer que les valeurs propres du laplacien décroissent quand le domaine grossit. La question (a) est le TD4 ex.~7 (b,d) sous une autre forme : pour un opérateur positif, $\opnorm T=\lambda_1=\max\mathcal R$.
+\end{pointcle}
+
+\end{document}

@@ -1,0 +1,458 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}4 -- Espaces de Hilbert}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} $H$ désigne un espace de Hilbert sur $\K=\R$ ou $\C$, de produit scalaire $\ps\cdot\cdot$ linéaire à gauche et semi-linéaire à droite (Définition~4.1). On utilise librement l'identité (4.1) du polycopié, $\norm{a+b}^2=\norm a^2+2\Re\ps ab+\norm b^2$, le théorème de projection (Théorème~4.1, Corollaire~4.1), la décomposition $H=F\oplus^\perp F^\perp$ pour $F$ fermé (Théorème~4.2), les bases hilbertiennes (Théorème~4.5) et le théorème de représentation de Riesz (Théorème~4.6). Un \emph{opérateur} est un endomorphisme continu de $H$ (Définition~4.9), $T^\star$ son adjoint (Proposition~4.6).
+
+Cette feuille ne figure pas parmi les feuilles officielles du cours : elle a été composée pour travailler le chapitre~4 au-delà des exercices du polycopié (tous corrigés dans le TD0). Les exercices~7 et~8 préparent le chapitre~5. Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+\end{commentaire}
+
+\section*{Projections et dualité}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Projections sur des convexes fermés : calculs et propriétés}
+Soit $H$ un espace de Hilbert et $C\subset H$ un convexe fermé non vide. On note $P_C$ la projection sur $C$ (Théorème~4.1), caractérisée par : $P_C(x)\in C$ et $\Re\ps{x-P_C(x)}{y-P_C(x)}\le0$ pour tout $y\in C$.
+\begin{enumerate}[label=(\alph*)]
+  \item Déterminer $P_C$ lorsque $C=\Bf(0,R)$ est la boule fermée de rayon $R>0$.
+  \item On prend $H=L^2(\Omega;\R)$ et $C:=\{f\in H : f\ge0\text{ p.p.}\}$. Montrer que $C$ est un convexe fermé et que $P_C(f)=f^+:=\max(f,0)$.
+  \item Soient $a\in H\setminus\{0\}$, $c\in\K$ et $A:=\{y\in H:\ps ya=c\}$. Montrer que $A$ est un convexe fermé, calculer $P_A(x)$ et $d(x,A)$.
+  \item Montrer que $P_C$ est $1$-lipschitzienne : $\norm{P_C(x)-P_C(y)}\le\norm{x-y}$. Est-elle linéaire ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Si $\norm x\le R$, $x\in C$ et $P_C(x)=x$ (la distance $0$ est atteinte en $x$, unique). Si $\norm x>R$, posons $p:=Rx/\norm x\in C$ (de norme $R$). Pour $y\in C$,
+\[
+\Re\ps{x-p}{y-p}=\Big(1-\frac R{\norm x}\Big)\Re\ps x{y-p}=\Big(1-\frac R{\norm x}\Big)\big(\Re\ps xy-R\norm x\big)
+\]
+\[
+\phantom{\Re\ps{x-p}{y-p}}\le\Big(1-\frac R{\norm x}\Big)\big(\norm x\norm y-R\norm x\big)\le0 ,
+\]
+par Cauchy--Schwarz et $\norm y\le R$. La caractérisation donne $P_C(x)=p$. Donc $P_C(x)=x$ si $\norm x\le R$, $R\,x/\norm x$ sinon, et $d(x,C)=(\norm x-R)^+$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Convexe :} si $f,g\ge0$ p.p. et $t\in[0,1]$, $tf+(1-t)g\ge0$ p.p. \emph{Fermé :} si $f_n\to f$ dans $L^2$ avec $f_n\ge0$ p.p., une sous-suite converge p.p. (Théorème~3.3 de Riesz--Fischer, ou sa preuve), donc $f\ge0$ p.p. ; caractérisation séquentielle. \emph{Projection :} $f^+\in C$ et, avec $f=f^+-f^-$, $f^+f^-=0$,
+\[
+\ps{f-f^+}{g-f^+}=\ps{-f^-}{g-f^+}=-\int_\Omega f^-g+\int_\Omega f^-f^+=-\int_\Omega f^-g\le0
+\]
+pour tout $g\in C$ (car $f^-\ge0$ et $g\ge0$). Donc $P_C(f)=f^+$, et $d(f,C)=\norm{f^-}_2$.
+
+\medskip
+\noindent\textbf{(c)} $A=\varphi^{-1}(\{c\})$ avec $\varphi=\ps\cdot a$ linéaire continue (Exemple~4.9) : $A$ est fermé, et convexe car $\varphi(ty+(1-t)z)=tc+(1-t)c=c$. Posons $p:=x-\frac{\ps xa-c}{\norm a^2}a$. Alors $\ps pa=\ps xa-(\ps xa-c)=c$, donc $p\in A$, et pour $y\in A$, $\ps{y-p}a=c-c=0$, d'où $\ps{x-p}{y-p}=\frac{\ps xa-c}{\norm a^2}\ps a{y-p}=0$. La caractérisation (avec égalité) donne $P_A(x)=p$ et
+\[
+d(x,A)=\norm{x-p}=\frac{|\ps xa-c|}{\norm a} .
+\]
+(Pour $c=0$, $A=\{a\}^\perp$ et l'on retrouve la projection orthogonale sur un hyperplan, $x-\frac{\ps xa}{\norm a^2}a$.)
+
+\medskip
+\noindent\textbf{(d)} Posons $p:=P_C(x)$, $q:=P_C(y)$. La caractérisation en $x$ testée avec $q\in C$ et en $y$ testée avec $p\in C$ donne
+\[
+\Re\ps{x-p}{q-p}\le0,\qquad\Re\ps{y-q}{p-q}\le0 .
+\]
+En sommant, $\Re\ps{(x-p)-(y-q)}{q-p}\le0$, soit $\Re\ps{x-y}{q-p}+\norm{q-p}^2\le0$, \ie{}
+\[
+\norm{p-q}^2\le\Re\ps{x-y}{p-q}\le\norm{x-y}\,\norm{p-q} .
+\]
+Si $p\ne q$ on divise : $\norm{p-q}\le\norm{x-y}$ ; sinon c'est trivial. $P_C$ n'est pas linéaire en général : pour la boule, si $\norm x=R$ alors $P_C(2x)=x\ne2x=2P_C(x)$. Elle est linéaire exactement quand $C$ est un sous-espace vectoriel (fermé), c'est le Corollaire~4.1.
+\end{solution}
+
+\begin{pointcle}
+\textbf{La caractérisation variationnelle} $\Re\ps{x-P_C(x)}{y-P_C(x)}\le0$ est l'outil de calcul et de preuve : pour \emph{identifier} un projeté, on devine le candidat $p\in C$ et l'on vérifie l'inégalité pour tout $y\in C$ ; pour \emph{comparer} deux projetés, on écrit l'inégalité en les deux points et l'on somme (question (d)). Géométriquement, elle dit que l'angle entre $x-P_C(x)$ et $y-P_C(x)$ est obtus : $C$ est « du mauvais côté » de l'hyperplan tangent en $P_C(x)$.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Théorème de Lax--Milgram}
+Soit $H$ un espace de Hilbert réel et $a:H\times H\to\R$ une forme bilinéaire \emph{continue} ($\exists M$, $|a(x,y)|\le M\norm x\norm y$) et \emph{coercive} ($\exists\alpha>0$, $a(x,x)\ge\alpha\norm x^2$). On ne suppose pas $a$ symétrique.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer qu'il existe un unique opérateur $A\in\Lc(H)$ tel que $a(x,y)=\ps{Ax}y$ pour tous $x,y$, et que $\opnorm A\le M$.
+  \item Montrer que $\norm{Ax}\ge\alpha\norm x$ pour tout $x$. En déduire que $A$ est injectif et que $\Ima A$ est fermée.
+  \item Montrer que $\Ima A$ est dense. Conclure que $A$ est bijectif et que $\opnorm{A^{-1}}\le1/\alpha$.
+  \item \emph{(Lax--Milgram.)} En déduire que pour toute $\varphi\in H'$ il existe un unique $u\in H$ tel que $a(u,v)=\varphi(v)$ pour tout $v\in H$, et que $\norm u\le\opnorm\varphi/\alpha$.
+  \item On suppose de plus $a$ symétrique. Montrer que $u$ est l'unique minimiseur sur $H$ de $J(v):=\frac12a(v,v)-\varphi(v)$.
+  \item \emph{Application.} Sur $H=\ell^2(\N;\R)$, on pose $a(u,v):=\sum_{n\ge0}u_nv_n+\sum_{n\ge0}(u_{n+1}-u_n)(v_{n+1}-v_n)$. Vérifier les hypothèses et interpréter l'équation $a(u,\cdot)=\ps\cdot b$ pour $b\in\ell^2$ comme une équation aux différences.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $x$ fixé, $y\mapsto a(x,y)$ est une forme linéaire continue de norme $\le M\norm x$ ; par le théorème de Riesz (Théorème~4.6 ; cas réel, donc $\Phi$ linéaire), il existe un unique $Ax\in H$ tel que $a(x,y)=\ps y{Ax}=\ps{Ax}y$ pour tout $y$, et $\norm{Ax}=\opnorm{a(x,\cdot)}\le M\norm x$. L'application $x\mapsto Ax$ est linéaire par unicité : $\ps{A(\lambda x+x')}y=a(\lambda x+x',y)=\lambda\ps{Ax}y+\ps{Ax'}y=\ps{\lambda Ax+Ax'}y$ pour tout $y$. Donc $A\in\Lc(H)$, $\opnorm A\le M$, et $A$ est unique puisque $\ps{Ax}y$ détermine $Ax$.
+
+\medskip
+\noindent\textbf{(b)} Par coercivité et Cauchy--Schwarz, $\alpha\norm x^2\le a(x,x)=\ps{Ax}x\le\norm{Ax}\norm x$, d'où $\norm{Ax}\ge\alpha\norm x$ (trivial si $x=0$). \emph{Injectif :} $Ax=0\Rightarrow\norm x=0$. \emph{Image fermée :} si $Ax_n\to y$, alors $(Ax_n)$ est de Cauchy, donc $(x_n)$ aussi car $\norm{x_n-x_m}\le\alpha^{-1}\norm{Ax_n-Ax_m}$ ; $H$ étant complet, $x_n\to x$, et par continuité $Ax=\lim Ax_n=y\in\Ima A$.
+
+\medskip
+\noindent\textbf{(c)} Soit $y\in(\Ima A)^\perp$ : $\ps{Ax}y=0$ pour tout $x$, en particulier pour $x=y$ : $\alpha\norm y^2\le a(y,y)=\ps{Ay}y=0$, donc $y=0$. Par le Théorème~4.3, $\Ima A$ est dense. Fermée et dense, $\Ima A=H$ : $A$ est bijectif. Pour $y\in H$, en appliquant (b) à $x=A^{-1}y$ : $\norm{A^{-1}y}\le\alpha^{-1}\norm{AA^{-1}y}=\alpha^{-1}\norm y$, donc $A^{-1}$ (linéaire comme inverse d'une bijection linéaire) est continu de norme $\le1/\alpha$. (On pouvait aussi invoquer le Corollaire~3.4, mais ici la minoration donne l'estimation explicite.)
+
+\medskip
+\noindent\textbf{(d)} Par Riesz, $\varphi=\ps\cdot z$ pour un unique $z\in H$ avec $\norm z=\opnorm\varphi$. Alors $a(u,v)=\varphi(v)$ pour tout $v$ équivaut à $\ps{Au}v=\ps zv$ pour tout $v$, \ie{} $Au=z$, \ie{} $u=A^{-1}z$. Existence et unicité suivent de (c), avec $\norm u\le\alpha^{-1}\norm z=\alpha^{-1}\opnorm\varphi$.
+
+\medskip
+\noindent\textbf{(e)} Pour $h\in H$, par bilinéarité et symétrie,
+\[
+J(u+h)-J(u)=\tfrac12a(u,h)+\tfrac12a(h,u)+\tfrac12a(h,h)-\varphi(h)=\underbrace{a(u,h)-\varphi(h)}_{=0}+\tfrac12a(h,h)\ge\tfrac\alpha2\norm h^2 .
+\]
+Donc $J(u+h)>J(u)$ pour $h\ne0$ : $u$ est l'unique minimiseur. (Réciproquement un minimiseur $v$ vérifie $\frac{d}{dt}J(v+th)|_{t=0}=a(v,h)-\varphi(h)=0$, donc $v=u$.)
+
+\medskip
+\noindent\textbf{(f)} \emph{Bilinéaire :} clair. \emph{Continue :} $|\sum u_nv_n|\le\norm u\norm v$ et, par l'inégalité triangulaire dans $\ell^2$, $\norm{(u_{n+1}-u_n)_n}\le2\norm u$, donc le second terme est majoré par $4\norm u\norm v$ : $M=5$ convient. \emph{Coercive :} $a(u,u)=\norm u^2+\sum(u_{n+1}-u_n)^2\ge\norm u^2$, $\alpha=1$. Lax--Milgram donne, pour tout $b\in\ell^2$, un unique $u\in\ell^2$ avec $a(u,v)=\ps vb$ pour tout $v$. En testant avec $v=e_k$ :
+\[
+a(u,e_k)=u_k+(u_k-u_{k-1})-(u_{k+1}-u_k)=u_k-\big(u_{k+1}-2u_k+u_{k-1}\big)\quad(k\ge1),
+\]
+\[
+a(u,e_0)=u_0-(u_1-u_0).
+\]
+L'équation s'écrit donc $u_k-(\Delta u)_k=b_k$ où $(\Delta u)_k:=u_{k+1}-2u_k+u_{k-1}$ est le laplacien discret, avec la convention de bord $u_{-1}:=u_0$ (condition de Neumann discrète). Lax--Milgram affirme que le problème $-\Delta u+u=b$ a une unique solution dans $\ell^2$, avec $\norm u\le\norm b$, sans qu'on ait à résoudre explicitement la récurrence. Ici $a$ est symétrique : $u$ minimise $\frac12\sum u_n^2+\frac12\sum(u_{n+1}-u_n)^2-\sum b_nu_n$ (énergie de Dirichlet discrète).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Lax--Milgram = Riesz + coercivité.} Le théorème de Riesz traite les formes bilinéaires \emph{symétriques} définies positives (ce sont des produits scalaires équivalents). Lax--Milgram s'en passe : la coercivité fournit la minoration $\norm{Ax}\ge\alpha\norm x$, qui donne l'injectivité et la fermeture de l'image ; le passage par l'orthogonal donne la densité. Le schéma « minoré $+$ image dense $\Rightarrow$ bijectif, inverse borné » est à retenir : c'est le même qu'à l'exercice~2.6 sur l'opérateur $f\mapsto xf$. C'est l'outil de base pour les problèmes aux limites elliptiques (chapitre~6), où $a(u,v)=\int\nabla u\cdot\nabla v+\dots$ sur un espace de Sobolev.
+\end{pointcle}
+
+\section*{Bases hilbertiennes}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Parseval en action : $\zeta(2)$, inégalité de Wirtinger, convergence uniforme}
+On munit $L^2(0,2\pi)$ du produit scalaire \emph{normalisé} $\ps fg:=\frac1{2\pi}\int_0^{2\pi}f\,\overline g$ (proportionnel au produit scalaire usuel, donc même orthogonalité et même convergence). Pour ce produit scalaire, la famille $(e_k)_{k\in\Z}$, $e_k(x)=e^{ikx}$, est une base hilbertienne (Exemple~4.7, où elle apparaît comme $(e_k/\sqrt{2\pi})$ pour le produit scalaire usuel), et les coordonnées de $f$ sont ses coefficients de Fourier $c_k(f)=\ps f{e_k}=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_k}$. L'identité de Parseval s'écrit donc $\frac1{2\pi}\int_0^{2\pi}|f|^2=\sum_{k\in\Z}|c_k(f)|^2$.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer les coefficients de Fourier de $f(x)=x$ sur $]0,2\pi[$ et en déduire $\sum_{k\ge1}\frac1{k^2}=\frac{\pi^2}6$.
+  \item Soit $f\in\mathcal C^1(\R;\C)$ $2\pi$-périodique. Montrer que $c_k(f')=ik\,c_k(f)$. En déduire l'\emph{inégalité de Wirtinger} : si $\int_0^{2\pi}f=0$, alors $\int_0^{2\pi}|f|^2\le\int_0^{2\pi}|f'|^2$, avec égalité si et seulement si $f(x)=\alpha e^{ix}+\beta e^{-ix}$.
+  \item Soit $f\in\mathcal C^1(\R;\C)$ $2\pi$-périodique. Montrer que $\sum_{k\in\Z}|c_k(f)|<\infty$ et que la série de Fourier de $f$ converge \emph{uniformément} vers $f$. Comparer avec le TD0 (Exemple~3.4).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $c_0(f)=\frac1{2\pi}\int_0^{2\pi}x\,dx=\pi$. Pour $k\ne0$, par parties,
+\[
+c_k(f)=\frac1{2\pi}\Big[\frac{x\,e^{-ikx}}{-ik}\Big]_0^{2\pi}+\frac1{2\pi}\cdot\frac1{ik}\int_0^{2\pi}e^{-ikx}\,dx=\frac1{2\pi}\cdot\frac{2\pi}{-ik}+0=\frac ik .
+\]
+Parseval : $\frac1{2\pi}\int_0^{2\pi}x^2\,dx=\frac{4\pi^2}3=\pi^2+\sum_{k\ne0}\frac1{k^2}=\pi^2+2\sum_{k\ge1}\frac1{k^2}$, d'où $\sum_{k\ge1}k^{-2}=\frac12\big(\frac{4\pi^2}3-\pi^2\big)=\frac{\pi^2}6$.
+
+\medskip
+\noindent\textbf{(b)} Par parties, le terme de bord étant nul par périodicité de $f\overline{e_k}$,
+\[
+c_k(f')=\frac1{2\pi}\int_0^{2\pi}f'(x)e^{-ikx}\,dx=\frac1{2\pi}\big[f e^{-ikx}\big]_0^{2\pi}+\frac{ik}{2\pi}\int_0^{2\pi}f(x)e^{-ikx}\,dx=ik\,c_k(f).
+\]
+Si $\int_0^{2\pi}f=0$, alors $c_0(f)=0$ et Parseval appliqué à $f'$ et à $f$ donne
+\[
+\frac1{2\pi}\int_0^{2\pi}|f'|^2=\sum_{k\in\Z}k^2|c_k(f)|^2\ \ge\ \sum_{k\ne0}|c_k(f)|^2=\frac1{2\pi}\int_0^{2\pi}|f|^2 ,
+\]
+puisque $k^2\ge1$ pour $k\ne0$ et que le terme $k=0$ est nul des deux côtés. Égalité si et seulement si $(k^2-1)|c_k(f)|^2=0$ pour tout $k$, \ie{} $c_k(f)=0$ pour $|k|\ge2$ ; comme $c_0=0$, $f=c_1e_1+c_{-1}e_{-1}$ dans $L^2$, donc partout par continuité.
+
+\medskip
+\noindent\textbf{(c)} Par Cauchy--Schwarz dans $\ell^2(\Z\setminus\{0\})$ et (b),
+\[
+\sum_{k\ne0}|c_k(f)|=\sum_{k\ne0}\frac{|k\,c_k(f)|}{|k|}\le\Big(\sum_{k\ne0}k^2|c_k(f)|^2\Big)^{1/2}\Big(\sum_{k\ne0}\frac1{k^2}\Big)^{1/2}=\Big(\frac1{2\pi}\int_0^{2\pi}|f'|^2\Big)^{1/2}\sqrt{\frac{\pi^2}3}<\infty .
+\]
+La série $\sum_kc_k(f)e_k$ est donc normalement convergente pour $\norm\cdot_\infty$ (car $\norm{e_k}_\infty=1$) : ses sommes partielles $S_N(f)$ convergent uniformément vers une fonction continue $g$ (Proposition~3.1 dans le Banach $\Cz(\Sun)$). Par ailleurs $S_N(f)\to f$ dans $L^2$ (Exemple~4.7), et la convergence uniforme sur $[0,2\pi]$ implique la convergence $L^2$ ; par unicité de la limite dans $L^2$, $g=f$ p.p., donc $g=f$ partout ($g$ et $f$ continues). Ainsi \emph{la série de Fourier d'une fonction $\mathcal C^1$ périodique converge uniformément vers elle.} Pour $f$ seulement continue, le TD0 (Exemple~3.4, via Banach--Steinhaus) montre que la convergence peut échouer en un point : un cran de régularité change tout, parce qu'il fait gagner le facteur $1/k$ qui rend la série des coefficients sommable.
+\end{solution}
+
+\begin{commentaire}
+L'inégalité de Wirtinger est la version unidimensionnelle de l'\emph{inégalité de Poincaré} ($\norm{f-\bar f}_{L^2}\le C\norm{\nabla f}_{L^2}$), pilier de l'analyse des EDP ; la preuve par Parseval montre que la meilleure constante est liée à la première valeur propre non nulle du laplacien ($-f''=f$ sur le cercle). Historiquement, Wirtinger sert à démontrer l'inégalité isopérimétrique dans le plan (Hurwitz, 1901).
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Polynômes de Legendre}
+On travaille dans $H=L^2(]-1,1[;\R)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Appliquer le procédé de Gram--Schmidt à $(1,x,x^2)$ et donner les trois premiers polynômes orthonormés $P_0,P_1,P_2$.
+  \item On note $(P_n)_{n\in\N}$ la suite obtenue en poursuivant le procédé sur $(x^n)_n$. Montrer que c'est une base hilbertienne de $H$.
+  \item En déduire : si $f\in H$ vérifie $\int_{-1}^1x^nf(x)\,dx=0$ pour tout $n\in\N$, alors $f=0$.
+  \item Montrer que $P_n$ est de degré exactement $n$ et possède $n$ racines distinctes dans $]-1,1[$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\norm1^2=2$, donc $P_0=1/\sqrt2$. $\ps x1=\int_{-1}^1x=0$ : $x\perp1$, et $\norm x^2=2/3$, donc $P_1=\sqrt{3/2}\,x$. Pour $x^2$ : $\ps{x^2}1=2/3$, $\ps{x^2}x=0$, donc $Q_2:=x^2-\frac{2/3}{2}\cdot1=x^2-\frac13$, et $\norm{Q_2}^2=\int_{-1}^1(x^4-\frac23x^2+\frac19)=\frac25-\frac49+\frac29=\frac8{45}$. Ainsi
+\[
+P_0=\frac1{\sqrt2},\qquad P_1=\sqrt{\tfrac32}\,x,\qquad P_2=\sqrt{\tfrac{45}8}\Big(x^2-\frac13\Big)=\sqrt{\tfrac58}\,(3x^2-1).
+\]
+(Ce sont les polynômes de Legendre usuels $1,\ x,\ \frac12(3x^2-1)$ à normalisation près.)
+
+\medskip
+\noindent\textbf{(b)} Par construction, $(P_n)$ est orthonormée et $\Vect(P_0,\dots,P_n)=\Vect(1,\dots,x^n)=\R_n[x]$ pour tout $n$ (Gram--Schmidt préserve les drapeaux ; la famille $(x^n)$ est libre, donc aucun $Q_n$ n'est nul). Donc $\Vect(P_n:n\in\N)=\R[x]$. \emph{Totalité :} soit $f\in H$ et $\varepsilon>0$. Par le Théorème~A.4, il existe $\varphi\in\Cc(]-1,1[)$ avec $\norm{f-\varphi}_2\le\varepsilon$ ; $\varphi$ se prolonge continûment à $[-1,1]$ (par $0$), et par Weierstrass (Exemple~2.3) il existe $P\in\R[x]$ avec $\norm{\varphi-P}_\infty\le\varepsilon$, d'où $\norm{\varphi-P}_2\le\sqrt2\,\varepsilon$. Donc $\norm{f-P}_2\le(1+\sqrt2)\varepsilon$ : $\R[x]$ est dense dans $H$, $(P_n)$ est orthonormée et totale, c'est une base hilbertienne (Définition~4.7).
+
+\medskip
+\noindent\textbf{(c)} L'hypothèse dit $f\perp x^n$ pour tout $n$, donc $f\perp\R[x]$ par linéarité, donc $f\in(\R[x])^\perp=\{0\}$ par totalité (Théorème~4.3). Autrement dit, \emph{les moments d'une fonction de $L^2(]-1,1[)$ la déterminent} (sur un intervalle borné ; c'est faux sur $\R$, où le problème des moments est délicat).
+
+\medskip
+\noindent\textbf{(d)} $P_n\in\R_n[x]\setminus\R_{n-1}[x]$ (sinon $\Vect(P_0,\dots,P_n)\subset\R_{n-1}[x]$, de dimension $n<n+1$), donc $\deg P_n=n$. Par construction $P_n\perp\R_{n-1}[x]$. Soient $r_1<\dots<r_m$ les points de $]-1,1[$ où $P_n$ \emph{change de signe} (racines de multiplicité impaire) ; $m\le n$. Si $m<n$, le polynôme $q(x):=\prod_{i\le m}(x-r_i)$ est de degré $m\le n-1$, donc $\int_{-1}^1P_nq=0$. Mais $P_nq$ ne change de signe en aucun point de $]-1,1[$ : aux $r_i$, \emph{les deux} facteurs changent de signe simultanément et leurs changements se compensent ; ailleurs, aucun des deux ne change de signe. Donc $P_nq$ est de signe constant sur $]-1,1[$, continu et non identiquement nul, et $\int_{-1}^1P_nq\ne0$. Contradiction : $m=n$, et $P_n$ a $n$ racines distinctes (simples) dans $]-1,1[$.
+\end{solution}
+
+\begin{commentaire}
+Les polynômes de Legendre sont les fonctions propres de l'opérateur de Sturm--Liouville $f\mapsto-\big((1-x^2)f'\big)'$, auto-adjoint sur $L^2(]-1,1[)$ : leur orthogonalité « vient » de cet opérateur, comme celle des $e^{ikx}$ vient de $-d^2/dx^2$ sur le cercle. Le même schéma (Gram--Schmidt sur les monômes pour un poids $w$, totalité via Weierstrass) produit les polynômes de Tchebychev ($w=(1-x^2)^{-1/2}$), de Laguerre ($w=e^{-x}$ sur $\R_+$) et d'Hermite ($w=e^{-x^2}$ sur $\R$) — pour ces deux derniers, la totalité demande un argument supplémentaire, l'intervalle n'étant pas borné. La question (d) est à la base des méthodes de quadrature de Gauss.
+\end{commentaire}
+
+\section*{Opérateurs}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Adjoint : propriétés générales et opérateur de décalage}
+Soient $S,T$ des opérateurs sur $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer : $(T^\star)^\star=T$, $(ST)^\star=T^\star S^\star$, $\opnorm{T^\star}=\opnorm T$ et $\opnorm{T^\star T}=\opnorm T^2$.
+  \item Montrer que $\Ker T^\star=(\Ima T)^\perp$ et $\adh{\Ima T}=(\Ker T^\star)^\perp$. En déduire : $T$ injectif $\iff$ $\Ima T^\star$ dense.
+  \item Sur $H=\ell^2(\N)$, soit $S$ le \emph{décalage à droite} : $S(u_0,u_1,u_2,\dots):=(0,u_0,u_1,\dots)$. Calculer $S^\star$, puis $S^\star S$ et $SS^\star$. Montrer que $S$ est une isométrie non surjective, et identifier $\Ima S$.
+  \item Déterminer les valeurs propres de $S$ et de $S^\star$.
+  \item Montrer que $S^n\rightharpoonup0$ (\ie{} $S^nu\rightharpoonup0$ pour tout $u$) mais que $(S^nu)_n$ ne converge fortement pour aucun $u\ne0$. Que dire de $(S^\star)^n$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour tous $x,y$ : $\ps{T^\star x}y=\overline{\ps y{T^\star x}}=\overline{\ps{Ty}x}=\ps x{Ty}$, donc $(T^\star)^\star=T$ par unicité de l'adjoint. $\ps{STx}y=\ps{Tx}{S^\star y}=\ps x{T^\star S^\star y}$, donc $(ST)^\star=T^\star S^\star$. Pour la norme : $|\ps x{T^\star y}|=|\ps{Tx}y|\le\opnorm T\norm x\norm y$ ; en prenant $x=T^\star y$, $\norm{T^\star y}^2\le\opnorm T\norm{T^\star y}\norm y$, d'où $\norm{T^\star y}\le\opnorm T\norm y$ et $\opnorm{T^\star}\le\opnorm T$ ; en appliquant ceci à $T^\star$, $\opnorm T=\opnorm{(T^\star)^\star}\le\opnorm{T^\star}$. Enfin $\opnorm{T^\star T}\le\opnorm{T^\star}\opnorm T=\opnorm T^2$, et $\norm{Tx}^2=\ps{Tx}{Tx}=\ps{T^\star Tx}x\le\opnorm{T^\star T}\norm x^2$, d'où $\opnorm T^2\le\opnorm{T^\star T}$.
+
+\medskip
+\noindent\textbf{(b)} $y\in\Ker T^\star\iff T^\star y=0\iff\forall x,\ \ps x{T^\star y}=0\iff\forall x,\ \ps{Tx}y=0\iff y\in(\Ima T)^\perp$. Puis, par le TD0 (double orthogonal, Exemple~4.6--Remarque~4.4), $(\Ker T^\star)^\perp=\big((\Ima T)^\perp\big)^\perp=\adh{\Vect\Ima T}=\adh{\Ima T}$. Appliqué à $T^\star$ : $\adh{\Ima T^\star}=(\Ker T)^\perp$, donc $\Ima T^\star$ dense $\iff(\Ker T)^\perp=H\iff\Ker T=\{0\}$.
+
+\medskip
+\noindent\textbf{(c)} $\ps{Su}v=\sum_{n\ge1}u_{n-1}\overline{v_n}=\sum_{m\ge0}u_m\overline{v_{m+1}}=\ps u{S^\star v}$ avec $S^\star v:=(v_1,v_2,\dots)$, le \emph{décalage à gauche}. Alors $S^\star Su=S^\star(0,u_0,\dots)=u$ : $S^\star S=\mathrm{Id}$ ; et $SS^\star v=S(v_1,v_2,\dots)=(0,v_1,v_2,\dots)=v-v_0e_0$ : $SS^\star=\mathrm{Id}-P_0$, où $P_0$ est la projection orthogonale sur $\K e_0$. $\norm{Su}^2=\sum|u_n|^2=\norm u^2$ : $S$ est une isométrie, donc injective ; mais $e_0\notin\Ima S$ (toute image a une première coordonnée nulle) : $S$ n'est pas surjective. $\Ima S=\{v:v_0=0\}=\{e_0\}^\perp$, sous-espace fermé (cohérent avec (b) : $\Ker S^\star=\K e_0$).
+
+\medskip
+\noindent\textbf{(d)} \emph{$S$ :} si $Su=\lambda u$, la première coordonnée donne $0=\lambda u_0$ et les suivantes $u_{n-1}=\lambda u_n$. Si $\lambda\ne0$ : $u_0=0$, puis $u_n=u_{n-1}/\lambda=0$ par récurrence ; si $\lambda=0$ : $Su=0$ donne $u=0$ ($S$ injective). Donc \emph{$S$ n'a aucune valeur propre}. \emph{$S^\star$ :} $S^\star u=\lambda u$ équivaut à $u_{n+1}=\lambda u_n$, soit $u=u_0(\lambda^n)_n$, qui est dans $\ell^2$ si et seulement si $|\lambda|<1$. Donc $\nu(S^\star)=\{\lambda\in\K:|\lambda|<1\}$, le disque unité ouvert, chaque espace propre étant la droite $\K(\lambda^n)_n$.
+
+\medskip
+\noindent\textbf{(e)} $S^nu=(0,\dots,0,u_0,u_1,\dots)$ ($n$ zéros). Pour $v\in\ell^2$, $\ps{S^nu}v=\sum_{k\ge0}u_k\overline{v_{k+n}}$, et par Cauchy--Schwarz $|\ps{S^nu}v|\le\norm u\big(\sum_{m\ge n}|v_m|^2\big)^{1/2}\to0$ (reste d'une série convergente). Donc $S^nu\rightharpoonup0$. Mais $\norm{S^nu}=\norm u$ pour tout $n$ (isométrie) : si $S^nu$ convergeait fortement, ce serait vers sa limite faible $0$, et $\norm u=0$. Pour $S^\star$ : $(S^\star)^nu=(u_n,u_{n+1},\dots)$ et $\norm{(S^\star)^nu}^2=\sum_{m\ge n}|u_m|^2\to0$ : \emph{$(S^\star)^n\to0$ fortement} (mais pas en norme d'opérateur : $\opnorm{(S^\star)^n}=1$, tester $e_n$).
+\end{solution}
+
+\begin{piege}
+\textbf{Isométrie $\ne$ unitaire, injectif $\ne$ inversible.} En dimension finie, une isométrie linéaire est automatiquement surjective, et $S^\star S=\mathrm{Id}$ entraîne $SS^\star=\mathrm{Id}$. Le décalage montre que les deux échouent en dimension infinie : $S^\star$ est un inverse \emph{à gauche} de $S$ seulement. Autre surprise : $S$ et $S^\star$ ont le même spectre (le disque fermé, résultat hors programme) mais $S$ n'a \emph{aucune} valeur propre tandis que $S^\star$ en a tout un disque. La question (e) illustre trois modes de convergence d'opérateurs, faible, forte, en norme, deux à deux distincts.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 6 -- Somme de deux sous-espaces fermés}
+Soient $F,G$ deux sous-espaces fermés de $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $F\perp G$, alors $F+G$ est fermé.
+  \item Montrer que si $G$ est de dimension finie, alors $F+G$ est fermé. \emph{Indication : écrire $G=(G\cap F)\oplus G'$ et montrer que $\dist(g',F)\ge c\norm{g'}$ sur $G'$.}
+  \item Dans $H=\ell^2(\N)$, on pose $f_n:=e_{2n}$, $g_n:=e_{2n}+\frac1{n+1}e_{2n+1}$, $F:=\adh{\Vect}(f_n:n\in\N)$ et $G:=\adh{\Vect}(g_n:n\in\N)$. Montrer que $F\cap G=\{0\}$, que $F+G$ est dense dans $H$, mais que $F+G\ne H$. Conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $f_k+g_k\to z$ avec $f_k\in F$, $g_k\in G$. Par Pythagore, $\norm{(f_k-f_l)+(g_k-g_l)}^2=\norm{f_k-f_l}^2+\norm{g_k-g_l}^2$ (car $f_k-f_l\perp g_k-g_l$), donc $(f_k)$ et $(g_k)$ sont de Cauchy, convergent vers $f\in F$, $g\in G$ (fermés dans un complet), et $z=f+g\in F+G$.
+
+\medskip
+\noindent\textbf{(b)} $G\cap F$ est un sous-espace du $G$ de dimension finie ; soit $G'$ un supplémentaire de $G\cap F$ dans $G$, de sorte que $F+G=F+G'$ avec $F\cap G'=\{0\}$. La fonction $g'\mapsto\dist(g',F)$ est continue (1-lipschitzienne, exercice~1.10 du poly) et strictement positive sur la sphère unité de $G'$ (si $\dist(g',F)=0$, $g'\in\adh F=F$, donc $g'\in F\cap G'=\{0\}$) ; cette sphère est compacte (dimension finie), donc $c:=\min_{\norm{g'}=1}\dist(g',F)>0$, et par homogénéité $\dist(g',F)\ge c\norm{g'}$ pour tout $g'\in G'$. Soit alors $f_k+g'_k\to z$. Pour tous $k,l$, $\norm{(f_k+g'_k)-(f_l+g'_l)}\ge\dist(g'_k-g'_l,F)\ge c\norm{g'_k-g'_l}$ : $(g'_k)$ est de Cauchy dans $G'$ (complet, dimension finie), converge vers $g'\in G'$ ; alors $f_k=(f_k+g'_k)-g'_k\to z-g'=:f\in F$ ($F$ fermé), et $z=f+g'\in F+G$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Structure de $F$ et $G$.} Les $f_n$ sont orthonormés, et les $g_n$ sont deux à deux orthogonaux (supports disjoints) avec $\norm{g_n}^2=1+(n+1)^{-2}$. Par la Proposition~4.4 et le Théorème~4.5 (appliqué dans l'espace de Hilbert $G$, dont $(g_n/\norm{g_n})$ est une base hilbertienne),
+\[
+F=\Big\{\sum_na_ne_{2n}:(a_n)\in\ell^2\Big\},\qquad G=\Big\{\sum_nb_ng_n:(b_n)\in\ell^2\Big\}
+\]
+(pour $G$ : $\sum b_ng_n$ converge si et seulement si $\sum|b_n|^2\norm{g_n}^2<\infty$, \ie{} $(b_n)\in\ell^2$ puisque $1\le\norm{g_n}^2\le2$). Un élément de $G$ a pour coordonnées $b_n$ en $e_{2n}$ et $b_n/(n+1)$ en $e_{2n+1}$.
+
+\emph{$F\cap G=\{0\}$ :} un élément de $G$ qui est dans $F$ a ses coordonnées impaires nulles, donc $b_n/(n+1)=0$, donc $b_n=0$ pour tout $n$.
+
+\emph{Densité :} $e_{2n}=f_n\in F$ et $e_{2n+1}=(n+1)(g_n-f_n)\in F+G$, donc $F+G\supset c_{<\infty}(\N)$, dense dans $\ell^2$ (Proposition~2.3).
+
+\emph{$F+G\ne H$ :} posons $x:=\sum_n\frac1{n+1}e_{2n+1}\in\ell^2$. Si $x=f+g$ avec $f=\sum a_ne_{2n}$, $g=\sum b_ng_n$, les coordonnées impaires donnent $b_n/(n+1)=1/(n+1)$, soit $b_n=1$ pour tout $n$, et $(b_n)\notin\ell^2$ : contradiction. Donc $x\notin F+G$.
+
+\emph{Conclusion :} $F+G$ est un sous-espace dense et strict de $\ell^2$, donc \emph{non fermé}, bien que $F$ et $G$ soient fermés et en somme directe. Les hypothèses de (a) et (b) ne sont pas superflues.
+\end{solution}
+
+\begin{pointcle}
+\textbf{L'angle entre deux sous-espaces.} Ce qui fait marcher (a) et (b), c'est une minoration $\norm{f+g}\ge c(\norm f+\norm g)$ — l'angle entre $F$ et $G$ est « strictement positif ». Dans (c), l'angle entre $f_n$ et $g_n$ tend vers $0$ : $\ps{f_n}{g_n/\norm{g_n}}\to1$. On peut montrer qu'en général $F+G$ est fermé si et seulement si $\sup\{|\ps fg|:f\in F\cap(F\cap G)^\perp,\ g\in G\cap(F\cap G)^\perp,\ \norm f=\norm g=1\}<1$. Ce phénomène est le même que dans l'exercice~5 du TD0 (chapitre~4) : la fermeture ne passe pas aux sommes sans contrôle quantitatif.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Norme d'un opérateur auto-adjoint ; vers le théorème spectral}
+Soit $T$ un opérateur sur $H$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose $T$ auto-adjoint. Montrer que $\ps{Tx}x\in\R$ pour tout $x$, et que $m:=\sup_{\norm x=1}|\ps{Tx}x|\le\opnorm T$.
+  \item On suppose $T$ auto-adjoint. Montrer l'identité $4\Re\ps{Tx}y=\ps{T(x+y)}{x+y}-\ps{T(x-y)}{x-y}$ et en déduire $\opnorm T=m$.
+  \item On suppose $\K=\C$ (sans hypothèse sur $T$). Montrer que si $\ps{Tx}x=0$ pour tout $x$, alors $T=0$. Que se passe-t-il si $\K=\R$ ?
+  \item On suppose $T$ auto-adjoint et \emph{compact} (Remarque~4.7), $T\ne0$. Montrer que $\opnorm T$ ou $-\opnorm T$ est une valeur propre de $T$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\ps{Tx}x=\ps x{Tx}=\overline{\ps{Tx}x}$, donc $\ps{Tx}x\in\R$. Par Cauchy--Schwarz, $|\ps{Tx}x|\le\norm{Tx}\norm x\le\opnorm T$ pour $\norm x=1$.
+
+\medskip
+\noindent\textbf{(b)} En développant par sesquilinéarité, $\ps{T(x\pm y)}{x\pm y}=\ps{Tx}x\pm\ps{Tx}y\pm\ps{Ty}x+\ps{Ty}y$, et $\ps{Ty}x=\ps y{Tx}=\overline{\ps{Tx}y}$ (auto-adjoint). La différence vaut $2\ps{Tx}y+2\overline{\ps{Tx}y}=4\Re\ps{Tx}y$. Par définition de $m$ et homogénéité, $|\ps{Tz}z|\le m\norm z^2$ pour tout $z$ ; donc, avec l'identité du parallélogramme,
+\[
+4|\Re\ps{Tx}y|\le m\big(\norm{x+y}^2+\norm{x-y}^2\big)=2m\big(\norm x^2+\norm y^2\big).
+\]
+Pour $\norm x=\norm y=1$ : $|\Re\ps{Tx}y|\le m$. Si $Tx\ne0$, prenons $y:=Tx/\norm{Tx}$ : $\Re\ps{Tx}y=\norm{Tx}$, d'où $\norm{Tx}\le m$ pour tout $x$ unitaire, soit $\opnorm T\le m$. Avec (a), $\opnorm T=m$.
+
+\medskip
+\noindent\textbf{(c)} La forme sesquilinéaire $b(x,y):=\ps{Tx}y$ se retrouve à partir de sa « forme quadratique » $q(x):=b(x,x)$ par polarisation complexe : $b(x,y)=\frac14\sum_{k=0}^3i^k\,q(x+i^ky)$ (développer, les termes $q(x)$, $q(y)$ se compensent et $\sum i^k\cdot i^{-k}\dots$ ; vérification directe). Si $q\equiv0$, alors $b\equiv0$, donc $\ps{Tx}y=0$ pour tous $x,y$ et $T=0$. Dans le cas réel, c'est faux : la rotation d'angle $\pi/2$ dans $\R^2$, $T(x_1,x_2)=(-x_2,x_1)$, vérifie $\ps{Tx}x=-x_2x_1+x_1x_2=0$ pour tout $x$ sans être nulle. La polarisation réelle ne donne que la partie \emph{symétrique} $\frac12(b(x,y)+b(y,x))$, et un opérateur antisymétrique a une forme quadratique nulle. C'est pourquoi (b) demande l'hypothèse auto-adjoint même sur $\C$ — et pourquoi, sur $\C$, « $\ps{Tx}x\in\R$ pour tout $x$ » caractérise les opérateurs auto-adjoints.
+
+\medskip
+\noindent\textbf{(d)} Par (b), $\opnorm T=\sup_{\norm x=1}|\ps{Tx}x|$ ; il existe donc une suite $(x_n)$ de vecteurs unitaires avec $|\ps{Tx_n}{x_n}|\to\opnorm T$. Les $\ps{Tx_n}{x_n}$ sont réels ; quitte à extraire, ils convergent vers $\lambda\in\{\opnorm T,-\opnorm T\}$, et $\lambda\ne0$ car $T\ne0$. Alors
+\[
+\norm{Tx_n-\lambda x_n}^2=\norm{Tx_n}^2-2\lambda\ps{Tx_n}{x_n}+\lambda^2\le\opnorm T^2+\lambda^2-2\lambda\ps{Tx_n}{x_n}=2\lambda^2-2\lambda\ps{Tx_n}{x_n}\xrightarrow[n\to\infty]{}0 .
+\]
+Par compacité de $T$, quitte à extraire encore, $Tx_n\to y$ pour un $y\in H$. Alors $\lambda x_n=Tx_n-(Tx_n-\lambda x_n)\to y$, donc $x_n\to x:=y/\lambda$, avec $\norm x=\lim\norm{x_n}=1$. Par continuité de $T$, $Tx=\lim Tx_n=y=\lambda x$ : $\lambda$ est valeur propre, de vecteur propre $x\ne0$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le c\oe ur du théorème spectral.} La question (d) est le lemme clé : un opérateur auto-adjoint compact non nul a une valeur propre de module maximal. On l'applique ensuite à la restriction de $T$ à $E_\lambda^\perp$ (stable par $T$ car $T$ est auto-adjoint : si $x\perp E_\lambda$ et $y\in E_\lambda$, $\ps{Tx}y=\ps x{Ty}=\lambda\ps xy=0$), qui est encore auto-adjoint compact de norme $\le\opnorm T$, et l'on itère : les valeurs propres ainsi obtenues décroissent en module vers $0$ (Proposition~4.7) et les vecteurs propres forment une base hilbertienne de $\adh{\Ima T}$. C'est le théorème de diagonalisation du chapitre~5, qui dit que tout opérateur auto-adjoint compact est un multiplicateur $M_a$ ($a\in c_0$) dans une base adaptée (TD0, exercice~4.7). Sans compacité, (d) tombe : $M_a$ avec $a_n=1-1/(n+1)$ a pour norme $1$, qui n'est pas valeur propre.
+\end{pointcle}
+
+\section*{Convergence faible}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Convergence faible : critères et compacité}
+Soit $H$ un espace de Hilbert séparable, $(e_k)_{k\in\N}$ une base hilbertienne.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $x_n\to x$ (fortement) si et seulement si $x_n\rightharpoonup x$ et $\norm{x_n}\to\norm x$.
+  \item Montrer que si $(x_n)$ est \emph{bornée} et si $\ps{x_n}{e_k}\to\ps x{e_k}$ pour tout $k$, alors $x_n\rightharpoonup x$. Montrer par un exemple que l'hypothèse « bornée » ne peut être supprimée.
+  \item \emph{(Compacité faible de la boule unité.)} Montrer que de toute suite bornée de $H$ on peut extraire une sous-suite faiblement convergente.
+  \item Soit $T$ un opérateur compact. Montrer que si $x_n\rightharpoonup x$, alors $Tx_n\to Tx$ fortement. Réciproquement, montrer qu'un opérateur transformant toute suite faiblement convergente en suite fortement convergente est compact.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} ($\Rightarrow$) Proposition~4.9 et continuité de la norme. ($\Leftarrow$) Par (4.1),
+\[
+\norm{x_n-x}^2=\norm{x_n}^2-2\Re\ps{x_n}x+\norm x^2\xrightarrow[n\to\infty]{}\norm x^2-2\norm x^2+\norm x^2=0 ,
+\]
+en utilisant $\ps{x_n}x\to\ps xx=\norm x^2$ (convergence faible testée contre $x$) et $\norm{x_n}\to\norm x$.
+
+\medskip
+\noindent\textbf{(b)} Soit $M:=\sup_n\norm{x_n}$, $z\in H$ et $\varepsilon>0$. Par le Théorème~4.5, $z=\sum_k\ps z{e_k}e_k$ ; choisissons $K$ tel que $\norm{z-z_K}\le\varepsilon$, où $z_K:=\sum_{k\le K}\ps z{e_k}e_k$. Alors
+\[
+|\ps{x_n-x}z|\le|\ps{x_n-x}{z_K}|+|\ps{x_n-x}{z-z_K}|\le\sum_{k\le K}|\ps z{e_k}|\,|\ps{x_n-x}{e_k}|+(M+\norm x)\varepsilon .
+\]
+La somme finie tend vers $0$ par hypothèse ; donc $\limsup_n|\ps{x_n-x}z|\le(M+\norm x)\varepsilon$, pour tout $\varepsilon$ : $\ps{x_n}z\to\ps xz$. \emph{Contre-exemple :} $x_n:=ne_n$. Pour tout $k$, $\ps{x_n}{e_k}=n\mathbf 1_{n=k}\to0$, mais avec $z:=\sum_{k\ge1}e_k/k\in\ell^2$, $\ps{x_n}z=n\cdot\frac1n=1\not\to0$ : $(x_n)$ ne converge pas faiblement (elle n'est d'ailleurs pas bornée, ce qu'interdit l'exercice~4.10 du poly).
+
+\medskip
+\noindent\textbf{(c)} Soit $(x_n)$ bornée par $M$. Pour chaque $k$, la suite scalaire $(\ps{x_n}{e_k})_n$ est bornée par $M$, donc admet une sous-suite convergente (Bolzano--Weierstrass). Par \emph{extraction diagonale} (comme au TD0, exercice~3.6) : on extrait $\varphi_0$ rendant $(\ps{x_{\varphi_0(n)}}{e_0})_n$ convergente, puis $\varphi_0\circ\varphi_1$ rendant aussi $(\ps{\cdot}{e_1})$ convergente, etc., et l'on pose $\varphi(n):=\varphi_0\circ\dots\circ\varphi_n(n)$ ; alors $(\ps{x_{\varphi(n)}}{e_k})_n$ converge pour tout $k$, vers un scalaire noté $a_k$. Montrons que $(a_k)\in\ell^2$ : pour tout $K$, par Bessel,
+\[
+\sum_{k\le K}|a_k|^2=\lim_n\sum_{k\le K}|\ps{x_{\varphi(n)}}{e_k}|^2\le\limsup_n\norm{x_{\varphi(n)}}^2\le M^2 ,
+\]
+donc $\sum_k|a_k|^2\le M^2$. Posons $x:=\sum_ka_ke_k$ (Proposition~4.4), de sorte que $\ps x{e_k}=a_k$. La suite $(x_{\varphi(n)})$ est bornée et $\ps{x_{\varphi(n)}}{e_k}\to\ps x{e_k}$ pour tout $k$ : par (b), $x_{\varphi(n)}\rightharpoonup x$. (Au passage, $\norm x\le M$ : la limite faible ne sort pas de la boule.)
+
+\medskip
+\noindent\textbf{(d)} ($\Rightarrow$) Soit $x_n\rightharpoonup x$. Par l'exercice~4.9 du poly, $Tx_n\rightharpoonup Tx$. Par l'exercice~4.10, $(x_n)$ est bornée, donc $(Tx_n)$ est contenue dans $T(\Bf(0,M))$, relativement compacte. Soit $(Tx_{\psi(n)})$ une sous-suite quelconque ; elle admet une sous-sous-suite fortement convergente, vers un $y$ ; cette sous-sous-suite converge aussi faiblement vers $y$ et vers $Tx$, donc $y=Tx$ (unicité de la limite faible). Ainsi toute sous-suite de $(Tx_n)$ a une sous-sous-suite convergeant vers $Tx$ : $Tx_n\to Tx$ (TD1 ex.~10 : dans un espace métrique, une suite dont toute sous-suite a une sous-sous-suite convergeant vers la même limite $\ell$ converge vers $\ell$ — sinon une sous-suite resterait hors d'une boule autour de $\ell$). ($\Leftarrow$) Soit $(x_n)$ dans la boule unité. Par (c), une sous-suite $x_{\varphi(n)}\rightharpoonup x$ ; par hypothèse $Tx_{\varphi(n)}\to Tx$. Donc toute suite de $T(\Bf(0,1))$ a une sous-suite convergente : $T(\Bf(0,1))$ est relativement compacte, $T$ est compact.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Ce que la convergence faible rend possible.} En dimension infinie, la boule unité n'est pas compacte (Riesz), mais elle est \emph{faiblement séquentiellement compacte} (question (c)) : c'est le substitut de Bolzano--Weierstrass qui permet les méthodes variationnelles (extraire d'une suite minimisante bornée une sous-suite faiblement convergente, puis conclure par semi-continuité inférieure de la norme, $\norm x\le\liminf\norm{x_n}$). La question (d) donne la caractérisation la plus maniable des opérateurs compacts : ils transforment la convergence faible en convergence forte — ils « rendent la compacité ».
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 9 -- Théorème ergodique de von Neumann}
+Soit $U$ un opérateur sur $H$ avec $\opnorm U\le1$ (une \emph{contraction}). On pose $F:=\Ker(U-\mathrm{Id})$ (vecteurs invariants) et, pour $N\ge1$, $A_N:=\frac1N\sum_{k=0}^{N-1}U^k$ (moyennes de Cesàro).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Ker(U-\mathrm{Id})=\Ker(U^\star-\mathrm{Id})$. \emph{Indication : développer $\norm{U^\star x-x}^2$ pour $x\in F$.}
+  \item En déduire que $F^\perp=\adh{\Ima(U-\mathrm{Id})}$.
+  \item Montrer que $A_Nx\to x$ pour $x\in F$, et que $A_Nx\to0$ pour $x\in\Ima(U-\mathrm{Id})$, puis pour $x\in\adh{\Ima(U-\mathrm{Id})}$.
+  \item Conclure : pour tout $x\in H$, $A_Nx\to P_F(x)$ (projection orthogonale sur $F$).
+  \item \emph{Application.} Sur $H=L^2(J_{2\pi})$ identifié aux fonctions $2\pi$-périodiques, soit $\alpha\in\R$ avec $\alpha/2\pi\notin\Q$ et $Uf:=f(\cdot+\alpha)$. Déterminer $F$ et interpréter la conclusion de (d).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $x\in F$, \ie{} $Ux=x$. Alors, par (4.1) et $\opnorm{U^\star}=\opnorm U\le1$ (exercice~5a),
+\[
+\norm{U^\star x-x}^2=\norm{U^\star x}^2-2\Re\ps{U^\star x}x+\norm x^2\le2\norm x^2-2\Re\ps x{Ux}=2\norm x^2-2\norm x^2=0 .
+\]
+Donc $U^\star x=x$ : $\Ker(U-\mathrm{Id})\subset\Ker(U^\star-\mathrm{Id})$. L'inclusion inverse s'obtient en appliquant ceci à la contraction $U^\star$ (dont l'adjoint est $U$).
+
+\medskip
+\noindent\textbf{(b)} Par l'exercice~5b appliqué à $T:=U-\mathrm{Id}$, dont l'adjoint est $U^\star-\mathrm{Id}$ : $\adh{\Ima(U-\mathrm{Id})}=\big(\Ker(U^\star-\mathrm{Id})\big)^\perp=F^\perp$ par (a).
+
+\medskip
+\noindent\textbf{(c)} Si $x\in F$, $U^kx=x$ pour tout $k$ et $A_Nx=x$. Si $x=Uy-y$, la somme est télescopique : $A_Nx=\frac1N\sum_{k=0}^{N-1}(U^{k+1}y-U^ky)=\frac1N(U^Ny-y)$, donc $\norm{A_Nx}\le\frac2N\norm y\to0$. Enfin $\opnorm{A_N}\le\frac1N\sum_{k<N}\opnorm U^k\le1$. Si $x\in\adh{\Ima(U-\mathrm{Id})}$ et $\varepsilon>0$, choisissons $x'\in\Ima(U-\mathrm{Id})$ avec $\norm{x-x'}\le\varepsilon$ ; alors $\norm{A_Nx}\le\norm{A_N(x-x')}+\norm{A_Nx'}\le\varepsilon+\norm{A_Nx'}$, et $\limsup_N\norm{A_Nx}\le\varepsilon$ pour tout $\varepsilon$ : $A_Nx\to0$.
+
+\medskip
+\noindent\textbf{(d)} $F$ est fermé (noyau d'un opérateur), donc $H=F\oplus^\perp F^\perp$ (Théorème~4.2) et $x=P_F(x)+(x-P_F(x))$ avec $x-P_F(x)\in F^\perp=\adh{\Ima(U-\mathrm{Id})}$ par (b). Par linéarité de $A_N$ et (c), $A_Nx=A_NP_F(x)+A_N(x-P_F(x))\to P_F(x)+0$.
+
+\medskip
+\noindent\textbf{(e)} $U$ est une isométrie de $L^2$ (invariance par translation de la mesure), donc $\opnorm U=1$. En coefficients de Fourier, $c_k(Uf)=\frac1{2\pi}\int_0^{2\pi}f(x+\alpha)e^{-ikx}\,dx=e^{ik\alpha}c_k(f)$ (changement de variable et périodicité). Donc $Uf=f$ si et seulement si $(e^{ik\alpha}-1)c_k(f)=0$ pour tout $k$ (injectivité de $f\mapsto(c_k(f))$, Exemple~4.7). Or $e^{ik\alpha}=1$ équivaut à $k\alpha\in2\pi\Z$, soit $k=0$ puisque $\alpha/2\pi\notin\Q$. Donc $c_k(f)=0$ pour $k\ne0$ : $F$ est la droite des fonctions constantes, et $P_F(f)=c_0(f)=\frac1{2\pi}\int_0^{2\pi}f$. La conclusion de (d) s'écrit
+\[
+\frac1N\sum_{k=0}^{N-1}f(x+k\alpha)\xrightarrow[N\to\infty]{L^2}\frac1{2\pi}\int_0^{2\pi}f(t)\,dt :
+\]
+\emph{les moyennes temporelles le long de l'orbite de la rotation irrationnelle convergent vers la moyenne spatiale}. C'est l'énoncé ergodique : la rotation d'angle irrationnel « mélange » suffisamment pour que l'échantillonnage le long d'une orbite reproduise la mesure uniforme. Pour $\alpha/2\pi=p/q$ rationnel, $F$ contient toutes les fonctions $2\pi/q$-périodiques, et la moyenne temporelle ne retient que la moyenne sur les $q$ points de l'orbite.
+\end{solution}
+
+\begin{commentaire}
+\textbf{Pourquoi un théorème « ergodique » dans un cours de Hilbert.} La preuve n'utilise que la structure hilbertienne : adjoint, orthogonal d'une image, décomposition $H=F\oplus F^\perp$. Le point subtil est (a) : pour une contraction, les vecteurs fixes de $U$ et de $U^\star$ coïncident, ce qui est faux pour un opérateur quelconque : sur $\R^2$, $U(x_1,x_2)=(x_1+x_2,x_2)$ a pour vecteurs fixes la droite $\R e_1$, et $U^\star(x_1,x_2)=(x_1,x_1+x_2)$ la droite $\R e_2$. C'est ce qui permet d'identifier $F^\perp$ à l'adhérence de l'image de $U-\mathrm{Id}$, sur laquelle les moyennes de Cesàro s'annulent par télescopage. Von Neumann (1932) a démontré ce résultat pour les opérateurs unitaires induits par un système dynamique préservant la mesure ; la version ponctuelle (convergence presque partout), due à Birkhoff, est beaucoup plus difficile. La question (e) est un cas particulier du théorème d'équirépartition de Weyl.
+\end{commentaire}
+
+\end{document}
