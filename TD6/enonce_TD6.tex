@@ -1,0 +1,220 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Sha}{\mathrm{III}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}6 -- Distributions (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~6 du polycopié, complémentaire des exercices du poly et des développements du TD0 (chapitre~6). Notations : $\D(\Omega)$, $\D'(\Omega)$, $\langle T,\varphi\rangle$, $h=\mathbf 1_{\R_+}$, $\delta_a$, $\mathrm{vp}(1/x)$, $\check\psi(x)=\psi(-x)$, $\tau_af=f(\cdot-a)$ ; on identifie $f\in L^1_{\mathrm{loc}}$ et $T_f$. Le corrigé détaillé est dans \texttt{corrige\_TD6.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative : 1, 3, 4 (fondamentaux) ; 2, 6, 7 (classiques d'examen) ; 5, 8, 9, 10 (plus longs, à travailler après les autres).
+\end{commentaire}
+
+\section*{Fonctions tests, distributions, convergence}
+
+\begin{exo}{Exercice 1 -- Fabriquer des fonctions tests}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\gamma(t):=e^{-1/t}$ pour $t>0$ et $\gamma(t):=0$ pour $t\le0$. Montrer que $\gamma\in\Cinf(\R)$ et que $\gamma^{(k)}(0)=0$ pour tout $k$. \emph{Indication : montrer par récurrence que $\gamma^{(k)}(t)=P_k(1/t)e^{-1/t}$ pour $t>0$, avec $P_k$ un polynôme.}
+  \item En déduire une fonction $\rho\in\D(\R^d)$, positive, paire, d'intégrale $1$, à support dans $\Bf(0,1)$ et strictement positive sur $B(0,1)$.
+  \item (Fonction plateau en dimension 1.) Soient $a<b$ et $\varepsilon>0$. Construire explicitement $\theta\in\D(\R)$ à valeurs dans $[0,1]$, valant $1$ sur $[a,b]$ et $0$ hors de $]a-\varepsilon,b+\varepsilon[$. \emph{Indication : primitive d'une différence de deux bosses.}
+  \item Montrer qu'il n'existe pas de fonction test non nulle qui soit développable en série entière au voisinage de chaque point de $\R$ (analytique). Pourquoi est-ce important pour la théorie ?
+  \item Soit $\varphi\in\D(\R)$ et $\varphi_\lambda(x):=\varphi(x/\lambda)$ pour $\lambda>0$. Calculer $\norm{\varphi_\lambda}_{m,\R}$ en fonction de $\lambda$ et des normes de $\varphi$. La famille $(\varphi_\lambda)_{\lambda\to0}$ converge-t-elle dans $\D(\R)$ ? Et $(\varphi_\lambda)_{\lambda\to\infty}$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Distributions ou pas ? Ordre fini ou infini ?}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_1:=\sum_{k\in\Z}\delta_k$ est une distribution d'ordre $0$ sur $\R$.
+  \item Montrer que $T_2:=\sum_{k\ge1}\delta_k^{(k)}$ (\ie\ $\langle T_2,\varphi\rangle=\sum_{k\ge1}(-1)^k\varphi^{(k)}(k)$) est une distribution sur $\R$, mais qu'elle n'est pas d'ordre fini.
+  \item Soit $T_3(\varphi):=\sum_{k\ge1}\varphi(1/k)$. Montrer que $T_3$ définit une distribution d'ordre $0$ sur $\Omega=]0,+\infty[$, mais que la même formule ne définit pas une distribution sur $\R$ (ni même une forme linéaire sur $\D(\R)$).
+  \item Montrer que $T_4(\varphi):=\sum_{k\ge1}\big(\varphi(1/k)-\varphi(0)-\tfrac1k\varphi'(0)\big)$ définit une distribution sur $\R$, d'ordre $\le2$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 -- Limites au sens des distributions}
+Déterminer les limites dans $\D'(\R)$, quand $n\to\infty$, des suites suivantes.
+\begin{enumerate}[label=(\alph*)]
+  \item $f_n:=n\mathbf 1_{[0,1/n]}$.
+  \item $g_n:=n^2\big(\mathbf 1_{[0,1/n]}-\mathbf 1_{[-1/n,0]}\big)$.
+  \item $S_n:=n(\delta_{1/n}-\delta_0)$.
+  \item $u_n(x):=\cos^2(nx)$.
+  \item $v_n(x):=\dfrac{\sin(nx)}{\pi x}$. \emph{Indication : on admettra $\int_{-\infty}^{+\infty}\frac{\sin u}u\,du=\pi$ ; séparer $\varphi(x)=\varphi(0)\chi(x)+(\varphi(x)-\varphi(0)\chi(x))$ avec $\chi$ une fonction plateau valant $1$ près de $0$, et utiliser le lemme de Riemann--Lebesgue.}
+  \item Existe-t-il une suite $(\varphi_n)$ de fonctions tests convergeant vers $\delta_0$ dans $\D'(\R)$ ? convergeant vers $\delta_0$ dans $\D(\R)$ ?
+\end{enumerate}
+\end{exo}
+
+\section*{Dérivation}
+
+\begin{exo}{Exercice 4 -- Calculs de dérivées et équations différentielles}
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer dans $\D'(\R)$ les dérivées première et seconde de $f(x)=|\sin x|$ et de $g(x)=e^{-|x|}$.
+  \item En déduire que $E:=-\frac12e^{-|x|}$ vérifie $E''-E=\delta_0$ (on dit que $E$ est une \emph{solution fondamentale} de l'opérateur $\frac{d^2}{dx^2}-1$).
+  \item Déterminer toutes les distributions $T\in\D'(\R)$ telles que $T''-T=\delta_0$. \emph{Indication : pour $v\in\D'(\R)$ avec $v''=v$, considérer $(e^{-x}(v'+v))'$.}
+  \item Déterminer toutes les $T\in\D'(\R)$ telles que $T''+T=\delta_0$ ; vérifier que $E_1:=h(x)\sin x$ en est une.
+  \item Soit $f$ continue sur $\R$, de classe $\mathcal C^1$ sur $\R\setminus\{0\}$, telle que $f'$ (définie hors de $0$) soit localement intégrable. Montrer que $T_f'=T_{f'}$. En quoi est-ce plus général que la formule des sauts ? Donner un exemple où $f'$ n'est pas bornée près de $0$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 5 -- Primitives d'une distribution}
+Soit $I\subset\R$ un intervalle ouvert et $T\in\D'(I)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\theta\in\D(I)$ d'intégrale $1$. Montrer que pour toute $\varphi\in\D(I)$, la fonction $\psi:=\varphi-\big(\int_I\varphi\big)\theta$ admet une unique primitive $\Psi\in\D(I)$, et que $\varphi\mapsto\Psi$ est linéaire et vérifie $\norm\Psi_{m+1,K'}\le C_K\norm\varphi_{m,K'}$ pour $\varphi\in\D_K(I)$, avec $K':=K\cup\supp\theta$ et des constantes convenables (préciser).
+  \item On pose $\langle S,\varphi\rangle:=-\langle T,\Psi\rangle$. Montrer que $S\in\D'(I)$ et que $S'=T$.
+  \item Montrer que les primitives de $T$ (les $U\in\D'(I)$ avec $U'=T$) sont exactement les $S+c$, $c\in\K$.
+  \item Application : soit $g\in L^1_{\mathrm{loc}}(I)$ et $U\in\D'(I)$ avec $U'=T_g$. Montrer que $U$ est une fonction continue, de la forme $U=T_F$ avec $F(x)=c+\int_{x_0}^xg$.
+  \item Montrer qu'une primitive d'une distribution d'ordre $m\ge1$ est d'ordre $\le m-1$, et qu'une primitive d'une distribution d'ordre $0$ est d'ordre $0$. Quel est l'ordre des primitives de $\delta_0$ ? de $\delta_0'$ ?
+\end{enumerate}
+\end{exo}
+
+\section*{Multiplication, support, valeur principale}
+
+\begin{exo}{Exercice 6 -- Équations $xT=\dots$ et distributions à support ponctuel}
+On rappelle (TD0 ch.~6, lemme d'Hadamard) que si $\varphi\in\D(\R)$ vérifie $\varphi(0)=0$, alors $\varphi=x\psi$ avec $\psi\in\D(\R)$, et que les solutions de $xT=0$ sont les $c\delta_0$.
+\begin{enumerate}[label=(\alph*)]
+  \item Résoudre dans $\D'(\R)$ : $xT=\delta_0$ ; puis $x^2T=0$ ; puis $x^kT=0$ ($k\ge1$).
+  \item Soient $a\ne b$. Résoudre $(x-a)(x-b)T=0$. \emph{Indication : écrire $T=\theta T+(1-\theta)T$ avec $\theta\in\D(\R)$ valant $1$ près de $a$ et $0$ près de $b$, et observer que $x-b$ est « inversible » sur le support de $\theta$.}
+  \item On dit que $T\in\D'(\Omega)$ est \emph{nulle sur l'ouvert} $U\subset\Omega$ si $\langle T,\varphi\rangle=0$ pour toute $\varphi\in\D(U)$. Montrer, à l'aide du Corollaire~6.1, que si $T$ est nulle sur chaque ouvert d'une famille $(U_i)_{i\in I}$, elle est nulle sur $\bigcup_iU_i$. On définit le \emph{support} de $T$ comme le complémentaire du plus grand ouvert sur lequel $T$ est nulle. Déterminer les supports de $T_f$ ($f$ continue), de $\delta_a^{(k)}$, de $\mathrm{vp}(1/x)$.
+  \item Soit $T\in\D'(\R)$ de support $\{0\}$ et d'ordre $\le m$ (une distribution à support compact est d'ordre fini, TD0 ch.~6). Montrer que $x^{m+1}T=0$, puis que $T=\sum_{j=0}^mc_j\delta_0^{(j)}$. \emph{Indication : pour $\varphi\in\D(\R)$, écrire $\langle T,x^{m+1}\varphi\rangle=\langle T,\chi_\varepsilon x^{m+1}\varphi\rangle$ avec $\chi_\varepsilon(x)=\chi(x/\varepsilon)$, et faire $\varepsilon\to0$.}
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 7 -- Valeur principale, partie finie, formule de Sokhotski--Plemelj}
+\begin{enumerate}[label=(\alph*)]
+  \item On pose $\mathrm{Pf}(1/x^2):=-\big(\mathrm{vp}(1/x)\big)'$. Montrer que pour $\varphi\in\D(\R)$,
+  \[
+  \big\langle\mathrm{Pf}(1/x^2),\varphi\big\rangle=\lim_{\varepsilon\to0}\Big(\int_{|x|>\varepsilon}\frac{\varphi(x)}{x^2}\,dx-\frac{2\varphi(0)}\varepsilon\Big)=\int_\R\frac{\varphi(x)-\varphi(0)-x\varphi'(0)\mathbf 1_{|x|<1}}{x^2}\,dx .
+  \]
+  \item Montrer que $x\,\mathrm{Pf}(1/x^2)=\mathrm{vp}(1/x)$ et $x^2\,\mathrm{Pf}(1/x^2)=1$. Quelles sont toutes les solutions de $x^2T=1$ ?
+  \item Résoudre dans $\D'(\R)$ l'équation $xT'+T=0$.
+  \item (Sokhotski--Plemelj.) Pour $\varepsilon>0$, soit $f_\varepsilon(x):=\dfrac1{x-i\varepsilon}$. Montrer que $f_\varepsilon\in L^1_{\mathrm{loc}}(\R)$ et que
+  \[
+  f_\varepsilon\xrightarrow[\varepsilon\to0^+]{}\mathrm{vp}(1/x)+i\pi\delta_0\quad\text{dans }\D'(\R).
+  \]
+  En déduire la limite de $\frac1{x+i\varepsilon}$, et retrouver $x\,\mathrm{vp}(1/x)=1$.
+  \item Montrer que $\mathrm{vp}(1/x)$ est la limite dans $\D'(\R)$ de $\dfrac{x}{x^2+\varepsilon^2}$, et que $\delta_0$ est la limite de $\dfrac1\pi\dfrac{\varepsilon}{x^2+\varepsilon^2}$ (noyau de Poisson).
+\end{enumerate}
+\end{exo}
+
+\section*{Convolution, solutions fondamentales, dimension supérieure}
+
+\begin{exo}{Exercice 8 -- Convolution et solutions fondamentales}
+Soit $\psi\in\D(\R)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer $\psi\star\delta_a$, $\psi\star\delta_0^{(k)}$, $\psi\star h$ et $\psi\star\mathbf 1_{[a,b]}$ (comme fonctions lisses, Proposition~6.10).
+  \item Soit $E\in\D'(\R)$ une solution fondamentale de $P(\frac d{dx})=\sum_{j\le n}a_j\frac{d^j}{dx^j}$ ($a_j\in\C$), \ie\ $P(\frac d{dx})E=\delta_0$. Montrer que $u:=\psi\star E$ est une fonction lisse vérifiant $P(\frac d{dx})u=\psi$.
+  \item Avec $E=he^{-x}$ (TD0 ch.~6) puis $E=h\sin x$ (Exercice~4), expliciter la solution $u$ de $u'+u=\psi$ puis de $u''+u=\psi$ ainsi obtenue. Quelle propriété supplémentaire a cette solution parmi toutes les solutions ?
+  \item Montrer que si $T\in\D'(\R)$ vérifie $T'+T=0$ alors $T=ce^{-x}$, et en déduire que $u=\psi\star(he^{-x})$ est l'unique solution de $u'+u=\psi$ nulle au voisinage de $-\infty$.
+  \item Soit $T\in\D'(\R)$ et $\psi\in\D(\R)$. Montrer que $(\psi\star T)'=\psi'\star T=\psi\star T'$, puis que $\supp(\psi\star T)\subset\supp\psi+\supp T$ (somme de Minkowski). Que peut-on dire de $\psi\star T$ lorsque $\supp T$ est compact ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 9 -- Quelques calculs en dimension $d\ge2$}
+\begin{enumerate}[label=(\alph*)]
+  \item Dans $\R^2$, soit $Q:=\{x_1>0,\ x_2>0\}$ et $T:=\mathbf 1_Q$. Calculer $\partial_1T$ et $\partial_1\partial_2T$.
+  \item Dans $\R^2$, soit $H:=\mathbf 1_{\{x_1>0\}}$. Calculer $\partial_1H$ et $\partial_2H$, et montrer que $\partial_1H$ n'est pas une fonction.
+  \item Soit $E(x):=-\dfrac1{4\pi\norm x}$ sur $\R^3$. On sait que $\Delta E=\delta_0$ (Proposition~6.5). Pour $\psi\in\D(\R^3)$ on pose $u:=\psi\star E$, \ie\ $u(x)=-\dfrac1{4\pi}\displaystyle\int_{\R^3}\frac{\psi(y)}{\norm{x-y}}\,dy$ (potentiel newtonien). Montrer que $u\in\Cinf(\R^3)$, que $\Delta u=\psi$, et que $u(x)=O(1/\norm x)$ à l'infini.
+  \item En déduire que si $v\in\D'(\R^3)$ vérifie $\Delta v=\psi$, alors $v-u$ est une fonction lisse harmonique ; et que $u$ est l'unique solution de $\Delta v=\psi$ qui soit une fonction lisse tendant vers $0$ à l'infini et dont les dérivées premières sont dans $L^2(\R^3)$. \emph{On utilisera le Corollaire~6.3.}
+\end{enumerate}
+\end{exo}
+
+\section*{Distributions périodiques et séries de Fourier}
+
+\begin{exo}{Exercice 10 -- Distributions périodiques}
+On dit que $T\in\D'(\R)$ est \emph{$2\pi$-périodique} si $\tau_{2\pi}T=T$. On fixe $\theta\in\D(\R)$ telle que $\sum_{n\in\Z}\theta(x+2\pi n)=1$ pour tout $x\in\R$ (une telle fonction existe : prendre $\theta:=\theta_0/\Theta_0$ avec $\theta_0$ une bosse positive valant $1$ sur $[0,2\pi]$ et $\Theta_0:=\sum_n\theta_0(\cdot+2\pi n)$, lisse, $2\pi$-périodique et $\ge1$).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_f$ est $2\pi$-périodique si $f\in L^1_{\mathrm{loc}}$ est $2\pi$-périodique, et que le peigne $\Sha:=\sum_{n\in\Z}\delta_{2\pi n}$ est $2\pi$-périodique. Montrer que les dérivées d'une distribution périodique sont périodiques.
+  \item Soit $\psi\in\D(\R)$ avec $\sum_n\psi(x+2\pi n)=0$ pour tout $x$. Montrer que $\psi=\tau_{2\pi}\chi-\chi$ pour une $\chi\in\D(\R)$. \emph{Indication : $\chi:=\sum_{n\ge1}\psi(\cdot+2\pi n)$.} En déduire que si $T$ est $2\pi$-périodique, $\langle T,\psi g\rangle=0$ pour toute fonction $g\in\Cinf(\R)$ $2\pi$-périodique.
+  \item Pour $T$ $2\pi$-périodique et $k\in\Z$, on pose $c_k(T):=\frac1{2\pi}\langle T,\theta\,e^{-ikx}\rangle$. Montrer que $c_k(T)$ ne dépend pas du choix de $\theta$, et que pour $T=T_f$ on retrouve $c_k(f)=\frac1{2\pi}\int_0^{2\pi}f(x)e^{-ikx}\,dx$. Calculer $c_k(\Sha)$.
+  \item Montrer que $c_k(T')=ik\,c_k(T)$.
+  \item Montrer qu'il existe $m\in\N$ et $C>0$ tels que $|c_k(T)|\le C(1+|k|)^m$ pour tout $k\in\Z$ (croissance polynomiale).
+  \item En déduire que la série $\sum_{k\in\Z}c_k(T)e^{ikx}$ converge dans $\D'(\R)$ (TD0 ch.~6, séries trigonométriques). On admet que sa somme est $T$ (théorème de Fourier pour les distributions périodiques). Vérifier ce résultat sur $\Sha$ à l'aide du TD0 ch.~6 (peigne de Dirac), et sur $T=\Sha'$.
+\end{enumerate}
+\end{exo}
+
+\end{document}

@@ -1,0 +1,505 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Sha}{\mathrm{III}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du TD n\textsuperscript{o}6 -- Distributions}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} $\Omega$ est un ouvert de $\R^d$ ; $\D(\Omega)$ l'espace des fonctions tests, $\D_K(\Omega)$ celles à support dans le compact $K$, $\norm\varphi_{m,K}=\max_{|\alpha|\le m}\norm{\partial^\alpha\varphi}_K$ ; $\D'(\Omega)$ l'espace des distributions (Définition~6.3), avec l'estimation de continuité (6.1), la convergence $T_n\wk T$ de la Définition~6.4, la dérivation $\langle\partial^\alpha T,\varphi\rangle=(-1)^{|\alpha|}\langle T,\partial^\alpha\varphi\rangle$, le produit $\langle fT,\varphi\rangle=\langle T,f\varphi\rangle$ ($f\in\Cinf$), la translation $\langle\tau_aT,\varphi\rangle=\langle T,\tau_{-a}\varphi\rangle$ et la convolution $\langle\psi\star T,\varphi\rangle=\langle T,\varphi\star\check\psi\rangle$, $\check\psi(x)=\psi(-x)$. On identifie $f\in L^1_{\mathrm{loc}}(\Omega)$ à $T_f$ (Lemme~6.2) et on écrit souvent $f$ pour $T_f$, $f'$ pour $T_f'$. $h=\mathbf 1_{\R_+}$ est la fonction de Heaviside, $\delta_a$ la masse de Dirac, $(\rho_n)$ une approximation de l'unité issue d'une fonction test positive paire à support dans la boule unité. Le Théorème~6.4 (distributions à dérivée nulle sur un connexe), la formule des sauts (Théorème~6.3), la Proposition~6.10 (régularité de $\psi\star T$) et le Corollaire~6.2 sont supposés connus.
+
+Cette feuille ne figure pas parmi les feuilles officielles ; elle complète les exercices du polycopié et les développements du TD0 (continuité séquentielle, mesures de Radon, séries trigonométriques, ordre, formule des sauts et peigne de Dirac, valeur principale, $y'=ay$, solution fondamentale du laplacien dans le plan), que l'on cite par « TD0 ch.~6 ». Les encadrés « Point clé » signalent les idées à retenir, « Piège » les erreurs fréquentes, « Méthode » les schémas de preuve réutilisables.
+\end{commentaire}
+
+\section*{Fonctions tests, distributions, convergence}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Fabriquer des fonctions tests}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\gamma(t):=e^{-1/t}$ pour $t>0$ et $\gamma(t):=0$ pour $t\le0$. Montrer que $\gamma\in\Cinf(\R)$ et que $\gamma^{(k)}(0)=0$ pour tout $k$. \emph{Indication : montrer par récurrence que $\gamma^{(k)}(t)=P_k(1/t)e^{-1/t}$ pour $t>0$, avec $P_k$ un polynôme.}
+  \item En déduire une fonction $\rho\in\D(\R^d)$, positive, paire, d'intégrale $1$, à support dans $\Bf(0,1)$ et strictement positive sur $B(0,1)$.
+  \item (Fonction plateau en dimension 1.) Soient $a<b$ et $\varepsilon>0$. Construire explicitement $\theta\in\D(\R)$ à valeurs dans $[0,1]$, valant $1$ sur $[a,b]$ et $0$ hors de $]a-\varepsilon,b+\varepsilon[$. \emph{Indication : primitive d'une différence de deux bosses.}
+  \item Montrer qu'il n'existe pas de fonction test non nulle qui soit développable en série entière au voisinage de chaque point de $\R$ (analytique). Pourquoi est-ce important pour la théorie ?
+  \item Soit $\varphi\in\D(\R)$ et $\varphi_\lambda(x):=\varphi(x/\lambda)$ pour $\lambda>0$. Calculer $\norm{\varphi_\lambda}_{m,\R}$ en fonction de $\lambda$ et des normes de $\varphi$. La famille $(\varphi_\lambda)_{\lambda\to0}$ converge-t-elle dans $\D(\R)$ ? Et $(\varphi_\lambda)_{\lambda\to\infty}$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Sur $]0,\infty[$, $\gamma$ est $\Cinf$ comme composée. Montrons par récurrence que $\gamma^{(k)}(t)=P_k(1/t)e^{-1/t}$ pour $t>0$ avec $P_k$ polynomial : vrai pour $k=0$ ($P_0=1$), et si c'est vrai au rang $k$, $\gamma^{(k+1)}(t)=\big(-t^{-2}P_k'(1/t)+t^{-2}P_k(1/t)\big)e^{-1/t}=P_{k+1}(1/t)e^{-1/t}$ avec $P_{k+1}(u)=u^2(P_k(u)-P_k'(u))$. Comme $u^je^{-u}\to0$ quand $u\to+\infty$ pour tout $j$ (croissances comparées), $\gamma^{(k)}(t)\to0$ quand $t\to0^+$, pour tout $k$. On conclut par le théorème de la limite de la dérivée : $\gamma$ est continue en $0$ (car $\gamma(t)\to0=\gamma(0)$), dérivable sur $\R^\star$ avec $\gamma'(t)\to0$ des deux côtés, donc dérivable en $0$ avec $\gamma'(0)=0$ et $\gamma'$ continue ; on itère avec $\gamma'$ à la place de $\gamma$ (qui vérifie les mêmes hypothèses), d'où $\gamma\in\Cinf(\R)$ et $\gamma^{(k)}(0)=0$ pour tout $k$.
+
+\medskip
+\noindent\textbf{(b)} Posons $\rho_0(x):=\gamma(1-\norm x^2)$ pour $x\in\R^d$ : composée de $\gamma$ avec le polynôme $1-\norm x^2$, c'est une fonction $\Cinf$ ; elle est positive, paire, nulle si $\norm x\ge1$ et strictement positive si $\norm x<1$. Son support est $\Bf(0,1)$ (adhérence de la boule ouverte), compact. Son intégrale $I$ est $>0$ (fonction continue positive non identiquement nulle), et $\rho:=\rho_0/I$ convient.
+
+\medskip
+\noindent\textbf{(c)} Soit $\rho$ comme en (b) avec $d=1$, et $\rho_\varepsilon(x):=\frac2\varepsilon\rho(2x/\varepsilon)$, bosse positive d'intégrale $1$ à support dans $[-\varepsilon/2,\varepsilon/2]$ (on peut prendre n'importe quelle bosse d'intégrale $1$ à support dans $]-\varepsilon,\varepsilon[$). Posons
+\[
+\theta(x):=\int_{-\infty}^x\big(\rho_\varepsilon(t-a+\varepsilon/2)-\rho_\varepsilon(t-b-\varepsilon/2)\big)\,dt .
+\]
+La fonction intégrée est lisse à support compact, donc $\theta$ est $\Cinf$. Pour $x<a-\varepsilon$, les deux bosses sont nulles sur $]-\infty,x]$ : $\theta(x)=0$. Pour $x\in[a,b]$, la première bosse (centrée en $a-\varepsilon/2$, support dans $[a-\varepsilon,a]$) est entièrement intégrée et la seconde (support dans $[b,b+\varepsilon]$) pas encore : $\theta(x)=1-0=1$. Pour $x>b+\varepsilon$, les deux sont entièrement intégrées : $\theta(x)=1-1=0$. Ainsi $\supp\theta\subset[a-\varepsilon,b+\varepsilon]$, et $\theta\in\D(\R)$. Enfin $0\le\theta\le1$ : sur $]-\infty,a]$, $\theta$ est croissante de $0$ à $1$ (intégrale d'une fonction positive) ; sur $[b,+\infty[$, décroissante de $1$ à $0$. C'est la version « à la main » du Lemme~6.1 en dimension $1$.
+
+\medskip
+\noindent\textbf{(d)} Soit $\varphi\in\D(\R)$ analytique. Son support est compact, donc il existe $x_0$ avec $\varphi=0$ sur $]-\infty,x_0]$ (par exemple $x_0:=\min\supp\varphi$, si $\varphi\ne0$). Soit $A:=\{x\in\R:\varphi^{(k)}(x)=0\ \forall k\}$. $A$ est fermé (intersection de fermés), non vide (contient $]-\infty,x_0[$) ; il est ouvert : si $x\in A$, la série de Taylor de $\varphi$ en $x$ est nulle et, $\varphi$ étant analytique, $\varphi$ coïncide avec cette série sur un voisinage de $x$, donc y est nulle avec toutes ses dérivées. Par connexité de $\R$, $A=\R$ : $\varphi=0$.
+
+L'importance : la théorie des distributions repose sur la possibilité de \emph{localiser} (fonctions plateaux, partitions de l'unité, Lemme~6.1 et Corollaire~6.1) et sur la densité de $\D(\Omega)$ dans tous les espaces usuels (Théorème~6.1). Les fonctions analytiques, rigides (déterminées par leur comportement en un point), ne le permettent pas ; les fonctions $\Cinf$, souples, le permettent, et (a) est exactement la preuve qu'elles sont « assez souples » : $\gamma$ est nulle sur une demi-droite sans être nulle.
+
+\medskip
+\noindent\textbf{(e)} $\varphi_\lambda^{(j)}(x)=\lambda^{-j}\varphi^{(j)}(x/\lambda)$, donc $\norm{\varphi_\lambda^{(j)}}_\infty=\lambda^{-j}\norm{\varphi^{(j)}}_\infty$ et $\norm{\varphi_\lambda}_{m,\R}=\max_{j\le m}\lambda^{-j}\norm{\varphi^{(j)}}_\infty$. Quand $\lambda\to0$ (concentration) : les supports $\lambda\supp\varphi$ restent dans un compact fixe, mais $\norm{\varphi_\lambda'}_\infty=\lambda^{-1}\norm{\varphi'}_\infty\to\infty$ dès que $\varphi$ n'est pas constante (donc, à support compact, dès que $\varphi\ne0$) : \emph{pas de convergence dans $\D(\R)$}, bien que $\varphi_\lambda\to\varphi(0)\mathbf 1_{\{0\}}$ ponctuellement. Quand $\lambda\to\infty$ (dilatation) : toutes les dérivées $\varphi_\lambda^{(j)}$, $j\ge1$, tendent uniformément vers $0$, et $\varphi_\lambda\to\varphi(0)$ uniformément sur tout compact (par continuité de $\varphi$ en $0$) ; mais les supports $\lambda\supp\varphi$ ne sont pas contenus dans un compact fixe (sauf si $\varphi=0$) : \emph{pas de convergence dans $\D(\R)$ non plus}, bien qu'il y ait convergence dans $\Cinf(\R)$ (au sens de l'Exemple~2.11) vers la constante $\varphi(0)$. Ces deux familles sont précisément celles qui servent à tester l'ordre d'une distribution (TD0 ch.~6, $\delta_0^{(k)}$) et le rôle de la condition de support dans la Définition~6.2.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Trois gestes sur les fonctions tests.} \emph{Translater, dilater, tronquer} : $\varphi(\cdot-a)$, $\varphi(\cdot/\lambda)$, $\theta\varphi$. Les normes $\norm\cdot_{m,K}$ se comportent de façon explicite sous ces opérations ((e) et la formule de Leibniz), et presque toutes les preuves du chapitre consistent à choisir la bonne fonction test parmi ces trois familles : une dilatation pour concentrer en un point (ordre, Dirac), une troncature pour localiser (Lemme~6.2, Exercice~6.2), une translation pour la convolution.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Distributions ou pas ? Ordre fini ou infini ?}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_1:=\sum_{k\in\Z}\delta_k$ est une distribution d'ordre $0$ sur $\R$.
+  \item Montrer que $T_2:=\sum_{k\ge1}\delta_k^{(k)}$ (\ie\ $\langle T_2,\varphi\rangle=\sum_{k\ge1}(-1)^k\varphi^{(k)}(k)$) est une distribution sur $\R$, mais qu'elle n'est pas d'ordre fini.
+  \item Soit $T_3(\varphi):=\sum_{k\ge1}\varphi(1/k)$. Montrer que $T_3$ définit une distribution d'ordre $0$ sur $\Omega=]0,+\infty[$, mais que la même formule ne définit pas une distribution sur $\R$ (ni même une forme linéaire sur $\D(\R)$).
+  \item Montrer que $T_4(\varphi):=\sum_{k\ge1}\big(\varphi(1/k)-\varphi(0)-\tfrac1k\varphi'(0)\big)$ définit une distribution sur $\R$, d'ordre $\le2$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $\varphi\in\D_K(\R)$, seuls les $k\in K\cap\Z$ contribuent : $N_K:=\#(K\cap\Z)<\infty$ (partie discrète d'un compact). La somme est finie, $T_1$ est linéaire, et $|\langle T_1,\varphi\rangle|\le N_K\norm\varphi_K$ : ordre $0$ (constante $C_K=N_K$, $m_K=0$).
+
+\medskip
+\noindent\textbf{(b)} \emph{Distribution :} pour $\varphi\in\D_K(\R)$, posons $N:=\max\{k\ge1:k\in K\}$ (ou $N=0$ si $K\cap\N^\star=\emptyset$). Alors $\langle T_2,\varphi\rangle=\sum_{k=1}^N(-1)^k\varphi^{(k)}(k)$ : somme finie, linéaire, et $|\langle T_2,\varphi\rangle|\le N\norm\varphi_{N,K}$. C'est (6.1) avec $m_K=N$ : $T_2$ est une distribution.
+
+\emph{Pas d'ordre fini.} Supposons $T_2$ d'ordre $\le m$. Prenons $k:=m+1$ et $K:=[k-1,k+1]$. Sur $\D_K(\R)$, $\langle T_2,\varphi\rangle=(-1)^k\varphi^{(k)}(k)$ (les autres entiers $j$ avec $\varphi^{(j)}(j)\ne0$ sont dans $K$, donc $j=k$). L'hypothèse donne $C$ avec $|\varphi^{(k)}(k)|\le C\norm\varphi_{m,K}=C\norm\varphi_{k-1,K}$ pour $\varphi\in\D_K$ : c'est dire que $\delta_k^{(k)}$ est d'ordre $\le k-1$, ce qui contredit le TD0 ch.~6 (la distribution $\delta_a^{(k)}$ est d'ordre exactement $k$ ; la preuve par dilatation $\varphi_\lambda(x)=\lambda^k\varphi((x-k)/\lambda)$ est celle de l'Exercice~1(e)). Donc l'entier $m_K$ de (6.1) dépend \emph{nécessairement} de $K$ : $T_2$ est d'ordre infini.
+
+\medskip
+\noindent\textbf{(c)} \emph{Sur $\Omega=]0,\infty[$ :} un compact $K\subset]0,\infty[$ est minoré par un $\alpha>0$, donc ne contient que les $1/k$ avec $k\le1/\alpha$ : nombre fini. Pour $\varphi\in\D_K(\Omega)$, la somme est finie et $|\langle T_3,\varphi\rangle|\le\#(K\cap\{1/k\})\norm\varphi_K$ : ordre $0$. \emph{Sur $\R$ :} si $\varphi\in\D(\R)$ avec $\varphi(0)\ne0$, alors $\varphi(1/k)\to\varphi(0)\ne0$ et la série $\sum\varphi(1/k)$ diverge grossièrement : $T_3(\varphi)$ n'est pas défini. Les points $1/k$ s'accumulent en $0\in\R$, et une distribution ne peut avoir « une masse en chaque $1/k$ » sans que ces masses deviennent sommables.
+
+\medskip
+\noindent\textbf{(d)} Par la formule de Taylor avec reste intégral à l'ordre $1$ en $0$ : $\varphi(x)-\varphi(0)-x\varphi'(0)=\int_0^x(x-t)\varphi''(t)\,dt$, donc $|\varphi(1/k)-\varphi(0)-\tfrac1k\varphi'(0)|\le\frac1{2k^2}\norm{\varphi''}_\infty$. La série converge absolument, $T_4$ est bien définie et linéaire, et pour $\varphi\in\D_K(\R)$ : $|\langle T_4,\varphi\rangle|\le\frac{\pi^2}{12}\norm{\varphi''}_\infty\le\frac{\pi^2}{12}\norm\varphi_{2,K}$. C'est (6.1) avec $m_K=2$ pour tout $K$ : $T_4$ est d'ordre $\le2$. (Elle est d'ordre exactement $2$, mais nous ne le démontrons pas ; l'idée : « renormaliser » la série divergente de (c) en lui soustrayant son développement de Taylor est le procédé des \emph{parties finies}, retrouvé à l'Exercice~7.)
+\end{solution}
+
+\begin{piege}
+\textbf{« Pour tout compact il existe $m_K$ » n'est pas « il existe $m$ pour tout compact ».} C'est la même inversion de quantificateurs que pour Banach--Steinhaus (TD0, Exemple~3.4). L'exemple (b) montre que la différence est réelle : $T_2$ est une distribution parfaitement légitime, mais aucun entier ne contrôle son action sur toutes les fonctions tests. Les distributions d'ordre fini sont celles qui « regardent » un nombre borné de dérivées ; une distribution à support compact est toujours d'ordre fini (TD0 ch.~6, Exemple~6.4(c)), et $T_2$ montre que l'hypothèse de support compact n'est pas superflue.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Limites au sens des distributions}
+Déterminer les limites dans $\D'(\R)$, quand $n\to\infty$, des suites suivantes.
+\begin{enumerate}[label=(\alph*)]
+  \item $f_n:=n\mathbf 1_{[0,1/n]}$.
+  \item $g_n:=n^2\big(\mathbf 1_{[0,1/n]}-\mathbf 1_{[-1/n,0]}\big)$.
+  \item $S_n:=n(\delta_{1/n}-\delta_0)$.
+  \item $u_n(x):=\cos^2(nx)$.
+  \item $v_n(x):=\dfrac{\sin(nx)}{\pi x}$. \emph{Indication : on admettra $\int_{-\infty}^{+\infty}\frac{\sin u}u\,du=\pi$ ; séparer $\varphi(x)=\varphi(0)\chi(x)+(\varphi(x)-\varphi(0)\chi(x))$ avec $\chi$ une fonction plateau valant $1$ près de $0$, et utiliser le lemme de Riemann--Lebesgue.}
+  \item Existe-t-il une suite $(\varphi_n)$ de fonctions tests convergeant vers $\delta_0$ dans $\D'(\R)$ ? convergeant vers $\delta_0$ dans $\D(\R)$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+Dans chaque cas on fixe $\varphi\in\D(\R)$ et l'on calcule la limite de $\langle T_n,\varphi\rangle$ ; une distribution limite est identifiée par ses valeurs sur toutes les fonctions tests.
+
+\medskip
+\noindent\textbf{(a)} $\langle f_n,\varphi\rangle=n\int_0^{1/n}\varphi=\int_0^1\varphi(t/n)\,dt\to\varphi(0)$ par convergence dominée (ou continuité uniforme). Donc $f_n\wk\delta_0$. C'est une approximation de l'unité issue de $\rho=\mathbf 1_{[0,1]}$ (Exemple~6.5), non paire : la limite est bien $\delta_0$ quand même.
+
+\medskip
+\noindent\textbf{(b)} $\langle g_n,\varphi\rangle=n^2\int_0^{1/n}\varphi-n^2\int_{-1/n}^0\varphi=n^2\int_0^{1/n}(\varphi(x)-\varphi(-x))\,dx$. Or $\varphi(x)-\varphi(-x)=2x\varphi'(0)+O(x^3)$ (Taylor à l'ordre $2$, le terme en $x^2$ étant pair ; précisément $|\varphi(x)-\varphi(-x)-2x\varphi'(0)|\le\frac{|x|^3}3\norm{\varphi'''}_\infty$). Donc $\langle g_n,\varphi\rangle=n^2\big(\varphi'(0)/n^2+O(n^{-4})\big)\to\varphi'(0)=-\langle\delta_0',\varphi\rangle$ : $g_n\wk-\delta_0'$. Plus rapide : $g_n=-F_n'$ où $F_n(x):=n(1-n|x|)^+$ est la fonction « chapeau » (continue, affine par morceaux, de pente $n^2$ sur $[-1/n,0]$ et $-n^2$ sur $[0,1/n]$ ; formule des sauts sans sauts), et $F_n$ est une approximation de l'unité (positive, d'intégrale $1$, concentrée en $0$), donc $F_n\wk\delta_0$ et, par continuité de la dérivation, $g_n=-F_n'\wk-\delta_0'$.
+
+\medskip
+\noindent\textbf{(c)} $\langle S_n,\varphi\rangle=n(\varphi(1/n)-\varphi(0))\to\varphi'(0)=-\langle\delta_0',\varphi\rangle$ : $S_n\wk-\delta_0'$. C'est la Proposition~6.7 appliquée à $T=\delta_0$ : $\frac{\tau_{-1/n}\delta_0-\delta_0}{1/n}=n(\delta_{1/n}-\delta_0)\to\delta_0'$ ; attention au signe, $\tau_{-h}\delta_0=\delta_{-h}$, donc la Proposition~6.7 donne $n(\delta_{-1/n}-\delta_0)\wk\delta_0'$, ce qui est cohérent avec notre $n(\delta_{1/n}-\delta_0)\wk-\delta_0'$.
+
+\medskip
+\noindent\textbf{(d)} $\cos^2(nx)=\frac12+\frac12\cos(2nx)$, et $\int\cos(2nx)\varphi(x)\,dx\to0$ par Riemann--Lebesgue (TD0 ch.~6, Exemple~6.2(c)). Donc $u_n\wk\frac12$ (la fonction constante). C'est le phénomène d'\emph{homogénéisation} : une oscillation rapide converge, au sens des distributions (et faiblement dans tout $L^p_{\mathrm{loc}}$, $p<\infty$), vers sa moyenne, ici $\frac1{2\pi}\int_0^{2\pi}\cos^2=\frac12$. Noter que $u_n^2=\cos^4(nx)\wk\frac38\ne(\frac12)^2$ : la convergence faible ne passe pas aux produits.
+
+\medskip
+\noindent\textbf{(e)} Soit $\chi\in\D(\R)$ paire, valant $1$ sur $[-1,1]$, à support dans $[-2,2]$, et écrivons $\varphi=\varphi(0)\chi+\psi$ avec $\psi:=\varphi-\varphi(0)\chi\in\D(\R)$, $\psi(0)=0$. \emph{Terme en $\psi$ :} par le lemme d'Hadamard (TD0 ch.~6), $\psi(x)=x\eta(x)$ avec $\eta\in\D(\R)$, donc $\int\frac{\sin(nx)}{\pi x}\psi(x)\,dx=\frac1\pi\int\sin(nx)\eta(x)\,dx\to0$ (Riemann--Lebesgue). \emph{Terme en $\chi$ :} $\int\frac{\sin(nx)}{\pi x}\chi(x)\,dx=\frac1\pi\int_{-1}^1\frac{\sin(nx)}x\,dx+\frac1\pi\int\sin(nx)\frac{\chi(x)-\mathbf 1_{[-1,1]}(x)}x\,dx$. La fonction $\frac{\chi-\mathbf 1_{[-1,1]}}x$ est bornée (nulle sur $[-1,1]$, et $|x|\ge1$ ailleurs) à support dans $[-2,2]$, donc dans $L^1$, et le second terme tend vers $0$ par Riemann--Lebesgue dans $L^1$ (TD2 ex.~8 pour les fonctions continues, étendu à $L^1$ par densité de $\Cc$ et l'inégalité $|\int e^{inx}f|\le\norm f_1$). Le premier vaut, par le changement de variable $u=nx$, $\frac1\pi\int_{-n}^n\frac{\sin u}u\,du\to\frac1\pi\cdot\pi=1$. Au total $\langle v_n,\varphi\rangle\to\varphi(0)$ : $v_n\wk\delta_0$.
+
+Ce noyau n'est \emph{pas} une approximation de l'unité au sens de la Définition~3.4 : $v_n$ n'est pas intégrable sur $\R$ ($|\sin(nx)/x|$ n'est pas intégrable à l'infini) et change de signe. C'est l'analogue continu du noyau de Dirichlet (TD0 ch.~6, peigne de Dirac) : sa convergence vers $\delta_0$ repose sur une compensation d'oscillations (Riemann--Lebesgue), pas sur la positivité et la concentration de la masse.
+
+\medskip
+\noindent\textbf{(f)} Oui pour $\D'$ : $\varphi_n:=\rho_n$ (Exemple~6.5), ou le Corollaire~6.2. Non pour $\D$ : si $\varphi_n\to\varphi$ dans $\D(\R)$, alors $\varphi_n\wk\varphi$ dans $\D'$ (pour $\psi\in\D$, $\int\varphi_n\psi\to\int\varphi\psi$ par convergence uniforme à supports dans un compact fixe), et par unicité de la limite dans $\D'$ (convergence simple sur les fonctions tests, dont les valeurs déterminent la distribution), $T_\varphi=\delta_0$, ce qui est exclu : $\delta_0$ n'est pas une fonction (Exemple~6.4). Plus généralement, la convergence dans $\D$ est beaucoup plus forte que la convergence dans $\D'$, et une suite de fonctions tests ne peut converger dans $\D$ que vers une fonction test.
+\end{solution}
+
+\begin{methode}
+\textbf{Identifier une limite dans $\D'$.} (1) Fixer $\varphi$. (2) Mettre $\langle T_n,\varphi\rangle$ sous une forme où $n$ n'apparaît plus que dans un changement de variable ou un facteur oscillant. (3) Conclure par un des trois outils : convergence dominée (après changement de variable $x=t/n$ : concentration), développement de Taylor de $\varphi$ en un point (quand la masse se concentre et les signes se compensent : dérivées de Dirac), lemme de Riemann--Lebesgue (oscillations). (4) Reconnaître la limite : $\varphi(0)$ est $\delta_0$, $\varphi'(0)$ est $-\delta_0'$, $\int\varphi$ est la constante $1$, $\int f\varphi$ est $T_f$. Quand la suite est de la forme $T_n=S_n^{(j)}$, on peut aussi passer la dérivée à la limite (continuité de la dérivation) : c'est souvent plus rapide, cf.\ TD0 ch.~6, Exemple~6.2.
+\end{methode}
+
+\section*{Dérivation}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Calculs de dérivées et équations différentielles}
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer dans $\D'(\R)$ les dérivées première et seconde de $f(x)=|\sin x|$ et de $g(x)=e^{-|x|}$.
+  \item En déduire que $E:=-\frac12e^{-|x|}$ vérifie $E''-E=\delta_0$ (on dit que $E$ est une \emph{solution fondamentale} de l'opérateur $\frac{d^2}{dx^2}-1$).
+  \item Déterminer toutes les distributions $T\in\D'(\R)$ telles que $T''-T=\delta_0$. \emph{Indication : pour $v\in\D'(\R)$ avec $v''=v$, considérer $(e^{-x}(v'+v))'$.}
+  \item Déterminer toutes les $T\in\D'(\R)$ telles que $T''+T=\delta_0$ ; vérifier que $E_1:=h(x)\sin x$ en est une.
+  \item Soit $f$ continue sur $\R$, de classe $\mathcal C^1$ sur $\R\setminus\{0\}$, telle que $f'$ (définie hors de $0$) soit localement intégrable. Montrer que $T_f'=T_{f'}$. En quoi est-ce plus général que la formule des sauts ? Donner un exemple où $f'$ n'est pas bornée près de $0$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{$f=|\sin x|$.} Elle est continue, $\mathcal C^1$ par morceaux avec points singuliers $A=\pi\Z$, et sur $]k\pi,(k+1)\pi[$, $f(x)=(-1)^k\sin x$, $f'(x)=(-1)^k\cos x=\sgn(\sin x)\cos x$. Pas de saut de $f$ : $T_f'=T_{f'}$, $f'=\sgn(\sin x)\cos x$. Cette dérivée est $\mathcal C^1$ par morceaux, de dérivée $-|\sin x|$ hors de $\pi\Z$, et de saut en $k\pi$ : $f'((k\pi)^+)-f'((k\pi)^-)=(-1)^k\cos(k\pi)-(-1)^{k-1}\cos(k\pi)=2(-1)^k(-1)^k=2$. Formule des sauts : $T_f''=-T_{|\sin x|}+2\sum_{k\in\Z}\delta_{k\pi}$. (On vérifie : $f''+f=2\sum\delta_{k\pi}$, les « cassures » de $|\sin|$ sont des pics vers le haut, d'où le signe $+$.)
+
+\emph{$g=e^{-|x|}$.} Continue, $\mathcal C^1$ hors de $0$ avec $g'(x)=-\sgn(x)e^{-|x|}$ ; pas de saut : $T_g'=T_{g'}$. Puis $g'$ a un saut en $0$ : $g'(0^+)-g'(0^-)=-1-1=-2$, et sa dérivée hors de $0$ est $e^{-|x|}$. Donc $T_g''=T_g-2\delta_0$.
+
+\medskip
+\noindent\textbf{(b)} $E=-\frac12g$ : $E''-E=-\frac12(g''-g)=-\frac12(-2\delta_0)=\delta_0$.
+
+\medskip
+\noindent\textbf{(c)} Si $T$ et $E$ sont deux solutions, $v:=T-E$ vérifie $v''=v$. Comme $e^{-x}$ est lisse, la formule de Leibniz (Proposition~6.9) donne $(e^{-x}(v'+v))'=-e^{-x}(v'+v)+e^{-x}(v''+v')=e^{-x}(v''-v)=0$. Par le Théorème~6.4, $e^{-x}(v'+v)=c_1$ (constante), soit $v'+v=c_1e^x$ (multiplier par $e^x$, lisse, inverse de $e^{-x}$). De même $(e^xv)'=e^x(v'+v)=c_1e^{2x}$, et $e^xv-\frac{c_1}2e^{2x}$ a une dérivée nulle : $e^xv=\frac{c_1}2e^{2x}+c_2$, soit $v=\frac{c_1}2e^x+c_2e^{-x}$. Réciproquement ces fonctions lisses vérifient $v''=v$. Les solutions de $T''-T=\delta_0$ sont donc
+\[
+T=-\tfrac12e^{-|x|}+ae^x+be^{-x},\qquad a,b\in\K .
+\]
+\emph{Toutes les solutions distributions de l'équation homogène sont des fonctions lisses} : c'est un cas très simple de régularité elliptique (comparer avec le lemme de Weyl, Lemme~6.4).
+
+\medskip
+\noindent\textbf{(d)} $E_1=h\sin x$ est continue (car $\sin0=0$), $\mathcal C^1$ hors de $0$ avec $E_1'=h\cos x$ (pas de saut de $E_1$), puis $E_1'$ a un saut $\cos0-0=1$ en $0$ et pour dérivée $-h\sin x$ hors de $0$ : $E_1''=-h\sin x+\delta_0=-E_1+\delta_0$. Donc $E_1''+E_1=\delta_0$. Pour l'équation homogène $v''+v=0$ : on utilise la même astuce avec $e^{\pm ix}$ (on se place dans $\K=\C$ ; pour $\K=\R$, raisonner sur les parties réelle et imaginaire, ou utiliser $(\cos x\,v'+\sin x\,v)'=\cos x\,(v''+v)=0$ et $(\sin x\,v'-\cos x\,v)'=\sin x\,(v''+v)=0$, puis résoudre le système linéaire $\cos x\,v'+\sin x\,v=c_1$, $\sin x\,v'-\cos x\,v=c_2$, de déterminant $-1$ : $v=c_1\sin x-c_2\cos x$). Les solutions sont $T=h(x)\sin x+a\cos x+b\sin x$.
+
+\medskip
+\noindent\textbf{(e)} Pour $\varphi\in\D(\R)$ et $\varepsilon>0$ : $\int_\R f\varphi'=\lim_{\varepsilon\to0}\big(\int_{-\infty}^{-\varepsilon}f\varphi'+\int_\varepsilon^\infty f\varphi'\big)$ (convergence dominée, $f\varphi'\in L^1$). Sur $[\varepsilon,R]$ (où $\supp\varphi\subset[-R,R]$), $f$ est $\mathcal C^1$ : $\int_\varepsilon^Rf\varphi'=-f(\varepsilon)\varphi(\varepsilon)-\int_\varepsilon^Rf'\varphi$, et de même $\int_{-R}^{-\varepsilon}f\varphi'=f(-\varepsilon)\varphi(-\varepsilon)-\int_{-R}^{-\varepsilon}f'\varphi$. Les termes de bord tendent vers $f(0)\varphi(0)-f(0)\varphi(0)=0$ par continuité de $f$ (c'est là que l'hypothèse « $f$ continue en $0$ » sert : pas de saut), et $\int_{\varepsilon<|x|<R}f'\varphi\to\int f'\varphi$ par convergence dominée puisque $f'\varphi\in L^1$. Donc $\langle T_f',\varphi\rangle=-\int f\varphi'=\int f'\varphi=\langle T_{f'},\varphi\rangle$.
+
+C'est plus général que le Théorème~6.3, qui exige des limites finies de $f'$ à droite et à gauche (donc $f'$ localement bornée). Exemple : $f(x)=\sqrt{|x|}$, continue, $f'(x)=\frac{\sgn x}{2\sqrt{|x|}}$ hors de $0$, non bornée mais localement intégrable (intégrale de $|x|^{-1/2}$ convergente) : $T_f'=T_{f'}$. Autre exemple : $f(x)=x\sin(1/x)$ ($f(0)=0$), $f'$ bornée mais sans limite en $0$. Et un contre-exemple instructif : $f=\ln|x|$ n'est pas continue en $0$ mais la conclusion reste vraie « à condition de lire $f'=1/x$ comme $\mathrm{vp}(1/x)$ » (Proposition~6.4) — le terme de bord $\ln\varepsilon\,(\varphi(-\varepsilon)-\varphi(\varepsilon))\to0$ survit à la discontinuité, parce qu'elle est symétrique.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Solution fondamentale.} Une solution fondamentale d'un opérateur différentiel $P(\frac d{dx})$ est une distribution $E$ avec $P(\frac d{dx})E=\delta_0$. On en construit en dimension $1$ par la formule des sauts : $E=h\cdot y$ où $y$ est la solution de l'équation homogène avec $y(0)=\dots=y^{(n-2)}(0)=0$, $y^{(n-1)}(0)=1$ (ici $y=\sinh x$ pour $\frac{d^2}{dx^2}-1$, soit $E=h\sinh x$, qui diffère de $-\frac12e^{-|x|}$ par la solution homogène $\frac12e^x$ ; et $y=\sin x$ pour $\frac{d^2}{dx^2}+1$). L'intérêt est à l'Exercice~8 : $u=E\star\psi$ résout $P(\frac d{dx})u=\psi$.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Primitives d'une distribution}
+Soit $I\subset\R$ un intervalle ouvert et $T\in\D'(I)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\theta\in\D(I)$ d'intégrale $1$. Montrer que pour toute $\varphi\in\D(I)$, la fonction $\psi:=\varphi-\big(\int_I\varphi\big)\theta$ admet une unique primitive $\Psi\in\D(I)$, et que $\varphi\mapsto\Psi$ est linéaire et vérifie $\norm\Psi_{m+1,K'}\le C_K\norm\varphi_{m,K'}$ pour $\varphi\in\D_K(I)$, avec $K':=K\cup\supp\theta$ et des constantes convenables (préciser).
+  \item On pose $\langle S,\varphi\rangle:=-\langle T,\Psi\rangle$. Montrer que $S\in\D'(I)$ et que $S'=T$.
+  \item Montrer que les primitives de $T$ (les $U\in\D'(I)$ avec $U'=T$) sont exactement les $S+c$, $c\in\K$.
+  \item Application : soit $g\in L^1_{\mathrm{loc}}(I)$ et $U\in\D'(I)$ avec $U'=T_g$. Montrer que $U$ est une fonction continue, de la forme $U=T_F$ avec $F(x)=c+\int_{x_0}^xg$.
+  \item Montrer qu'une primitive d'une distribution d'ordre $m\ge1$ est d'ordre $\le m-1$, et qu'une primitive d'une distribution d'ordre $0$ est d'ordre $0$. Quel est l'ordre des primitives de $\delta_0$ ? de $\delta_0'$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\psi\in\D(I)$ et $\int_I\psi=\int\varphi-\int\varphi=0$. Posons $\Psi(x):=\int_{-\infty}^x\psi(t)\,dt$ (intégrale sur $I\cap]-\infty,x]$, prolongée par $0$ hors de $I$) : $\Psi$ est $\Cinf$ avec $\Psi'=\psi$, nulle à gauche du support de $\psi$ ; et à droite de ce support, $\Psi(x)=\int_I\psi=0$. Donc $\supp\Psi\subset\mathrm{conv}(\supp\psi)\subset\mathrm{conv}(K')$, compact de $I$ (l'enveloppe convexe d'un compact de l'intervalle $I$ est un segment contenu dans $I$) : $\Psi\in\D(I)$. Unicité : deux primitives diffèrent d'une constante, nulle puisque à support compact. Linéarité : $\varphi\mapsto\psi\mapsto\Psi$ est composée de deux applications linéaires. Estimation : $\Psi^{(j+1)}=\psi^{(j)}=\varphi^{(j)}-(\int\varphi)\theta^{(j)}$, donc $\norm{\Psi^{(j+1)}}_\infty\le\norm{\varphi^{(j)}}_\infty+|K|\,\norm\varphi_\infty\norm{\theta^{(j)}}_\infty$ ($|K|$ désignant la longueur de $\mathrm{conv}K$) ; et $\norm\Psi_\infty\le|K'|\,\norm\psi_\infty\le|K'|(1+|K|\norm\theta_\infty)\norm\varphi_\infty$. D'où $\norm\Psi_{m+1,K'}\le C_{K,\theta,m}\norm\varphi_{m,K'}$, et même $\norm\Psi_{m+1,K'}\le C\norm\varphi_{m,K}$ puisque $\varphi$ est à support dans $K$.
+
+\medskip
+\noindent\textbf{(b)} $S$ est linéaire (composée). Continuité : pour $\varphi\in\D_K(I)$, $\Psi\in\D_{\tilde K}(I)$ avec $\tilde K:=\mathrm{conv}(K\cup\supp\theta)$, et (6.1) pour $T$ sur $\tilde K$ donne $|\langle S,\varphi\rangle|\le C_{\tilde K}\norm\Psi_{m_{\tilde K},\tilde K}\le C_{\tilde K}C'\norm\varphi_{m_{\tilde K},K}$ (avec (a), en notant qu'une majoration de $\norm\Psi_{m+1}$ en majore aussi $\norm\Psi_m$). Donc $S\in\D'(I)$. Calculons $S'$ : $\langle S',\varphi\rangle=-\langle S,\varphi'\rangle=\langle T,\Psi_1\rangle$ où $\Psi_1$ est la primitive à support compact de $\varphi'-(\int\varphi')\theta=\varphi'$ (car $\int\varphi'=0$) : c'est $\Psi_1=\varphi$. Donc $\langle S',\varphi\rangle=\langle T,\varphi\rangle$ : $S'=T$.
+
+\medskip
+\noindent\textbf{(c)} Si $U'=T=S'$, alors $(U-S)'=0$ sur l'intervalle (connexe) $I$, donc $U-S=c$ par le Théorème~6.4. Réciproquement $(S+c)'=S'$.
+
+\medskip
+\noindent\textbf{(d)} Soit $x_0\in I$ et $F(x):=\int_{x_0}^xg$ : fonction continue (convergence dominée). Montrons $T_F'=T_g$. Fixons $\varphi\in\D(I)$ et un segment $[a,b]\subset I$ contenant $x_0$ et $\supp\varphi$. Soit $g_n\in\Cinf(\R)$ avec $g_n\to g$ dans $L^1([a,b])$ (régulariser $g\mathbf 1_{[a,b]}$ par $\rho_n$, Théorème~3.6). Posons $F_n(x):=\int_{x_0}^xg_n$ : $F_n$ est $\mathcal C^1$ avec $F_n'=g_n$, et $|F_n(x)-F(x)|\le\norm{g_n-g}_{L^1([a,b])}\to0$ uniformément en $x\in[a,b]$. L'intégration par parties classique donne $-\int F_n\varphi'=\int g_n\varphi$ ; on passe à la limite des deux côtés ($F_n\to F$ uniformément sur $\supp\varphi$, $g_n\to g$ dans $L^1(\supp\varphi)$) : $-\int F\varphi'=\int g\varphi$, soit $T_F'=T_g$. Par (c), $U=T_F+c=T_{F+c}$. En particulier \emph{une distribution dont la dérivée est localement intégrable est une fonction continue} — et même absolument continue.
+
+\medskip
+\noindent\textbf{(e)} L'estimation de (b) donne, si $T$ est d'ordre $m$ : $|\langle S,\varphi\rangle|\le C\norm\Psi_{m,\tilde K}$ ; or $\norm\Psi_{m,\tilde K}$ ne fait intervenir que $\Psi,\dots,\Psi^{(m)}$, c'est-à-dire $\Psi$ et $\psi,\dots,\psi^{(m-1)}$, contrôlées par $\norm\varphi_{m-1,K}$ si $m\ge1$ (et par $\norm\varphi_\infty$ si $m=0$). Donc \emph{une primitive d'une distribution d'ordre $m\ge1$ est d'ordre $\le m-1$}, et une primitive d'une distribution d'ordre $0$ est d'ordre $0$ ; l'intégration \emph{régularise}, d'un cran. Exemples : les primitives de $\delta_0$ sont $h+c$, d'ordre $0$ (fonctions) ; celles de $\delta_0'$ sont $\delta_0+c$, d'ordre $0$. En sens inverse, la dérivation fait monter l'ordre d'au plus $1$ (Proposition~6.3), et exactement de $1$ pour $\delta_0^{(k)}$ (TD0 ch.~6).
+\end{solution}
+
+\begin{commentaire}
+C'est le Lemme~6.3 en dimension $1$ (les fonctions tests d'intégrale nulle sont exactement les dérivées de fonctions tests), transformé en \emph{construction} d'une primitive : on ne peut pas poser « $\langle S,\varphi\rangle=-\langle T,\int\varphi\rangle$ » car $\int_{-\infty}^x\varphi$ n'est pas à support compact ; on corrige $\varphi$ par un multiple de $\theta$ pour rendre l'intégrale nulle, et c'est le Théorème~6.4 qui garantit que le choix de $\theta$ ne change $S$ que d'une constante. Le point (d) est la version distributionnelle du théorème fondamental de l'analyse : il dit que l'équation $U'=g$ n'a pas d'autres solutions dans $\D'$ que les solutions « classiques » (absolument continues), même pour $g$ seulement localement intégrable — à comparer avec l'Exemple~6.10 et le TD0 ch.~6.
+\end{commentaire}
+
+\section*{Multiplication, support, valeur principale}
+
+% =====================================================================
+\begin{exo}{Exercice 6 -- Équations $xT=\dots$ et distributions à support ponctuel}
+On rappelle (TD0 ch.~6, lemme d'Hadamard) que si $\varphi\in\D(\R)$ vérifie $\varphi(0)=0$, alors $\varphi=x\psi$ avec $\psi\in\D(\R)$, et que les solutions de $xT=0$ sont les $c\delta_0$.
+\begin{enumerate}[label=(\alph*)]
+  \item Résoudre dans $\D'(\R)$ : $xT=\delta_0$ ; puis $x^2T=0$ ; puis $x^kT=0$ ($k\ge1$).
+  \item Soient $a\ne b$. Résoudre $(x-a)(x-b)T=0$. \emph{Indication : écrire $T=\theta T+(1-\theta)T$ avec $\theta\in\D(\R)$ valant $1$ près de $a$ et $0$ près de $b$, et observer que $x-b$ est « inversible » sur le support de $\theta$.}
+  \item On dit que $T\in\D'(\Omega)$ est \emph{nulle sur l'ouvert} $U\subset\Omega$ si $\langle T,\varphi\rangle=0$ pour toute $\varphi\in\D(U)$. Montrer, à l'aide du Corollaire~6.1, que si $T$ est nulle sur chaque ouvert d'une famille $(U_i)_{i\in I}$, elle est nulle sur $\bigcup_iU_i$. On définit le \emph{support} de $T$ comme le complémentaire du plus grand ouvert sur lequel $T$ est nulle. Déterminer les supports de $T_f$ ($f$ continue), de $\delta_a^{(k)}$, de $\mathrm{vp}(1/x)$.
+  \item Soit $T\in\D'(\R)$ de support $\{0\}$ et d'ordre $\le m$ (une distribution à support compact est d'ordre fini, TD0 ch.~6). Montrer que $x^{m+1}T=0$, puis que $T=\sum_{j=0}^mc_j\delta_0^{(j)}$. \emph{Indication : pour $\varphi\in\D(\R)$, écrire $\langle T,x^{m+1}\varphi\rangle=\langle T,\chi_\varepsilon x^{m+1}\varphi\rangle$ avec $\chi_\varepsilon(x)=\chi(x/\varepsilon)$, et faire $\varepsilon\to0$.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{$xT=\delta_0$.} Une solution particulière : $x\delta_0'=-\delta_0$ (TD0 ch.~6), donc $T_0:=-\delta_0'$ convient. Les solutions sont $T_0+$ (solutions de $xT=0$) $=-\delta_0'+c\delta_0$.
+
+\emph{$x^2T=0$.} Posons $U:=xT$ ; alors $xU=0$, donc $U=c\delta_0$, soit $xT=c\delta_0$ : par ce qui précède, $T=-c\delta_0'+c'\delta_0$. Réciproquement $x^2\delta_0=0$ et $x^2\delta_0'=x(x\delta_0')=-x\delta_0=0$. Les solutions sont $\Vect(\delta_0,\delta_0')$.
+
+\emph{$x^kT=0$.} Par récurrence, les solutions sont $\Vect(\delta_0,\dots,\delta_0^{(k-1)})$ : si $x^kT=0$, alors $U:=xT$ vérifie $x^{k-1}U=0$, donc $U=\sum_{j<k-1}a_j\delta_0^{(j)}$ ; comme $x\delta_0^{(j+1)}=-(j+1)\delta_0^{(j)}$ (Leibniz : $(x\delta_0^{(j)})'=\delta_0^{(j)}+x\delta_0^{(j+1)}$, et par récurrence $x\delta_0^{(j)}=-j\delta_0^{(j-1)}$), une solution particulière de $xT=U$ est $-\sum_j\frac{a_j}{j+1}\delta_0^{(j+1)}$, et l'on ajoute $c\delta_0$. Réciproquement $x^k\delta_0^{(j)}=0$ pour $j<k$ : $\langle x^k\delta_0^{(j)},\varphi\rangle=(-1)^j(x^k\varphi)^{(j)}(0)=0$ car toutes les dérivées d'ordre $<k$ de $x^k\varphi$ s'annulent en $0$ (Leibniz).
+
+\medskip
+\noindent\textbf{(b)} Soit $\theta\in\D(\R)$ valant $1$ sur un voisinage $]a-r,a+r[$ de $a$ et à support dans $]a-2r,a+2r[$, avec $2r<|b-a|$ (Lemme~6.1 ou Exercice~1(c)). Écrivons $T=\theta T+(1-\theta)T$.
+
+\emph{Le morceau $\theta T$.} On a $(x-a)(x-b)\theta T=\theta(x-a)(x-b)T=0$ (la multiplication par des fonctions lisses est commutative et associative : $\langle fgT,\varphi\rangle=\langle T,fg\varphi\rangle$). Soit $\eta\in\Cinf(\R)$ égale à $\frac1{x-b}$ sur $[a-2r,a+2r]$ (prolonger arbitrairement de façon lisse hors de cet intervalle, par exemple $\eta:=\tilde\theta/(x-b)$ avec $\tilde\theta$ plateau valant $1$ sur $[a-2r,a+2r]$ et nulle près de $b$). Alors $\eta(x-b)\theta=\theta$ (égalité de fonctions : vraie sur $\supp\theta$ où $\eta(x-b)=1$, et les deux membres sont nuls ailleurs), donc $(x-a)\theta T=\eta(x-b)(x-a)\theta T=0$. Par translation ($\tau_{-a}$ transforme $(x-a)S=0$ en $xS=0$, Exercice~6.3), $\theta T=\alpha\delta_a$.
+
+\emph{Le morceau $(1-\theta)T$.} De même, $(1-\theta)$ est nulle sur $]a-r,a+r[$, et $x-a$ est inversible sur le fermé $\{|x-a|\ge r\}\supset\supp(1-\theta)$ : avec $\zeta\in\Cinf$ égale à $\frac1{x-a}$ sur $\{|x-a|\ge r\}$, on a $\zeta(x-a)(1-\theta)=(1-\theta)$ et $(x-b)(1-\theta)T=\zeta(x-a)(x-b)(1-\theta)T=0$, donc $(1-\theta)T=\beta\delta_b$.
+
+Conclusion : $T=\alpha\delta_a+\beta\delta_b$, et réciproquement ces distributions conviennent ($(x-a)\delta_a=0$, TD0 ch.~6). Les solutions forment un espace de dimension $2$, comme pour l'équation $x^2T=0$ mais avec deux Dirac distincts au lieu de $\delta_0,\delta_0'$ : quand $b\to a$, $\frac{\delta_b-\delta_a}{b-a}\wk-\delta_a'$ (Exercice~3(c)), et $\Vect(\delta_a,\delta_b)$ « tend » vers $\Vect(\delta_a,\delta_a')$ : c'est cohérent.
+
+\medskip
+\noindent\textbf{(c)} Soit $\varphi\in\D(\bigcup_iU_i)$, de support compact $K$. Par compacité, $K\subset U_{i_1}\cup\dots\cup U_{i_N}$. Le Corollaire~6.1 fournit $\eta_k\in\D(U_{i_k})$, $1\le k\le N$, avec $\sum\eta_k=1$ sur un voisinage de $K$. Alors $\varphi=\sum_k\eta_k\varphi$ (égalité sur le voisinage de $K$, et les deux membres sont nuls hors de $K$), avec $\eta_k\varphi\in\D(U_{i_k})$, donc $\langle T,\varphi\rangle=\sum_k\langle T,\eta_k\varphi\rangle=0$. Ainsi la réunion de tous les ouverts où $T$ est nulle est encore un ouvert où $T$ est nulle : c'est le plus grand, et le support est bien défini (fermé de $\Omega$).
+
+\emph{Supports.} $\supp T_f=\supp f=\overline{\{f\ne0\}}$ pour $f$ continue : si $U$ est un ouvert où $f\ne0$ quelque part, prendre $\varphi\ge0$ une bosse autour d'un point où $f\ne0$ (assez petite pour que $f$ y garde un signe constant, par continuité) : $\int f\varphi\ne0$ ; et $T_f$ est nulle sur l'ouvert $\{f=0\}^\circ$ évidemment. $\supp\delta_a^{(k)}=\{a\}$ : nulle sur $\R\setminus\{a\}$, pas sur un ouvert contenant $a$ (prendre $\varphi$ avec $\varphi^{(k)}(a)\ne0$). $\supp\mathrm{vp}(1/x)=\R$ : sur tout ouvert $U$, si $U\not\ni0$, $\mathrm{vp}(1/x)$ y coïncide avec la fonction $1/x$ qui ne s'annule pas ; si $0\in U$, $U$ contient un intervalle $]0,r[$ où l'argument précédent s'applique.
+
+\medskip
+\noindent\textbf{(d)} \emph{$x^{m+1}T=0$.} Soit $\chi\in\D(]-1,1[)$ valant $1$ sur $[-\frac12,\frac12]$, $\chi_\varepsilon:=\chi(\cdot/\varepsilon)$, et $\varphi\in\D(\R)$. La fonction $(1-\chi_\varepsilon)x^{m+1}\varphi$ est une fonction test nulle sur $]-\varepsilon/2,\varepsilon/2[$, donc à support dans $\R\setminus\{0\}$ où $T$ est nulle : $\langle T,x^{m+1}\varphi\rangle=\langle T,\chi_\varepsilon x^{m+1}\varphi\rangle$ pour tout $\varepsilon\in]0,1]$. Comme $T$ est d'ordre $\le m$ et que $\chi_\varepsilon x^{m+1}\varphi\in\D_{[-1,1]}$, il existe $C$ (indépendante de $\varepsilon$) avec $|\langle T,x^{m+1}\varphi\rangle|\le C\norm{\chi_\varepsilon x^{m+1}\varphi}_{m,[-1,1]}$. Estimons, pour $j\le m$, par Leibniz :
+\[
+(\chi_\varepsilon x^{m+1}\varphi)^{(j)}=\sum_{i=0}^j\binom ji\varepsilon^{-i}\chi^{(i)}(x/\varepsilon)\,(x^{m+1}\varphi)^{(j-i)}(x).
+\]
+Sur le support de $\chi_\varepsilon$, $|x|\le\varepsilon$, et $(x^{m+1}\varphi)^{(j-i)}$ est une combinaison de termes $x^{m+1-l}\varphi^{(j-i-l)}$ ($l\le j-i\le m$), chacun majoré par $\varepsilon^{m+1-l}\norm\varphi_{m,\R}\cdot(m+1)!$ ; donc $|(x^{m+1}\varphi)^{(j-i)}(x)|\le C'\varepsilon^{m+1-(j-i)}$ pour $|x|\le\varepsilon$. Au total $|(\chi_\varepsilon x^{m+1}\varphi)^{(j)}|\le C''\sum_i\varepsilon^{-i}\varepsilon^{m+1-j+i}=C'''\varepsilon^{m+1-j}\le C'''\varepsilon$ pour $j\le m$. Donc $|\langle T,x^{m+1}\varphi\rangle|\le C\,C'''\varepsilon\to0$ : $x^{m+1}T=0$.
+
+\emph{Conclusion.} Par (a), $T\in\Vect(\delta_0,\dots,\delta_0^{(m)})$. (On peut aussi conclure directement : par Taylor et Hadamard itéré, $\varphi=\sum_{j\le m}\frac{\varphi^{(j)}(0)}{j!}x^j\chi+x^{m+1}\psi$ avec $\psi\in\D$, d'où $\langle T,\varphi\rangle=\sum_j\frac{\langle T,x^j\chi\rangle}{j!}\varphi^{(j)}(0)$.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Localiser avec une fonction plateau.} Pour résoudre une équation $fT=0$ avec $f$ lisse ayant des zéros isolés, on découpe $T$ par une partition de l'unité adaptée aux zéros ; sur chaque morceau, $f$ est le produit d'un facteur « inversible » (que l'on absorbe grâce à une fonction lisse $\eta$ qui coïncide avec $1/f$ sur le support du morceau) et du facteur $(x-a)^k$, et l'on est ramené à $x^kS=0$. Deux faits rendent cela licite : la multiplication par les fonctions lisses est commutative et associative, et une fonction lisse n'agit sur $\theta T$ qu'à travers ses valeurs sur $\supp\theta$. Le résultat (d) — \emph{une distribution à support ponctuel est une combinaison finie de dérivées de Dirac} — est le théorème de structure le plus utile du chapitre ; l'argument de dilatation $\chi_\varepsilon$ est le même que pour l'ordre de $\delta_0^{(k)}$, lu à l'envers.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Valeur principale, partie finie, formule de Sokhotski--Plemelj}
+\begin{enumerate}[label=(\alph*)]
+  \item On pose $\mathrm{Pf}(1/x^2):=-\big(\mathrm{vp}(1/x)\big)'$. Montrer que pour $\varphi\in\D(\R)$,
+  \[
+  \big\langle\mathrm{Pf}(1/x^2),\varphi\big\rangle=\lim_{\varepsilon\to0}\Big(\int_{|x|>\varepsilon}\frac{\varphi(x)}{x^2}\,dx-\frac{2\varphi(0)}\varepsilon\Big)=\int_\R\frac{\varphi(x)-\varphi(0)-x\varphi'(0)\mathbf 1_{|x|<1}}{x^2}\,dx .
+  \]
+  \item Montrer que $x\,\mathrm{Pf}(1/x^2)=\mathrm{vp}(1/x)$ et $x^2\,\mathrm{Pf}(1/x^2)=1$. Quelles sont toutes les solutions de $x^2T=1$ ?
+  \item Résoudre dans $\D'(\R)$ l'équation $xT'+T=0$.
+  \item (Sokhotski--Plemelj.) Pour $\varepsilon>0$, soit $f_\varepsilon(x):=\dfrac1{x-i\varepsilon}$. Montrer que $f_\varepsilon\in L^1_{\mathrm{loc}}(\R)$ et que
+  \[
+  f_\varepsilon\xrightarrow[\varepsilon\to0^+]{}\mathrm{vp}(1/x)+i\pi\delta_0\quad\text{dans }\D'(\R).
+  \]
+  En déduire la limite de $\frac1{x+i\varepsilon}$, et retrouver $x\,\mathrm{vp}(1/x)=1$.
+  \item Montrer que $\mathrm{vp}(1/x)$ est la limite dans $\D'(\R)$ de $\dfrac{x}{x^2+\varepsilon^2}$, et que $\delta_0$ est la limite de $\dfrac1\pi\dfrac{\varepsilon}{x^2+\varepsilon^2}$ (noyau de Poisson).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Par définition, $\langle\mathrm{Pf}(1/x^2),\varphi\rangle=\langle\mathrm{vp}(1/x),\varphi'\rangle=\lim_{\varepsilon\to0}\int_{|x|>\varepsilon}\frac{\varphi'(x)}x\,dx$. Intégrons par parties sur $[\varepsilon,R]$ et $[-R,-\varepsilon]$ ($\supp\varphi\subset[-R,R]$) :
+\[
+\int_\varepsilon^R\frac{\varphi'(x)}x\,dx=\Big[\frac{\varphi(x)}x\Big]_\varepsilon^R+\int_\varepsilon^R\frac{\varphi(x)}{x^2}\,dx=-\frac{\varphi(\varepsilon)}\varepsilon+\int_\varepsilon^R\frac{\varphi}{x^2},\qquad
+\int_{-R}^{-\varepsilon}\frac{\varphi'(x)}x\,dx=\frac{\varphi(-\varepsilon)}{-\varepsilon}+\int_{-R}^{-\varepsilon}\frac\varphi{x^2}.
+\]
+Somme : $\int_{|x|>\varepsilon}\frac\varphi{x^2}-\frac{\varphi(\varepsilon)+\varphi(-\varepsilon)}\varepsilon$. Or $\varphi(\varepsilon)+\varphi(-\varepsilon)=2\varphi(0)+O(\varepsilon^2)$ (Taylor à l'ordre $2$, les termes impairs se compensant), donc $\frac{\varphi(\varepsilon)+\varphi(-\varepsilon)}\varepsilon=\frac{2\varphi(0)}\varepsilon+O(\varepsilon)$, et la première formule suit. Pour la seconde : $\int_{|x|>\varepsilon}\frac{\varphi(x)-\varphi(0)-x\varphi'(0)\mathbf 1_{|x|<1}}{x^2}\,dx=\int_{|x|>\varepsilon}\frac\varphi{x^2}-\varphi(0)\int_{|x|>\varepsilon}\frac{dx}{x^2}-\varphi'(0)\int_{\varepsilon<|x|<1}\frac{dx}x$ ; la dernière intégrale est nulle (imparité), $\int_{|x|>\varepsilon}x^{-2}\,dx=2/\varepsilon$, et l'intégrande de gauche est intégrable sur $\R$ (il est $O(1)$ près de $0$ par Taylor, et $O(x^{-2})$ à l'infini) : on peut faire $\varepsilon\to0$ par convergence dominée, ce qui donne l'égalité des deux expressions.
+
+\medskip
+\noindent\textbf{(b)} $\langle x\,\mathrm{Pf}(1/x^2),\varphi\rangle=\langle\mathrm{Pf}(1/x^2),x\varphi\rangle=\lim_\varepsilon\big(\int_{|x|>\varepsilon}\frac{x\varphi}{x^2}-\frac{2\cdot0}\varepsilon\big)=\lim_\varepsilon\int_{|x|>\varepsilon}\frac\varphi x=\langle\mathrm{vp}(1/x),\varphi\rangle$ (la fonction $x\varphi$ s'annule en $0$). Puis $x^2\mathrm{Pf}(1/x^2)=x\,\mathrm{vp}(1/x)=1$. Les solutions de $x^2T=1$ sont $\mathrm{Pf}(1/x^2)+a\delta_0+b\delta_0'$ (Exercice~6(a)). Autre vérification de $x\,\mathrm{Pf}(1/x^2)=\mathrm{vp}(1/x)$ par Leibniz : $(x\,\mathrm{vp}(1/x))'=\mathrm{vp}(1/x)+x\,\mathrm{vp}(1/x)'$, et le membre de gauche est $1'=0$, donc $x\,\mathrm{vp}(1/x)'=-\mathrm{vp}(1/x)$, soit $x\,\mathrm{Pf}(1/x^2)=\mathrm{vp}(1/x)$.
+
+\medskip
+\noindent\textbf{(c)} Par Leibniz, $xT'+T=(xT)'$. L'équation équivaut à $(xT)'=0$, soit $xT=c$ (Théorème~6.4), soit $T=c\,\mathrm{vp}(1/x)+d\,\delta_0$ (TD0 ch.~6 : solutions de $xT=1$ et de $xT=0$). Vérification directe : $x\,\delta_0'+\delta_0=0$ et $x\,\mathrm{vp}(1/x)'+\mathrm{vp}(1/x)=-\mathrm{vp}(1/x)+\mathrm{vp}(1/x)=0$. C'est l'équation d'Euler $xy'+y=0$, dont les solutions classiques sur $\R^\star$ sont $c/x$ ; au sens des distributions, $1/x$ doit être lu comme $\mathrm{vp}(1/x)$, et il apparaît une solution supplémentaire $\delta_0$, « concentrée » au point singulier de l'équation.
+
+\medskip
+\noindent\textbf{(d)} $|f_\varepsilon(x)|=(x^2+\varepsilon^2)^{-1/2}\le1/\varepsilon$ : $f_\varepsilon$ est continue bornée, donc $L^1_{\mathrm{loc}}$. Écrivons $\frac1{x-i\varepsilon}=\frac{x+i\varepsilon}{x^2+\varepsilon^2}=\frac x{x^2+\varepsilon^2}+i\frac\varepsilon{x^2+\varepsilon^2}$, et traitons les deux termes, ce qui est exactement (e).
+
+\emph{Partie imaginaire.} $P_\varepsilon(x):=\frac1\pi\frac\varepsilon{x^2+\varepsilon^2}=\varepsilon^{-1}P(x/\varepsilon)$ avec $P(u)=\frac1{\pi(1+u^2)}$, positive d'intégrale $1$ ($\int\frac{du}{1+u^2}=\pi$). Pour $\varphi\in\D(\R)$, $\int P_\varepsilon\varphi=\int P(u)\varphi(\varepsilon u)\,du\to\varphi(0)\int P=\varphi(0)$ par convergence dominée ($|P(u)\varphi(\varepsilon u)|\le\norm\varphi_\infty P(u)\in L^1$). Donc $P_\varepsilon\wk\delta_0$, et $\frac\varepsilon{x^2+\varepsilon^2}\wk\pi\delta_0$. (C'est une approximation de l'unité au sens de la Définition~3.4, issue de $P\in L^1$ non à support compact ; l'Exercice~3.8 s'appliquerait, mais le calcul direct est plus simple.)
+
+\emph{Partie réelle.} $Q_\varepsilon(x):=\frac x{x^2+\varepsilon^2}$ est impaire, donc $\int_{-R}^RQ_\varepsilon=0$, et pour $\supp\varphi\subset[-R,R]$ :
+\[
+\int Q_\varepsilon\varphi=\int_{-R}^RQ_\varepsilon(x)(\varphi(x)-\varphi(0))\,dx=\int_{-R}^R\frac{x^2}{x^2+\varepsilon^2}\cdot\frac{\varphi(x)-\varphi(0)}x\,dx .
+\]
+L'intégrande est majoré par $\big|\frac{\varphi(x)-\varphi(0)}x\big|\le\norm{\varphi'}_\infty$ (accroissements finis), intégrable sur $[-R,R]$, et converge simplement vers $\frac{\varphi(x)-\varphi(0)}x$ pour $x\ne0$. Par convergence dominée,
+\[
+\int Q_\varepsilon\varphi\longrightarrow\int_{-R}^R\frac{\varphi(x)-\varphi(0)}x\,dx=\langle\mathrm{vp}(1/x),\varphi\rangle
+\]
+(c'est la formule du polycopié avant la Définition~6.6 : $\mathrm{vp}\int\frac\varphi x=\int_{-R}^R\frac{\varphi(x)-\varphi(0)}x\,dx$, l'intégrande étant prolongeable en une fonction continue). Donc $Q_\varepsilon\wk\mathrm{vp}(1/x)$.
+
+\emph{Conclusion.} $f_\varepsilon=Q_\varepsilon+i\pi P_\varepsilon\wk\mathrm{vp}(1/x)+i\pi\delta_0$. En conjuguant, $\frac1{x+i\varepsilon}=Q_\varepsilon-i\pi P_\varepsilon\wk\mathrm{vp}(1/x)-i\pi\delta_0$. Enfin $x\cdot\frac1{x-i\varepsilon}=1+\frac{i\varepsilon}{x-i\varepsilon}$, et $\big|\frac{i\varepsilon}{x-i\varepsilon}\big|\le1$ avec convergence simple vers $0$ pour $x\ne0$, donc $\frac{i\varepsilon}{x-i\varepsilon}\wk0$ (convergence dominée) ; la multiplication par $x$ étant continue sur $\D'$, $x\big(\mathrm{vp}(1/x)+i\pi\delta_0\big)=1$, et comme $x\delta_0=0$, $x\,\mathrm{vp}(1/x)=1$.
+
+\medskip
+\noindent\textbf{(e)} Déjà fait en (d).
+\end{solution}
+
+\begin{commentaire}
+La formule de Sokhotski--Plemelj $\frac1{x\mp i0}=\mathrm{vp}\frac1x\pm i\pi\delta_0$ est le pont entre la valeur principale et l'analyse complexe (valeurs au bord de la fonction holomorphe $1/z$) ; elle est omniprésente en physique (fonctions de Green, relations de Kramers--Kronig). On y voit aussi que $\mathrm{vp}(1/x)$ n'est pas la seule « régularisation » naturelle de $1/x$ : $\frac1{x\mp i0}$ en sont deux autres, qui en diffèrent par un multiple de $\delta_0$ — exactement l'indétermination des solutions de $xT=1$. La partie finie $\mathrm{Pf}(1/x^2)$ est le second étage de la même construction (Hadamard) : soustraire à l'intégrale divergente son développement en $\varepsilon$, et ne garder que la partie finie ; ses solutions compagnes sont celles de $x^2T=0$.
+\end{commentaire}
+
+\section*{Convolution, solutions fondamentales, dimension supérieure}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Convolution et solutions fondamentales}
+Soit $\psi\in\D(\R)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer $\psi\star\delta_a$, $\psi\star\delta_0^{(k)}$, $\psi\star h$ et $\psi\star\mathbf 1_{[a,b]}$ (comme fonctions lisses, Proposition~6.10).
+  \item Soit $E\in\D'(\R)$ une solution fondamentale de $P(\frac d{dx})=\sum_{j\le n}a_j\frac{d^j}{dx^j}$ ($a_j\in\C$), \ie\ $P(\frac d{dx})E=\delta_0$. Montrer que $u:=\psi\star E$ est une fonction lisse vérifiant $P(\frac d{dx})u=\psi$.
+  \item Avec $E=he^{-x}$ (TD0 ch.~6) puis $E=h\sin x$ (Exercice~4), expliciter la solution $u$ de $u'+u=\psi$ puis de $u''+u=\psi$ ainsi obtenue. Quelle propriété supplémentaire a cette solution parmi toutes les solutions ?
+  \item Montrer que si $T\in\D'(\R)$ vérifie $T'+T=0$ alors $T=ce^{-x}$, et en déduire que $u=\psi\star(he^{-x})$ est l'unique solution de $u'+u=\psi$ nulle au voisinage de $-\infty$.
+  \item Soit $T\in\D'(\R)$ et $\psi\in\D(\R)$. Montrer que $(\psi\star T)'=\psi'\star T=\psi\star T'$, puis que $\supp(\psi\star T)\subset\supp\psi+\supp T$ (somme de Minkowski). Que peut-on dire de $\psi\star T$ lorsque $\supp T$ est compact ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Par la Proposition~6.10, $\psi\star T$ est la fonction lisse $x\mapsto\langle T,\psi(x-\cdot)\rangle$ : en effet, pour $\varphi\in\D$, $\langle\psi\star T,\varphi\rangle=\langle T,\varphi\star\check\psi\rangle$ avec $(\varphi\star\check\psi)(y)=\int\varphi(x)\psi(x-y)\,dx$, et l'on admet (c'est le contenu de la preuve de la Proposition~6.10, par Fubini pour les distributions-fonctions, et par densité en général) que $\langle T,\int\varphi(x)\psi(x-\cdot)\,dx\rangle=\int\varphi(x)\langle T,\psi(x-\cdot)\rangle\,dx$. Pour les distributions ci-dessous on peut vérifier directement cette formule, et l'on obtient :
+\begin{itemize}
+  \item $\psi\star\delta_a=\psi(x-a)=\tau_a\psi$ : en effet $\langle\psi\star\delta_a,\varphi\rangle=(\varphi\star\check\psi)(a)=\int\varphi(x)\psi(x-a)\,dx$.
+  \item $\psi\star\delta_0^{(k)}=\psi^{(k)}$ :
+  \[
+  \langle\delta_0^{(k)},\varphi\star\check\psi\rangle=(-1)^k(\varphi\star\check\psi)^{(k)}(0)=(-1)^k(\varphi\star\check\psi^{(k)})(0)=(-1)^k\int\varphi(x)\check\psi^{(k)}(-x)\,dx\ ;
+  \]
+  or $\check\psi^{(k)}(y)=(-1)^k\psi^{(k)}(-y)$, d'où $\int\varphi(x)\psi^{(k)}(x)\,dx$.
+  \item $\psi\star h$ : $(\psi\star h)(x)=\int h(x-y)\psi(y)\,dy=\int_{-\infty}^x\psi(y)\,dy$, la primitive de $\psi$ nulle en $-\infty$. (Pour une fonction $T=T_f$, $\psi\star T_f=T_{\psi\star f}$, Exercice~6.4.)
+  \item $\psi\star\mathbf 1_{[a,b]}=\int_{x-b}^{x-a}\psi(y)\,dy=\Psi(x-a)-\Psi(x-b)$ avec $\Psi$ la primitive ci-dessus : une « moyenne glissante ».
+\end{itemize}
+
+\medskip
+\noindent\textbf{(b)} $u=\psi\star E$ est lisse (Proposition~6.10) et, par la même proposition, $\frac{d^j}{dx^j}(\psi\star E)=\psi\star E^{(j)}$ ; par linéarité, $P(\frac d{dx})u=\psi\star P(\frac d{dx})E=\psi\star\delta_0=\psi$ (Exemple~6.13).
+
+\medskip
+\noindent\textbf{(c)} $u(x)=(\psi\star he^{-x})(x)=\int h(x-y)e^{-(x-y)}\psi(y)\,dy=\int_{-\infty}^xe^{-(x-y)}\psi(y)\,dy$ : c'est la formule de variation de la constante avec « condition initiale en $-\infty$ ». De même $u(x)=\int_{-\infty}^x\sin(x-y)\psi(y)\,dy$ résout $u''+u=\psi$. Propriété supplémentaire : $u$ est nulle à gauche du support de $\psi$ ($u(x)=0$ si $x<\min\supp\psi$), ce que (e) exprime par $\supp u\subset\supp\psi+\R_+$. C'est la solution \emph{causale} : la réponse ne précède pas la source.
+
+\medskip
+\noindent\textbf{(d)} $(e^xT)'=e^x(T'+T)=0$ par Leibniz, donc $e^xT=c$ et $T=ce^{-x}$ (multiplier par $e^{-x}$). Si $u_1,u_2$ sont deux solutions de $u'+u=\psi$ nulles au voisinage de $-\infty$, $u_1-u_2=ce^{-x}$ est nulle au voisinage de $-\infty$, donc $c=0$.
+
+\medskip
+\noindent\textbf{(e)} $\langle(\psi\star T)',\varphi\rangle=-\langle T,\varphi'\star\check\psi\rangle$. Or $\varphi'\star\check\psi=(\varphi\star\check\psi)'=\varphi\star(\check\psi)'=-\varphi\star\check{(\psi')}$ (dérivée d'une convolution ; et $(\check\psi)'(y)=-\psi'(-y)$). Donc $\langle(\psi\star T)',\varphi\rangle=-\langle T,(\varphi\star\check\psi)'\rangle=\langle T',\varphi\star\check\psi\rangle=\langle\psi\star T',\varphi\rangle$, et aussi $=\langle T,\varphi\star\check{(\psi')}\rangle=\langle\psi'\star T,\varphi\rangle$.
+
+\emph{Support.} Soit $x\notin\supp\psi+\supp T$ (ce dernier ensemble est fermé si l'un des deux supports est compact — ici $\supp\psi$ l'est : somme d'un compact et d'un fermé). Alors $y\mapsto\psi(x-y)$ a son support dans $x-\supp\psi$, qui ne rencontre pas $\supp T$, donc $(\psi\star T)(x)=\langle T,\psi(x-\cdot)\rangle=0$ ; mieux, cela vaut pour tout $x'$ dans l'ouvert $\R\setminus(\supp\psi+\supp T)$, sur lequel $\psi\star T$ est donc nulle. Si $\supp T$ est compact, $\supp\psi+\supp T$ est compact (image continue de $\supp\psi\times\supp T$), donc $\psi\star T$ est une fonction lisse à support compact : \emph{une fonction test}. C'est ce qui rend licite, dans la preuve du lemme de Weyl, l'écriture de $\psi\star(\eta S)$ comme fonction test. Attention : l'inclusion des supports peut être stricte, et $\psi\star T=0$ n'a aucune raison de se produire « parce que les supports sont loin » : $\psi\star\delta_0=\psi$ quel que soit $\supp\psi$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{$E\star\psi$ résout $P(\frac d{dx})u=\psi$.} C'est la raison d'être des solutions fondamentales : résoudre l'équation une fois pour toutes avec le second membre le plus concentré possible ($\delta_0$), puis superposer, la linéarité de l'équation et la commutation de $P(\frac d{dx})$ avec la convolution faisant le reste. Le même principe vaut pour le laplacien (Exercice~9) et pour toutes les équations à coefficients constants ; en dimension $1$ la solution fondamentale $h\cdot y$ est causale, ce qui sélectionne la solution « physique ».
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 9 -- Quelques calculs en dimension $d\ge2$}
+\begin{enumerate}[label=(\alph*)]
+  \item Dans $\R^2$, soit $Q:=\{x_1>0,\ x_2>0\}$ et $T:=\mathbf 1_Q$. Calculer $\partial_1T$ et $\partial_1\partial_2T$.
+  \item Dans $\R^2$, soit $H:=\mathbf 1_{\{x_1>0\}}$. Calculer $\partial_1H$ et $\partial_2H$, et montrer que $\partial_1H$ n'est pas une fonction.
+  \item Soit $E(x):=-\dfrac1{4\pi\norm x}$ sur $\R^3$. On sait que $\Delta E=\delta_0$ (Proposition~6.5). Pour $\psi\in\D(\R^3)$ on pose $u:=\psi\star E$, \ie\ $u(x)=-\dfrac1{4\pi}\displaystyle\int_{\R^3}\frac{\psi(y)}{\norm{x-y}}\,dy$ (potentiel newtonien). Montrer que $u\in\Cinf(\R^3)$, que $\Delta u=\psi$, et que $u(x)=O(1/\norm x)$ à l'infini.
+  \item En déduire que si $v\in\D'(\R^3)$ vérifie $\Delta v=\psi$, alors $v-u$ est une fonction lisse harmonique ; et que $u$ est l'unique solution de $\Delta v=\psi$ qui soit une fonction lisse tendant vers $0$ à l'infini et dont les dérivées premières sont dans $L^2(\R^3)$. \emph{On utilisera le Corollaire~6.3.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $\varphi\in\D(\R^2)$ : $\langle\partial_1T,\varphi\rangle=-\int_Q\partial_1\varphi=-\int_0^\infty\Big(\int_0^\infty\partial_1\varphi(x_1,x_2)\,dx_1\Big)dx_2=\int_0^\infty\varphi(0,x_2)\,dx_2$. Donc $\partial_1T$ est la mesure « longueur sur la demi-droite $\{0\}\times\R_+$ » (comparer avec l'Exemple~6.7). Puis $\langle\partial_1\partial_2T,\varphi\rangle=-\langle\partial_1T,\partial_2\varphi\rangle=-\int_0^\infty\partial_2\varphi(0,x_2)\,dx_2=\varphi(0,0)$ : $\partial_1\partial_2\mathbf 1_Q=\delta_0$. C'est la version bidimensionnelle de $h'=\delta_0$ : $\mathbf 1_Q=h(x_1)h(x_2)$ et $\partial_1\partial_2(h\otimes h)=h'\otimes h'=\delta_0\otimes\delta_0$.
+
+\medskip
+\noindent\textbf{(b)} $\langle\partial_1H,\varphi\rangle=-\int_{x_1>0}\partial_1\varphi=\int_\R\varphi(0,x_2)\,dx_2=:\langle\Lambda,\varphi\rangle$, la mesure de longueur sur l'axe $\{x_1=0\}$ ; et $\langle\partial_2H,\varphi\rangle=-\int_{x_1>0}\partial_2\varphi=-\int_0^\infty\big[\varphi(x_1,\cdot)\big]_{-\infty}^{+\infty}dx_1=0$. \emph{$\Lambda$ n'est pas une fonction :} même argument que pour l'Exemple~6.7 (TD0 ch.~6) : $\Lambda$ est nulle sur l'ouvert $\{x_1\ne0\}$ ; si $\Lambda=T_g$, le lemme de du Bois-Reymond sur cet ouvert donne $g=0$ p.p. sur $\{x_1\ne0\}$, donc p.p. sur $\R^2$ (l'axe est négligeable), donc $\Lambda=0$ ; mais $\Lambda(\varphi)>0$ pour $\varphi\ge0$ non nulle sur l'axe.
+
+\medskip
+\noindent\textbf{(c)} $E\in L^1_{\mathrm{loc}}(\R^3)$ (Proposition~6.5), donc $\psi\star E=\psi\star T_E=T_{\psi\star E}$ avec la convolution usuelle $L^1_{\mathrm{loc}}\star\D$ (Exercice~6.4), et $u(x)=\int\psi(x-y)E(y)\,dy$. Régularité : par dérivation sous l'intégrale (TDS : $y\mapsto\partial^\alpha\psi(x-y)E(y)$ est dominée, pour $x$ dans un borné $B$, par $\norm{\partial^\alpha\psi}_\infty|E|\mathbf 1_{B-\supp\psi}\in L^1$), $u\in\Cinf$ avec $\partial^\alpha u=(\partial^\alpha\psi)\star E$ ; c'est aussi la Proposition~6.10. Alors $\Delta u=(\Delta\psi)\star E=\psi\star\Delta E=\psi\star\delta_0=\psi$ (Proposition~6.10 et Exemple~6.13). Comportement à l'infini : si $\supp\psi\subset\Bf(0,R)$ et $\norm x\ge2R$, alors pour $y\in\supp\psi$, $\norm{x-y}\ge\norm x-R\ge\norm x/2$, donc $|u(x)|\le\frac1{4\pi}\norm\psi_1\cdot\frac2{\norm x}=O(1/\norm x)$. (De même $\nabla u=O(\norm x^{-2})$ en dérivant $1/\norm{x-y}$, d'où $\nabla u\in L^2(\R^3)$ : $\int_{\norm x\ge2R}\norm x^{-4}\,dx<\infty$ en dimension $3$.)
+
+\medskip
+\noindent\textbf{(d)} $\Delta(v-u)=\psi-\psi=0$ : $v-u$ est une distribution harmonique, donc une fonction lisse par le lemme de Weyl (Lemme~6.4). Si de plus $v$ est lisse, tend vers $0$ à l'infini et $\nabla v\in L^2$, alors $w:=v-u$ est lisse harmonique, tend vers $0$ à l'infini (car $u$ aussi) et $\nabla w\in L^2$ (car $\nabla u\in L^2$ par (c)). Le Corollaire~6.3 (Liouville) donne $w$ constante, et la limite nulle à l'infini force $w=0$ : $v=u$.
+\end{solution}
+
+\begin{commentaire}
+Le point (c) est le \emph{potentiel newtonien} : $u$ est le potentiel gravitationnel (ou électrostatique) créé par la densité $\psi$, et $\Delta u=\psi$ est l'équation de Poisson. Le point (d) montre que la décroissance à l'infini joue le rôle de « condition au bord » qui sélectionne la solution physique, exactement comme la causalité en dimension $1$ (Exercice~8). Le lemme de Weyl et le théorème de Liouville sont les deux énoncés de rigidité qui rendent la théorie efficace : chercher une solution dans l'énorme espace $\D'$ ne fait pas apparaître de solutions parasites, seulement des solutions lisses.
+\end{commentaire}
+
+\section*{Distributions périodiques et séries de Fourier}
+
+% =====================================================================
+\begin{exo}{Exercice 10 -- Distributions périodiques}
+On dit que $T\in\D'(\R)$ est \emph{$2\pi$-périodique} si $\tau_{2\pi}T=T$. On fixe $\theta\in\D(\R)$ telle que $\sum_{n\in\Z}\theta(x+2\pi n)=1$ pour tout $x\in\R$ (une telle fonction existe : prendre $\theta:=\theta_0/\Theta_0$ avec $\theta_0$ une bosse positive valant $1$ sur $[0,2\pi]$ et $\Theta_0:=\sum_n\theta_0(\cdot+2\pi n)$, lisse, $2\pi$-périodique et $\ge1$).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T_f$ est $2\pi$-périodique si $f\in L^1_{\mathrm{loc}}$ est $2\pi$-périodique, et que le peigne $\Sha:=\sum_{n\in\Z}\delta_{2\pi n}$ est $2\pi$-périodique. Montrer que les dérivées d'une distribution périodique sont périodiques.
+  \item Soit $\psi\in\D(\R)$ avec $\sum_n\psi(x+2\pi n)=0$ pour tout $x$. Montrer que $\psi=\tau_{2\pi}\chi-\chi$ pour une $\chi\in\D(\R)$. \emph{Indication : $\chi:=\sum_{n\ge1}\psi(\cdot+2\pi n)$.} En déduire que si $T$ est $2\pi$-périodique, $\langle T,\psi g\rangle=0$ pour toute fonction $g\in\Cinf(\R)$ $2\pi$-périodique.
+  \item Pour $T$ $2\pi$-périodique et $k\in\Z$, on pose $c_k(T):=\frac1{2\pi}\langle T,\theta\,e^{-ikx}\rangle$. Montrer que $c_k(T)$ ne dépend pas du choix de $\theta$, et que pour $T=T_f$ on retrouve $c_k(f)=\frac1{2\pi}\int_0^{2\pi}f(x)e^{-ikx}\,dx$. Calculer $c_k(\Sha)$.
+  \item Montrer que $c_k(T')=ik\,c_k(T)$.
+  \item Montrer qu'il existe $m\in\N$ et $C>0$ tels que $|c_k(T)|\le C(1+|k|)^m$ pour tout $k\in\Z$ (croissance polynomiale).
+  \item En déduire que la série $\sum_{k\in\Z}c_k(T)e^{ikx}$ converge dans $\D'(\R)$ (TD0 ch.~6, séries trigonométriques). On admet que sa somme est $T$ (théorème de Fourier pour les distributions périodiques). Vérifier ce résultat sur $\Sha$ à l'aide du TD0 ch.~6 (peigne de Dirac), et sur $T=\Sha'$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $\tau_{2\pi}T_f=T_{\tau_{2\pi}f}$ (Exercice~6.3) et $\tau_{2\pi}f=f(\cdot-2\pi)=f$. Pour le peigne : $\langle\tau_{2\pi}\Sha,\varphi\rangle=\langle\Sha,\varphi(\cdot+2\pi)\rangle=\sum_n\varphi(2\pi n+2\pi)=\sum_n\varphi(2\pi(n+1))=\langle\Sha,\varphi\rangle$ (réindexation d'une somme finie). Dérivées : $\tau_a$ et $\partial$ commutent (Exercice~6.3), donc $\tau_{2\pi}T'=(\tau_{2\pi}T)'=T'$.
+
+\medskip
+\noindent\textbf{(b)} Soit $\supp\psi\subset[-R,R]$ et $\chi(x):=\sum_{n\ge1}\psi(x+2\pi n)$. Pour $x$ fixé, seuls les $n$ avec $|x+2\pi n|\le R$ contribuent : somme localement finie, $\chi$ est lisse. Si $x>R-2\pi$, alors $x+2\pi n>R$ pour tout $n\ge1$ : $\chi(x)=0$. Si $x<-R$, l'hypothèse $\sum_{n\in\Z}\psi(x+2\pi n)=0$ donne $\chi(x)=-\sum_{n\le0}\psi(x+2\pi n)$, et $x+2\pi n\le x<-R$ pour $n\le0$ : $\chi(x)=0$. Donc $\supp\chi\subset[-R,R-2\pi]$, compact : $\chi\in\D(\R)$. (Si $R<\pi$ ce segment est vide, donc $\chi=0$ et $\psi=0$ : en effet $\psi$ et ses translatées ont alors des supports disjoints et l'hypothèse force $\psi=0$.) Enfin $\tau_{2\pi}\chi(x)-\chi(x)=\chi(x-2\pi)-\chi(x)=\sum_{n\ge1}\psi(x+2\pi(n-1))-\sum_{n\ge1}\psi(x+2\pi n)=\psi(x)$ (télescopage : $\sum_{n\ge0}-\sum_{n\ge1}$).
+
+Soit alors $T$ périodique et $g$ lisse $2\pi$-périodique. $\psi g=(\tau_{2\pi}\chi-\chi)g=\tau_{2\pi}(\chi g)-\chi g$ car $g=\tau_{2\pi}g$. Donc $\langle T,\psi g\rangle=\langle T,\tau_{2\pi}(\chi g)\rangle-\langle T,\chi g\rangle=\langle\tau_{-2\pi}T,\chi g\rangle-\langle T,\chi g\rangle=0$, puisque $\tau_{2\pi}T=T$ équivaut à $\tau_{-2\pi}T=T$ (appliquer $\tau_{-2\pi}$, et $\tau_a\tau_b=\tau_{a+b}$).
+
+\medskip
+\noindent\textbf{(c)} Si $\theta_1$ est un autre choix, $\psi:=\theta-\theta_1$ vérifie $\sum_n\psi(x+2\pi n)=1-1=0$, et $e^{-ikx}$ est lisse $2\pi$-périodique : par (b), $\langle T,(\theta-\theta_1)e^{-ikx}\rangle=0$. Pour $T=T_f$ : $\langle T_f,\theta e^{-ikx}\rangle=\int_\R f\theta e^{-ikx}=\sum_n\int_{2\pi n}^{2\pi(n+1)}f(x)\theta(x)e^{-ikx}\,dx=\sum_n\int_0^{2\pi}f(y)\theta(y+2\pi n)e^{-iky}\,dy$ (changement $x=y+2\pi n$, périodicité de $f$ et de $e^{-ikx}$) $=\int_0^{2\pi}f(y)e^{-iky}\Big(\sum_n\theta(y+2\pi n)\Big)dy=\int_0^{2\pi}fe^{-iky}$ (Fubini licite, sommes finies sur $[0,2\pi]$). Pour le peigne : $\langle\Sha,\theta e^{-ikx}\rangle=\sum_n\theta(2\pi n)e^{-2i\pi kn}=\sum_n\theta(2\pi n)=1$, donc $c_k(\Sha)=\frac1{2\pi}$ pour tout $k$.
+
+\medskip
+\noindent\textbf{(d)} $c_k(T')=\frac1{2\pi}\langle T',\theta e^{-ikx}\rangle=-\frac1{2\pi}\langle T,(\theta e^{-ikx})'\rangle=-\frac1{2\pi}\langle T,\theta'e^{-ikx}\rangle+\frac{ik}{2\pi}\langle T,\theta e^{-ikx}\rangle$. Le premier terme est nul par (b) : $\sum_n\theta'(x+2\pi n)=\frac d{dx}\sum_n\theta(x+2\pi n)=0$. Donc $c_k(T')=ik\,c_k(T)$.
+
+\medskip
+\noindent\textbf{(e)} Soit $K:=\supp\theta$, et $C_K,m_K$ les constantes de (6.1) pour $T$. Par Leibniz, $(\theta e^{-ikx})^{(j)}=\sum_{i\le j}\binom ji\theta^{(j-i)}(-ik)^ie^{-ikx}$, donc $\norm{\theta e^{-ikx}}_{m_K,K}\le C'(1+|k|)^{m_K}$. D'où $|c_k(T)|\le\frac{C_KC'}{2\pi}(1+|k|)^{m_K}$.
+
+\medskip
+\noindent\textbf{(f)} Par (e), $|c_k(T)|\lesssim(1+|k|)^m$ ; la série $\sum_kc_k(T)(ik)^{-m-2}e^{ikx}$ (termes $k\ne0$) converge normalement, vers une fonction continue $F$, et
+\[
+\sum_{|k|\le N}c_k(T)e^{ikx}=c_0(T)+\Big(\sum_{0<|k|\le N}c_k(T)(ik)^{-m-2}e^{ikx}\Big)^{(m+2)}\wk c_0(T)+F^{(m+2)}
+\]
+par continuité de la dérivation (TD0 ch.~6, Exemple~6.2). Pour $\Sha$ : $c_k(\Sha)=\frac1{2\pi}$ et le TD0 (peigne de Dirac) donne exactement $\sum_ke^{ikx}=2\pi\Sha$, soit $\Sha=\sum_k\frac1{2\pi}e^{ikx}$ : cohérent. Pour $\Sha'$ : $c_k(\Sha')=\frac{ik}{2\pi}$ par (d), et $\sum_k\frac{ik}{2\pi}e^{ikx}=\big(\sum_k\frac1{2\pi}e^{ikx}\big)'=\Sha'$ par continuité de la dérivation : cohérent aussi. (La preuve générale de « la somme est $T$ » consiste à montrer que $T-\sum c_ke^{ikx}$ est périodique à coefficients nuls, puis qu'une distribution périodique à coefficients de Fourier tous nuls est nulle, par densité des polynômes trigonométriques dans les fonctions lisses périodiques pour toutes les normes $\mathcal C^m$ — par exemple via les sommes de Fejér, qui sont des approximations de l'unité périodiques.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Les distributions périodiques sont exactement les séries trigonométriques à coefficients à croissance polynomiale.} Le sens « coefficients polynomiaux $\Rightarrow$ convergence dans $\D'$ » est la régularisation par intégration du TD0 ; le sens « distribution $\Rightarrow$ coefficients polynomiaux » est l'estimation (6.1), l'ordre de $T$ donnant la puissance. Entre les deux, la formule $c_k(T')=ik\,c_k(T)$ : dériver, c'est multiplier par $ik$, et une distribution d'ordre $m$ a des coefficients en $O(k^m)$. Les fonctions $L^2$ sont le cas $c_k\in\ell^2$ (chapitre~4), les fonctions lisses le cas « décroissance rapide », et le peigne de Dirac, avec ses coefficients constants, est la distribution périodique « la plus singulière à l'ordre $0$ ». C'est le point de départ de la transformée de Fourier des distributions tempérées, hors programme mais directement dans la continuité de ce cours.
+\end{pointcle}
+
+\end{document}
