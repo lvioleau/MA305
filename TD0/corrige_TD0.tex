@@ -452,7 +452,7 @@ L'exemple montre que dans le Corollaire~1.4 (\emph{dans un espace complet}, comp
 % =====================================================================
 
 \begin{exo}{Exercice 2.3 -- La distance de $\Cz(\Omega)$ ne provient d'aucune norme}
-Montrer qu'il n'existe pas de norme correspondant à la distance $d_{\Cz(\Omega)}$ introduite à l'Exemple~2.5.
+Montrer qu'aucune norme ne correspond à la distance $d_{\Cz(\Omega)}$ introduite à l'Exemple~2.5.
 \end{exo}
 
 \begin{solution}
@@ -653,7 +653,7 @@ On procède par \emph{extraction diagonale} : on extrait $\varphi_0$ telle que $
 \]
 Or l'ensemble de gauche n'est pas borné pour $\norm\cdot_{N+1}$ : les fonctions $h_k(x):=\frac{\rho}{2}\,k^{-N}\sin(kx)$ vérifient $\norm{h_k}_N\le\frac\rho2k^{-N}(1+k^N)\le\rho$ pour $k\ge1$, mais $\sup|h_k^{(N+1)}|=\frac\rho2k\to\infty$. Par l'étape 1 de la question 2, $B_d(0,3\rho)$ n'est donc pas topologiquement bornée, et la question 2 ne dit rien sur elle. Il n'y a pas de contradiction : dans $\Cinf([0,1])$, \emph{les compacts sont bien d'intérieur vide} (un compact contenant une boule contiendrait la partie non topologiquement bornée ci-dessus, mais un compact est topologiquement borné : si $\lambda_k\to0$, $a_k\in K$, toute sous-suite de $(\lambda_ka_k)$ a une sous-sous-suite convergeant vers $\lim\lambda_k\cdot(\text{valeur d'adhérence})=0$).
 
-Autre lecture : si $d$ provenait d'une norme, la question 1 identifierait bornitude topologique et métrique, la boule unité fermée serait compacte par la question 2, et Riesz donnerait $\dim\Cinf([0,1])<\infty$, absurde. La question 2 fournit donc une nouvelle preuve que $d_{\Cinf}$ n'est pas issue d'une norme (comparer avec l'exercice~2.3).
+Autre lecture : si $d$ provenait d'une norme, la question 1 identifierait bornitude topologique et métrique, la boule unité fermée serait compacte par la question 2, et Riesz donnerait que $\Cinf([0,1])$ est de dimension finie, absurde. La question 2 fournit donc une nouvelle preuve que $d_{\Cinf}$ n'est pas issue d'une norme (comparer avec l'exercice~2.3).
 \end{solution}
 
 \begin{pointcle}
@@ -863,7 +863,7 @@ est fermé (intersection d'images réciproques de fermés par des applications c
 \noindent\textbf{(h)} Supposons $c:E\to F:=c_0(\Z)$ surjective. $E$ et $F$ sont des espaces de Banach ($F$ est fermé dans $\ell^\infty(\Z)$, TD2 ex.~8 (a)), et $c$ est linéaire continue : par le Théorème~3.8 de l'application ouverte, $c(B_E(0,1))$ est un ouvert de $F$ contenant $c(0)=0$, donc il existe $r>0$ tel que $B_F(0,r)\subset c(B_E(0,1))$. Puisque $\norm{\frac r2c(D_N)}_\infty=\frac r2<r$, il existe $g_N\in B_E(0,1)$ tel que $c(g_N)=\frac r2c(D_N)$, c'est-à-dire $c_n(g_N)=\frac r2\mathbf 1_{|n|\le N}$. Alors
 \[
 \Phi_N(g_N)=\sum_{|n|\le N}c_n(g_N)=\frac r2(2N+1),
-\qquad\text{mais}\qquad
+\quad\text{mais}\quad
 |\Phi_N(g_N)|\le\opnorm{\Phi_N}\norm{g_N}_\infty\le L_N\le1+\ln(2N+1)
 \]
 par (c) et (d). L'inégalité $\frac r2(2N+1)\le1+\ln(2N+1)$ est fausse pour $N$ grand : contradiction. Donc $c$ n'est pas surjective.
@@ -1171,7 +1171,7 @@ Soit $H:=(\Cz([0,1];\R),\norm\cdot_2)$. Montrer que $H'$ contient des éléments
 \end{exo}
 
 \begin{solution}
-Considérons $\varphi(f):=\int_0^{1/2}f(t)\,dt$. Elle est linéaire et, par Cauchy--Schwarz dans $L^2([0,1])$, $|\varphi(f)|=\big|\int_0^1f\,\mathbf 1_{[0,1/2]}\big|\le\norm{\mathbf 1_{[0,1/2]}}_2\norm f_2=\frac1{\sqrt2}\norm f_2$ : $\varphi\in H'$ (Théorème~2.4 (iv)).
+Considérons $\varphi(f):=\int_0^{1/2}f(t)\,dt$. Elle est linéaire et vérifie, par Cauchy--Schwarz dans $L^2([0,1])$, $|\varphi(f)|=\big|\int_0^1f\,\mathbf 1_{[0,1/2]}\big|\le\norm{\mathbf 1_{[0,1/2]}}_2\norm f_2=\frac1{\sqrt2}\norm f_2$ : $\varphi\in H'$ (Théorème~2.4 (iv)).
 
 Supposons qu'il existe $g\in\Cz([0,1];\R)$ telle que $\varphi(f)=\int_0^1fg$ pour toute $f\in H$, et posons $h:=g-\mathbf 1_{[0,1/2]}$, de sorte que $\int_0^1fh=0$ pour toute $f$ continue. Sur $]0,\tfrac12[$, $h=g-1$ est continue. Prenons $\psi(t):=t(\tfrac12-t)$ pour $t\in[0,\tfrac12]$ et $\psi:=0$ ailleurs : $\psi$ est continue, positive, strictement positive sur $]0,\tfrac12[$, nulle sur $[\tfrac12,1]$. La fonction $f:=(g-1)\psi$ est continue sur $[0,1]$ et
 \[
@@ -1486,8 +1486,9 @@ Sur $H:=L^2(]0,1[;\C)$, on pose $Vf(x):=\int_0^xf(t)\,dt$.
 \begin{solution}
 \noindent\textbf{(a)} Pour $f\in L^2(0,1)\subset L^1(0,1)$ (Cauchy--Schwarz sur un intervalle borné), $Vf$ est bien définie, et pour $x\le y$, $|Vf(y)-Vf(x)|=|\int_x^yf|\le\sqrt{y-x}\,\norm f_2$ : $Vf$ est $\frac12$-höldérienne, donc continue, avec $\norm{Vf}_\infty\le\norm f_2$ et a fortiori $\norm{Vf}_2\le\norm f_2$. $V$ est linéaire : c'est un opérateur, $\opnorm V\le1$. Adjoint : par Fubini (tout est intégrable sur $[0,1]^2$),
 \[
-\ps{Vf}g=\int_0^1\Big(\int_0^xf(t)\,dt\Big)\overline{g(x)}\,dx=\int_0^1f(t)\overline{\Big(\int_t^1g(x)\,dx\Big)}\,dt=\ps f{V^\star g},\qquad V^\star g(t)=\int_t^1g(x)\,dx .
+\ps{Vf}g=\int_0^1\Big(\int_0^xf(t)\,dt\Big)\overline{g(x)}\,dx=\int_0^1f(t)\overline{\Big(\int_t^1g(x)\,dx\Big)}\,dt=\ps f{V^\star g},
 \]
+où $V^\star g(t):=\int_t^1g(x)\,dx$.
 
 \medskip
 \noindent\textbf{(b)} Soit $B$ la boule unité de $H$. Par (a), $V(B)$ est une partie de $\Cz([0,1])$ bornée (par $1$ en norme uniforme) et uniformément équicontinue (module $\sqrt{|y-x|}$ commun). Par Arzelà--Ascoli (Théorème~3.2, Corollaire~3.1), toute suite de $V(B)$ a une sous-suite uniformément convergente, donc convergente dans $L^2$ (la norme $L^2$ est dominée par la norme uniforme sur $[0,1]$). Ainsi $V(B)$ est relativement compacte dans $H$ : $V$ est compact.
@@ -1791,7 +1792,10 @@ où l'on a utilisé $e^{-ik(y-2\pi n)}=e^{-iky}$. Comme $\Phi$ est $\mathcal C^2
 
 \emph{Conclusion.}
 \[
-\langle T_{D_N},\varphi\rangle=\sum_{|k|\le N}\int\varphi(x)e^{ikx}\,dx=\sum_{|k|\le N}\hat\varphi(-k)\xrightarrow[N\to\infty]{}\sum_{k\in\Z}\hat\varphi(k)=2\pi\sum_n\varphi(2\pi n)=\Big\langle2\pi\sum_n\delta_{2\pi n},\varphi\Big\rangle
+\begin{aligned}
+\langle T_{D_N},\varphi\rangle&=\sum_{|k|\le N}\int\varphi(x)e^{ikx}\,dx=\sum_{|k|\le N}\hat\varphi(-k)\\
+&\xrightarrow[N\to\infty]{}\sum_{k\in\Z}\hat\varphi(k)=2\pi\sum_n\varphi(2\pi n)=\Big\langle2\pi\sum_n\delta_{2\pi n},\varphi\Big\rangle
+\end{aligned}
 \]
 (la somme en $n$ est finie, et $\sum_n\delta_{2\pi n}$ est bien une distribution : pour $\varphi\in\D_K$, $|\sum_n\varphi(2\pi n)|\le\#(K\cap2\pi\Z)\norm\varphi_K$, ordre $0$). Ainsi $\sum_{k\in\Z}e^{ikx}=2\pi\sum_{n\in\Z}\delta_{2\pi n}$ dans $\D'(\R)$ : le peigne de Dirac est sa propre « série de Fourier ».
 \end{solution}
@@ -1977,8 +1981,10 @@ Que dire d'un couple $(S,T)\in\D'(\R^2)^2$ tel que $(\partial_1T,\partial_2T)=(-
 
 \emph{$S$ et $T$ sont harmoniques.} Les dérivées partielles des distributions commutent : $\partial_1\partial_2U=\partial_2\partial_1U$ pour toute $U\in\D'$, car $\langle\partial_1\partial_2U,\varphi\rangle=\langle U,\partial_2\partial_1\varphi\rangle=\langle U,\partial_1\partial_2\varphi\rangle$ (Schwarz pour la fonction test lisse). Donc
 \[
-\Delta S=\partial_1(\partial_1S)+\partial_2(\partial_2S)=\partial_1\partial_2T-\partial_2\partial_1T=0,\qquad
-\Delta T=\partial_1(\partial_1T)+\partial_2(\partial_2T)=-\partial_1\partial_2S+\partial_2\partial_1S=0 .
+\begin{aligned}
+\Delta S&=\partial_1(\partial_1S)+\partial_2(\partial_2S)=\partial_1\partial_2T-\partial_2\partial_1T=0,\\
+\Delta T&=\partial_1(\partial_1T)+\partial_2(\partial_2T)=-\partial_1\partial_2S+\partial_2\partial_1S=0 .
+\end{aligned}
 \]
 
 \emph{Conclusion.} Par le lemme de Weyl en dimension $2$, $S$ et $T$ sont des fonctions lisses (\ie\ $S=T_s$, $T=T_t$ avec $s,t\in\Cinf(\R^2)$). Pour des fonctions lisses, les dérivées distributionnelles sont les dérivées classiques (Proposition~6.3) et le lemme de du Bois-Reymond transforme les égalités dans $\D'$ en égalités de fonctions continues, donc partout : $s$ et $t$ vérifient les équations de Cauchy--Riemann au sens classique, et $f:=s+it$ est une fonction holomorphe sur $\C$ tout entier (une fonction entière). Réciproquement, toute fonction entière $f=s+it$ fournit un tel couple. \emph{Bilan : les couples $(S,T)$ de l'énoncé sont exactement les couples (partie réelle, partie imaginaire) des fonctions entières.} C'est une forme du lemme de Weyl pour l'opérateur de Cauchy--Riemann (Remarque~6.9) : une « fonction holomorphe au sens des distributions » est automatiquement une vraie fonction holomorphe.
