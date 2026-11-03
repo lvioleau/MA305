@@ -42,6 +42,9 @@
 \DeclareMathOperator{\dist}{dist}
 \newcommand{\Sun}{\mathbb{S}^1}
 \newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\D}{\mathcal{D}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
 
 % ---------- Environnements ----------
 \newtcolorbox{exo}[1]{
@@ -79,7 +82,7 @@
 \newtheorem*{solution}{Solution}
 
 \title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
-\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 5)}
+\Large TD n\textsuperscript{o}0 -- Corrigé des exercices du polycopié (chapitres 1 à 6)}
 \author{}
 \date{Année universitaire 2026--2027}
 
@@ -87,12 +90,12 @@
 \maketitle
 
 \begin{commentaire}
-\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 5) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
+\textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 6) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
 \begin{itemize}
   \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
   \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
 \end{itemize}
-Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
+Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Le chapitre~6 (distributions) contient six exercices, corrigés ici avec une dizaine de développements (continuité séquentielle, séries trigonométriques, masse de Dirac et ordre, formule des sauts et peigne de Dirac, valeur principale, équation $y'=ay$, solution fondamentale du laplacien dans le plan). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
 \end{commentaire}
 
 \tableofcontents
@@ -1558,6 +1561,431 @@ par continuité de $g$ en $0$. Donc $\int fg=g(0)$ pour toute $g\in\Cc(\R^d)$. E
 
 \begin{pointcle}
 \textbf{$1<q<\infty$ : le bon cadre pour les méthodes variationnelles.} Dans $L^q$, $1<q<\infty$ (réflexif), toute suite bornée a une sous-suite faiblement convergente et la norme est faiblement s.c.i. (question (a)) : une suite minimisante bornée fournit un minimiseur. Dans $L^1$ et $L^\infty$ ce schéma échoue — $L^1$ par concentration (question (b)), $L^\infty$ parce que sa convergence préfaible (contre $L^1$) existe bien (Corollaire~5.3 avec $q=\infty$) mais ne passe pas aux non-linéarités. Le remède, pour $L^1$, est de sortir de l'espace (mesures) ou d'ajouter une hypothèse d'\emph{équi-intégrabilité} (théorème de Dunford--Pettis, hors programme), qui interdit précisément la concentration.
+\end{pointcle}
+
+
+% =====================================================================
+\section{Chapitre 6 -- Distributions}
+
+\begin{commentaire}
+Notations du chapitre : $\Omega$ est un ouvert non vide de $\R^d$ ; $\D(\Omega)$ est l'espace des fonctions tests (lisses à support compact dans $\Omega$), $\D_K(\Omega)$ le sous-espace des fonctions à support dans le compact $K$ ; $\norm f_K$ est la norme uniforme sur $K$ et $\norm f_{m,K}:=\max_{|\alpha|\le m}\norm{\partial^\alpha f}_K$. Une suite $(\varphi_n)$ converge dans $\D(\Omega)$ si les supports sont contenus dans un même compact et si toutes les dérivées convergent uniformément (Définition~6.2). Une distribution est une forme linéaire $T$ sur $\D(\Omega)$ vérifiant l'estimation (6.1) : pour tout compact $K$, il existe $m_K\in\N$ et $C_K$ avec $|T(\varphi)|\le C_K\norm\varphi_{m_K,K}$ sur $\D_K(\Omega)$ ; $T_f(\varphi):=\int_\Omega f\varphi$ pour $f\in L^1_{\mathrm{loc}}(\Omega)$ ; $\check\varphi(x):=\varphi(-x)$ ; $\tau_af(x):=f(x-a)$ ; $(\rho_n)$ désigne une approximation de l'unité issue d'une fonction test $\rho$ à support dans la boule unité, $\rho_n(x)=n^d\rho(nx)$ (Exemple~3.3). On note $(K_n)_n$ une suite exhaustive de compacts de $\Omega$ (Exercice~2.2) : $K_n\subset\interieur{K}_{n+1}$ et $\bigcup_nK_n=\Omega$ ; en particulier tout compact de $\Omega$ est contenu dans un $\interieur{K}_n$. Enfin « TDS » désigne le théorème de dérivation sous le signe intégral.
+
+Les six exercices du chapitre sont corrigés ici, et l'on développe plusieurs énoncés laissés au lecteur : la continuité séquentielle des distributions (Définition~6.3), les distributions d'ordre nul et les mesures de Radon (Remarque~6.5), la convergence des séries trigonométriques de l'Exemple~6.2, la masse de Dirac et l'ordre des distributions (Exemple~6.4), les mesures de Radon des Exemples~6.6 et 6.7, un florilège de calculs de dérivées et de limites (formule des sauts, peigne de Dirac), la valeur principale (Proposition~6.4, Exemple~6.12 et l'équation $xT=0$), l'équation $y'=ay$ (Exemple~6.10) et la solution fondamentale du laplacien en dimension~2 (pour l'Exercice~6.6).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Définition 6.3 -- Continuité séquentielle des distributions}
+Soit $T\in\D'(\Omega)$. Montrer que si $(\varphi_n)_n$ converge vers $\varphi$ dans $\D(\Omega)$, alors $T(\varphi_n)\to T(\varphi)$. Montrer que l'application $T\mapsto\partial^\alpha T$ et, pour $f\in\Cinf(\Omega)$, l'application $T\mapsto fT$ sont séquentiellement continues sur $\D'(\Omega)$ (Définition~6.4).
+\end{exo}
+
+\begin{solution}
+Par définition de la convergence dans $\D(\Omega)$, il existe un compact $K\subset\Omega$ contenant tous les supports des $\varphi_n$, donc aussi celui de $\varphi$ (si $x\notin K$, $\varphi(x)=\lim\varphi_n(x)=0$ ; et $\{\varphi\neq0\}\subset K$ fermé donne $\supp\varphi\subset K$). Ainsi $\varphi_n-\varphi\in\D_K(\Omega)$ et l'estimation (6.1) donne
+\[
+|T(\varphi_n)-T(\varphi)|=|T(\varphi_n-\varphi)|\le C_K\norm{\varphi_n-\varphi}_{m_K,K}=C_K\max_{|\alpha|\le m_K}\norm{\partial^\alpha\varphi_n-\partial^\alpha\varphi}_K\xrightarrow[n\to\infty]{}0,
+\]
+puisque chaque dérivée converge uniformément sur $K$ (il n'y a qu'un nombre fini de multi-indices de longueur $\le m_K$).
+
+\emph{Continuité de la dérivation et de la multiplication.} Si $T_n\rightharpoonup T$ dans $\D'(\Omega)$, alors pour toute $\varphi\in\D(\Omega)$, $\partial^\alpha\varphi\in\D(\Omega)$ et $f\varphi\in\D(\Omega)$ (le support de $f\varphi$ est contenu dans celui de $\varphi$), donc
+\begin{gather*}
+\langle\partial^\alpha T_n,\varphi\rangle=(-1)^{|\alpha|}\langle T_n,\partial^\alpha\varphi\rangle\to(-1)^{|\alpha|}\langle T,\partial^\alpha\varphi\rangle=\langle\partial^\alpha T,\varphi\rangle,\\
+\langle fT_n,\varphi\rangle=\langle T_n,f\varphi\rangle\to\langle T,f\varphi\rangle=\langle fT,\varphi\rangle .
+\end{gather*}
+C'est le mécanisme général : toute opération définie \emph{par transposition} (en la faisant porter sur la fonction test) est automatiquement continue pour la convergence de la Définition~6.4, parce que celle-ci est une convergence simple sur les fonctions tests.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Deux convergences, et une seule estimation.} La convergence dans $\D(\Omega)$ est très exigeante (support commun, toutes les dérivées) : c'est ce qui rend \emph{facile} d'être une distribution, et c'est pourquoi $\D'(\Omega)$ est si gros. À l'inverse la convergence dans $\D'(\Omega)$ est très faible (convergence simple, c'est l'analogue de la convergence préfaible du chapitre~5, Remarque~6.3) : c'est ce qui rend \emph{facile} de converger dans $\D'$, et explique que des suites non bornées comme $(n\,e^{inx})_n$ y convergent (voir plus bas). L'estimation (6.1), elle, est à retenir sous la forme « $|T(\varphi)|\le C_K\norm\varphi_{m_K,K}$ pour $\varphi$ à support dans $K$ » : vérifier qu'une forme linéaire est une distribution, c'est toujours exhiber un $m_K$ et un $C_K$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.1 -- Les distributions d'ordre nul agissent sur $\Cc(\Omega)$}
+Montrer qu'une distribution $T$ d'ordre nul se prolonge de manière unique en une forme linéaire $\tilde T$ sur $\Cc(\Omega)$ continue pour la convergence uniforme sur les compacts, au sens suivant : pour tout compact $K\subset\Omega$ il existe $C_K$ avec $|\tilde T(f)|\le C_K\norm f_K$ pour toute $f\in\Cc(\Omega)$ à support dans $K$.
+\end{exo}
+
+\begin{solution}
+\emph{Un compact légèrement plus gros.} Soit $K\subset\Omega$ compact. Comme $K$ est compact et $\R^d\setminus\Omega$ fermé, disjoints, $\delta:=d(K,\R^d\setminus\Omega)>0$ (la fonction continue $x\mapsto d(x,\R^d\setminus\Omega)$ est strictement positive sur l'ouvert $\Omega$, donc minorée par un $\delta>0$ sur le compact $K$ ; $\delta=+\infty$ si $\Omega=\R^d$). Posons $K':=\{x:d(x,K)\le\delta/2\}$ : c'est un compact (fermé borné) contenu dans $\Omega$, et $K+\Bf(0,\delta/2)\subset K'$.
+
+\emph{Approximation.} Soit $f\in\Cc(\Omega)$ à support dans $K$, prolongée par $0$ en une fonction $\tilde f\in\Cc(\R^d)$, uniformément continue. Pour $n>2/\delta$, $\varphi_n:=\tilde f\star\rho_n$ est lisse, à support dans $\supp f+\Bf(0,1/n)\subset K'$ : c'est un élément de $\D_{K'}(\Omega)$, et $\norm{\varphi_n-f}_\infty\to0$ par le Théorème~3.6 (cas $p=\infty$, $\tilde f$ uniformément continue).
+
+\emph{Définition de $\tilde T$.} $T$ étant d'ordre $0$, il existe $C_{K'}$ avec $|T(\varphi)|\le C_{K'}\norm\varphi_{K'}$ pour $\varphi\in\D_{K'}(\Omega)$. La suite $(T(\varphi_n))_n$ est donc de Cauchy dans $\K$ : $|T(\varphi_n)-T(\varphi_m)|\le C_{K'}\norm{\varphi_n-\varphi_m}_\infty\to0$. On pose $\tilde T(f):=\lim_nT(\varphi_n)$. Cette limite ne dépend pas de la suite choisie : si $(\psi_n)\subset\D_{K'}(\Omega)$ converge aussi uniformément vers $f$, $|T(\varphi_n)-T(\psi_n)|\le C_{K'}\norm{\varphi_n-\psi_n}_\infty\to0$. En particulier $\tilde T(f)=T(f)$ si $f\in\D(\Omega)$ (suite constante), et $\tilde T$ est linéaire (prendre des combinaisons linéaires de suites approximantes). Enfin $|\tilde T(f)|=\lim|T(\varphi_n)|\le C_{K'}\limsup\norm{\varphi_n}_\infty=C_{K'}\norm f_\infty=C_{K'}\norm f_K$ : c'est l'estimation demandée, avec la constante $C_{K'}$ (qui ne dépend que de $K$).
+
+\emph{Unicité.} Si $S$ est une forme linéaire sur $\Cc(\Omega)$ vérifiant l'estimation de l'énoncé et coïncidant avec $T$ sur $\D(\Omega)$, alors pour $f$ comme ci-dessus, $S(f)=\lim S(\varphi_n)$ (car $|S(f)-S(\varphi_n)|\le C'_{K'}\norm{f-\varphi_n}_\infty$, les fonctions $f-\varphi_n$ étant à support dans $K'$) $=\lim T(\varphi_n)=\tilde T(f)$.
+\end{solution}
+
+\begin{commentaire}
+C'est le Théorème~1.1 de prolongement des applications uniformément continues, mais appliqué « compact par compact » car $\Cc(\Omega)$ n'est pas un espace normé naturel : la bonne structure est celle d'une limite inductive des espaces de Banach $(\mathcal C^0_{K}(\Omega),\norm\cdot_\infty)$. La subtilité est que l'approximation de $f$ doit se faire \emph{sans faire sortir les supports} d'un compact fixe $K'$ ; c'est pourquoi on élargit $K$ en $K'$ avant de régulariser. Avec la Remarque~6.5 (théorème de représentation de Riesz--Markov), on obtient que les distributions d'ordre $0$ sont exactement les mesures de Radon : $T(\varphi)=\int\varphi\,d\mu$ pour une mesure $\mu$ (signée, ou complexe) finie sur les compacts.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Remarque 6.5 -- Distributions d'ordre nul et mesures de Radon}
+On note $\Cc(\Omega;\R)$ l'espace des fonctions continues réelles à support compact dans $\Omega$ et, pour $K\subset\Omega$ compact, $\mathcal C^0_K$ le sous-espace des fonctions à support dans $K$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que toute mesure de Radon (Définition~6.5) est une distribution d'ordre nul.
+  \item Soit $\Phi$ une forme linéaire sur $\Cc(\Omega;\R)$ continue au sens de l'Exercice~6.1 ($|\Phi(f)|\le C_K\norm f_K$ pour $f\in\mathcal C^0_K$). Montrer, à l'aide du Lemme~5.2, que $\Phi=\Phi^+-\Phi^-$ avec $\Phi^\pm$ positives et continues au même sens. En déduire que toute distribution \emph{réelle} d'ordre nul (\ie\ à valeurs réelles sur les fonctions tests réelles) est une mesure de Radon, puis que les distributions d'ordre nul sont exactement les mesures de Radon.
+  \item Montrer qu'une distribution positive qui est une fonction, $T=T_f$, vérifie $f\ge0$ presque partout.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Une distribution positive est d'ordre $0$ par le Théorème~6.2. Une mesure de Radon est une combinaison linéaire $\sum_j\lambda_jT_j$ de distributions positives ; pour $\varphi\in\D_K(\Omega)$, $|\sum_j\lambda_jT_j(\varphi)|\le\big(\sum_j|\lambda_j|C_{K,j}\big)\norm\varphi_K$ : c'est l'estimation (6.1) avec $m_K=0$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Le cadre du Lemme~5.2.} Fixons un compact $K\subset\Omega$. L'espace $F:=\mathcal C^0_K$ muni de la norme uniforme est un espace normé (fermé dans $\Cz(K)$, donc même un Banach), et sa norme est compatible avec la valeur absolue au sens du paragraphe~5.6.1 (Exemple~5.3) : si $f\in F$ alors $|f|$ est continue, à support dans $K$, et $\norm{|f|}_\infty=\norm f_\infty$ ; si $0\le f\le g$ alors $\norm f_\infty\le\norm g_\infty$. La restriction $\Phi_K:=\Phi|_F$ est dans $F'$ par hypothèse. Le Lemme~5.2 fournit donc une forme positive $\Phi_K^+\in F'$ donnée, pour $f\in F$ positive, par
+\[
+\Phi_K^+(f)=\sup\{\Phi(\psi):\psi\in F,\ 0\le\psi\le f\},
+\]
+et $\Phi_K^-:=\Phi_K^+-\Phi_K$ est positive.
+
+\emph{Recollement.} Le point essentiel est que la formule ci-dessus \emph{ne dépend pas de $K$} : si $f\ge0$ est à support dans $K\subset K'$, une fonction continue $\psi$ avec $0\le\psi\le f$ est automatiquement nulle hors du support de $f$, donc à support dans $K$ ; ainsi $\{\psi\in\mathcal C^0_{K'}:0\le\psi\le f\}=\{\psi\in\mathcal C^0_K:0\le\psi\le f\}$ et $\Phi_{K'}^+(f)=\Phi_K^+(f)$. On peut donc définir sans ambiguïté, pour $f\in\Cc(\Omega;\R)$ positive, $\Phi^+(f):=\Phi_K^+(f)$ où $K$ est n'importe quel compact contenant $\supp f$, puis $\Phi^+(f):=\Phi^+(f^+)-\Phi^+(f^-)$ pour $f$ quelconque (avec $f^\pm=\max(\pm f,0)\in\Cc(\Omega;\R)$). Cette application coïncide avec $\Phi_K^+$ sur chaque $\mathcal C^0_K$ (par unicité de la décomposition en parties positive et négative et linéarité de $\Phi_K^+$) ; deux fonctions de $\Cc(\Omega;\R)$ étant toujours dans un même $\mathcal C^0_K$ (réunion des deux supports), $\Phi^+$ est linéaire, positive, et continue au sens de l'Exercice~6.1 avec les constantes $\opnorm{\Phi_K^+}$. Il en va de même de $\Phi^-:=\Phi^+-\Phi$, qui coïncide avec $\Phi_K^-$ sur chaque $\mathcal C^0_K$, donc est positive.
+
+\emph{Distributions réelles d'ordre $0$.} Soit $T$ une telle distribution. Par l'Exercice~6.1 elle se prolonge en $\Phi$ sur $\Cc(\Omega;\R)$, continue au sens voulu (la preuve de l'Exercice~6.1 montre que $\tilde T$ est réelle sur les fonctions réelles, les $\varphi_n=\tilde f\star\rho_n$ étant réelles). Par ce qui précède, $\Phi=\Phi^+-\Phi^-$, et en restreignant à $\D(\Omega)$ : $T=\Phi^+|_{\D}-\Phi^-|_{\D}$, différence de deux formes linéaires positives sur $\D(\Omega)$, c'est-à-dire une mesure de Radon.
+
+\emph{Cas complexe.} Si $T$ est d'ordre $0$ à valeurs complexes, posons pour $\varphi$ réelle $T_1(\varphi):=\Re T(\varphi)$ et $T_2(\varphi):=\Im T(\varphi)$ : ce sont des formes $\R$-linéaires réelles sur les fonctions tests réelles, d'ordre $0$, et par $\C$-linéarité de $T$, $T(\varphi)=T(\Re\varphi)+iT(\Im\varphi)=(T_1+iT_2)(\Re\varphi)+i(T_1+iT_2)(\Im\varphi)$ pour $\varphi$ complexe. Chaque $T_j$ est une mesure de Radon par le cas réel (prolongée aux $\varphi$ complexes par $T_j(\varphi):=T_j(\Re\varphi)+iT_j(\Im\varphi)$), donc $T=T_1+iT_2$ aussi. Avec (a) : \emph{les distributions d'ordre nul sont exactement les mesures de Radon.}
+
+\medskip
+\noindent\textbf{(c)} On reprend la structure de la preuve du Lemme~6.2. Soit $\theta\in\D(\Omega)$ positive et $g:=\theta f$ prolongée par $0$ : $g\in L^1(\R^d)$. Pour $x\in\R^d$ et $\rho\ge0$ (on choisit l'approximation de l'unité issue d'une fonction test positive), la fonction $y\mapsto\theta(y)\rho_n(x-y)$ est une fonction test positive sur $\Omega$, donc
+\[
+(g\star\rho_n)(x)=\int_\Omega f(y)\theta(y)\rho_n(x-y)\,dy=\big\langle T_f,\theta\,\rho_n(x-\cdot)\big\rangle\ge0 .
+\]
+Par le Théorème~3.6, $g\star\rho_n\to g$ dans $L^1(\R^d)$ ; une sous-suite converge presque partout (TD2, ou Théorème~3.4 de Riesz--Fischer), donc $g=\theta f\ge0$ presque partout. En prenant $\theta=\theta_n$ positive valant $1$ sur $K_n$ (Lemme~6.1), $f\ge0$ p.p. sur chaque $K_n$, donc sur $\Omega$.
+\end{solution}
+
+\begin{commentaire}
+Le tableau complet de la Remarque~6.5 est donc : \emph{distribution positive} $=$ forme positive sur $\Cc(\Omega)$ (Théorème~6.2 et Exercice~6.1) $=$ intégration contre une mesure positive finie sur les compacts (théorème de représentation de Riesz--Markov, admis) ; et \emph{distribution d'ordre $0$} $=$ mesure de Radon (b) $=$ intégration contre une mesure signée (ou complexe) localement finie. La partie démontrable avec le cours est la première égalité de chaque ligne, et c'est le Lemme~5.2 — introduit au chapitre~5 pour le théorème de Riesz dans $L^p$ — qui fait le travail, exactement comme la décomposition $g=g^+-g^-$ des fonctions. Le point (c) dit que les deux notions de positivité (celle des distributions et celle des fonctions) coïncident sur $L^1_{\mathrm{loc}}$ ; c'est l'analogue de la remarque du polycopié après la Définition~5.4, et la preuve est celle du lemme de du Bois-Reymond : régulariser contre des bosses positives, puis recoller.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.2 -- Version locale de la Proposition 6.2}
+Soit $p\in[1,\infty[$ et $T\in\D'(\Omega)$ telle que pour tout compact $K\subset\Omega$ il existe $C_K$ avec $|T(\varphi)|\le C_K\norm\varphi_p$ pour toute $\varphi\in\D_K(\Omega)$. Montrer qu'il existe $f\in L^{p'}_{\mathrm{loc}}(\Omega)$ telle que $T=T_f$.
+\end{exo}
+
+\begin{solution}
+\emph{Localisation.} Soit $(K_n)$ une suite exhaustive de compacts de $\Omega$ et, par le Lemme~6.1, $\theta_n\in\D(\Omega)$ à valeurs dans $[0,1]$, valant $1$ sur $K_n$ et à support dans $\interieur K_{n+1}$ (appliquer le lemme au compact $K_n$ et à l'ouvert $\interieur K_{n+1}\supset K_n$). Posons $S_n(\varphi):=T(\theta_n\varphi)$ pour $\varphi\in\D(\Omega)$. Comme $\theta_n\varphi\in\D_{K_{n+1}}(\Omega)$,
+\[
+|S_n(\varphi)|\le C_{K_{n+1}}\norm{\theta_n\varphi}_p\le C_{K_{n+1}}\norm\varphi_p
+\]
+pour \emph{toute} fonction test : c'est l'hypothèse de la Proposition~6.2, qui fournit $f_n\in L^{p'}(\Omega)$ avec $S_n=T_{f_n}$, \ie\ $T(\theta_n\varphi)=\int_\Omega f_n\varphi$ pour toute $\varphi\in\D(\Omega)$. Lorsque $\supp\varphi\subset K_n$, $\theta_n\varphi=\varphi$ et donc $T(\varphi)=\int f_n\varphi$.
+
+\emph{Recollement.} Pour $m>n$ et $\varphi\in\D(\interieur K_n)$ (prolongée par $0$, c'est une fonction test sur $\Omega$ à support dans $K_n\subset K_m$), on a $\int(f_n-f_m)\varphi=T(\varphi)-T(\varphi)=0$. Le Lemme~6.2 de du Bois-Reymond appliqué sur l'ouvert $\interieur K_n$ donne $f_n=f_m$ presque partout sur $\interieur K_n$. On définit alors $f$ sur $\Omega=\bigcup_n\interieur K_n$ (car $K_n\subset\interieur K_{n+1}$) par $f:=f_n$ sur $\interieur K_n$ : la définition est cohérente presque partout, et $f$ est mesurable comme limite presque partout de la suite $(f_n\mathbf 1_{\interieur K_n})_n$ (qui est stationnaire en presque tout point).
+
+\emph{Conclusion.} Si $K\subset\Omega$ est compact, $K\subset\interieur K_n$ pour un $n$, et $f=f_n\in L^{p'}$ sur $K$ : $f\in L^{p'}_{\mathrm{loc}}(\Omega)$. Enfin pour $\varphi\in\D(\Omega)$, $\supp\varphi\subset K_n$ pour un $n$, et $T(\varphi)=\int f_n\varphi=\int f\varphi=T_f(\varphi)$.
+\end{solution}
+
+\begin{methode}
+\textbf{Localiser, résoudre, recoller.} C'est le schéma systématique pour passer d'un énoncé « global » (Proposition~6.2) à un énoncé « local » : on tronque par des fonctions plateaux $\theta_n$ subordonnées à une suite exhaustive de compacts, on applique l'énoncé global à chaque tronqué, puis on vérifie que les objets obtenus coïncident sur les intersections (c'est ici le rôle du lemme de du Bois-Reymond, qui est exactement un énoncé d'unicité). La même structure apparaît dans la preuve du Théorème~6.4 (pavés, puis partition de l'unité) et dans l'Exercice~6.5 ci-dessous.
+\end{methode}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 6.2 et Exemple 6.9 -- Des séries trigonométriques qui divergent partout mais convergent dans $\D'(\R)$}
+Pour $n\ge1$, soit $S_n(x):=\sum_{k=1}^n\sin(kx)$ et $S(x):=-\sum_{k\ge1}k^{-2}\sin(kx)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $S$ est continue et que $(T_{S_n})_n$ converge dans $\D'(\R)$ vers $T_S''$, \ie\ vers $\varphi\mapsto\int_\R S\varphi''$.
+  \item Montrer que $\sum_{k=1}^nk\cos(kx)$ converge dans $\D'(\R)$ vers $T_S'''$, et plus généralement que pour tout $j\in\N$, $\sum_{k=1}^nk^j\sin(kx+j\pi/2)$ converge dans $\D'(\R)$ vers $T_S^{(j+2)}$.
+  \item Montrer que $(e^{inx})_{n}\rightharpoonup0$ et $(n^je^{inx})_n\rightharpoonup0$ dans $\D'(\R)$ pour tout $j\in\N$. Qu'en déduire sur le lien entre convergence dans $\D'$ et bornitude dans $L^\infty$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Posons $s_n(x):=-\sum_{k=1}^nk^{-2}\sin(kx)$. Comme $|k^{-2}\sin(kx)|\le k^{-2}$ et $\sum k^{-2}<\infty$, la série converge normalement sur $\R$ : $S$ est continue et $\norm{s_n-S}_\infty\le\sum_{k>n}k^{-2}\to0$. A fortiori $s_n\to S$ dans $L^1_{\mathrm{loc}}(\R)$, donc $T_{s_n}\rightharpoonup T_S$ (Exemple~6.1). Or $s_n$ est lisse et $s_n''=\sum_{k\le n}\sin(kx)=S_n$, donc $T_{S_n}=T_{s_n''}=T_{s_n}''$ (Proposition~6.3, compatibilité des dérivées). La dérivation étant continue sur $\D'(\R)$ (exercice précédent), $T_{S_n}=T_{s_n}''\rightharpoonup T_S''$. Explicitement $\langle T_S'',\varphi\rangle=\langle T_S,\varphi''\rangle=\int_\R S\varphi''$.
+
+Remarquons que la suite $(S_n(x))_n$ ne converge pour aucun $x\notin2\pi\Z$ (son terme général $\sin(nx)$ ne tend pas vers $0$) : la convergence dans $\D'$ est bien plus faible que la convergence simple.
+
+\medskip
+\noindent\textbf{(b)} $\sum_{k\le n}k\cos(kx)=S_n'=s_n'''$, et la dérivation continue donne $T_{s_n}'''\rightharpoonup T_S'''$. Par récurrence, $\sum_{k\le n}k^j\sin(kx+j\pi/2)=S_n^{(j)}=s_n^{(j+2)}$ (la dérivée de $\sin(kx+c)$ est $k\sin(kx+c+\pi/2)$), d'où $T_{S_n^{(j)}}=T_{s_n}^{(j+2)}\rightharpoonup T_S^{(j+2)}$.
+
+\medskip
+\noindent\textbf{(c)} Pour $\varphi\in\D(\R)$, $\int e^{inx}\varphi(x)\,dx\to0$ : c'est le lemme de Riemann--Lebesgue (TD2 ex.~8, ou directement : une intégration par parties donne $\int e^{inx}\varphi=-\frac1{in}\int e^{inx}\varphi'$, majoré par $\norm{\varphi'}_1/n$). Donc $T_{e^{inx}}\rightharpoonup0$. Ensuite $n^je^{inx}=(-i)^j\frac{d^j}{dx^j}e^{inx}$, et la dérivation est continue : $T_{n^je^{inx}}=(-i)^jT_{e^{inx}}^{(j)}\rightharpoonup0$. (Directement : $j$ intégrations par parties donnent $|\int n^je^{inx}\varphi|=|\int e^{inx}\varphi^{(j)}|\to0$ par Riemann--Lebesgue ; et même $|\int n^je^{inx}\varphi|\le\norm{\varphi^{(j+1)}}_1/n$.)
+
+La suite $(n^je^{inx})_n$ n'est bornée dans aucun $L^p_{\mathrm{loc}}$ dès que $j\ge1$ et converge pourtant vers $0$ dans $\D'$ : \emph{la convergence dans $\D'(\Omega)$ n'implique aucune bornitude dans les espaces de fonctions}. C'est très différent de la convergence faible des chapitres~4 et 5 (Proposition~5.5 : une suite faiblement convergente dans un Banach est bornée). L'explication : $\D(\Omega)$ n'est pas un espace de Banach, et Banach--Steinhaus ne s'y applique pas sous la forme du Théorème~3.7. (En revanche, un théorème de Banach--Steinhaus subsiste dans $\D'$, sous la forme : si $T_n(\varphi)$ converge pour toute $\varphi$, la limite est une distribution — hors programme.)
+\end{solution}
+
+\begin{pointcle}
+\textbf{Dériver pour faire converger.} Le principe des exemples ci-dessus : une série trigonométrique à coefficients à croissance polynomiale $\sum a_ke^{ikx}$, $|a_k|\lesssim k^j$, converge toujours dans $\D'(\R)$, car elle est la dérivée $(j+2)$-ième d'une série normalement convergente $\sum a_k(ik)^{-j-2}e^{ikx}$. Chaque dérivation « coûte » un facteur $k$, et la convergence dans $\D'$ ne coûte rien. Ce point de vue sera central pour les séries de Fourier des distributions périodiques.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemples 6.3, 6.6 et 6.7 -- Fonctions, convergences $L^p$ et mesures de Radon}
+\begin{enumerate}[label=(\alph*)]
+  \item (Exemple~6.3) Soit $p\in[1,\infty]$ et $(f_n)$ une suite de $L^p(\Omega)$ convergeant fortement, faiblement ($p<\infty$) ou préfaiblement ($p=\infty$, $L^\infty=(L^1)'$) vers $f\in L^p(\Omega)$. Montrer que $T_{f_n}\rightharpoonup T_f$ dans $\D'(\Omega)$.
+  \item (Exemple~6.6) Montrer que pour $f\in L^1_{\mathrm{loc}}(\Omega)$, $T_f$ est une mesure de Radon (combinaison linéaire de distributions positives).
+  \item (Exemple~6.7) Pour $f\in L^1_{\mathrm{loc}}(\R)$, montrer que $\Lambda_f:\varphi\mapsto\int_\R f(t)\varphi(t,t)\,dt$ est une mesure de Radon sur $\R^2$ ; montrer que $\Lambda_f$ n'est pas une fonction (\ie\ n'est pas de la forme $T_g$, $g\in L^1_{\mathrm{loc}}(\R^2)$) dès que $f\ne0$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Fixons $\varphi\in\D(\Omega)$. Comme $\varphi$ est bornée à support compact, $\varphi\in L^q(\Omega)$ pour tout $q\in[1,\infty]$, en particulier $\varphi\in L^{p'}(\Omega)$, et $g\mapsto\int g\varphi$ est une forme linéaire continue sur $L^p(\Omega)$ (Hölder). La convergence faible pour $p<\infty$ signifie que $\int f_n g\to\int fg$ pour tout $g\in L^{p'}$ (Théorème~5.6 de représentation), et la convergence préfaible pour $p=\infty$ que $\int f_ng\to\int fg$ pour tout $g\in L^1$ : dans les deux cas, en prenant $g=\varphi$, $T_{f_n}(\varphi)\to T_f(\varphi)$. La convergence forte implique la faible (Proposition~5.4). Autrement dit : \emph{toutes les convergences du cours impliquent la convergence au sens des distributions}, laquelle est la plus faible de toutes.
+
+\medskip
+\noindent\textbf{(b)} Écrivons $f=(\Re f)^+-(\Re f)^-+i(\Im f)^+-i(\Im f)^-$ avec $u^\pm:=\max(\pm u,0)\ge0$. Chacune des quatre fonctions $g$ est dans $L^1_{\mathrm{loc}}(\Omega)$ (majorée par $|f|$) et positive, et $T_g$ est une forme linéaire positive : si $\varphi\ge0$, $T_g(\varphi)=\int g\varphi\ge0$. Donc $T_f=T_{(\Re f)^+}-T_{(\Re f)^-}+iT_{(\Im f)^+}-iT_{(\Im f)^-}$ est une combinaison linéaire de distributions positives. (Chacune est une distribution par l'Exemple~6.1 ; le Théorème~6.2 le redonne d'ailleurs sans calcul.)
+
+\medskip
+\noindent\textbf{(c)} \emph{C'est une distribution d'ordre $0$ :} pour $\varphi\in\D_K(\R^2)$, la fonction $t\mapsto f(t)\varphi(t,t)$ est mesurable, nulle hors du compact $K_1:=\{t:(t,t)\in K\}$ (projection de $K$ sur la première coordonnée, compact), et majorée par $|f|\mathbf 1_{K_1}\norm\varphi_K\in L^1$ ; donc $\Lambda_f$ est bien définie, linéaire, et $|\Lambda_f(\varphi)|\le\norm f_{L^1(K_1)}\norm\varphi_K$. \emph{C'est une mesure de Radon :} par la décomposition de (b), $\Lambda_f=\Lambda_{(\Re f)^+}-\dots$, et $\Lambda_g$ est positive si $g\ge0$.
+
+\emph{Ce n'est pas une fonction.} Supposons $\Lambda_f=T_g$ avec $g\in L^1_{\mathrm{loc}}(\R^2)$. Soit $\Delta:=\{(t,t)\}$ la diagonale, fermé de mesure nulle dans $\R^2$. Pour $\varphi\in\D(\R^2\setminus\Delta)$, $\varphi(t,t)=0$ pour tout $t$, donc $\int g\varphi=\Lambda_f(\varphi)=0$ : le lemme de du Bois-Reymond sur l'ouvert $\R^2\setminus\Delta$ donne $g=0$ p.p. sur $\R^2\setminus\Delta$, donc $g=0$ p.p. sur $\R^2$ ($\Delta$ est négligeable), et $T_g=0$. Il reste à voir que $\Lambda_f\ne0$ si $f\ne0$ : par du Bois-Reymond sur $\R$, il existe $\psi\in\D(\R)$ avec $\int f\psi\ne0$ ; si $\chi\in\D(\R)$ vaut $1$ sur $\supp\psi$, la fonction $\varphi(x,y):=\psi(x)\chi(y)$ est dans $\D(\R^2)$ et $\Lambda_f(\varphi)=\int f(t)\psi(t)\chi(t)\,dt=\int f\psi\ne0$. Contradiction.
+\end{solution}
+
+\begin{commentaire}
+L'argument de (c) est un argument de \emph{support} : la distribution $\Lambda_f$ est « portée » par la diagonale (elle s'annule sur les fonctions tests dont le support évite $\Delta$), alors qu'une fonction localement intégrable ne peut être portée par un ensemble négligeable sans être nulle. C'est le même mécanisme que pour la masse de Dirac (développement suivant) : $\delta_a$ est portée par $\{a\}$. En théorie de la mesure, $\Lambda_{\mathbf 1}$ est l'image de la mesure de Lebesgue de $\R$ par $t\mapsto(t,t)$, une mesure de longueur sur la diagonale.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 6.4 -- Masse de Dirac, ordre d'une distribution}
+\begin{enumerate}[label=(\alph*)]
+  \item Rédiger complètement la preuve du polycopié : pour $a\in\Omega$, $\delta_a$ n'est pas une fonction.
+  \item Montrer que pour $k\in\N$, la distribution $\delta_0^{(k)}\in\D'(\R)$, $\varphi\mapsto(-1)^k\varphi^{(k)}(0)$, est d'ordre exactement $k$.
+  \item Montrer qu'une distribution $T\in\D'(\Omega)$ vérifiant $|T(\varphi)|\le C\norm\varphi_{m,K}$ pour toute $\varphi\in\D(\Omega)$, avec $K$ compact et $C,m$ indépendants de $\varphi$ (on dit que $T$ est \emph{à support compact}), se prolonge en une forme linéaire sur $\Cinf(\Omega)$ ; en déduire que $\delta_a$ et ses dérivées agissent naturellement sur toutes les fonctions lisses.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Supposons $\delta_a=T_f$ avec $f\in L^1_{\mathrm{loc}}(\Omega)$. Soit $R>0$ avec $\Bf(a,R)\subset\Omega$ et $\varphi\in\D(\Omega)$ à support dans $\Bf(a,R)$, à valeurs dans $[0,1]$, avec $\varphi(a)=1$ (Lemme~6.1 appliqué à $K=\{a\}$, $W=B(a,R)$). Pour $n\ge1$ posons $\varphi_n(x):=\varphi(a+n(x-a))$ : $\varphi_n$ est lisse, à support dans $\Bf(a,R/n)\subset\Bf(a,R)$, donc $\varphi_n\in\D(\Omega)$, et $\varphi_n(a)=1$. D'une part $\langle\delta_a,\varphi_n\rangle=\varphi_n(a)=1$. D'autre part $\langle T_f,\varphi_n\rangle=\int_\Omega f\varphi_n$, avec $|f\varphi_n|\le|f|\mathbf 1_{\Bf(a,R)}\in L^1$ et $f(x)\varphi_n(x)\to0$ pour tout $x\ne a$ (car $\varphi_n(x)=0$ dès que $n|x-a|>R$) : par convergence dominée, $\int f\varphi_n\to0$. Contradiction : $1=\lim\langle\delta_a,\varphi_n\rangle=\lim\langle T_f,\varphi_n\rangle=0$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Ordre $\le k$ :} $|\langle\delta_0^{(k)},\varphi\rangle|=|\varphi^{(k)}(0)|\le\norm\varphi_{k,K}$ pour $\varphi\in\D_K(\R)$, avec la constante $1$ pour tout compact $K$ contenant $0$ (et $\delta_0^{(k)}=0$ sur $\D_K$ si $0\notin K$).
+
+\emph{Ordre $\ge k$ :} supposons $k\ge1$ et que $\delta_0^{(k)}$ soit d'ordre $\le k-1$. Pour $K=[-1,1]$ il existerait $C$ avec $|\varphi^{(k)}(0)|\le C\norm\varphi_{k-1,K}$ pour toute $\varphi\in\D_K(\R)$. Fixons $\varphi\in\D_K(\R)$ avec $\varphi^{(k)}(0)=1$ (par exemple $\varphi(x)=\frac{x^k}{k!}\chi(x)$ avec $\chi\in\D(]-1,1[)$ valant $1$ près de $0$ : $\varphi^{(k)}(0)=1$ par la formule de Leibniz, tous les autres termes contenant un facteur $x^{j}$, $j\ge1$, ou une dérivée de $\chi$, nuls en $0$). Pour $\lambda\in]0,1]$ posons $\varphi_\lambda(x):=\lambda^k\varphi(x/\lambda)$ : $\varphi_\lambda\in\D_K(\R)$ (support dans $[-\lambda,\lambda]$), $\varphi_\lambda^{(j)}(x)=\lambda^{k-j}\varphi^{(j)}(x/\lambda)$, donc $\varphi_\lambda^{(k)}(0)=\varphi^{(k)}(0)=1$ tandis que $\norm{\varphi_\lambda^{(j)}}_\infty=\lambda^{k-j}\norm{\varphi^{(j)}}_\infty\to0$ pour $j\le k-1$. L'inégalité $1\le C\norm{\varphi_\lambda}_{k-1,K}\to0$ est absurde. Donc $\delta_0^{(k)}$ est d'ordre exactement $k$.
+
+\medskip
+\noindent\textbf{(c)} Soit $\theta\in\D(\Omega)$ valant $1$ sur un voisinage de $K$ (Lemme~6.1). Pour $f\in\Cinf(\Omega)$ on pose $\tilde T(f):=T(\theta f)$. Cette définition ne dépend pas de $\theta$ : si $\theta_1$ est un autre choix, $(\theta-\theta_1)f$ est une fonction test nulle sur un voisinage de $K$, donc \emph{toutes ses dérivées sont nulles sur $K$}, et $\norm{(\theta-\theta_1)f}_{m,K}=0$, d'où $T((\theta-\theta_1)f)=0$ par l'hypothèse. Pour $f\in\D(\Omega)$, $\tilde T(f)=T(\theta f)=T(f)+T((\theta-1)f)=T(f)$ par le même argument. Ainsi $\tilde T$ prolonge $T$ ; elle est linéaire, et $|\tilde T(f)|\le C\norm{\theta f}_{m,K}\le C'\norm f_{m,\supp\theta}$ par Leibniz. Pour $\delta_a^{(\alpha)}$ on retrouve bien $\tilde T(f)=(-1)^{|\alpha|}\partial^\alpha(\theta f)(a)=(-1)^{|\alpha|}\partial^\alpha f(a)$.
+\end{solution}
+
+\begin{piege}
+\textbf{« Nul en dehors de $K$ » et « nul sur un voisinage de $K$ ».} Dans (c), on a besoin que $(\theta-\theta_1)f$ soit nulle sur un \emph{voisinage} de $K$ pour conclure que ses dérivées sont nulles sur $K$ : une fonction nulle sur $K$ seulement peut y avoir des dérivées non nulles (penser à $x\mapsto x$ et $K=\{0\}$). C'est pourquoi le Lemme~6.1 fournit une fonction valant $1$ sur un voisinage ouvert $W$ de $K$, et pas seulement sur $K$. Ce point explique aussi pourquoi $\delta_0'$ « voit » la pente en $0$ alors que son support est réduit à $\{0\}$ : le support d'une distribution est un fermé, mais l'action de la distribution dépend du comportement de $\varphi$ au voisinage de ce fermé.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Théorème 6.3 et Exemple 6.8 -- Calculs de dérivées, formule des sauts et peigne de Dirac}
+Dans $\D'(\R)$, on note $h=\mathbf 1_{\R_+}$ la fonction de Heaviside.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculer les dérivées au sens des distributions de $|x|$, de $\mathbf 1_{[a,b]}$ ($a<b$), de $x\mapsto x\,h(x)$ et de $x\mapsto h(x)e^{-x}$ ; calculer $|x|''$.
+  \item Montrer que $x\delta_0=0$, $x\delta_0'=-\delta_0$ et, pour $f\in\Cinf(\R)$, $f\delta_a=f(a)\delta_a$ et $f\delta_a'=f(a)\delta_a'-f'(a)\delta_a$.
+  \item Résoudre dans $\D'(\R)$ les équations $T'=\delta_a$ et $T''=\delta_0$.
+  \item (Peigne de Dirac.) Soit $D_N(x):=\sum_{|k|\le N}e^{ikx}$ le noyau de Dirichlet. Montrer que $(T_{D_N})_N$ converge dans $\D'(\R)$ vers $2\pi\sum_{n\in\Z}\delta_{2\pi n}$. \emph{On établira pour $\varphi\in\D(\R)$ la formule sommatoire de Poisson $\sum_{k\in\Z}\hat\varphi(k)=2\pi\sum_{n\in\Z}\varphi(2\pi n)$, où $\hat\varphi(\xi):=\int_\R\varphi(x)e^{-i\xi x}\,dx$.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Toutes ces fonctions sont $\mathcal C^1$ par morceaux au sens du Théorème~6.3, et l'on applique la formule des sauts $T_f'=T_{f'}+\sum_a(f(a^+)-f(a^-))\delta_a$, où $f'$ est la dérivée classique hors des points singuliers.
+\begin{itemize}
+  \item $f=|x|$ : continue (saut nul en $0$), $f'=\sgn$ hors de $0$ ; donc $T_{|x|}'=T_{\sgn}$. Puis $\sgn=2h-1$ est $\mathcal C^1$ par morceaux avec un saut $2$ en $0$ et une dérivée nulle ailleurs : $T_{\sgn}'=2\delta_0$, soit $|x|''=2\delta_0$.
+  \item $f=\mathbf 1_{[a,b]}$ : dérivée nulle hors de $\{a,b\}$, saut $+1$ en $a$, $-1$ en $b$ : $\mathbf 1_{[a,b]}'=\delta_a-\delta_b$.
+  \item $f(x)=xh(x)=\max(x,0)$ : continue, $f'=h$ hors de $0$ : $(xh)'=h$. (Et $(xh)''=h'=\delta_0$ par l'Exemple~6.8.)
+  \item $f(x)=h(x)e^{-x}$ : saut $1$ en $0$, dérivée $-he^{-x}$ ailleurs : $(he^{-x})'=-he^{-x}+\delta_0$. Autrement dit $f'+f=\delta_0$ : $f$ est la \emph{solution fondamentale} de l'opérateur $\frac d{dx}+1$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{(b)} Par définition du produit par une fonction lisse (Proposition~6.8) : $\langle x\delta_0,\varphi\rangle=\langle\delta_0,x\varphi\rangle=0\cdot\varphi(0)=0$ ; $\langle x\delta_0',\varphi\rangle=\langle\delta_0',x\varphi\rangle=-(x\varphi)'(0)=-(\varphi(0)+0\cdot\varphi'(0))=-\varphi(0)$, soit $x\delta_0'=-\delta_0$. De même $\langle f\delta_a,\varphi\rangle=f(a)\varphi(a)$ et $\langle f\delta_a',\varphi\rangle=-(f\varphi)'(a)=-f'(a)\varphi(a)-f(a)\varphi'(a)=\langle f(a)\delta_a'-f'(a)\delta_a,\varphi\rangle$. On retrouve d'ailleurs ces formules par Leibniz (Proposition~6.9) : $(f\delta_a)'=f'\delta_a+f\delta_a'$, soit $f\delta_a'=(f(a)\delta_a)'-f'(a)\delta_a=f(a)\delta_a'-f'(a)\delta_a$.
+
+\medskip
+\noindent\textbf{(c)} Par (a) (ou l'Exemple~6.8 translaté, Exercice~6.3), $T_0:=T_{h(\cdot-a)}$ vérifie $T_0'=\delta_a$. Si $T'=\delta_a$, alors $(T-T_0)'=0$ et le Théorème~6.4 ($\R$ est connexe) donne $T-T_0=T_c$ pour une constante $c$ : les solutions sont $h(x-a)+c$, $c\in\K$. De même, par (a), $(xh)''=\delta_0$ ; si $T''=\delta_0$, $(T-T_{xh})''=0$, donc $(T-T_{xh})'=c_1$ (Théorème~6.4), puis $(T-T_{xh}-c_1x)'=0$ et $T-T_{xh}-c_1x=c_0$ : les solutions sont $xh(x)+c_1x+c_0$. Une fonction continue, affine par morceaux, dont la pente saute de $1$ en $0$ — la dérivée seconde « mesure la cassure ».
+
+\medskip
+\noindent\textbf{(d)} \emph{Formule de Poisson.} Soit $\varphi\in\D(\R)$ et $\Phi(x):=\sum_{n\in\Z}\varphi(x+2\pi n)$. Sur tout compact, seuls un nombre fini de termes sont non nuls (si $\supp\varphi\subset[-R,R]$ et $|x|\le R'$, il faut $|2\pi n|\le R+R'$) : $\Phi$ est bien définie, lisse, $2\pi$-périodique, et ses dérivées sont $\Phi^{(j)}=\sum_n\varphi^{(j)}(\cdot+2\pi n)$. Ses coefficients de Fourier valent, par le théorème de Fubini (somme finie sur $[0,2\pi]$) et le changement de variable $y=x+2\pi n$,
+\[
+c_k(\Phi)=\frac1{2\pi}\int_0^{2\pi}\Phi(x)e^{-ikx}\,dx=\frac1{2\pi}\sum_{n\in\Z}\int_{2\pi n}^{2\pi(n+1)}\varphi(y)e^{-iky}\,dy=\frac1{2\pi}\hat\varphi(k),
+\]
+où l'on a utilisé $e^{-ik(y-2\pi n)}=e^{-iky}$. Comme $\Phi$ est $\mathcal C^2$, deux intégrations par parties donnent $|c_k(\Phi)|\le\norm{\Phi''}_\infty/k^2$ : la série de Fourier $\sum_kc_k(\Phi)e^{ikx}$ converge normalement sur $\R$ vers une fonction continue $\Psi$. Par le Théorème~4.5 (la famille $(e^{ikx})_{k\in\Z}$ est une base hilbertienne de $L^2(J_{2\pi})$, Exemple~4.7), elle converge aussi vers $\Phi$ dans $L^2(0,2\pi)$ ; les deux limites coïncident p.p., et deux fonctions continues égales p.p. sont égales : $\Psi=\Phi$ (c'est aussi le TD4 ex.~3). En $x=0$ :
+\[
+\sum_{n\in\Z}\varphi(2\pi n)=\Phi(0)=\sum_{k\in\Z}c_k(\Phi)=\frac1{2\pi}\sum_{k\in\Z}\hat\varphi(k).
+\]
+
+\emph{Conclusion.}
+\[
+\langle T_{D_N},\varphi\rangle=\sum_{|k|\le N}\int\varphi(x)e^{ikx}\,dx=\sum_{|k|\le N}\hat\varphi(-k)\xrightarrow[N\to\infty]{}\sum_{k\in\Z}\hat\varphi(k)=2\pi\sum_n\varphi(2\pi n)=\Big\langle2\pi\sum_n\delta_{2\pi n},\varphi\Big\rangle
+\]
+(la somme en $n$ est finie, et $\sum_n\delta_{2\pi n}$ est bien une distribution : pour $\varphi\in\D_K$, $|\sum_n\varphi(2\pi n)|\le\#(K\cap2\pi\Z)\norm\varphi_K$, ordre $0$). Ainsi $\sum_{k\in\Z}e^{ikx}=2\pi\sum_{n\in\Z}\delta_{2\pi n}$ dans $\D'(\R)$ : le peigne de Dirac est sa propre « série de Fourier ».
+\end{solution}
+
+\begin{commentaire}
+Le point (d) relie trois chapitres : le noyau de Dirichlet du TD0 (Exemples~3.4--3.5, où l'on a vu que $\norm{D_N}_1\to\infty$, de sorte que $(D_N)$ n'est \emph{pas} une approximation de l'unité et que les sommes partielles de Fourier d'une fonction continue peuvent diverger), les bases hilbertiennes du chapitre~4, et la convergence dans $\D'$. Sur les fonctions tests, lisses, la convergence $D_N\star\varphi\to\varphi$ a bien lieu (c'est la convergence de la série de Fourier d'une fonction $\mathcal C^\infty$ périodique), et c'est exactement ce que dit $T_{D_N}\rightharpoonup2\pi\sum\delta_{2\pi n}$ : les distributions régularisent les pathologies de la convergence ponctuelle en ne testant que contre des fonctions très régulières.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Proposition 6.4, Exemple 6.12 et l'équation $xT=0$ -- Autour de la valeur principale}
+\begin{enumerate}[label=(\alph*)]
+  \item (Lemme d'Hadamard) Soit $\varphi\in\D(\R)$ avec $\varphi(0)=0$. Montrer qu'il existe $\psi\in\D(\R)$ telle que $\varphi(x)=x\psi(x)$ pour tout $x$.
+  \item (Exemple~6.12) Montrer que $x\,\mathrm{vp}(1/x)=1$ dans $\D'(\R)$.
+  \item Montrer que les solutions $T\in\D'(\R)$ de $xT=0$ sont les $c\,\delta_0$, $c\in\K$. En déduire les solutions de $xT=1$.
+  \item Montrer que $\mathrm{vp}(1/x)$ est d'ordre exactement $1$ ; en particulier ce n'est pas une mesure de Radon.
+  \item Montrer que $\mathrm{vp}(1/x)=\lim_{\varepsilon\to0}T_{h_\varepsilon}$ avec $h_\varepsilon=x^{-1}\mathbf 1_{|x|>\varepsilon}$, puis que $\mathrm{vp}(1/x)=(\ln|x|)'$ (Proposition~6.4) \emph{en rédigeant directement l'intégration par parties}, sans passer par la formule des sauts.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $x\ne0$ posons $\psi(x):=\varphi(x)/x$. Par la formule fondamentale, $\varphi(x)=\varphi(x)-\varphi(0)=\int_0^x\varphi'(t)\,dt=x\int_0^1\varphi'(sx)\,ds$ : donc $\psi(x)=\int_0^1\varphi'(sx)\,ds$ pour $x\ne0$, et cette dernière expression définit une fonction lisse sur $\R$ tout entier (TDS : l'intégrande est lisse en $x$, à dérivées $s^j\varphi^{(j+1)}(sx)$ bornées par $\norm{\varphi^{(j+1)}}_\infty$, intégrables sur $[0,1]$). On prend pour $\psi$ ce prolongement : $\psi\in\Cinf(\R)$, $\varphi=x\psi$ sur $\R$ (en $0$ les deux membres sont nuls), et $\psi$ est à support dans $\supp\varphi$ (si $x\notin\supp\varphi$, $x\ne0$ ou $x=0$ ; dans le premier cas $\psi(x)=\varphi(x)/x=0$ ; le second ne se produit que si $0\notin\supp\varphi$, et alors $\varphi$ est nulle au voisinage de $0$, donc $\psi$ aussi). Ainsi $\psi\in\D(\R)$.
+
+\medskip
+\noindent\textbf{(b)} Par définition du produit par la fonction lisse $x$ :
+\[
+\langle x\,\mathrm{vp}(1/x),\varphi\rangle=\langle\mathrm{vp}(1/x),x\varphi\rangle=\lim_{\varepsilon\to0}\int_{|x|>\varepsilon}\frac{x\varphi(x)}x\,dx=\lim_{\varepsilon\to0}\int_{|x|>\varepsilon}\varphi=\int_\R\varphi=\langle T_1,\varphi\rangle,
+\]
+la dernière limite par convergence dominée (ou simplement parce que $\varphi$ est intégrable et $\int_{|x|\le\varepsilon}|\varphi|\le2\varepsilon\norm\varphi_\infty$).
+
+\medskip
+\noindent\textbf{(c)} Soit $T$ avec $xT=0$, et fixons $\chi\in\D(\R)$ avec $\chi(0)=1$. Pour $\varphi\in\D(\R)$, la fonction $\varphi-\varphi(0)\chi$ est une fonction test nulle en $0$ : par (a), $\varphi-\varphi(0)\chi=x\psi$ avec $\psi\in\D(\R)$. Donc
+\[
+\langle T,\varphi\rangle=\varphi(0)\langle T,\chi\rangle+\langle T,x\psi\rangle=\varphi(0)\langle T,\chi\rangle+\langle xT,\psi\rangle=c\,\varphi(0),\qquad c:=\langle T,\chi\rangle,
+\]
+soit $T=c\delta_0$. Réciproquement $x\delta_0=0$ (exercice précédent, (b)). Les solutions de $xT=1$ sont alors $\mathrm{vp}(1/x)+c\delta_0$ : $\mathrm{vp}(1/x)$ est solution par (b), et la différence de deux solutions vérifie $xT=0$.
+
+\medskip
+\noindent\textbf{(d)} \emph{Ordre $\le1$ :} le polycopié montre $|\langle\mathrm{vp}(1/x),\varphi\rangle|\le2R\norm{\varphi'}_\infty$ pour $\supp\varphi\subset[-R,R]$. \emph{Ordre $\ge1$ :} supposons $\mathrm{vp}(1/x)$ d'ordre $0$. Pour $K=[-1,2]$ il existerait $C$ avec $|\langle\mathrm{vp}(1/x),\varphi\rangle|\le C\norm\varphi_\infty$ sur $\D_K(\R)$. Soit $\theta\in\Cinf(\R)$ croissante, nulle sur $]-\infty,1/2]$, égale à $1$ sur $[1,+\infty[$, et $\chi\in\D(]-1,2[)$ à valeurs dans $[0,1]$ valant $1$ sur $[0,1]$. Posons $\varphi_n(x):=\chi(x)\theta(nx)$ : $\varphi_n\in\D_K(\R)$, $0\le\varphi_n\le1$, $\varphi_n=0$ sur $]-\infty,1/(2n)]$ et $\varphi_n=1$ sur $[1/n,1]$. Comme $\varphi_n$ est nulle au voisinage de $0$, $\langle\mathrm{vp}(1/x),\varphi_n\rangle=\int_\R\varphi_n(x)/x\,dx\ge\int_{1/n}^1\frac{dx}x=\ln n$ (l'intégrande est positif). L'inégalité $\ln n\le C$ pour tout $n$ est absurde.
+
+\medskip
+\noindent\textbf{(e)} La première assertion est la définition même : $\langle T_{h_\varepsilon},\varphi\rangle=\int_{|x|>\varepsilon}\varphi(x)/x\,dx\to\langle\mathrm{vp}(1/x),\varphi\rangle$. Pour la seconde, soit $\varphi\in\D(\R)$ à support dans $[-R,R]$. Comme $\ln|x|\in L^1_{\mathrm{loc}}(\R)$ et $\ln|x|\varphi'(x)$ est intégrable, $\langle(\ln|x|)',\varphi\rangle=-\int_\R\ln|x|\varphi'(x)\,dx=-\lim_{\varepsilon\to0}\int_{\varepsilon<|x|<R}\ln|x|\varphi'(x)\,dx$ (convergence dominée). Sur chacun des intervalles $[\varepsilon,R]$ et $[-R,-\varepsilon]$, $\ln|x|$ est $\mathcal C^1$ et l'on intègre par parties :
+\[
+\int_\varepsilon^R\ln x\,\varphi'(x)\,dx=\big[\ln x\,\varphi(x)\big]_\varepsilon^R-\int_\varepsilon^R\frac{\varphi(x)}x\,dx=-\ln\varepsilon\,\varphi(\varepsilon)-\int_\varepsilon^R\frac{\varphi(x)}x\,dx,
+\]
+\[
+\int_{-R}^{-\varepsilon}\ln|x|\,\varphi'(x)\,dx=\big[\ln|x|\,\varphi(x)\big]_{-R}^{-\varepsilon}-\int_{-R}^{-\varepsilon}\frac{\varphi(x)}x\,dx=\ln\varepsilon\,\varphi(-\varepsilon)-\int_{-R}^{-\varepsilon}\frac{\varphi(x)}x\,dx .
+\]
+En sommant, les termes de bord donnent $\ln\varepsilon\,(\varphi(-\varepsilon)-\varphi(\varepsilon))$, majoré par $2\varepsilon|\ln\varepsilon|\norm{\varphi'}_\infty\to0$ (accroissements finis). D'où $\langle(\ln|x|)',\varphi\rangle=\lim_{\varepsilon\to0}\int_{|x|>\varepsilon}\frac{\varphi(x)}x\,dx=\langle\mathrm{vp}(1/x),\varphi\rangle$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{La valeur principale est le prototype de « distribution qui n'est ni une fonction ni une mesure ».} Trois faits la caractérisent : elle prolonge $1/x$ hors de $0$ (si $\supp\varphi\not\ni0$, $\langle\mathrm{vp}(1/x),\varphi\rangle=\int\varphi/x$) ; elle est d'ordre $1$ (d), la compensation symétrique entre $-\varepsilon$ et $\varepsilon$ demandant un contrôle de $\varphi'$ ; elle est unique à un multiple de $\delta_0$ près parmi les solutions de $xT=1$ (c). L'argument (c) — « $\varphi\mapsto\varphi-\varphi(0)\chi$ puis division par $x$ » — est le lemme d'Hadamard ; il montre plus généralement que les distributions à support dans $\{0\}$ annulées par $x^{k+1}$ sont les combinaisons de $\delta_0,\dots,\delta_0^{(k)}$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 6.10 -- L'équation $y'=ay$ à coefficient localement intégrable}
+Soit $a\in L^1_{\mathrm{loc}}(\R)$ et $y(t):=\exp\big(\int_0^ta\big)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $y$ est continue, strictement positive, et que $T_y'=T_{ay}$ dans $\D'(\R)$.
+  \item Soit $f\in\Cz(\R)$ telle que $T_f'=T_{af}$. Montrer que $f/y$ est constante. \emph{Indication : régulariser $f$ et $a$, et appliquer la formule de Leibniz aux fonctions lisses $f_n/y_n$.}
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $A(t):=\int_0^ta$ est continue (convergence dominée : $A(t)-A(s)=\int_s^ta$ et $|a|\mathbf 1_{[s,t]}\to0$ dans $L^1$ quand $t\to s$) donc $y=e^A$ est continue et $>0$. Soit $a_n:=a\star\rho_n\in\Cinf(\R)$ : par le Théorème~3.6 (appliqué à $a\mathbf 1_{[-R-1,R+1]}\in L^1$, qui coïncide avec $a$ sur $[-R,R]$ pour ce qui concerne la convolution avec $\rho_n$, $n\ge1$), $a_n\to a$ dans $L^1([-R,R])$ pour tout $R$, \ie\ dans $L^1_{\mathrm{loc}}(\R)$. Posons $A_n(t):=\int_0^ta_n$ et $y_n:=e^{A_n}$. Alors $|A_n(t)-A(t)|\le\norm{a_n-a}_{L^1([-R,R])}$ pour $|t|\le R$ : $A_n\to A$ uniformément sur tout compact, et donc $y_n\to y$ uniformément sur tout compact (l'exponentielle est uniformément continue sur les bornés, et $A$ est bornée sur $[-R,R]$). Les fonctions $y_n$ sont $\mathcal C^1$ et $y_n'=a_ny_n$ classiquement, donc $T_{y_n}'=T_{a_ny_n}$ (Proposition~6.3). Passons à la limite : $y_n\to y$ dans $L^1_{\mathrm{loc}}$ donc $T_{y_n}\rightharpoonup T_y$ et $T_{y_n}'\rightharpoonup T_y'$ ; et $a_ny_n\to ay$ dans $L^1_{\mathrm{loc}}$ car sur $[-R,R]$
+\[
+\norm{a_ny_n-ay}_{L^1}\le\norm{a_n-a}_{L^1}\norm{y_n}_\infty+\norm a_{L^1}\norm{y_n-y}_\infty\to0
+\]
+(les normes étant prises sur $[-R,R]$, et $(y_n)$ y étant bornée puisque uniformément convergente). Donc $T_{a_ny_n}\rightharpoonup T_{ay}$, et par unicité de la limite dans $\D'$ (convergence simple), $T_y'=T_{ay}$.
+
+\medskip
+\noindent\textbf{(b)} Posons $z_n:=1/y_n=e^{-A_n}\in\Cinf(\R)$, avec $z_n'=-a_nz_n$ et $z_n\to z:=1/y$ uniformément sur tout compact (même argument qu'en (a)). Posons $f_n:=f\star\rho_n\in\Cinf(\R)$ ; comme $f$ est continue, $f_n\to f$ uniformément sur tout compact (Théorème~3.6 appliqué à $f\theta$ avec $\theta$ plateau valant $1$ sur $[-R-1,R+1]$, qui est uniformément continue). Sa dérivée se calcule par la Proposition~6.10 : $T_{f_n}=\rho_n\star T_f$ (Exercice~6.4 ci-dessous, cas d'une fonction) et $f_n'=(\rho_n\star T_f)'=\rho_n\star T_f'=\rho_n\star T_{af}=(af)\star\rho_n$. Par la formule de Leibniz pour les fonctions lisses,
+\[
+(f_nz_n)'=f_n'z_n+f_nz_n'=\big((af)\star\rho_n\big)z_n-a_nf_nz_n .
+\]
+Membre de gauche : $f_nz_n\to fz$ uniformément sur tout compact, donc $T_{f_nz_n}'\rightharpoonup T_{fz}'$. Membre de droite : sur $[-R,R]$, $(af)\star\rho_n\to af$ dans $L^1$ (Théorème~3.6, $af\in L^1_{\mathrm{loc}}$), $z_n\to z$ uniformément, $a_n\to a$ dans $L^1$, $f_nz_n\to fz$ uniformément ; par les mêmes majorations qu'en (a), $((af)\star\rho_n)z_n\to afz$ et $a_nf_nz_n\to afz$ dans $L^1([-R,R])$. Le membre de droite tend donc vers $afz-afz=0$ dans $L^1_{\mathrm{loc}}$, donc dans $\D'$. Ainsi $T_{fz}'=0$ : par le Théorème~6.4, $fz=f/y$ est (p.p., donc partout par continuité) égale à une constante.
+\end{solution}
+
+\begin{commentaire}
+Ceci répond à la question posée en ouverture du chapitre : l'équation $y'=ay$ garde un sens, et une solution unique à constante près, pour $a$ seulement localement intégrable, à condition de lire $y'$ au sens des distributions. Le schéma de preuve (régulariser, écrire l'identité pour les objets lisses, passer à la limite grâce à la continuité de la dérivation) est celui de tout le chapitre, et la formule de Leibniz n'a été utilisée que pour des fonctions lisses : on n'a jamais eu à multiplier deux distributions, ce qui n'aurait pas de sens.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.3 -- Translation d'une distribution}
+Pour $a\in\R^d$ et $T\in\D'(\R^d)$ on pose $\langle\tau_aT,\varphi\rangle:=\langle T,\tau_{-a}\varphi\rangle$. Vérifier que $\tau_aT$ est une distribution, que $\tau_aT_f=T_{\tau_af}$ pour $f\in L^1_{\mathrm{loc}}(\R^d)$, que $\tau_a\delta_b=\delta_{a+b}$, que $\partial^\alpha(\tau_aT)=\tau_a(\partial^\alpha T)$, et que $T\mapsto\tau_aT$ est séquentiellement continue sur $\D'(\R^d)$.
+\end{exo}
+
+\begin{solution}
+Rappelons que $\tau_af(x)=f(x-a)$, de sorte que $\tau_{-a}\varphi(x)=\varphi(x+a)$ ; si $\varphi\in\D_K(\R^d)$ alors $\tau_{-a}\varphi\in\D_{K-a}(\R^d)$ (avec $K-a:=\{x-a:x\in K\}$, compact), $\partial^\alpha(\tau_{-a}\varphi)=\tau_{-a}(\partial^\alpha\varphi)$ et $\norm{\tau_{-a}\varphi}_{m,K-a}=\norm\varphi_{m,K}$.
+
+\emph{Distribution.} $\tau_aT$ est linéaire (composée de $T$ et de l'application linéaire $\tau_{-a}$). Pour $\varphi\in\D_K$, l'estimation (6.1) de $T$ sur le compact $K-a$ donne $|\langle\tau_aT,\varphi\rangle|\le C_{K-a}\norm{\tau_{-a}\varphi}_{m_{K-a},K-a}=C_{K-a}\norm\varphi_{m_{K-a},K}$ : c'est (6.1) pour $\tau_aT$ (avec les constantes du compact $K-a$). En particulier $\tau_a$ préserve l'ordre.
+
+\emph{Compatibilité avec les fonctions.} Pour $f\in L^1_{\mathrm{loc}}$, le changement de variable $y=x-a$ (invariance de la mesure de Lebesgue par translation) donne
+\[
+\langle T_{\tau_af},\varphi\rangle=\int f(x-a)\varphi(x)\,dx=\int f(y)\varphi(y+a)\,dy=\langle T_f,\tau_{-a}\varphi\rangle=\langle\tau_aT_f,\varphi\rangle .
+\]
+C'est la raison du signe « $-a$ » dans la définition. \emph{Dirac :} $\langle\tau_a\delta_b,\varphi\rangle=\tau_{-a}\varphi(b)=\varphi(a+b)$. \emph{Dérivation :} $\langle\partial^\alpha(\tau_aT),\varphi\rangle=(-1)^{|\alpha|}\langle T,\tau_{-a}\partial^\alpha\varphi\rangle=(-1)^{|\alpha|}\langle T,\partial^\alpha(\tau_{-a}\varphi)\rangle=\langle\partial^\alpha T,\tau_{-a}\varphi\rangle=\langle\tau_a\partial^\alpha T,\varphi\rangle$. \emph{Continuité :} si $T_n\rightharpoonup T$, $\langle\tau_aT_n,\varphi\rangle=\langle T_n,\tau_{-a}\varphi\rangle\to\langle T,\tau_{-a}\varphi\rangle$ : opération définie par transposition, donc continue (premier développement du chapitre).
+\end{solution}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.4 -- Le produit de convolution $\psi\star T$ est une distribution}
+Soient $T\in\D'(\R^d)$ et $\psi\in\D(\R^d)$. Vérifier que $\varphi\mapsto\langle T,\varphi\star\check\psi\rangle$ est une distribution (notée $\psi\star T$), que $\psi\star T_f=T_{\psi\star f}$ pour $f\in L^1_{\mathrm{loc}}(\R^d)$, et que $T\mapsto\psi\star T$ est séquentiellement continue.
+\end{exo}
+
+\begin{solution}
+\emph{La fonction $\varphi\star\check\psi$ est une fonction test.} Soit $\varphi\in\D_K(\R^d)$ et $L:=\supp\psi$. Pour $x$ fixé, $(\varphi\star\check\psi)(x)=\int\varphi(y)\check\psi(x-y)\,dy=\int\varphi(y)\psi(y-x)\,dy$ ; l'intégrande est nul sauf si $y\in K$ et $y-x\in L$, \ie\ $x\in K-L:=\{y-z:y\in K,z\in L\}$, compact (image du compact $K\times L$ par l'application continue $(y,z)\mapsto y-z$). Donc $\supp(\varphi\star\check\psi)\subset K':=K-L$. Par le TDS (dérivation sous l'intégrale $\int\varphi(y)\psi(y-x)\,dy$ en $x$, dérivées bornées et support compact), $\varphi\star\check\psi$ est lisse et $\partial^\alpha(\varphi\star\check\psi)=\varphi\star\partial^\alpha\check\psi$ ; en faisant porter les dérivées sur $\varphi$ (écrire $\int\varphi(x-z)\check\psi(z)\,dz$ et dériver), $\partial^\alpha(\varphi\star\check\psi)=(\partial^\alpha\varphi)\star\check\psi$, d'où $\norm{\partial^\alpha(\varphi\star\check\psi)}_\infty\le\norm{\partial^\alpha\varphi}_\infty\norm\psi_1$.
+
+\emph{Estimation (6.1).} L'application $\varphi\mapsto\varphi\star\check\psi$ est linéaire, et avec les constantes $C_{K'},m_{K'}$ de $T$ pour le compact $K'$ :
+\[
+|\langle\psi\star T,\varphi\rangle|=|\langle T,\varphi\star\check\psi\rangle|\le C_{K'}\norm{\varphi\star\check\psi}_{m_{K'},K'}\le C_{K'}\norm\psi_1\norm\varphi_{m_{K'},K}.
+\]
+Donc $\psi\star T\in\D'(\R^d)$, d'ordre au plus celui de $T$.
+
+\emph{Compatibilité.} Pour $f\in L^1_{\mathrm{loc}}$, $\psi\star f$ est bien définie (intégrale sur le compact $x-L$), et par Fubini--Tonelli (tout est à support compact en $(x,y)$ une fois multiplié par $\varphi$) :
+\begin{align*}
+\langle T_{\psi\star f},\varphi\rangle=\iint\psi(x-y)f(y)\varphi(x)\,dy\,dx&=\int f(y)\Big(\int\varphi(x)\psi(x-y)\,dx\Big)dy\\&=\int f(y)(\varphi\star\check\psi)(y)\,dy=\langle T_f,\varphi\star\check\psi\rangle,
+\end{align*}
+car $\int\varphi(x)\psi(x-y)\,dx=\int\varphi(x)\check\psi(y-x)\,dx=(\varphi\star\check\psi)(y)$. C'est la formule (6.2) du polycopié. \emph{Continuité :} $\langle\psi\star T_n,\varphi\rangle=\langle T_n,\varphi\star\check\psi\rangle\to\langle T,\varphi\star\check\psi\rangle$ — encore une opération par transposition.
+\end{solution}
+
+\begin{piege}
+\textbf{Le support grossit : $K'=K-\supp\psi$.} Comme pour les translations, l'estimation de $\psi\star T$ sur $\D_K$ fait intervenir les constantes de $T$ sur un \emph{autre} compact $K'$. C'est sans conséquence pour la définition, mais c'est l'origine de la remarque du polycopié dans la preuve de la Proposition~6.10 (« le support de $\varphi\star\check\psi$ est légèrement plus gros que $K$ »), et c'est pour cela que l'on ne peut définir $\psi\star T$ que si l'un des deux objets est à support compact : sans hypothèse de support, $K'$ ne serait pas compact.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.5 -- Densité de $\D(\Omega)$ dans $\D'(\Omega)$}
+Montrer que pour toute $T\in\D'(\Omega)$ il existe une suite $(\psi_n)_n$ de $\D(\Omega)$ telle que $T_{\psi_n}\rightharpoonup T$ dans $\D'(\Omega)$. (L'énoncé du polycopié écrit « $(\psi_n)_n\in\D'(\Omega)^\N$ » : il faut lire $\D(\Omega)^\N$, c'est tout l'intérêt de l'énoncé.)
+\end{exo}
+
+\begin{solution}
+Le Corollaire~6.2 traite le cas $\Omega=\R^d$ : on s'y ramène par troncature, suivant la méthode « localiser, résoudre, recoller ».
+
+\emph{Troncature.} Soit $(K_n)$ exhaustive et $\theta_n\in\D(\Omega)$ valant $1$ sur $K_n$ (Lemme~6.1). Définissons $\theta_nT$ comme distribution \emph{sur $\R^d$} : pour $\varphi\in\D(\R^d)$, $\langle\theta_nT,\varphi\rangle:=\langle T,(\theta_n\varphi)|_\Omega\rangle$ ; c'est licite car $\theta_n\varphi$ est lisse à support dans $\supp\theta_n$, compact de $\Omega$. C'est une distribution sur $\R^d$ : pour $\varphi\in\D_K(\R^d)$, $\theta_n\varphi\in\D_{L_n}(\Omega)$ avec $L_n:=\supp\theta_n$, et par Leibniz $\norm{\theta_n\varphi}_{m,L_n}\le C(m,\theta_n)\norm\varphi_{m,K}$, d'où $|\langle\theta_nT,\varphi\rangle|\le C_{L_n}C(m_{L_n},\theta_n)\norm\varphi_{m_{L_n},K}$.
+
+\emph{Régularisation.} Par la Proposition~6.10, $g_n:=\rho_n\star(\theta_nT)$ est une fonction lisse sur $\R^d$. Posons $\psi_n:=\theta_n\,g_n|_\Omega$ : lisse, à support dans $\supp\theta_n$, donc $\psi_n\in\D(\Omega)$.
+
+\emph{Convergence.} Soit $\varphi\in\D(\Omega)$. Son support est dans $\interieur K_{n_0}$ pour un $n_0$, et $\delta:=d(\supp\varphi,\R^d\setminus\interieur K_{n_0})>0$. Pour $n\ge n_0$ : $\theta_n\varphi=\varphi$ (car $\theta_n=1$ sur $K_n\supset K_{n_0}$), donc
+\[
+\langle T_{\psi_n},\varphi\rangle=\int_\Omega g_n\theta_n\varphi=\langle g_n,\varphi\rangle=\langle\rho_n\star(\theta_nT),\varphi\rangle=\langle\theta_nT,\varphi\star\check\rho_n\rangle=\langle T,\theta_n(\varphi\star\check\rho_n)\rangle .
+\]
+Or $\supp(\varphi\star\check\rho_n)\subset\supp\varphi+\Bf(0,1/n)$ (Exercice~6.4, $\supp\rho_n\subset\Bf(0,1/n)$) est contenu dans $K_{n_0}$ dès que $1/n<\delta$, et $\theta_n=1$ sur $K_{n_0}$ : $\theta_n(\varphi\star\check\rho_n)=\varphi\star\check\rho_n$ pour $n$ grand, et $\langle T_{\psi_n},\varphi\rangle=\langle T,\varphi\star\check\rho_n\rangle$. Enfin $\varphi\star\check\rho_n\to\varphi$ dans $\D(\Omega)$ : supports dans le compact fixe $\supp\varphi+\Bf(0,\delta)\subset K_{n_0}$, et pour tout $\alpha$, $\partial^\alpha(\varphi\star\check\rho_n)=(\partial^\alpha\varphi)\star\check\rho_n\to\partial^\alpha\varphi$ uniformément (Théorème~3.6, $p=\infty$, $\partial^\alpha\varphi$ uniformément continue ; $(\check\rho_n)$ est encore une approximation de l'unité issue de $\check\rho$). La continuité séquentielle de $T$ (premier développement) donne $\langle T,\varphi\star\check\rho_n\rangle\to\langle T,\varphi\rangle$.
+\end{solution}
+
+\begin{commentaire}
+Ainsi toute distribution, aussi singulière soit-elle ($\delta_0^{(k)}$, $\mathrm{vp}(1/x)$, le peigne de Dirac), est limite de fonctions tests au sens de $\D'$. C'est l'analogue, pour le « dual » $\D'(\Omega)$, de la densité de $c_{<\infty}$ dans $\ell^p$ ou de $J(E)$ dans $E''$ pour la convergence préfaible, et cela justifie le principe énoncé après l'Exemple~6.12 : une formule vraie pour les fonctions tests, dont tous les termes dépendent continûment de $T$ pour la convergence de $\D'$, reste vraie pour les distributions.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Proposition 6.5 en dimension 2 -- Solution fondamentale du laplacien dans le plan}
+On admet la formule de Green : pour $U$ un ouvert borné à bord $\mathcal C^1$ de $\R^2$, $u,v\in\mathcal C^2(\adh U)$, $\int_U(u\Delta v-v\Delta u)=\int_{\partial U}(u\,\partial_\nu v-v\,\partial_\nu u)\,d\sigma$, $\nu$ désignant la normale extérieure. Montrer que $E(x):=\frac1{2\pi}\ln\norm x$ est dans $L^1_{\mathrm{loc}}(\R^2)$ et que $\Delta E=\delta_0$ dans $\D'(\R^2)$. En déduire que le Lemme~6.4 de Weyl vaut en dimension~2.
+\end{exo}
+
+\begin{solution}
+\emph{Intégrabilité locale.} En coordonnées polaires, $\int_{\norm x\le R}|\ln\norm x|\,dx=2\pi\int_0^Rr|\ln r|\,dr<\infty$ ($r\ln r$ est bornée près de $0$).
+
+\emph{Harmonicité hors de l'origine.} Pour $x\ne0$, avec $r=\norm x$, $\partial_kE=\frac1{2\pi}\frac{x_k}{r^2}$ et $\partial_{kk}E=\frac1{2\pi}\big(\frac1{r^2}-\frac{2x_k^2}{r^4}\big)$, d'où $\Delta E=\frac1{2\pi}\big(\frac2{r^2}-\frac{2r^2}{r^4}\big)=0$. De plus le gradient radial vaut $\partial_rE=\frac1{2\pi r}$.
+
+\emph{Calcul distributionnel.} Soit $\varphi\in\D(\R^2)$, à support dans $B(0,R)$, et $\varepsilon\in]0,R[$. Comme $E\Delta\varphi\in L^1$, par convergence dominée $\langle\Delta E,\varphi\rangle=\int E\Delta\varphi=\lim_{\varepsilon\to0}\int_{U_\varepsilon}E\Delta\varphi$ avec $U_\varepsilon:=\{\varepsilon<\norm x<R\}$, couronne sur laquelle $E$ est lisse. La formule de Green avec $u=E$, $v=\varphi$ (et $\Delta E=0$ sur $U_\varepsilon$, $\varphi=0$ près de $\{\norm x=R\}$) donne
+\[
+\int_{U_\varepsilon}E\Delta\varphi=\int_{\norm x=\varepsilon}\big(E\,\partial_\nu\varphi-\varphi\,\partial_\nu E\big)\,d\sigma ,
+\]
+où sur le cercle intérieur la normale extérieure à $U_\varepsilon$ est $\nu=-x/\norm x$, donc $\partial_\nu=-\partial_r$. Paramétrons par $x=\varepsilon\omega$, $\omega\in\Sun$, $d\sigma=\varepsilon\,d\omega$ :
+\begin{gather*}
+\int_{\norm x=\varepsilon}E\,\partial_\nu\varphi\,d\sigma=-\frac{\ln\varepsilon}{2\pi}\,\varepsilon\int_{\Sun}\partial_r\varphi(\varepsilon\omega)\,d\omega,\\
+-\int_{\norm x=\varepsilon}\varphi\,\partial_\nu E\,d\sigma=\int_{\norm x=\varepsilon}\varphi\,\partial_rE\,d\sigma=\frac1{2\pi\varepsilon}\,\varepsilon\int_{\Sun}\varphi(\varepsilon\omega)\,d\omega .
+\end{gather*}
+Le premier terme est majoré par $\varepsilon|\ln\varepsilon|\norm{\nabla\varphi}_\infty\to0$ ; le second tend vers $\frac1{2\pi}\cdot2\pi\varphi(0)=\varphi(0)$ par continuité de $\varphi$ (convergence uniforme de $\varphi(\varepsilon\omega)$ vers $\varphi(0)$ sur $\Sun$). Donc $\langle\Delta E,\varphi\rangle=\varphi(0)$ : $\Delta E=\delta_0$.
+
+\emph{Weyl en dimension 2.} La preuve du Lemme~6.4 n'utilise de la solution fondamentale $S$ que deux propriétés : $S\in L^1_{\mathrm{loc}}$ avec $\Delta S=\delta_0$, et $S$ lisse en dehors de l'origine. Toutes deux sont satisfaites par $E$ (et $\theta=\varphi\star(\eta E)$ est lisse par le TDS, $\eta E\in L^1(\R^2)$). La preuve se recopie donc mot pour mot : toute distribution harmonique sur $\R^2$ est une fonction lisse.
+\end{solution}
+
+\begin{commentaire}
+Le même calcul en dimension $3$ avec $E(x)=-\frac1{4\pi\norm x}$ redonne la Proposition~6.5 en quelques lignes (le terme de bord $\int_{\norm x=\varepsilon}\varphi\,\partial_rE\,d\sigma=\frac1{4\pi\varepsilon^2}\cdot\varepsilon^2\int_{\mathbb S^2}\varphi(\varepsilon\omega)\,d\omega\to\varphi(0)$, et l'autre est en $O(\varepsilon)$). La preuve du polycopié évite la formule de Green, qui n'est pas au programme du cours, au prix de la régularisation $f_\varepsilon$ ; il est utile de connaître les deux. En dimension $d\ge3$, $E(x)=-c_d\norm x^{2-d}$ : c'est le potentiel newtonien.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice 6.6 -- Équations de Cauchy--Riemann au sens des distributions}
+Que dire d'un couple $(S,T)\in\D'(\R^2)^2$ tel que $(\partial_1T,\partial_2T)=(-\partial_2S,\partial_1S)$ ? \emph{On admettra le lemme de Weyl en dimension 2 (développement précédent).}
+\end{exo}
+
+\begin{solution}
+\emph{Interprétation.} Identifions $\R^2$ à $\C$ via $z=x+iy$ ($x=x_1$, $y=x_2$) et posons $F:=S+iT\in\D'(\R^2)$ (combinaison linéaire de distributions). Les équations de Cauchy--Riemann pour une fonction $F=S+iT$ de classe $\mathcal C^1$ s'écrivent $\partial_1S=\partial_2T$ et $\partial_1T=-\partial_2S$, soit $\partial_{\bar z}F:=\frac12(\partial_1+i\partial_2)F=\frac12\big(\partial_1S-\partial_2T+i(\partial_1T+\partial_2S)\big)=0$. L'hypothèse de l'exercice est exactement ce système, lu dans $\D'(\R^2)$.
+
+\emph{$S$ et $T$ sont harmoniques.} Les dérivées partielles des distributions commutent : $\partial_1\partial_2U=\partial_2\partial_1U$ pour toute $U\in\D'$, car $\langle\partial_1\partial_2U,\varphi\rangle=\langle U,\partial_2\partial_1\varphi\rangle=\langle U,\partial_1\partial_2\varphi\rangle$ (Schwarz pour la fonction test lisse). Donc
+\[
+\Delta S=\partial_1(\partial_1S)+\partial_2(\partial_2S)=\partial_1\partial_2T-\partial_2\partial_1T=0,\qquad
+\Delta T=\partial_1(\partial_1T)+\partial_2(\partial_2T)=-\partial_1\partial_2S+\partial_2\partial_1S=0 .
+\]
+
+\emph{Conclusion.} Par le lemme de Weyl en dimension $2$, $S$ et $T$ sont des fonctions lisses (\ie\ $S=T_s$, $T=T_t$ avec $s,t\in\Cinf(\R^2)$). Pour des fonctions lisses, les dérivées distributionnelles sont les dérivées classiques (Proposition~6.3) et le lemme de du Bois-Reymond transforme les égalités dans $\D'$ en égalités de fonctions continues, donc partout : $s$ et $t$ vérifient les équations de Cauchy--Riemann au sens classique, et $f:=s+it$ est une fonction holomorphe sur $\C$ tout entier (une fonction entière). Réciproquement, toute fonction entière $f=s+it$ fournit un tel couple. \emph{Bilan : les couples $(S,T)$ de l'énoncé sont exactement les couples (partie réelle, partie imaginaire) des fonctions entières.} C'est une forme du lemme de Weyl pour l'opérateur de Cauchy--Riemann (Remarque~6.9) : une « fonction holomorphe au sens des distributions » est automatiquement une vraie fonction holomorphe.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Hypoellipticité : la régularité se gagne par l'équation.} Pour les opérateurs $\Delta$ et $\partial_{\bar z}$, une solution distribution est automatiquement lisse. Ce n'est pas le cas de tous les opérateurs : l'équation $\partial_1U=0$ dans $\R^2$ admet pour solutions toutes les distributions « fonctions de $x_2$ seulement », par exemple $U=\mathbf 1\otimes\delta_0$, $\langle U,\varphi\rangle=\int\varphi(x_1,0)\,dx_1$ (comparer avec l'Exemple~6.7), qui n'est même pas une fonction. Le mécanisme de Weyl repose sur l'existence d'une solution fondamentale lisse hors de l'origine, ce que $\partial_1$ n'a pas ($h(x_1)\otimes\delta_0(x_2)$ est singulière le long de toute la droite $x_2=0$).
 \end{pointcle}
 
 \end{document}
