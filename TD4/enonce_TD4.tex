@@ -88,10 +88,12 @@
 \maketitle
 
 \begin{commentaire}
-Feuille d'exercices sur le chapitre~4 du polycopié, complémentaire des exercices du poly (corrigés dans le TD0). Les exercices~7 et~8 préparent le chapitre~5. Le corrigé détaillé est dans \texttt{corrige\_TD4.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative : 1, 3, 4, 5 (fondamentaux) ; 2, 6, 8 (classiques d'examen) ; 7, 9 (plus longs).
+Feuille d'exercices sur le chapitre~4 du polycopié. La \textbf{partie A} (Exercices~1 à~9) est complémentaire des exercices du poly (corrigés dans le TD0) ; ses exercices~7 et~8 préparent le chapitre~5. La \textbf{partie B} reproduit la \textbf{feuille officielle} du TD n\textsuperscript{o}4 (Exercices officiels~1 à~7 ; les officiels~2 et~3 sont les Exercices~4.1 et~4.2 du poly). Le corrigé détaillé est dans \texttt{corrige\_TD4.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative, partie A : 1, 3, 4, 5 (fondamentaux) ; 2, 6, 8 (classiques d'examen) ; 7, 9 (plus longs). Partie B : 1, 2, 3 (cours) ; 4, 5, 7 (courts, à savoir refaire) ; 6 (calcul à soigner).
 \end{commentaire}
 
-\section*{Projections et dualité}
+\section*{Partie A -- Exercices complémentaires}
+
+\subsection*{Projections et dualité}
 
 \begin{exo}{Exercice 1 -- Projections sur des convexes fermés : calculs et propriétés}
 Soit $H$ un espace de Hilbert et $C\subset H$ un convexe fermé non vide. On note $P_C$ la projection sur $C$ (Théorème~4.1), caractérisée par : $P_C(x)\in C$ et $\Re\ps{x-P_C(x)}{y-P_C(x)}\le0$ pour tout $y\in C$.
@@ -115,7 +117,7 @@ Soit $H$ un espace de Hilbert réel et $a:H\times H\to\R$ une forme bilinéaire 
 \end{enumerate}
 \end{exo}
 
-\section*{Bases hilbertiennes}
+\subsection*{Bases hilbertiennes}
 
 \begin{exo}{Exercice 3 -- Parseval en action : $\zeta(2)$, inégalité de Wirtinger, convergence uniforme}
 On munit $L^2(0,2\pi)$ du produit scalaire \emph{normalisé} $\ps fg:=\frac1{2\pi}\int_0^{2\pi}f\,\overline g$ (proportionnel au produit scalaire usuel, donc même orthogonalité et même convergence). Pour ce produit scalaire, la famille $(e_k)_{k\in\Z}$, $e_k(x)=e^{ikx}$, est une base hilbertienne (Exemple~4.7, où elle apparaît comme $(e_k/\sqrt{2\pi})$ pour le produit scalaire usuel), et les coordonnées de $f$ sont ses coefficients de Fourier $c_k(f)=\ps f{e_k}=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_k}$. L'identité de Parseval s'écrit donc $\frac1{2\pi}\int_0^{2\pi}|f|^2=\sum_{k\in\Z}|c_k(f)|^2$.
@@ -136,7 +138,7 @@ On travaille dans $H=L^2(]-1,1[;\R)$.
 \end{enumerate}
 \end{exo}
 
-\section*{Opérateurs}
+\subsection*{Opérateurs}
 
 \begin{exo}{Exercice 5 -- Adjoint : propriétés générales et opérateur de décalage}
 Soient $S,T$ des opérateurs sur $H$.
@@ -168,7 +170,7 @@ Soit $T$ un opérateur sur $H$.
 \end{enumerate}
 \end{exo}
 
-\section*{Convergence faible}
+\subsection*{Convergence faible}
 
 \begin{exo}{Exercice 8 -- Convergence faible : critères et compacité}
 Soit $H$ un espace de Hilbert séparable, $(e_k)_{k\in\N}$ une base hilbertienne.
@@ -189,6 +191,73 @@ Soit $U$ un opérateur sur $H$ avec $\opnorm U\le1$ (une \emph{contraction}). On
   \item Conclure : pour tout $x\in H$, $A_Nx\to P_F(x)$ (projection orthogonale sur $F$).
   \item \emph{Application.} Sur $H=L^2(J_{2\pi})$ identifié aux fonctions $2\pi$-périodiques, soit $\alpha\in\R$ avec $\alpha/2\pi\notin\Q$ et $Uf:=f(\cdot+\alpha)$. Déterminer $F$ et interpréter la conclusion de (d).
 \end{enumerate}
+\end{exo}
+
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}4}
+
+\begin{exo}{Exercice officiel 1 -- Produits scalaires ou pas ?}
+Les formes suivantes définies sur $E\times E$ sont-elles des produits scalaires ?
+\begin{enumerate}[label=(\alph*)]
+  \item $E=\C^2$, $\varphi(x,y)=x_2\bar y_1+x_1\bar y_2$.
+  \item $E=\C^3$, $\varphi(x,y)=x_2y_3+5x_1\bar y_3$.
+  \item $E=\C^2$, $\varphi(x,y)=ix_2\bar y_1+iy_2\bar x_1$.
+  \item $E=\R_n[X]$, $\varphi(P,Q)=\sum_{k=0}^nP(k)Q(k)$.
+  \item $E=\Cz([0,1],\C)$, $\varphi(f,g)=\int_0^1f(x)\overline{g(x)}\,dx$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 2 (Exercice 4.1 du poly) -- Une norme vérifiant l'identité du parallélogramme dérive d'un produit scalaire}
+Soit $(E,\norm\cdot)$ un espace vectoriel normé réel dont la norme satisfait l'identité du parallélogramme :
+\[
+\forall(x,y)\in E^2,\qquad\norm x^2+\norm y^2=2\Big\|\frac{x+y}2\Big\|^2+2\Big\|\frac{x-y}2\Big\|^2 .
+\]
+Le but de l'exercice est de montrer que $\ps\cdot\cdot:(x,y)\mapsto\frac12\big(\norm{x+y}^2-\norm x^2-\norm y^2\big)$ est un produit scalaire dont $\norm\cdot$ dérive.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\ps\cdot\cdot$ est symétrique, positive et séparée.
+  \item Pour $y\in E$ fixé, montrer que l'application $x\mapsto\ps xy$ est additive.
+  \item En déduire que $\ps{\lambda x}y=\lambda\ps xy$ pour (successivement) $\lambda\in\N$, $\lambda\in\Z$, $\lambda\in\Q$, $\lambda\in\R$, puis conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 3 (Exercice 4.2 du poly) -- $L^p$ n'est pas préhilbertien pour $p\ne2$}
+Soit $\Omega$ un ouvert de $\R^d$ et $p\in[1,+\infty]$ différent de $2$. Montrer que $L^p(\Omega)$ n'est pas un espace préhilbertien.
+\end{exo}
+
+\begin{exo}{Exercice officiel 4 -- Projection orthogonale : une seconde caractérisation}
+Soit $H$ un espace de Hilbert et $K$ un convexe fermé non vide. Nous avons vu en cours (Théorème~4.1) que $u$ est la projection orthogonale de $f$ sur $K$ si et seulement si
+\[
+\text{(1)}\qquad u\in K\quad\text{et}\quad\Re\ps{f-u}{v-u}\le0\quad\forall v\in K .
+\]
+Montrer que (1) est équivalent à
+\[
+\text{(2)}\qquad u\in K\quad\text{et}\quad\Re\ps{f-v}{u-v}\ge0\quad\forall v\in K .
+\]
+\end{exo}
+
+\begin{exo}{Exercice officiel 5 -- Projection orthogonale sur un cône}
+Soit $H$ un espace de Hilbert réel, $K\subset H$ un cône convexe fermé de sommet $0$ (c'est-à-dire que $x\in K$ et $\lambda\in\R_+$ entraînent $\lambda x\in K$). Montrer que si $f\in H$ alors sa projection $u=P_K(f)$ est caractérisée par les propriétés
+\[
+u\in K,\qquad\ps{f-u}u=0,\qquad\ps{f-u}v\le0\quad\forall v\in K .
+\]
+\end{exo}
+
+\begin{exo}{Exercice officiel 6 -- Calcul explicite d'une projection orthogonale}
+Soit $\Omega\subset\R^N$ un ouvert et $\varphi\in L^2(\Omega)$. On définit
+\[
+K:=\{u\in L^2(\Omega)\ :\ |u(x)|\le|\varphi(x)|\ \text{p.p.\ }x\in\Omega\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Vérifier que $K$ est un convexe fermé non vide de $H=L^2(\Omega)$.
+  \item Déterminer $P_K(f)$ pour tout $f\in H$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 7 -- Un problème de minimisation}
+Soit $H$ un espace de Hilbert réel et $M\subset H$ un sous-espace vectoriel fermé différent de $\{0\}$. Montrer que pour tout $f\in H\setminus M^\perp$, l'infimum
+\[
+\mu:=\inf_{u\in M,\ \norm u=1}\ps fu
+\]
+est atteint en un point unique.
 \end{exo}
 
 \end{document}

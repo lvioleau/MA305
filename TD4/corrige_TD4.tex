@@ -90,10 +90,11 @@
 \begin{commentaire}
 \textbf{Conventions.} $H$ désigne un espace de Hilbert sur $\K=\R$ ou $\C$, de produit scalaire $\ps\cdot\cdot$ linéaire à gauche et semi-linéaire à droite (Définition~4.1). On utilise librement l'identité (4.1) du polycopié, $\norm{a+b}^2=\norm a^2+2\Re\ps ab+\norm b^2$, le théorème de projection (Théorème~4.1, Corollaire~4.1), la décomposition $H=F\oplus^\perp F^\perp$ pour $F$ fermé (Théorème~4.2), les bases hilbertiennes (Théorème~4.5) et le théorème de représentation de Riesz (Théorème~4.6). Un \emph{opérateur} est un endomorphisme continu de $H$ (Définition~4.9), $T^\star$ son adjoint (Proposition~4.6).
 
-Cette feuille ne figure pas parmi les feuilles officielles du cours : elle a été composée pour travailler le chapitre~4 au-delà des exercices du polycopié (tous corrigés dans le TD0). Les exercices~7 et~8 préparent le chapitre~5. Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+La \textbf{partie A} (Exercices~1 à~9) ne figure pas parmi les feuilles officielles du cours : elle a été composée pour travailler le chapitre~4 au-delà des exercices du polycopié (tous corrigés dans le TD0) ; ses exercices~7 et~8 préparent le chapitre~5. La \textbf{partie B} corrige les sept exercices de la feuille officielle du TD n\textsuperscript{o}4, numérotés « Exercice officiel 1 » à « Exercice officiel 7 ». Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
 \end{commentaire}
 
-\section*{Projections et dualité}
+\section*{Partie A -- Exercices complémentaires}
+\subsection*{Projections et dualité}
 
 % =====================================================================
 \begin{exo}{Exercice 1 -- Projections sur des convexes fermés : calculs et propriétés}
@@ -193,7 +194,8 @@ L'équation s'écrit donc $u_k-(\Delta u)_k=b_k$ où $(\Delta u)_k:=u_{k+1}-2u_k
 \textbf{Lax--Milgram = Riesz + coercivité.} Le théorème de Riesz traite les formes bilinéaires \emph{symétriques} définies positives (ce sont des produits scalaires équivalents). Lax--Milgram s'en passe : la coercivité fournit la minoration $\norm{Ax}\ge\alpha\norm x$, qui donne l'injectivité et la fermeture de l'image ; le passage par l'orthogonal donne la densité. Le schéma « minoré $+$ image dense $\Rightarrow$ bijectif, inverse borné » est à retenir : c'est le même qu'à l'exercice~2.6 sur l'opérateur $f\mapsto xf$. C'est l'outil de base pour les problèmes aux limites elliptiques (chapitre~6), où $a(u,v)=\int\nabla u\cdot\nabla v+\dots$ sur un espace de Sobolev.
 \end{pointcle}
 
-\section*{Bases hilbertiennes}
+\newpage
+\subsection*{Bases hilbertiennes}
 
 % =====================================================================
 \begin{exo}{Exercice 3 -- Parseval en action : $\zeta(2)$, inégalité de Wirtinger, convergence uniforme}
@@ -232,7 +234,7 @@ La série $\sum_kc_k(f)e_k$ est donc normalement convergente pour $\norm\cdot_\i
 \end{solution}
 
 \begin{commentaire}
-L'inégalité de Wirtinger est la version unidimensionnelle de l'\emph{inégalité de Poincaré} ($\norm{f-\bar f}_{L^2}\le C\norm{\nabla f}_{L^2}$), pilier de l'analyse des EDP ; la preuve par Parseval montre que la meilleure constante est liée à la première valeur propre non nulle du laplacien ($-f''=f$ sur le cercle). Historiquement, Wirtinger sert à démontrer l'inégalité isopérimétrique dans le plan (Hurwitz, 1901).
+L'inégalité de Wirtinger est la version unidimensionnelle de l'\emph{inégalité de Poincaré}, pilier de l'analyse des EDP : $\norm{f-\bar f}_{L^2}\le C\norm{\nabla f}_{L^2}$ ; la preuve par Parseval montre que la meilleure constante est liée à la première valeur propre non nulle du laplacien ($-f''=f$ sur le cercle). Historiquement, Wirtinger sert à démontrer l'inégalité isopérimétrique dans le plan (Hurwitz, 1901).
 \end{commentaire}
 
 % =====================================================================
@@ -267,7 +269,7 @@ P_0=\frac1{\sqrt2},\qquad P_1=\sqrt{\tfrac32}\,x,\qquad P_2=\sqrt{\tfrac{45}8}\B
 Les polynômes de Legendre sont les fonctions propres de l'opérateur de Sturm--Liouville $f\mapsto-\big((1-x^2)f'\big)'$, auto-adjoint sur $L^2(]-1,1[)$ : leur orthogonalité « vient » de cet opérateur, comme celle des $e^{ikx}$ vient de $-d^2/dx^2$ sur le cercle. Le même schéma (Gram--Schmidt sur les monômes pour un poids $w$, totalité via Weierstrass) produit les polynômes de Tchebychev ($w=(1-x^2)^{-1/2}$), de Laguerre ($w=e^{-x}$ sur $\R_+$) et d'Hermite ($w=e^{-x^2}$ sur $\R$) — pour ces deux derniers, la totalité demande un argument supplémentaire, l'intervalle n'étant pas borné. La question (d) est à la base des méthodes de quadrature de Gauss.
 \end{commentaire}
 
-\section*{Opérateurs}
+\subsection*{Opérateurs}
 
 % =====================================================================
 \begin{exo}{Exercice 5 -- Adjoint : propriétés générales et opérateur de décalage}
@@ -364,7 +366,10 @@ Pour $\norm x=\norm y=1$ : $|\Re\ps{Tx}y|\le m$. Si $Tx\ne0$, prenons $y:=Tx/\no
 \medskip
 \noindent\textbf{(d)} Par (b), $\opnorm T=\sup_{\norm x=1}|\ps{Tx}x|$ ; il existe donc une suite $(x_n)$ de vecteurs unitaires avec $|\ps{Tx_n}{x_n}|\to\opnorm T$. Les $\ps{Tx_n}{x_n}$ sont réels ; quitte à extraire, ils convergent vers $\lambda\in\{\opnorm T,-\opnorm T\}$, et $\lambda\ne0$ car $T\ne0$. Alors
 \[
-\norm{Tx_n-\lambda x_n}^2=\norm{Tx_n}^2-2\lambda\ps{Tx_n}{x_n}+\lambda^2\le\opnorm T^2+\lambda^2-2\lambda\ps{Tx_n}{x_n}=2\lambda^2-2\lambda\ps{Tx_n}{x_n}\xrightarrow[n\to\infty]{}0 .
+\begin{aligned}
+\norm{Tx_n-\lambda x_n}^2&=\norm{Tx_n}^2-2\lambda\ps{Tx_n}{x_n}+\lambda^2\\
+&\le\opnorm T^2+\lambda^2-2\lambda\ps{Tx_n}{x_n}=2\lambda^2-2\lambda\ps{Tx_n}{x_n}\xrightarrow[n\to\infty]{}0 .
+\end{aligned}
 \]
 Par compacité de $T$, quitte à extraire encore, $Tx_n\to y$ pour un $y\in H$. Alors $\lambda x_n=Tx_n-(Tx_n-\lambda x_n)\to y$, donc $x_n\to x:=y/\lambda$, avec $\norm x=\lim\norm{x_n}=1$. Par continuité de $T$, $Tx=\lim Tx_n=y=\lambda x$ : $\lambda$ est valeur propre, de vecteur propre $x\ne0$.
 \end{solution}
@@ -373,7 +378,7 @@ Par compacité de $T$, quitte à extraire encore, $Tx_n\to y$ pour un $y\in H$. 
 \textbf{Le c\oe ur du théorème spectral.} La question (d) est le lemme clé : un opérateur auto-adjoint compact non nul a une valeur propre de module maximal. On l'applique ensuite à la restriction de $T$ à $E_\lambda^\perp$ (stable par $T$ car $T$ est auto-adjoint : si $x\perp E_\lambda$ et $y\in E_\lambda$, $\ps{Tx}y=\ps x{Ty}=\lambda\ps xy=0$), qui est encore auto-adjoint compact de norme $\le\opnorm T$, et l'on itère : les valeurs propres ainsi obtenues décroissent en module vers $0$ (Proposition~4.7) et les vecteurs propres forment une base hilbertienne de $\adh{\Ima T}$. C'est le théorème de diagonalisation du chapitre~5, qui dit que tout opérateur auto-adjoint compact est un multiplicateur $M_a$ ($a\in c_0$) dans une base adaptée (TD0, exercice~4.7). Sans compacité, (d) tombe : $M_a$ avec $a_n=1-1/(n+1)$ a pour norme $1$, qui n'est pas valeur propre.
 \end{pointcle}
 
-\section*{Convergence faible}
+\subsection*{Convergence faible}
 
 % =====================================================================
 \begin{exo}{Exercice 8 -- Convergence faible : critères et compacité}
@@ -453,6 +458,233 @@ Donc $U^\star x=x$ : $\Ker(U-\mathrm{Id})\subset\Ker(U^\star-\mathrm{Id})$. L'in
 
 \begin{commentaire}
 \textbf{Pourquoi un théorème « ergodique » dans un cours de Hilbert.} La preuve n'utilise que la structure hilbertienne : adjoint, orthogonal d'une image, décomposition $H=F\oplus F^\perp$. Le point subtil est (a) : pour une contraction, les vecteurs fixes de $U$ et de $U^\star$ coïncident, ce qui est faux pour un opérateur quelconque : sur $\R^2$, $U(x_1,x_2)=(x_1+x_2,x_2)$ a pour vecteurs fixes la droite $\R e_1$, et $U^\star(x_1,x_2)=(x_1,x_1+x_2)$ la droite $\R e_2$. C'est ce qui permet d'identifier $F^\perp$ à l'adhérence de l'image de $U-\mathrm{Id}$, sur laquelle les moyennes de Cesàro s'annulent par télescopage. Von Neumann (1932) a démontré ce résultat pour les opérateurs unitaires induits par un système dynamique préservant la mesure ; la version ponctuelle (convergence presque partout), due à Birkhoff, est beaucoup plus difficile. La question (e) est un cas particulier du théorème d'équirépartition de Weyl.
+\end{commentaire}
+
+
+% =====================================================================
+% =====================================================================
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}4}
+
+\begin{commentaire}
+Les sept exercices qui suivent sont ceux de la \textbf{feuille officielle} du TD n\textsuperscript{o}4 (« Espaces de Hilbert »), numérotés comme sur la feuille. Les exercices officiels~2 et~3 sont les Exercices~4.1 et~4.2 du polycopié, déjà corrigés dans le TD0 ; on en redonne ici une correction complète pour que cette feuille soit autonome. Les exercices officiels~4 à~7 tournent tous autour du théorème de projection (Théorème~4.1) et prolongent l'Exercice~1 de la partie A, dont ils réutilisent la caractérisation variationnelle (1).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 1 -- Produits scalaires ou pas ?}
+Les formes suivantes définies sur $E\times E$ sont-elles des produits scalaires ?
+\begin{enumerate}[label=(\alph*)]
+  \item $E=\C^2$, $\varphi(x,y)=x_2\bar y_1+x_1\bar y_2$.
+  \item $E=\C^3$, $\varphi(x,y)=x_2y_3+5x_1\bar y_3$.
+  \item $E=\C^2$, $\varphi(x,y)=ix_2\bar y_1+iy_2\bar x_1$.
+  \item $E=\R_n[X]$, $\varphi(P,Q)=\sum_{k=0}^nP(k)Q(k)$.
+  \item $E=\Cz([0,1],\C)$, $\varphi(f,g)=\int_0^1f(x)\overline{g(x)}\,dx$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+Rappel (Définition~4.1) : un produit scalaire sur un $\C$-espace vectoriel est une forme sesquilinéaire (linéaire en la première variable, semi-linéaire en la seconde), hermitienne ($\varphi(y,x)=\overline{\varphi(x,y)}$), positive et définie ($\varphi(x,x)>0$ pour $x\ne0$). Sur un $\R$-espace, bilinéaire symétrique définie positive. On examine les propriétés dans cet ordre, et l'on s'arrête à la première qui manque.
+
+\medskip
+\noindent\textbf{(a)} $\varphi$ est sesquilinéaire (chaque terme est linéaire en $x$ et semi-linéaire en $y$) et hermitienne : $\varphi(y,x)=y_2\bar x_1+y_1\bar x_2=\overline{x_1\bar y_2+x_2\bar y_1}=\overline{\varphi(x,y)}$. Mais $\varphi(x,x)=x_2\bar x_1+x_1\bar x_2=2\Re(x_1\bar x_2)$, qui est réel (comme il se doit pour une forme hermitienne) mais pas positif : pour $x=(1,-1)$, $\varphi(x,x)=-2$. \emph{Non.}
+
+\medskip
+\noindent\textbf{(b)} Le terme $x_2y_3$ est linéaire en $y$ et non semi-linéaire : $\varphi(x,\lambda y)=\lambda x_2y_3+5\bar\lambda x_1\bar y_3\ne\bar\lambda\varphi(x,y)$ en général (prendre $x=(0,1,0)$, $y=(0,0,1)$, $\lambda=i$ : $\varphi(x,\lambda y)=i$, $\bar\lambda\varphi(x,y)=-i$). Pas sesquilinéaire ; d'ailleurs $\varphi(x,x)=x_2x_3+5x_1\bar x_3$ n'est pas réel en général. \emph{Non.}
+
+\medskip
+\noindent\textbf{(c)} Le second terme $iy_2\bar x_1$ est semi-linéaire en $x$ : $\varphi(\lambda x,y)=i\lambda x_2\bar y_1+i\bar\lambda y_2\bar x_1$, qui n'est pas $\lambda\varphi(x,y)$ (prendre $x=(1,0)$, $y=(0,1)$, $\lambda=i$ : $\varphi(\lambda x,y)=i\cdot(-i)=1$ alors que $\lambda\varphi(x,y)=i\cdot i=-1$). Pas linéaire en $x$. De plus $\varphi(x,x)=2ix_2\bar x_1$ n'est pas réel en général. \emph{Non.}
+
+\medskip
+\noindent\textbf{(d)} $\varphi$ est bilinéaire symétrique (somme de produits de formes linéaires $P\mapsto P(k)$), positive : $\varphi(P,P)=\sum_kP(k)^2\ge0$. Définie : si $\varphi(P,P)=0$ alors $P(0)=P(1)=\dots=P(n)=0$, soit $n+1$ racines distinctes pour un polynôme de degré $\le n$, donc $P=0$. \emph{Oui} — et c'est le point à ne pas rater : la positivité est évidente, le caractère \emph{défini} repose sur le fait qu'il y a autant de points d'évaluation ($n+1$) que la dimension de $E$. Avec $\sum_{k=0}^{n-1}$ la forme ne serait plus définie (le polynôme $X(X-1)\cdots(X-n+1)$ serait isotrope).
+
+\medskip
+\noindent\textbf{(e)} Sesquilinéaire, hermitienne (conjuguer sous l'intégrale), positive : $\varphi(f,f)=\int_0^1|f|^2\ge0$. Définie : si $\int_0^1|f|^2=0$ avec $|f|^2$ continue positive, alors $|f|^2=0$ partout (une fonction continue positive d'intégrale nulle est nulle : sinon elle est $\ge c>0$ sur un petit intervalle). \emph{Oui} : c'est le produit scalaire de $L^2(0,1)$ restreint aux fonctions continues ; $(E,\varphi)$ est préhilbertien mais pas hilbertien (non complet, Exemple~4.2 du poly / TD0), sa complétion est $L^2(0,1)$.
+\end{solution}
+
+\begin{piege}
+\textbf{Hermitien ne suffit pas, positif ne suffit pas.} En (a), la forme a toutes les propriétés sauf la positivité : une forme hermitienne a toujours $\varphi(x,x)\in\R$, mais le signe n'est pas garanti. En (b) et (c), avant même de regarder la positivité, c'est la \emph{sesquilinéarité} qui manque, à cause d'un conjugué mal placé ; le test rapide est $\varphi(x,x)\in\R$ pour tout $x$, nécessaire pour l'hermitianité. Et en (d), (e), le point délicat est toujours le même : « défini » demande un argument (racines d'un polynôme, continuité), alors que « positif » se lit sur la formule.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 2 (Exercice 4.1 du poly) -- Une norme vérifiant l'identité du parallélogramme dérive d'un produit scalaire}
+Soit $(E,\norm\cdot)$ un espace vectoriel normé réel dont la norme satisfait l'identité du parallélogramme :
+\[
+\forall(x,y)\in E^2,\qquad\norm x^2+\norm y^2=2\Big\|\frac{x+y}2\Big\|^2+2\Big\|\frac{x-y}2\Big\|^2 .
+\]
+Le but de l'exercice est de montrer que $\ps\cdot\cdot:(x,y)\mapsto\frac12\big(\norm{x+y}^2-\norm x^2-\norm y^2\big)$ est un produit scalaire dont $\norm\cdot$ dérive.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\ps\cdot\cdot$ est symétrique, positive et séparée.
+  \item Pour $y\in E$ fixé, montrer que l'application $x\mapsto\ps xy$ est additive.
+  \item En déduire que $\ps{\lambda x}y=\lambda\ps xy$ pour (successivement) $\lambda\in\N$, $\lambda\in\Z$, $\lambda\in\Q$, $\lambda\in\R$, puis conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+Notons d'abord que l'identité du parallélogramme s'écrit aussi, en remplaçant $(x,y)$ par $(a+b,a-b)$ : $\norm{a+b}^2+\norm{a-b}^2=2\norm a^2+2\norm b^2$ (forme (4.2) du polycopié), que l'on utilisera sous cette forme.
+
+\medskip
+\noindent\textbf{(a)} \emph{Symétrie :} $\norm{x+y}=\norm{y+x}$. \emph{Positivité et séparation :} $\ps xx=\frac12(\norm{2x}^2-2\norm x^2)=\frac12(4-2)\norm x^2=\norm x^2$, qui est $\ge0$, et nul seulement si $x=0$. C'est aussi l'identité « la norme dérive de $\ps\cdot\cdot$ », avant même de savoir que c'est un produit scalaire.
+
+\medskip
+\noindent\textbf{(b)} Il s'agit de montrer $\ps{x+x'}y=\ps xy+\ps{x'}y$. Posons $z:=x+x'$. Par définition,
+\[
+2\ps xy+2\ps{x'}y=\norm{x+y}^2+\norm{x'+y}^2-\norm x^2-\norm{x'}^2-2\norm y^2 .
+\]
+Appliquons le parallélogramme aux couples $(x+y,x'+y)$ et $(x,x')$ :
+\[
+\norm{x+y}^2+\norm{x'+y}^2=\tfrac12\big(\norm{z+2y}^2+\norm{x-x'}^2\big),\qquad
+\norm x^2+\norm{x'}^2=\tfrac12\big(\norm z^2+\norm{x-x'}^2\big).
+\]
+Par différence, le terme $\norm{x-x'}^2$ disparaît : $2\ps xy+2\ps{x'}y=\frac12\big(\norm{z+2y}^2-\norm z^2\big)-2\norm y^2$. Appliquons encore le parallélogramme au couple $(z+y,y)$ : $\norm{z+2y}^2+\norm z^2=2\norm{z+y}^2+2\norm y^2$, soit $\norm{z+2y}^2=2\norm{z+y}^2+2\norm y^2-\norm z^2$. En reportant,
+\[
+2\ps xy+2\ps{x'}y=\tfrac12\big(2\norm{z+y}^2+2\norm y^2-2\norm z^2\big)-2\norm y^2=\norm{z+y}^2-\norm z^2-\norm y^2=2\ps zy .
+\]
+D'où l'additivité.
+
+\medskip
+\noindent\textbf{(c)} \emph{$\lambda\in\N$ :} par récurrence à partir de l'additivité, $\ps{nx}y=n\ps xy$ ($\ps{0}y=\frac12(\norm y^2-0-\norm y^2)=0$ pour $n=0$). \emph{$\lambda\in\Z$ :} $0=\ps{x+(-x)}y=\ps xy+\ps{-x}y$, donc $\ps{-x}y=-\ps xy$, et $\ps{-nx}y=-n\ps xy$. \emph{$\lambda\in\Q$ :} pour $\lambda=m/n$ avec $n\ge1$, $n\ps{\frac mnx}y=\ps{mx}y=m\ps xy$ (deux applications du cas entier), d'où $\ps{\frac mnx}y=\frac mn\ps xy$. \emph{$\lambda\in\R$ :} l'application $\lambda\mapsto\ps{\lambda x}y=\frac12(\norm{\lambda x+y}^2-\lambda^2\norm x^2-\norm y^2)$ est continue sur $\R$ (la norme est continue), de même que $\lambda\mapsto\lambda\ps xy$ ; ces deux fonctions continues coïncident sur $\Q$, dense dans $\R$, donc partout.
+
+\emph{Conclusion.} $\ps\cdot\cdot$ est linéaire en la première variable (additive et homogène), symétrique donc bilinéaire, et $\ps xx=\norm x^2>0$ pour $x\ne0$ : c'est un produit scalaire, et $\norm\cdot$ en dérive. Réciproquement, si $\norm\cdot$ dérive d'un produit scalaire, le développement $\norm{x+y}^2=\norm x^2+2\ps xy+\norm y^2$ (identité (4.1)) montre que c'est nécessairement celui-là (identité de polarisation) ; et le parallélogramme est alors vérifié (Proposition~4.1) : le parallélogramme est donc une condition \emph{nécessaire et suffisante} pour qu'une norme soit hilbertienne (Proposition~4.1 et sa réciproque).
+\end{solution}
+
+\begin{commentaire}
+Dans le cas complexe, la formule de polarisation est $\ps xy=\frac14\sum_{k=0}^3i^k\norm{x+i^ky}^2$ et la preuve est la même, en ajoutant l'étape $\ps{ix}y=i\ps xy$ (qui se lit directement sur la formule). La stratégie « additivité, puis $\N$, $\Z$, $\Q$, puis densité » est celle de toutes les preuves où l'on veut montrer qu'une application additive et continue est linéaire : c'est un argument à connaître indépendamment de ce contexte (équation fonctionnelle de Cauchy).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 3 (Exercice 4.2 du poly) -- $L^p$ n'est pas préhilbertien pour $p\ne2$}
+Soit $\Omega$ un ouvert de $\R^d$ et $p\in[1,+\infty]$ différent de $2$. Montrer que $L^p(\Omega)$ n'est pas un espace préhilbertien.
+\end{exo}
+
+\begin{solution}
+D'après l'exercice précédent, il suffit d'exhiber deux fonctions $f,g\in L^p(\Omega)$ violant l'identité du parallélogramme $\norm{f+g}_p^2+\norm{f-g}_p^2=2\norm f_p^2+2\norm g_p^2$ (si la norme dérivait d'un produit scalaire, elle la vérifierait, Proposition~4.1).
+
+$\Omega$ étant un ouvert non vide, il contient deux boules ouvertes disjointes $A$ et $B$ de même rayon, donc de même mesure $m\in\,]0,\infty[$. Posons $f:=\mathbf 1_A$, $g:=\mathbf 1_B$. Comme $A\cap B=\emptyset$, $|f\pm g|=\mathbf 1_{A\cup B}$, et :
+\begin{itemize}
+  \item si $p<\infty$ : $\norm{f\pm g}_p=(2m)^{1/p}$, $\norm f_p=\norm g_p=m^{1/p}$, donc le membre de gauche vaut $2(2m)^{2/p}=2^{1+2/p}m^{2/p}$ et le membre de droite $4m^{2/p}$. Ils sont égaux si et seulement si $2^{1+2/p}=2^2$, soit $2/p=1$, soit $p=2$.
+  \item si $p=\infty$ : $\norm{f\pm g}_\infty=\norm f_\infty=\norm g_\infty=1$, membre de gauche $2$, membre de droite $4$.
+\end{itemize}
+Pour $p\ne2$, l'identité du parallélogramme est en défaut : $L^p(\Omega)$ n'est pas préhilbertien.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Des indicatrices à supports disjoints.} C'est le test standard pour les normes $L^p$ : sur des fonctions à supports disjoints, $\norm{f+g}_p^p=\norm f_p^p+\norm g_p^p$ (la norme $p$ est « additive à la puissance $p$ »), alors qu'une norme hilbertienne est additive au carré sur des vecteurs orthogonaux. Les deux ne coïncident que pour $p=2$. Le même calcul montre que $\ell^p$ n'est pas préhilbertien pour $p\ne2$ (avec $e_1,e_2$), ni $\Cz([0,1])$ pour la norme uniforme (deux bosses disjointes).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 4 -- Projection orthogonale : une seconde caractérisation}
+Soit $H$ un espace de Hilbert et $K$ un convexe fermé non vide. Nous avons vu en cours (Théorème~4.1) que $u$ est la projection orthogonale de $f$ sur $K$ si et seulement si
+\[
+\text{(1)}\qquad u\in K\quad\text{et}\quad\Re\ps{f-u}{v-u}\le0\quad\forall v\in K .
+\]
+Montrer que (1) est équivalent à
+\[
+\text{(2)}\qquad u\in K\quad\text{et}\quad\Re\ps{f-v}{u-v}\ge0\quad\forall v\in K .
+\]
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(1) $\Rightarrow$ (2).} Soit $v\in K$. En écrivant $f-v=(f-u)+(u-v)$,
+\[
+\Re\ps{f-v}{u-v}=\Re\ps{f-u}{u-v}+\ps{u-v}{u-v}=-\Re\ps{f-u}{v-u}+\norm{u-v}^2\ \ge\ 0+0 .
+\]
+
+\medskip
+\noindent\textbf{(2) $\Rightarrow$ (1).} C'est le sens qui demande une idée : (2) est une inégalité « au point $v$ », alors que (1) est une inégalité « au point $u$ », et l'on y revient en faisant tendre $v$ vers $u$ le long d'un segment. Soit $v\in K$ et, pour $t\in\,]0,1]$, $v_t:=u+t(v-u)=(1-t)u+tv\in K$ par convexité. Appliquons (2) à $v_t$ : $\Re\ps{f-v_t}{u-v_t}\ge0$, avec $f-v_t=(f-u)-t(v-u)$ et $u-v_t=-t(v-u)$ :
+\[
+0\le\Re\ps{(f-u)-t(v-u)}{-t(v-u)}=-t\,\Re\ps{f-u}{v-u}+t^2\norm{v-u}^2 .
+\]
+En divisant par $t>0$ : $\Re\ps{f-u}{v-u}\le t\norm{v-u}^2$ pour tout $t\in\,]0,1]$, et $t\to0$ donne $\Re\ps{f-u}{v-u}\le0$. C'est (1).
+\end{solution}
+
+\begin{commentaire}
+L'argument « $v_t=u+t(v-u)$ puis $t\to0$ » est l'\emph{astuce de Minty} ; elle sert partout en analyse convexe et en théorie des opérateurs monotones (inéquations variationnelles, Stampacchia), où la formulation (2) est précieuse parce qu'elle fait porter la condition sur $v$ plutôt que sur l'inconnue $u$ — ce qui la rend stable par passage à la limite faible en $u$. Noter la dissymétrie : (1) $\Rightarrow$ (2) est une identité algébrique, (2) $\Rightarrow$ (1) a besoin de la convexité de $K$.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 5 -- Projection orthogonale sur un cône}
+Soit $H$ un espace de Hilbert réel, $K\subset H$ un cône convexe fermé de sommet $0$ (c'est-à-dire que $x\in K$ et $\lambda\in\R_+$ entraînent $\lambda x\in K$). Montrer que si $f\in H$ alors sa projection $u=P_K(f)$ est caractérisée par les propriétés
+\[
+u\in K,\qquad\ps{f-u}u=0,\qquad\ps{f-u}v\le0\quad\forall v\in K .
+\]
+\end{exo}
+
+\begin{solution}
+$K$ est non vide (il contient $0=0\cdot x$ pour n'importe quel $x\in K$, un cône étant supposé non vide), convexe et fermé : $P_K$ est bien définie, caractérisée par (1) : $u\in K$ et $\ps{f-u}{v-u}\le0$ pour tout $v\in K$ (pas de partie réelle, $H$ est réel).
+
+\medskip
+\noindent\textbf{(1) $\Rightarrow$ les trois propriétés.} On teste (1) avec les deux vecteurs particuliers que fournit la structure de cône. \emph{$v=2u\in K$} : $\ps{f-u}{u}\le0$. \emph{$v=0\in K$} : $\ps{f-u}{-u}\le0$, soit $\ps{f-u}u\ge0$. Donc $\ps{f-u}u=0$. Ensuite, pour $v\in K$ quelconque, $\ps{f-u}v=\ps{f-u}{v-u}+\ps{f-u}u\le0+0$.
+
+\medskip
+\noindent\textbf{Réciproque.} Si $u\in K$ vérifie $\ps{f-u}u=0$ et $\ps{f-u}v\le0$ pour tout $v\in K$, alors pour $v\in K$ : $\ps{f-u}{v-u}=\ps{f-u}v-\ps{f-u}u\le0-0=0$. C'est (1), donc $u=P_K(f)$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le cône polaire et la décomposition de Moreau.} Notons $K^\circ:=\{w\in H:\ps wv\le0\ \forall v\in K\}$ le \emph{cône polaire} de $K$ (fermé, convexe, c'est un cône). L'exercice dit : $f=u+w$ avec $u=P_K(f)\in K$, $w=f-u\in K^\circ$ et $\ps uw=0$. On montre de même que $w=P_{K^\circ}(f)$ : c'est la décomposition de Moreau, $f=P_K(f)+P_{K^\circ}(f)$ avec $P_K(f)\perp P_{K^\circ}(f)$, qui généralise $H=F\oplus^\perp F^\perp$ (pour un sous-espace $F$, $F^\circ=F^\perp$). Exemple : $H=L^2(\Omega;\R)$, $K=\{u\ge0\}$, $K^\circ=\{w\le0\}$, et $f=f^+-f^-$ est la décomposition de Moreau (cf.\ Exercice~1(b) de la partie A). Le test « $v=0$ et $v=2u$ » est le réflexe à avoir dès qu'un convexe est stable par les homothéties positives.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 6 -- Calcul explicite d'une projection orthogonale}
+Soit $\Omega\subset\R^N$ un ouvert et $\varphi\in L^2(\Omega)$. On définit
+\[
+K:=\{u\in L^2(\Omega)\ :\ |u(x)|\le|\varphi(x)|\ \text{p.p.\ }x\in\Omega\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Vérifier que $K$ est un convexe fermé non vide de $H=L^2(\Omega)$.
+  \item Déterminer $P_K(f)$ pour tout $f\in H$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Non vide :} $0\in K$ (et $\varphi\in K$). \emph{Convexe :} si $u,v\in K$ et $t\in[0,1]$, $|tu+(1-t)v|\le t|u|+(1-t)|v|\le|\varphi|$ p.p. \emph{Fermé :} soit $u_n\in K$ avec $u_n\to u$ dans $L^2$. Une sous-suite converge presque partout (Théorème~3.4 de Riesz--Fischer, ou TD2), et en passant à la limite dans $|u_{n_k}(x)|\le|\varphi(x)|$ en tout point de convergence, $|u|\le|\varphi|$ p.p. : $u\in K$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Deviner la réponse.} Projeter sur $K$ revient à minimiser $\int_\Omega|f-v|^2$ sous la contrainte ponctuelle $|v(x)|\le|\varphi(x)|$ ; comme la contrainte et la fonctionnelle sont « point par point », on s'attend à ce que la projection soit la projection \emph{ponctuelle} de $f(x)$ sur le disque fermé $\{z\in\K:|z|\le|\varphi(x)|\}$, qui vaut $f(x)$ si $|f(x)|\le|\varphi(x)|$ et $|\varphi(x)|\frac{f(x)}{|f(x)|}$ sinon (Exercice~1(a) de la partie A en dimension $1$). On pose donc
+\[
+u(x):=\begin{cases}f(x)&\text{si }|f(x)|\le|\varphi(x)|,\\[1mm] |\varphi(x)|\dfrac{f(x)}{|f(x)|}&\text{si }|f(x)|>|\varphi(x)|,\end{cases}
+\qquad\text{soit}\qquad u=f\cdot\min\Big(1,\frac{|\varphi|}{|f|}\Big)
+\]
+(avec $u=f$ là où $f=0$).
+
+\emph{Vérification.} $u$ est mesurable (produit de fonctions mesurables), $|u|\le|f|$ donc $u\in L^2$, et $|u|\le|\varphi|$ p.p. par construction : $u\in K$. Reste à vérifier (1) : $\Re\ps{f-u}{v-u}\le0$ pour tout $v\in K$, c'est-à-dire $\Re\int_\Omega(f-u)\overline{(v-u)}\le0$ ; on montre que l'intégrande est $\le0$ presque partout. Soit $x\in\Omega$. Si $|f(x)|\le|\varphi(x)|$, alors $f(x)-u(x)=0$ et l'intégrande est nul. Si $|f(x)|>|\varphi(x)|$, notons $\omega:=f(x)/|f(x)|$ (de module $1$) ; alors $u(x)=|\varphi(x)|\omega$, $f(x)-u(x)=(|f(x)|-|\varphi(x)|)\omega$, et
+\[
+\begin{aligned}
+\Re\big((f-u)(x)\overline{(v-u)(x)}\big)&=(|f(x)|-|\varphi(x)|)\,\Re\big(\omega\,\overline{v(x)}-|\varphi(x)|\big)\\
+&\le(|f(x)|-|\varphi(x)|)\big(|v(x)|-|\varphi(x)|\big)\le0,
+\end{aligned}
+\]
+car $\Re(\omega\bar v)\le|v|$, $|f(x)|-|\varphi(x)|>0$ et $|v(x)|\le|\varphi(x)|$ p.p. ($v\in K$). Par (1), $u=P_K(f)$.
+
+\emph{Variante directe.} Pour $v\in K$ et presque tout $x$, $|f(x)-v(x)|\ge\big||f(x)|-|v(x)|\big|\ge(|f(x)|-|\varphi(x)|)^+=|f(x)-u(x)|$ ; en intégrant, $\norm{f-v}\ge\norm{f-u}$, donc $u$ réalise la distance, et c'est la projection par unicité.
+\end{solution}
+
+\begin{methode}
+\textbf{Deviner, puis vérifier avec (1).} Pour calculer explicitement une projection sur un convexe, on ne résout presque jamais le problème de minimisation directement : on \emph{devine} le candidat (ici par un raisonnement ponctuel, ailleurs par symétrie ou par un calcul en dimension finie), puis on vérifie la caractérisation variationnelle (1), qui est une simple inégalité à établir. L'unicité de la projection garantit que le candidat est le bon. Attention à ne pas confondre deux convexes voisins : pour $\varphi=R$ constante (sur un $\Omega$ de mesure finie), $K=\{|u|\le R\text{ p.p.}\}$ n'est pas la boule $\Bf(0,R)$ de $L^2$ ; la projection sur la boule est la troncature \emph{globale} ($f$ si $\norm f_2\le R$, $Rf/\norm f_2$ sinon, Exercice~1(a) de la partie A), celle sur $K$ est la troncature \emph{ponctuelle} ci-dessus. Deux convexes, deux projections.
+\end{methode}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 7 -- Un problème de minimisation}
+Soit $H$ un espace de Hilbert réel et $M\subset H$ un sous-espace vectoriel fermé différent de $\{0\}$. Montrer que pour tout $f\in H\setminus M^\perp$, l'infimum
+\[
+\mu:=\inf_{u\in M,\ \norm u=1}\ps fu
+\]
+est atteint en un point unique.
+\end{exo}
+
+\begin{solution}
+\emph{Se ramener à $M$.} Soit $P:=P_M$ la projection orthogonale sur le sous-espace fermé $M$ (Corollaire~4.1) et $g:=Pf\in M$. Pour $u\in M$, $f-g\in M^\perp$ donne $\ps fu=\ps gu+\ps{f-g}u=\ps gu$. De plus $g\ne0$ : sinon $f=f-Pf\in M^\perp$, exclu. Ainsi
+\[
+\mu=\inf_{u\in M,\ \norm u=1}\ps gu .
+\]
+
+\emph{Cauchy--Schwarz.} Pour $u\in M$ de norme $1$, $\ps gu\ge-|\ps gu|\ge-\norm g\norm u=-\norm g$, avec égalité dans Cauchy--Schwarz si et seulement si $u$ et $g$ sont colinéaires, et dans $\ps gu=-|\ps gu|$ si et seulement si $\ps gu\le0$ ; les deux ensemble, avec $\norm u=1$, donnent $u=-g/\norm g$. Ce vecteur est bien dans $M$ (sous-espace) et de norme $1$, et il réalise la valeur $-\norm g$. Donc
+\[
+\mu=-\norm{P_Mf},\qquad\text{atteint au seul point}\qquad u^\star=-\frac{P_Mf}{\norm{P_Mf}} .
+\]
+Si $f\in M^\perp$, $\ps fu=0$ pour tout $u\in M$ : l'infimum vaut $0$ et est atteint en \emph{tout} point de la sphère unité de $M$, qui n'est pas réduite à un point puisque $M\ne\{0\}$ ; d'où les deux hypothèses de l'énoncé.
+\end{solution}
+
+\begin{commentaire}
+Sous forme duale : $u\mapsto\ps fu$ restreinte à $M$ est une forme linéaire continue sur le Hilbert $M$, de norme $\norm{P_Mf}$ (théorème de Riesz dans $M$, le représentant étant $P_Mf$), et minimiser sur la sphère unité revient à calculer $-\norm{\text{forme}}$ ; la sphère unité d'un Hilbert a la propriété que toute forme linéaire continue non nulle y atteint sa norme en un unique point (c'est une conséquence de la convexité uniforme, et c'est faux dans $\ell^1$ ou $\ell^\infty$ — cf.\ le chapitre~5 et le TD5). L'exercice est une version « à la main » de ce fait.
 \end{commentaire}
 
 \end{document}
