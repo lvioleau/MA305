@@ -115,7 +115,7 @@ Ainsi $(x_{\varphi(K)})_K$ converge vers un certain $x\in E$.
 \end{solution}
 
 \begin{pointcle}
-Avec la Proposition~3.1, on obtient : \emph{un EVN est de Banach si et seulement si toute série absolument convergente y converge}. C'est ce critère que l'on utilise pour prouver la complétude des espaces $L^p$ (théorème de Riesz--Fischer, Section~2.4.2). Les étapes 1 et 3 sont deux lemmes généraux sur les suites de Cauchy à connaître : on peut toujours en extraire une sous-suite à écarts $\le2^{-k}$, et il suffit qu'une sous-suite converge.
+Avec la Proposition~3.1, on obtient : \emph{un EVN est de Banach si et seulement si toute série absolument convergente y converge}. C'est ce critère que l'on utilise pour prouver la complétude des espaces $L^p$ (théorème de Riesz--Fischer, Théorème~3.3, Section~3.1.6). Les étapes 1 et 3 sont deux lemmes généraux sur les suites de Cauchy à connaître : on peut toujours en extraire une sous-suite à écarts $\le2^{-k}$, et il suffit qu'une sous-suite converge.
 \end{pointcle}
 
 % =====================================================================
@@ -149,7 +149,11 @@ avec la convention $\min\{1,d(\emptyset,x)\}=1$. Elle est continue, strictement 
 \sup_{\Omega\setminus K_n}f\le\max\big(e^{-n},\,1/n\big)\xrightarrow[n\to\infty]{}0 .
 \]
 
-\emph{Des troncatures.} Posons $\chi_n(x):=\dfrac{d(\Omega\setminus\interieur{K_{n+1}},x)}{d(\Omega\setminus\interieur{K_{n+1}},x)+d(K_n,x)}$. Le dénominateur ne s'annule pas (les fermés $K_n$ et $\Omega\setminus\interieur{K_{n+1}}$ de $\Omega$ sont disjoints, et $d(A,x)=0\iff x\in A$ pour $A$ fermé), donc $\chi_n$ est continue, à valeurs dans $[0,1]$, vaut $1$ sur $K_n$ et $0$ hors de $\interieur{K_{n+1}}$ ; son support est contenu dans le compact $K_{n+1}$. Ainsi $f_n:=\chi_nf\in\Cc(\Omega)$, et
+\emph{Des troncatures.} Pour $n$ assez grand pour que $K_n\ne\emptyset$, posons
+\[
+\chi_n(x):=\frac{d(\Omega\setminus\interieur{K_{n+1}},x)}{d(\Omega\setminus\interieur{K_{n+1}},x)+d(K_n,x)} .
+\]
+Le dénominateur ne s'annule pas (les fermés $K_n$ et $\Omega\setminus\interieur{K_{n+1}}$ de $\Omega$ sont disjoints, et $d(A,x)=0\iff x\in A$ pour $A$ fermé), donc $\chi_n$ est continue, à valeurs dans $[0,1]$, vaut $1$ sur $K_n$ et $0$ hors de $\interieur{K_{n+1}}$ ; son support est contenu dans le compact $K_{n+1}$. Ainsi $f_n:=\chi_nf\in\Cc(\Omega)$, et
 \[
 \norm{f-f_n}_\infty=\sup_{\Omega}\big|(1-\chi_n)f\big|\le\sup_{\Omega\setminus K_n}f\xrightarrow[n\to\infty]{}0 .
 \]
@@ -461,7 +465,7 @@ Ce qui manque dans (c) est exactement ce que Banach--Steinhaus fournit dans (d) 
 \end{pointcle}
 
 \begin{commentaire}
-L'inégalité (b) est une \emph{semi-continuité inférieure} : la norme d'opérateur ne peut que « descendre » par passage à la limite simple, et elle peut descendre strictement. Exemple : sur $\ell^2(\N)$, les projections $f_n(\mathbf x)=x_n\mathbf e^n$ vérifient $\norm{f_n}=1$ et $f_n(\mathbf x)\to0$ pour tout $\mathbf x$ (car $x_n\to0$), donc $f=0$ et $\norm f=0<1=\liminf\norm{f_n}$. La convergence simple d'opérateurs (« convergence forte ») est donc beaucoup plus faible que la convergence en norme dans $\Lc(X,Y)$ ; c'est le début du chapitre~4.
+L'inégalité (b) est une \emph{semi-continuité inférieure} : la norme d'opérateur ne peut que « descendre » par passage à la limite simple, et elle peut descendre strictement. Exemple : sur $\ell^2(\N)$, les projections $f_n(\mathbf x)=x_n\mathbf e^n$ vérifient $\norm{f_n}=1$ et $f_n(\mathbf x)\to0$ pour tout $\mathbf x$ (car $x_n\to0$), donc $f=0$ et $\norm f=0<1=\liminf\norm{f_n}$. La convergence simple d'opérateurs (« convergence forte ») est donc beaucoup plus faible que la convergence en norme dans $\Lc(X,Y)$ ; c'est l'esprit des convergences faibles du chapitre~5.
 \end{commentaire}
 
 \end{document}

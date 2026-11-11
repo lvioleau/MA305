@@ -434,11 +434,11 @@ Par l'exercice~6, $\opnorm{\Phi_N}\ge\dfrac{|\Phi_N(f_n)|}{\norm{f_n}_\infty}\ge
 \end{solution}
 
 \begin{pointcle}
-\textbf{Calculer une norme d'opérateur} : majoration « brutale » via l'inégalité triangulaire intégrale, puis vecteur test. Ici le vecteur test idéal serait $\sgn(D_N)$ (pour avoir $f\,D_N=|D_N|$ avec $|f|=1$), mais il est \emph{discontinu} là où $D_N$ change de signe. On le \emph{régularise} en $f_n=D_N/(\frac1n+|D_N|)$, qui est continue, de module $<1$, et converge vers $\sgn(D_N)$ ; le sup n'est pas atteint mais est approché. Ce procédé (approcher un « signe » par des fonctions continues) revient constamment, par exemple pour identifier le dual de $L^1$ (Proposition~2.7 du poly).
+\textbf{Calculer une norme d'opérateur} : majoration « brutale » via l'inégalité triangulaire intégrale, puis vecteur test. Ici le vecteur test idéal serait $\sgn(D_N)$ (pour avoir $f\,D_N=|D_N|$ avec $|f|=1$), mais il est \emph{discontinu} là où $D_N$ change de signe. On le \emph{régularise} en $f_n=D_N/(\frac1n+|D_N|)$, qui est continue, de module $<1$, et converge vers $\sgn(D_N)$ ; le sup n'est pas atteint mais est approché. Ce procédé (approcher un « signe » par des fonctions continues) revient constamment, par exemple pour la représentation duale des normes $L^p$ (Lemme~2.2 du poly), premier pas vers l'identification du dual de $L^p$ (Théorème~5.6).
 \end{pointcle}
 
 \begin{commentaire}
-\textbf{Pourquoi cet exercice ?} $\Phi_N(f)$ est la $N$-ième somme partielle de Fourier de $f$ évaluée en $0$ : $S_Nf(0)=\sum_{|n|\le N}c_n(f)$. Les constantes $L_N$ sont les \emph{constantes de Lebesgue}. Avec la forme close $D_N(t)=\dfrac{\sin((N+\frac12)t)}{\sin(t/2)}$, on montre que $L_N\ge c\ln N\to+\infty$. Le théorème de Banach--Steinhaus (chapitre~4) transformera cette explosion des normes en un résultat frappant : \emph{il existe des fonctions continues dont la série de Fourier diverge en $0$}. Cet exercice est donc la première étape d'un contre-exemple célèbre (du Bois-Reymond, 1873).
+\textbf{Pourquoi cet exercice ?} $\Phi_N(f)$ est la $N$-ième somme partielle de Fourier de $f$ évaluée en $0$ : $S_Nf(0)=\sum_{|n|\le N}c_n(f)$. Les constantes $L_N$ sont les \emph{constantes de Lebesgue}. Avec la forme close $D_N(t)=\dfrac{\sin((N+\frac12)t)}{\sin(t/2)}$, on montre que $L_N\ge c\ln N\to+\infty$. Le théorème de Banach--Steinhaus (Théorème~3.7, chapitre~3 ; voir les Exemples~3.4--3.5 développés dans le TD0) transformera cette explosion des normes en un résultat frappant : \emph{il existe des fonctions continues dont la série de Fourier diverge en $0$}. Cet exercice est donc la première étape d'un contre-exemple célèbre (du Bois-Reymond, 1873).
 \end{commentaire}
 
 % =====================================================================
