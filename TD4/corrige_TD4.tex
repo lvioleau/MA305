@@ -635,7 +635,7 @@ K:=\{u\in L^2(\Omega)\ :\ |u(x)|\le|\varphi(x)|\ \text{p.p.\ }x\in\Omega\}.
 \end{exo}
 
 \begin{solution}
-\noindent\textbf{(a)} \emph{Non vide :} $0\in K$ (et $\varphi\in K$). \emph{Convexe :} si $u,v\in K$ et $t\in[0,1]$, $|tu+(1-t)v|\le t|u|+(1-t)|v|\le|\varphi|$ p.p. \emph{Fermé :} soit $u_n\in K$ avec $u_n\to u$ dans $L^2$. Une sous-suite converge presque partout (Théorème~3.4 de Riesz--Fischer, ou TD2), et en passant à la limite dans $|u_{n_k}(x)|\le|\varphi(x)|$ en tout point de convergence, $|u|\le|\varphi|$ p.p. : $u\in K$.
+\noindent\textbf{(a)} \emph{Non vide :} $0\in K$ (et $\varphi\in K$). \emph{Convexe :} si $u,v\in K$ et $t\in[0,1]$, $|tu+(1-t)v|\le t|u|+(1-t)|v|\le|\varphi|$ p.p. \emph{Fermé :} soit $u_n\in K$ avec $u_n\to u$ dans $L^2$. Une sous-suite converge presque partout (preuve du Théorème~3.3 de Riesz--Fischer, ou TD2), et en passant à la limite dans $|u_{n_k}(x)|\le|\varphi(x)|$ en tout point de convergence, $|u|\le|\varphi|$ p.p. : $u\in K$.
 
 \medskip
 \noindent\textbf{(b)} \emph{Deviner la réponse.} Projeter sur $K$ revient à minimiser $\int_\Omega|f-v|^2$ sous la contrainte ponctuelle $|v(x)|\le|\varphi(x)|$ ; comme la contrainte et la fonctionnelle sont « point par point », on s'attend à ce que la projection soit la projection \emph{ponctuelle} de $f(x)$ sur le disque fermé $\{z\in\K:|z|\le|\varphi(x)|\}$, qui vaut $f(x)$ si $|f(x)|\le|\varphi(x)|$ et $|\varphi(x)|\frac{f(x)}{|f(x)|}$ sinon (Exercice~1(a) de la partie A en dimension $1$). On pose donc
