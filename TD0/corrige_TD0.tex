@@ -1604,7 +1604,7 @@ Montrer qu'une distribution $T$ d'ordre nul se prolonge de manière unique en un
 \end{exo}
 
 \begin{solution}
-\emph{Un compact légèrement plus gros.} Soit $K\subset\Omega$ compact. Comme $K$ est compact et $\R^d\setminus\Omega$ fermé, disjoints, $\delta:=d(K,\R^d\setminus\Omega)>0$ (la fonction continue $x\mapsto d(x,\R^d\setminus\Omega)$ est strictement positive sur l'ouvert $\Omega$, donc minorée par un $\delta>0$ sur le compact $K$ ; $\delta=+\infty$ si $\Omega=\R^d$). Posons $K':=\{x:d(x,K)\le\delta/2\}$ : c'est un compact (fermé borné) contenu dans $\Omega$, et $K+\Bf(0,\delta/2)\subset K'$.
+\emph{Un compact légèrement plus gros.} Soit $K\subset\Omega$ compact. Comme $K$ est compact et $\R^d\setminus\Omega$ fermé, disjoints, $\delta:=d(K,\R^d\setminus\Omega)>0$ (la fonction continue $x\mapsto d(x,\R^d\setminus\Omega)$ est strictement positive sur l'ouvert $\Omega$, donc minorée par un $\delta>0$ sur le compact $K$ ; si $\Omega=\R^d$, on prend $\delta:=1$). Posons $K':=\{x:d(x,K)\le\delta/2\}$ : c'est un compact (fermé borné) contenu dans $\Omega$, et $K+\Bf(0,\delta/2)\subset K'$.
 
 \emph{Approximation.} Soit $f\in\Cc(\Omega)$ à support dans $K$, prolongée par $0$ en une fonction $\tilde f\in\Cc(\R^d)$, uniformément continue. Pour $n>2/\delta$, $\varphi_n:=\tilde f\star\rho_n$ est lisse, à support dans $\supp f+\Bf(0,1/n)\subset K'$ : c'est un élément de $\D_{K'}(\Omega)$, et $\norm{\varphi_n-f}_\infty\to0$ par le Théorème~3.6 (cas $p=\infty$, $\tilde f$ uniformément continue).
 
@@ -1664,7 +1664,7 @@ et $\Phi_K^-:=\Phi_K^+-\Phi_K$ est positive.
 \[
 (g\star\rho_n)(x)=\int_\Omega f(y)\theta(y)\rho_n(x-y)\,dy=\big\langle T_f,\theta\,\rho_n(x-\cdot)\big\rangle\ge0 .
 \]
-Par le Théorème~3.6, $g\star\rho_n\to g$ dans $L^1(\R^d)$ ; une sous-suite converge presque partout (TD2, ou Théorème~3.4 de Riesz--Fischer), donc $g=\theta f\ge0$ presque partout. En prenant $\theta=\theta_n$ positive valant $1$ sur $K_n$ (Lemme~6.1), $f\ge0$ p.p. sur chaque $K_n$, donc sur $\Omega$.
+Par le Théorème~3.6, $g\star\rho_n\to g$ dans $L^1(\R^d)$ ; une sous-suite converge presque partout (TD2, ou preuve du Théorème~3.3 de Riesz--Fischer), donc $g=\theta f\ge0$ presque partout. En prenant $\theta=\theta_n$ positive valant $1$ sur $K_n$ (Lemme~6.1), $f\ge0$ p.p. sur chaque $K_n$, donc sur $\Omega$.
 \end{solution}
 
 \begin{commentaire}
@@ -1740,7 +1740,7 @@ La suite $(n^je^{inx})_n$ n'est bornée dans aucun $L^p_{\mathrm{loc}}$ dès que
 \noindent\textbf{(b)} Écrivons $f=(\Re f)^+-(\Re f)^-+i(\Im f)^+-i(\Im f)^-$ avec $u^\pm:=\max(\pm u,0)\ge0$. Chacune des quatre fonctions $g$ est dans $L^1_{\mathrm{loc}}(\Omega)$ (majorée par $|f|$) et positive, et $T_g$ est une forme linéaire positive : si $\varphi\ge0$, $T_g(\varphi)=\int g\varphi\ge0$. Donc $T_f=T_{(\Re f)^+}-T_{(\Re f)^-}+iT_{(\Im f)^+}-iT_{(\Im f)^-}$ est une combinaison linéaire de distributions positives. (Chacune est une distribution par l'Exemple~6.1 ; le Théorème~6.2 le redonne d'ailleurs sans calcul.)
 
 \medskip
-\noindent\textbf{(c)} \emph{C'est une distribution d'ordre $0$ :} pour $\varphi\in\D_K(\R^2)$, la fonction $t\mapsto f(t)\varphi(t,t)$ est mesurable, nulle hors du compact $K_1:=\{t:(t,t)\in K\}$ (projection de $K$ sur la première coordonnée, compact), et majorée par $|f|\mathbf 1_{K_1}\norm\varphi_K\in L^1$ ; donc $\Lambda_f$ est bien définie, linéaire, et $|\Lambda_f(\varphi)|\le\norm f_{L^1(K_1)}\norm\varphi_K$. \emph{C'est une mesure de Radon :} par la décomposition de (b), $\Lambda_f=\Lambda_{(\Re f)^+}-\dots$, et $\Lambda_g$ est positive si $g\ge0$.
+\noindent\textbf{(c)} \emph{C'est une distribution d'ordre $0$ :} pour $\varphi\in\D_K(\R^2)$, la fonction $t\mapsto f(t)\varphi(t,t)$ est mesurable, nulle hors du compact $K_1:=\{t:(t,t)\in K\}$ (image réciproque de $K$ par $t\mapsto(t,t)$ : un fermé, contenu dans la projection de $K$ sur la première coordonnée, donc compact), et majorée par $|f|\mathbf 1_{K_1}\norm\varphi_K\in L^1$ ; donc $\Lambda_f$ est bien définie, linéaire, et $|\Lambda_f(\varphi)|\le\norm f_{L^1(K_1)}\norm\varphi_K$. \emph{C'est une mesure de Radon :} par la décomposition de (b), $\Lambda_f=\Lambda_{(\Re f)^+}-\dots$, et $\Lambda_g$ est positive si $g\ge0$.
 
 \emph{Ce n'est pas une fonction.} Supposons $\Lambda_f=T_g$ avec $g\in L^1_{\mathrm{loc}}(\R^2)$. Soit $\Delta:=\{(t,t)\}$ la diagonale, fermé de mesure nulle dans $\R^2$. Pour $\varphi\in\D(\R^2\setminus\Delta)$, $\varphi(t,t)=0$ pour tout $t$, donc $\int g\varphi=\Lambda_f(\varphi)=0$ : le lemme de du Bois-Reymond sur l'ouvert $\R^2\setminus\Delta$ donne $g=0$ p.p. sur $\R^2\setminus\Delta$, donc $g=0$ p.p. sur $\R^2$ ($\Delta$ est négligeable), et $T_g=0$. Il reste à voir que $\Lambda_f\ne0$ si $f\ne0$ : par du Bois-Reymond sur $\R$, il existe $\psi\in\D(\R)$ avec $\int f\psi\ne0$ ; si $\chi\in\D(\R)$ vaut $1$ sur $\supp\psi$, la fonction $\varphi(x,y):=\psi(x)\chi(y)$ est dans $\D(\R^2)$ et $\Lambda_f(\varphi)=\int f(t)\psi(t)\chi(t)\,dt=\int f\psi\ne0$. Contradiction.
 \end{solution}
@@ -2011,7 +2011,7 @@ Que dire d'un couple $(S,T)\in\D'(\R^2)^2$ tel que $(\partial_1T,\partial_2T)=(-
 \end{solution}
 
 \begin{pointcle}
-\textbf{Hypoellipticité : la régularité se gagne par l'équation.} Pour les opérateurs $\Delta$ et $\partial_{\bar z}$, une solution distribution est automatiquement lisse. Ce n'est pas le cas de tous les opérateurs : l'équation $\partial_1U=0$ dans $\R^2$ admet pour solutions toutes les distributions « fonctions de $x_2$ seulement », par exemple $U=\mathbf 1\otimes\delta_0$, $\langle U,\varphi\rangle=\int\varphi(x_1,0)\,dx_1$ (comparer avec l'Exemple~6.7), qui n'est même pas une fonction. Le mécanisme de Weyl repose sur l'existence d'une solution fondamentale lisse hors de l'origine, ce que $\partial_1$ n'a pas ($h(x_1)\otimes\delta_0(x_2)$ est singulière le long de toute la droite $x_2=0$).
+\textbf{Hypoellipticité : la régularité se gagne par l'équation.} Pour les opérateurs $\Delta$ et $\partial_{\bar z}$, une solution distribution est automatiquement lisse. Ce n'est pas le cas de tous les opérateurs : l'équation $\partial_1U=0$ dans $\R^2$ admet pour solutions toutes les distributions « fonctions de $x_2$ seulement », par exemple $U=\mathbf 1\otimes\delta_0$, $\langle U,\varphi\rangle=\int\varphi(x_1,0)\,dx_1$ (comparer avec l'Exemple~6.7), qui n'est même pas une fonction. Le mécanisme de Weyl repose sur l'existence d'une solution fondamentale lisse hors de l'origine, ce que $\partial_1$ n'a pas ($h(x_1)\otimes\delta_0(x_2)$ est singulière le long de toute la demi-droite $\{x_1\ge0,\ x_2=0\}$).
 \end{pointcle}
 
 \end{document}
