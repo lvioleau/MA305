@@ -1,0 +1,164 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Révision des chapitres 1 à 3 (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille de révision des chapitres~1 à~3 du polycopié, dans l'optique de l'examen : deux exercices de questions de cours, deux vrai ou faux. L'idée est de chercher en conditions d'examen, sans document, avant de lire le corrigé détaillé (\texttt{corrige\_revision\_ch1-3.pdf}).
+\end{commentaire}
+
+\section*{Questions de cours}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Questions de cours : chapitre 1}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le théorème de prolongement des applications uniformément continues (Théorème~1.1).
+  \item Énoncer et démontrer le lemme de Baire (Lemme~1.1).
+  \item Énoncer et démontrer le théorème de Heine (Théorème~1.3).
+  \item Montrer que dans un espace métrique complet, une partie est compacte si et seulement si elle est fermée et précompacte (Corollaire~1.4 ; on redémontrera les Propositions~1.13 et 1.14).
+  \item Énoncer et démontrer le théorème de point fixe de Picard (Exercice~1.16).
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Questions de cours : chapitres 2 et 3}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer la caractérisation des applications linéaires continues entre EVN (Théorème~2.4).
+  \item Énoncer et démontrer l'équivalence des normes sur $\K^d$ (Théorème~2.1).
+  \item Montrer qu'un EVN est de Banach si et seulement si toute série absolument convergente y converge (Proposition~3.1 et Exercice~3.1).
+  \item Énoncer et démontrer le théorème de Riesz (Théorème~3.1), en passant par le Lemme~3.1.
+  \item Montrer que $\Lc(E,F)$ est un espace de Banach dès que $F$ en est un (Proposition~3.4).
+  \item Énoncer et démontrer le théorème de Banach--Steinhaus (Théorème~3.7).
+  \item Énoncer le théorème de l'application ouverte (Théorème~3.8, admis ici). En déduire le Corollaire~3.4 (continuité automatique de l'inverse), puis énoncer et démontrer le théorème du graphe fermé (Remarque~3.8).
+\end{enumerate}
+\end{exo}
+
+\section*{Vrai ou faux}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Vrai ou faux ? Chapitre 1}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $(X,d)$ et $(Y,d')$ désignent des espaces métriques.
+\begin{enumerate}[label=\arabic*.]
+  \item L'adhérence de la boule ouverte $B(a,r)$ est la boule fermée $\Bf(a,r)$.
+  \item Dans un espace métrique complet, toute partie fermée et bornée est compacte.
+  \item L'image réciproque d'un compact par une application continue est compacte.
+  \item L'image d'un fermé par une application continue est fermée.
+  \item Une application continue transforme les suites de Cauchy en suites de Cauchy.
+  \item Si $X$ est compact et $f:X\to Y$ est continue et bijective, alors $f^{-1}$ est continue.
+  \item Si $X$ et $Y$ sont homéomorphes et $X$ est complet, alors $Y$ est complet.
+  \item Dans un espace métrique complet, une intersection dénombrable d'ouverts denses est un ouvert dense.
+  \item $\Q$ est une intersection dénombrable d'ouverts de $\R$.
+  \item Tout espace métrique compact est séparable.
+  \item Dans un espace métrique, toute partie fermée et précompacte est compacte.
+  \item Si $D$ est dense dans $X$ et $f:D\to Y$ est uniformément continue, alors $f$ se prolonge en une application continue $X\to Y$.
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Vrai ou faux ? Chapitres 2 et 3}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $E$ et $F$ désignent des EVN.
+\begin{enumerate}[label=\arabic*.]
+  \item Deux normes sur un même espace vectoriel sont toujours équivalentes.
+  \item Si $E$ est de dimension finie, toute application linéaire $E\to F$ est continue.
+  \item Tout sous-espace vectoriel de $E$ est fermé.
+  \item Un sous-espace vectoriel strict de $E$ est d'intérieur vide.
+  \item Si $T:E\to F$ est linéaire et bornée sur une boule $B(a,r)$, $r>0$, alors $T$ est continue.
+  \item Pour $1\le p\le q\le\infty$, on a $L^p(]0,1[)\subset L^q(]0,1[)$.
+  \item $\Cz([0,1])$ muni de la norme $\norm f_1=\int_0^1|f|$ est un espace de Banach.
+  \item Un espace de Banach de dimension infinie n'admet pas de base (algébrique) dénombrable.
+  \item La boule unité fermée de $\Cz([0,1])$ est compacte pour la norme uniforme.
+  \item Une partie bornée et uniformément équicontinue de $\Cz([0,1])$ est compacte.
+  \item Si $(f_n)$ est une suite de $\mathcal C^1([0,1])$ avec $\norm{f_n}_\infty+\norm{f_n'}_\infty\le M$ pour tout $n$, alors $(f_n)$ admet une sous-suite uniformément convergente.
+  \item Si $E$ est de Banach et si $(T_n)$ est une suite de $\Lc(E,F)$ convergeant simplement vers $T$, alors $\opnorm{T_n-T}\to0$.
+  \item Une limite simple d'applications linéaires continues de $E$ dans $F$ est continue.
+  \item Une bijection linéaire continue $E\to F$ a un inverse continu.
+\end{enumerate}
+\end{exo}
+
+\end{document}

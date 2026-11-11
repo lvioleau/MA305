@@ -1,0 +1,357 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Révision des chapitres 1 à 3 -- Corrigé détaillé}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille de révision des chapitres~1 à~3 (espaces métriques, espaces vectoriels normés, espaces de Banach), composée dans l'optique de l'examen sur le modèle des sections « Vers l'examen » des TD4, TD5 et TD6. Elle ne figure pas parmi les feuilles officielles. Les Exercices~1 et~2 font restituer les preuves du polycopié le plus souvent demandées en question de cours ; les Exercices~3 et~4 sont des vrai ou faux sur les pièges de ces trois chapitres. La numérotation des énoncés cités est celle du polycopié ; les encadrés « Méthode » et « Piège » résument ce qu'il faut retenir.
+\end{commentaire}
+
+\section*{Questions de cours}
+
+% =====================================================================
+\begin{exo}{Exercice 1 -- Questions de cours : chapitre 1}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le théorème de prolongement des applications uniformément continues (Théorème~1.1).
+  \item Énoncer et démontrer le lemme de Baire (Lemme~1.1).
+  \item Énoncer et démontrer le théorème de Heine (Théorème~1.3).
+  \item Montrer que dans un espace métrique complet, une partie est compacte si et seulement si elle est fermée et précompacte (Corollaire~1.4 ; on redémontrera les Propositions~1.13 et 1.14).
+  \item Énoncer et démontrer le théorème de point fixe de Picard (Exercice~1.16).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Énoncé.} Soient $(X,d_X)$ un espace métrique, $(Y,d_Y)$ un espace métrique \emph{complet}, $D$ une partie dense de $X$ et $f:D\to Y$ uniformément continue. Il existe une unique application continue $\tilde f:X\to Y$ prolongeant $f$ ; elle est uniformément continue.
+
+\emph{Unicité.} Deux applications continues qui coïncident sur une partie dense coïncident partout (caractérisation séquentielle).
+
+\emph{Construction.} Soit $x\in X$ et $(d_n)$ une suite de $D$ convergeant vers $x$ (densité). Fixons $\varepsilon>0$ et $\delta>0$ donné par l'uniforme continuité : $d_X(a,b)<\delta\Rightarrow d_Y(f(a),f(b))<\varepsilon$ pour $a,b\in D$. La suite $(d_n)$ est de Cauchy : il existe $N$ avec $d_X(d_n,d_m)<\delta$ pour $n,m\ge N$, donc $d_Y(f(d_n),f(d_m))<\varepsilon$. Ainsi $(f(d_n))$ est de Cauchy dans $Y$ complet : elle converge. Si $(e_n)$ est une autre suite de $D$ tendant vers $x$, la suite alternée $d_0,e_0,d_1,e_1,\dots$ tend aussi vers $x$, donc son image converge, et les deux suites extraites $(f(d_n))$ et $(f(e_n))$ ont la même limite. On pose $\tilde f(x)$ cette limite commune ; pour $x\in D$ la suite constante donne $\tilde f(x)=f(x)$.
+
+\emph{Uniforme continuité.} Soient $x_1,x_2\in X$ avec $d_X(x_1,x_2)<\delta/3$, et $(a_n)$, $(b_n)$ dans $D$ tendant vers $x_1$, $x_2$. Pour $n$ assez grand, $d_X(a_n,b_n)\le d_X(a_n,x_1)+d_X(x_1,x_2)+d_X(x_2,b_n)<\delta$, donc $d_Y(f(a_n),f(b_n))<\varepsilon$ ; en passant à la limite (continuité de $d_Y$), $d_Y(\tilde f(x_1),\tilde f(x_2))\le\varepsilon$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Énoncé.} Dans un espace métrique complet : (i) toute intersection dénombrable d'ouverts denses est dense ; (ii) toute réunion dénombrable de fermés d'intérieur vide est d'intérieur vide.
+
+\emph{Preuve.} (i) et (ii) sont équivalents par passage au complémentaire (un fermé est d'intérieur vide si et seulement si son complémentaire est un ouvert dense). Montrons (i). Soient $(O_n)$ des ouverts denses, $O:=\bigcap_nO_n$ et $U$ un ouvert non vide ; il s'agit de montrer $U\cap O\ne\emptyset$ (Proposition~1.4). L'ouvert $U\cap O_0$ est non vide ($O_0$ dense) : il contient une boule fermée $\Bf(a_0,r_0)$ avec $0<r_0\le1$. L'ouvert $B(a_0,r_0)\cap O_1$ est non vide : il contient $\Bf(a_1,r_1)$ avec $0<r_1\le\frac12$. Par récurrence on construit $a_n$ et $0<r_n\le2^{-n}$ avec
+\[
+\Bf(a_n,r_n)\subset B(a_{n-1},r_{n-1})\cap O_n .
+\]
+Les fermés $F_n:=\Bf(a_n,r_n)$ sont emboîtés. Pour $m\ge n$, $a_m\in F_n$, donc $d(a_n,a_m)\le2^{-n}$ : la suite $(a_n)$ est de Cauchy, elle converge vers un $a$ (complétude). Pour tout $n$, la suite $(a_m)_{m\ge n}$ est dans le fermé $F_n$, donc $a\in F_n$. Ainsi $a\in F_0\subset U$ et $a\in F_n\subset O_n$ pour tout $n$ : $a\in U\cap O$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Énoncé.} Soient $X$ un espace métrique compact, $Y$ un espace métrique et $f:X\to Y$ continue. Alors $f(X)$ est compact et $f$ est uniformément continue.
+
+\emph{Compacité de l'image.} Soit $(y_n)$ dans $f(X)$, $y_n=f(x_n)$. Par compacité, $x_{\varphi(n)}\to x\in X$, et par continuité $y_{\varphi(n)}\to f(x)\in f(X)$.
+
+\emph{Uniforme continuité.} Par l'absurde : il existerait $\varepsilon>0$ et, pour tout $n\ge1$, des points $a_n,b_n$ avec $d_X(a_n,b_n)\le\frac1n$ et $d_Y(f(a_n),f(b_n))\ge\varepsilon$. Par compacité (deux extractions successives), $a_{\varphi(n)}\to a$ et $b_{\varphi(n)}\to b$ ; comme $d_X(a_n,b_n)\to0$, $a=b$. Par continuité de $f$ et de $d_Y$, $d_Y(f(a_{\varphi(n)}),f(b_{\varphi(n)}))\to d_Y(f(a),f(a))=0$, ce qui contredit $\ge\varepsilon$.
+
+\medskip
+\noindent\textbf{(d)} Soit $A$ une partie d'un espace métrique complet $(X,d)$.
+
+\emph{Compacte $\Rightarrow$ fermée et précompacte.} \emph{Fermée :} si $a_n\in A$ et $a_n\to x$, une sous-suite converge dans $A$, nécessairement vers $x$ : $x\in A$. \emph{Précompacte (Proposition~1.13) :} par contraposée, si pour un $\varepsilon>0$ aucune famille finie de boules de rayon $\varepsilon$ ne recouvre $A$, on construit par récurrence $x_n\in A\setminus\bigcup_{k<n}B(x_k,\varepsilon)$ ; alors $d(x_n,x_m)\ge\varepsilon$ pour $n\ne m$, aucune sous-suite n'est de Cauchy, donc aucune ne converge : $A$ n'est pas compacte.
+
+\emph{Fermée et précompacte $\Rightarrow$ compacte.} Soit $(x_n)$ dans $A$. \emph{Extraction d'une sous-suite de Cauchy (Proposition~1.14) :} $A$ est recouverte par un nombre fini de boules de rayon $1$ ; l'une d'elles, $B_0$, contient $x_n$ pour une infinité d'indices. Ces termes sont recouverts par un nombre fini de boules de rayon $\frac12$ ; l'une d'elles, $B_1$, en contient une infinité. On construit ainsi des boules $B_k$ de rayon $2^{-k}$ telles que $B_0\cap\dots\cap B_k$ contienne $x_n$ pour une infinité de $n$, puis une extractrice $\varphi$ avec $x_{\varphi(k)}\in B_0\cap\dots\cap B_k$. Pour $j\ge k$, $x_{\varphi(j)}$ et $x_{\varphi(k)}$ sont dans $B_k$, donc $d(x_{\varphi(j)},x_{\varphi(k)})\le2^{1-k}$ : la suite extraite est de Cauchy. \emph{Conclusion :} $X$ étant complet, elle converge, et sa limite est dans $A$ fermé.
+
+\medskip
+\noindent\textbf{(e)} \emph{Énoncé.} Soit $(X,d)$ un espace métrique complet non vide et $f:X\to X$ une application $k$-lipschitzienne avec $k<1$. Alors $f$ a un unique point fixe.
+
+\emph{Unicité.} Si $f(x)=x$ et $f(y)=y$, alors $d(x,y)=d(f(x),f(y))\le k\,d(x,y)$, donc $(1-k)d(x,y)\le0$ et $x=y$.
+
+\emph{Existence.} Soit $x_0\in X$ et $x_{n+1}:=f(x_n)$. Par récurrence, $d(x_{n+1},x_n)\le k^nd(x_1,x_0)$, donc pour $m>n$,
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le\frac{k^n}{1-k}\,d(x_1,x_0)\xrightarrow[n\to\infty]{}0 .
+\]
+La suite est de Cauchy, donc converge vers un $x\in X$. Comme $f$ est continue (lipschitzienne), $f(x)=\lim f(x_n)=\lim x_{n+1}=x$.
+\end{solution}
+
+\begin{methode}
+\textbf{Le rôle de la complétude, à chaque fois.} Dans (a), (b), (d) et (e), la preuve suit le même schéma : fabriquer une suite de Cauchy (par uniforme continuité, par boules emboîtées de rayons $2^{-n}$, par précompacité, par contraction), la faire converger grâce à la complétude, puis identifier la limite. À l'examen, dire explicitement \emph{où} la complétude intervient : c'est l'hypothèse que l'on vous demandera de justifier. Dans (b), ne pas oublier de prendre des boules \emph{fermées} incluses dans la boule \emph{ouverte} précédente : c'est ce qui garantit que la limite reste dans tous les $F_n$.
+\end{methode}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Questions de cours : chapitres 2 et 3}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer la caractérisation des applications linéaires continues entre EVN (Théorème~2.4).
+  \item Énoncer et démontrer l'équivalence des normes sur $\K^d$ (Théorème~2.1).
+  \item Montrer qu'un EVN est de Banach si et seulement si toute série absolument convergente y converge (Proposition~3.1 et Exercice~3.1).
+  \item Énoncer et démontrer le théorème de Riesz (Théorème~3.1), en passant par le Lemme~3.1.
+  \item Montrer que $\Lc(E,F)$ est un espace de Banach dès que $F$ en est un (Proposition~3.4).
+  \item Énoncer et démontrer le théorème de Banach--Steinhaus (Théorème~3.7).
+  \item Énoncer le théorème de l'application ouverte (Théorème~3.8, admis ici). En déduire le Corollaire~3.4 (continuité automatique de l'inverse), puis énoncer et démontrer le théorème du graphe fermé (Remarque~3.8).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Énoncé.} Soient $E,F$ deux EVN et $T:E\to F$ linéaire. Sont équivalentes : (i) $T$ est lipschitzienne ; (ii) $T$ est continue en $0$ ; (iii) $T$ est bornée sur $B_E(0,1)$ ; (iv) il existe $C>0$ tel que $\norm{T(x)}_F\le C\norm x_E$ pour tout $x$.
+
+\emph{Preuve.} (i)$\Rightarrow$(ii) : immédiat. (ii)$\Rightarrow$(iii) : il existe $\delta>0$ tel que $\norm x<\delta$ entraîne $\norm{T(x)}<1$ ; pour $\norm x<1$, $\norm{T(x)}=\delta^{-1}\norm{T(\delta x)}<\delta^{-1}$. (iii)$\Rightarrow$(iv) : soit $M$ une borne de $\norm{T}$ sur $B_E(0,1)$ ; pour $x\ne0$, $\frac x{2\norm x}\in B_E(0,1)$, donc $\norm{T(x)}=2\norm x\,\big\|T\big(\frac x{2\norm x}\big)\big\|\le2M\norm x$. (iv)$\Rightarrow$(i) : par linéarité, $\norm{T(x)-T(y)}=\norm{T(x-y)}\le C\norm{x-y}$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Énoncé.} Sur $\K^d$, toutes les normes sont équivalentes.
+
+\emph{Preuve.} Il suffit de comparer une norme $N$ à $\norm\cdot_\infty$. \emph{Majoration :} avec la base canonique $(e_k)$, $N(x)\le\sum_k|x_k|N(e_k)\le\beta\norm x_\infty$, où $\beta:=\sum_kN(e_k)$. En particulier $|N(x)-N(y)|\le N(x-y)\le\beta\norm{x-y}_\infty$ : $N$ est continue sur $(\K^d,\norm\cdot_\infty)$. \emph{Minoration :} la sphère $S_\infty:=\{\norm z_\infty=1\}$ est fermée et bornée dans $(\K^d,\norm\cdot_\infty)$, donc compacte (Corollaire~1.2). La fonction continue $N$ y atteint son minimum $\alpha$ (Corollaire~1.3), et $\alpha>0$ puisque $N$ ne s'annule pas sur $S_\infty$. Par homogénéité, pour $x\ne0$, $N(x)=\norm x_\infty N(x/\norm x_\infty)\ge\alpha\norm x_\infty$. Donc $\alpha\norm\cdot_\infty\le N\le\beta\norm\cdot_\infty$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Sens direct (Proposition~3.1).} Soit $E$ de Banach et $\sum_k\norm{x_k}<\infty$. Pour $n<m$, $\norm{S_m-S_n}\le\sum_{k=n+1}^m\norm{x_k}\le\sum_{k>n}\norm{x_k}\to0$ : $(S_n)$ est de Cauchy, donc converge.
+
+\emph{Réciproque (Exercice~3.1).} Supposons que toute série absolument convergente converge, et soit $(x_n)$ de Cauchy dans $E$. On construit une extractrice $\varphi$ telle que $\norm{x_p-x_q}\le2^{-k}$ pour tous $p,q\ge\varphi(k)$. Alors $\sum_k\norm{x_{\varphi(k+1)}-x_{\varphi(k)}}\le\sum_k2^{-k}<\infty$, donc la série $\sum_k(x_{\varphi(k+1)}-x_{\varphi(k)})$ converge ; ses sommes partielles valant $x_{\varphi(K+1)}-x_{\varphi(0)}$, la sous-suite $(x_{\varphi(k)})$ converge vers un $x$. Enfin une suite de Cauchy qui a une sous-suite convergente converge : $\norm{x_n-x}\le\norm{x_n-x_{\varphi(k)}}+\norm{x_{\varphi(k)}-x}$, petit pour $n$ et $k$ grands.
+
+\medskip
+\noindent\textbf{(d)} \emph{Énoncé.} Un EVN dont la boule unité fermée est compacte est de dimension finie.
+
+\emph{Lemme~3.1.} S'il existe $0<\delta<1$ et $x_1,\dots,x_N\in E$ tels que la sphère unité soit contenue dans $\bigcup_kB(x_k,\delta)$, alors $(x_k)$ engendre $E$.
+
+\emph{Preuve du lemme.} $F:=\Vect(x_1,\dots,x_N)$ est de dimension finie, donc fermé (Proposition~3.2). Supposons qu'il existe $z\in E\setminus F$ ; en particulier $z\ne0$. Il existe $k$ avec $\norm{z/\norm z-x_k}<\delta$, soit, pour $z_1:=\norm z\,x_k\in F$, $\norm{z-z_1}\le\delta\norm z$. Le vecteur $z-z_1$ est encore hors de $F$ : le même argument donne $z_2\in F$ avec $\norm{z-z_1-z_2}\le\delta\norm{z-z_1}\le\delta^2\norm z$. Par récurrence, il existe $z_n\in F$ avec $\norm{z-(z_1+\dots+z_n)}\le\delta^n\norm z\to0$. Donc $z$ est limite d'une suite de $F$ fermé : $z\in F$, contradiction.
+
+\emph{Preuve du théorème.} La boule unité fermée, compacte, est précompacte (Proposition~1.13) : elle est recouverte par un nombre fini de boules $B(x_k,\frac12)$, et la sphère unité aussi. Le lemme avec $\delta=\frac12$ donne $E=\Vect(x_1,\dots,x_N)$.
+
+\medskip
+\noindent\textbf{(e)} Soit $(T_n)$ de Cauchy dans $\Lc(E,F)$, avec $F$ de Banach. Pour $x\in E$, $\norm{T_n(x)-T_m(x)}\le\opnorm{T_n-T_m}\norm x$ : la suite $(T_n(x))$ est de Cauchy dans $F$, donc converge ; on note $T(x)$ sa limite. \emph{Linéarité :} passage à la limite dans $T_n(\lambda x+y)=\lambda T_n(x)+T_n(y)$. \emph{Convergence en norme :} soit $\varepsilon>0$ et $N$ tel que $\opnorm{T_n-T_m}\le\varepsilon$ pour $n,m\ge N$. Pour $x\in E$ et $n\ge N$, en faisant $m\to\infty$ dans $\norm{T_n(x)-T_m(x)}\le\varepsilon\norm x$, on obtient $\norm{T_n(x)-T(x)}\le\varepsilon\norm x$. Donc $T_N-T$ est continue, $T=T_N-(T_N-T)\in\Lc(E,F)$, et $\opnorm{T_n-T}\le\varepsilon$ pour $n\ge N$.
+
+\medskip
+\noindent\textbf{(f)} \emph{Énoncé.} Soient $E$ un espace de \emph{Banach}, $F$ un EVN et $(T_i)_{i\in I}$ une famille de $\Lc(E,F)$. Si $\sup_i\norm{T_i(x)}_F<\infty$ pour tout $x\in E$, alors $\sup_i\opnorm{T_i}<\infty$.
+
+\emph{Preuve.} Pour $n\in\N$, soit $K_n:=\{x\in E:\ \forall i,\ \norm{T_i(x)}\le n\}=\bigcap_i(\norm\cdot_F\circ T_i)^{-1}([0,n])$ : c'est un fermé (intersection d'images réciproques de fermés par des applications continues). L'hypothèse donne $E=\bigcup_nK_n$. Par le lemme de Baire dans $E$ complet, les $K_n$ ne peuvent pas être tous d'intérieur vide : il existe $N$, $a\in E$ et $r>0$ avec $\Bf(a,r)\subset K_N$. Pour $\norm z\le1$ et $i\in I$, $a+rz\in K_N$ et $a\in K_N$, donc
+\[
+\norm{T_i(z)}=\frac1r\norm{T_i(a+rz)-T_i(a)}\le\frac{2N}r .
+\]
+Ainsi $\opnorm{T_i}\le2N/r$ pour tout $i$.
+
+\medskip
+\noindent\textbf{(g)} \emph{Application ouverte.} Soient $E,F$ deux espaces de Banach et $T\in\Lc(E,F)$ surjective. Alors $T$ est ouverte : l'image de tout ouvert de $E$ est un ouvert de $F$.
+
+\emph{Corollaire~3.4.} Si de plus $T$ est bijective, $T^{-1}$ est continue : pour tout ouvert $U$ de $E$,
+\[
+(T^{-1})^{-1}(U)=T(U)\quad\text{est ouvert,}
+\]
+ce qui est la caractérisation topologique de la continuité (Proposition~1.5).
+
+\emph{Graphe fermé.} Soient $E,F$ deux espaces de Banach et $T:E\to F$ linéaire. Alors $T$ est continue si et seulement si son graphe $G(T):=\{(x,T(x)):x\in E\}$ est fermé dans $E\times F$.
+
+\emph{Preuve.} ($\Rightarrow$) Si $(x_n,T(x_n))\to(x,y)$, alors $T(x_n)\to T(x)$ par continuité, donc $y=T(x)$. ($\Leftarrow$) Posons $N(x):=\norm x_E+\norm{T(x)}_F$ : c'est une norme sur $E$. \emph{$(E,N)$ est complet :} si $(x_n)$ est de Cauchy pour $N$, alors $(x_n)$ est de Cauchy dans $E$ et $(T(x_n))$ dans $F$ ; elles convergent, vers $x$ et $y$. Le graphe étant fermé, $y=T(x)$, donc $N(x_n-x)=\norm{x_n-x}_E+\norm{T(x_n)-y}_F\to0$. \emph{Conclusion :} l'identité $(E,N)\to(E,\norm\cdot_E)$ est linéaire, bijective et continue ($\norm x_E\le N(x)$) entre deux espaces de Banach ; par le Corollaire~3.4 son inverse est continu : il existe $C$ avec $N(x)\le C\norm x_E$, d'où $\norm{T(x)}_F\le C\norm x_E$.
+\end{solution}
+
+\begin{methode}
+\textbf{Trois théorèmes, un seul moteur.} Banach--Steinhaus, l'application ouverte et le graphe fermé sont trois conséquences du lemme de Baire, et les trois demandent la complétude de l'espace de \emph{départ} (les deux derniers aussi celle de l'espace d'arrivée). Dans (f), le plan est : des fermés $K_n$ qui recouvrent $E$, Baire pour en trouver un d'intérieur non vide, puis translation et homothétie pour revenir à la boule unité. Dans (g), l'idée à retenir est la \emph{norme du graphe} $N(x)=\norm x+\norm{T(x)}$ : le graphe fermé dit exactement qu'elle rend $E$ complet, et deux normes comparables qui rendent un espace complet sont équivalentes (Exemple~3.6). En pratique, le graphe fermé sert à montrer la continuité en ne vérifiant que « si $x_n\to x$ \emph{et} $T(x_n)\to y$, alors $y=T(x)$ », ce qui est bien plus faible que la continuité.
+\end{methode}
+
+\section*{Vrai ou faux}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Vrai ou faux ? Chapitre 1}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $(X,d)$ et $(Y,d')$ désignent des espaces métriques.
+\begin{enumerate}[label=\arabic*.]
+  \item L'adhérence de la boule ouverte $B(a,r)$ est la boule fermée $\Bf(a,r)$.
+  \item Dans un espace métrique complet, toute partie fermée et bornée est compacte.
+  \item L'image réciproque d'un compact par une application continue est compacte.
+  \item L'image d'un fermé par une application continue est fermée.
+  \item Une application continue transforme les suites de Cauchy en suites de Cauchy.
+  \item Si $X$ est compact et $f:X\to Y$ est continue et bijective, alors $f^{-1}$ est continue.
+  \item Si $X$ et $Y$ sont homéomorphes et $X$ est complet, alors $Y$ est complet.
+  \item Dans un espace métrique complet, une intersection dénombrable d'ouverts denses est un ouvert dense.
+  \item $\Q$ est une intersection dénombrable d'ouverts de $\R$.
+  \item Tout espace métrique compact est séparable.
+  \item Dans un espace métrique, toute partie fermée et précompacte est compacte.
+  \item Si $D$ est dense dans $X$ et $f:D\to Y$ est uniformément continue, alors $f$ se prolonge en une application continue $X\to Y$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} Sur un ensemble $X$ à au moins deux points muni de la distance discrète ($d(x,y)=1$ si $x\ne y$), $B(a,1)=\{a\}$ est fermée, donc égale à son adhérence, alors que $\Bf(a,1)=X$. On a toujours $\adh{B(a,r)}\subset\Bf(a,r)$, avec égalité dans un EVN.
+
+\medskip
+\noindent\textbf{2. Faux.} La boule unité fermée de $\ell^2(\N)$ est fermée et bornée dans un espace complet, mais la suite $(e_n)$ vérifie $\norm{e_n-e_m}=\sqrt2$ pour $n\ne m$ et n'a aucune sous-suite convergente. C'est vrai dans $\K^d$ (Corollaire~1.2), et cela caractérise la dimension finie (Théorème~3.1).
+
+\medskip
+\noindent\textbf{3. Faux.} $f:\R\to\R$ constante égale à $0$ : $f^{-1}(\{0\})=\R$. (L'image \emph{directe} d'un compact est compacte : Théorème~1.3.)
+
+\medskip
+\noindent\textbf{4. Faux.} $\arctan(\R)=\,]-\frac\pi2,\frac\pi2[$. (L'image \emph{réciproque} d'un fermé est fermée ; et l'image directe d'un fermé est fermée si l'espace de départ est compact.)
+
+\medskip
+\noindent\textbf{5. Faux.} $f(x)=1/x$ sur $]0,1]$ : la suite $(1/n)$ est de Cauchy, son image $(n)$ ne l'est pas. C'est vrai pour une application \emph{uniformément} continue, et c'est le point de départ du Théorème~1.1.
+
+\medskip
+\noindent\textbf{6. Vrai.} Soit $F$ un fermé de $X$ ; il est compact (Proposition~1.11), donc $f(F)$ est compact (Théorème~1.3), donc fermé dans $Y$ (Proposition~1.10). Or $(f^{-1})^{-1}(F)=f(F)$ : l'image réciproque par $f^{-1}$ de tout fermé est fermée, et $f^{-1}$ est continue.
+
+\medskip
+\noindent\textbf{7. Faux.} $\R$ et $]-1,1[$ sont homéomorphes par $x\mapsto\frac x{1+|x|}$, le premier est complet, le second non (Remarque~1.6). La complétude n'est pas une notion topologique.
+
+\medskip
+\noindent\textbf{8. Faux.} Dense, oui (Baire) ; ouvert, non : $\R\setminus\Q=\bigcap_{q\in\Q}(\R\setminus\{q\})$ est une intersection dénombrable d'ouverts denses de $\R$, et n'est pas ouvert puisque $\Q$ est dense.
+
+\medskip
+\noindent\textbf{9. Faux.} Si $\Q=\bigcap_nO_n$ avec $O_n$ ouverts, chaque $O_n$ contient $\Q$, donc est dense. Les ouverts $\R\setminus\{q\}$, $q\in\Q$, sont denses aussi. L'intersection de cette famille dénombrable d'ouverts denses est $\Q\cap(\R\setminus\Q)=\emptyset$, ce qui contredit le lemme de Baire dans $\R$ complet.
+
+\medskip
+\noindent\textbf{10. Vrai.} Un compact est précompact (Proposition~1.13) : pour tout $n\ge1$ il est recouvert par un nombre fini de boules de rayon $\frac1n$, de centres formant un ensemble fini $C_n$. La réunion $\bigcup_nC_n$ est dénombrable, et tout point est à distance $<\frac1n$ d'un point de $C_n$ pour tout $n$ : elle est dense.
+
+\medskip
+\noindent\textbf{11. Faux.} $X=\Q$, $A=\Q\cap[0,1]$ : fermée dans $\Q$, précompacte, mais une suite de rationnels de $[0,1]$ tendant vers $\frac1{\sqrt2}$ n'a pas de valeur d'adhérence dans $A$ (Exercice~1.21). C'est vrai si $X$ est complet (Corollaire~1.4).
+
+\medskip
+\noindent\textbf{12. Faux.} $D=Y=\Q$, $X=\R$, $f=\mathrm{id}$ : $f$ est $1$-lipschitzienne, mais un prolongement continu $\tilde f:\R\to\Q$ vérifierait $\tilde f(x)=\lim f(q_n)=x$ pour $q_n\to x$, impossible si $x\notin\Q$. Il faut $Y$ complet (Théorème~1.1).
+\end{solution}
+
+\begin{piege}
+\textbf{Direct ou réciproque, topologique ou métrique.} Les questions 3, 4 et 6 : l'image \emph{réciproque} préserve ouverts et fermés, l'image \emph{directe} préserve les compacts, et rien d'autre en général. Les questions 5, 7 et 12 : la continuité est une notion topologique, la complétude et le caractère de Cauchy sont des notions métriques, et seule l'uniforme continuité fait le lien. Les questions 2 et 11 : « compact $=$ fermé borné » est propre à $\K^d$ ; l'énoncé général est « complet et précompact ». Les questions 8 et 9 : Baire donne la densité d'une intersection dénombrable d'ouverts denses, jamais son ouverture.
+\end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Vrai ou faux ? Chapitres 2 et 3}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $E$ et $F$ désignent des EVN.
+\begin{enumerate}[label=\arabic*.]
+  \item Deux normes sur un même espace vectoriel sont toujours équivalentes.
+  \item Si $E$ est de dimension finie, toute application linéaire $E\to F$ est continue.
+  \item Tout sous-espace vectoriel de $E$ est fermé.
+  \item Un sous-espace vectoriel strict de $E$ est d'intérieur vide.
+  \item Si $T:E\to F$ est linéaire et bornée sur une boule $B(a,r)$, $r>0$, alors $T$ est continue.
+  \item Pour $1\le p\le q\le\infty$, on a $L^p(]0,1[)\subset L^q(]0,1[)$.
+  \item $\Cz([0,1])$ muni de la norme $\norm f_1=\int_0^1|f|$ est un espace de Banach.
+  \item Un espace de Banach de dimension infinie n'admet pas de base (algébrique) dénombrable.
+  \item La boule unité fermée de $\Cz([0,1])$ est compacte pour la norme uniforme.
+  \item Une partie bornée et uniformément équicontinue de $\Cz([0,1])$ est compacte.
+  \item Si $(f_n)$ est une suite de $\mathcal C^1([0,1])$ avec $\norm{f_n}_\infty+\norm{f_n'}_\infty\le M$ pour tout $n$, alors $(f_n)$ admet une sous-suite uniformément convergente.
+  \item Si $E$ est de Banach et si $(T_n)$ est une suite de $\Lc(E,F)$ convergeant simplement vers $T$, alors $\opnorm{T_n-T}\to0$.
+  \item Une limite simple d'applications linéaires continues de $E$ dans $F$ est continue.
+  \item Une bijection linéaire continue $E\to F$ a un inverse continu.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} Sur $\Cz([0,1])$, $\norm f_1\le\norm f_\infty$, mais $f_n(x)=x^n$ vérifie $\norm{f_n}_\infty=1$ et $\norm{f_n}_1=\frac1{n+1}\to0$ : pas de constante $C$ avec $\norm\cdot_\infty\le C\norm\cdot_1$. C'est vrai en dimension finie (Corollaire~2.1).
+
+\medskip
+\noindent\textbf{2. Vrai.} Soit $(b_1,\dots,b_d)$ une base de $E$ et $N(x):=\max_k|x_k|$ pour $x=\sum_kx_kb_k$ ; $N$ est une norme sur $E$, équivalente à $\norm\cdot_E$ (Corollaire~2.1). Alors
+\[
+\norm{T(x)}_F\le\sum_k|x_k|\norm{T(b_k)}_F\le\Big(\sum_k\norm{T(b_k)}_F\Big)N(x)\le C\norm x_E .
+\]
+
+\medskip
+\noindent\textbf{3. Faux.} $c_{<\infty}(\N)$ est un sous-espace dense et strict de $\ell^2(\N)$ (Proposition~2.3), donc non fermé. C'est vrai pour les sous-espaces de dimension finie (Proposition~3.2).
+
+\medskip
+\noindent\textbf{4. Vrai.} Si un sous-espace $V$ contient une boule $B(a,r)$, alors pour tout $x\ne0$, $a+\frac r{2\norm x}x\in V$ et $a\in V$, donc $x\in V$ : $V=E$.
+
+\medskip
+\noindent\textbf{5. Vrai.} Si $\norm{T(x)}\le M$ sur $B(a,r)$, alors pour $\norm z<1$, $\norm{T(z)}=\frac1r\norm{T(a+rz)-T(a)}\le\frac{2M}r$ : $T$ est bornée sur la boule unité, donc continue (Théorème~2.4). C'est le calcul final de la preuve de Banach--Steinhaus.
+
+\medskip
+\noindent\textbf{6. Faux.} C'est l'inclusion inverse : sur un ensemble de mesure finie, $L^q\subset L^p$ pour $p\le q$ (Hölder). Par exemple $x^{-1/2}\in L^1(]0,1[)\setminus L^2(]0,1[)$. L'inclusion $\ell^p\subset\ell^q$ (Proposition~2.4) va dans l'autre sens, et sur $\R$ il n'y a aucune inclusion.
+
+\medskip
+\noindent\textbf{7. Faux.} Soit $f_n$ continue, affine par morceaux, nulle sur $[0,\frac12-\frac1n]$, égale à $1$ sur $[\frac12,1]$. Alors $\norm{f_n-f_m}_1\le\frac1{\min(n,m)}$ : la suite est de Cauchy pour $\norm\cdot_1$. Si elle convergeait vers $f$ continue, on aurait $\int_0^a|f|=0$ pour tout $a<\frac12$ et $\int_{1/2}^1|f-1|=0$, donc $f=0$ sur $[0,\frac12[$ et $f=1$ sur $[\frac12,1]$ : contradiction avec la continuité en $\frac12$.
+
+\medskip
+\noindent\textbf{8. Vrai.} Si $(b_n)_{n\in\N}$ était une base, $E=\bigcup_nF_n$ avec $F_n:=\Vect(b_0,\dots,b_n)$, fermés (Proposition~3.2) et d'intérieur vide (question~4, $F_n\ne E$). Cela contredit le lemme de Baire dans $E$ complet (Exercice~3.2). Ainsi $\R[x]$ n'est complet pour aucune norme.
+
+\medskip
+\noindent\textbf{9. Faux.} $\Cz([0,1])$ est de dimension infinie (Théorème~3.1). Directement : $f_n(x)=x^n$ est dans la boule unité, converge simplement vers une fonction discontinue, donc n'a pas de sous-suite uniformément convergente.
+
+\medskip
+\noindent\textbf{10. Faux.} Il manque « fermée » : l'ensemble des fonctions constantes de valeur dans $]0,1[$ est borné et uniformément équicontinu, mais non fermé, donc non compact. Une partie bornée et uniformément équicontinue est seulement d'adhérence compacte (Théorème~3.2 et Exercice~3.5).
+
+\medskip
+\noindent\textbf{11. Vrai.} La suite est bornée par $M$, et uniformément équicontinue car $|f_n(x)-f_n(y)|\le M|x-y|$ (accroissements finis). Le Corollaire~3.1 d'Arzelà--Ascoli donne une sous-suite uniformément convergente. (Sa limite est $M$-lipschitzienne, mais pas nécessairement $\mathcal C^1$.)
+
+\medskip
+\noindent\textbf{12. Faux.} Sur $E=\ell^2(\N)$, $T_n(u):=u_n$ : $T_n(u)\to0$ pour tout $u$, mais $\opnorm{T_n-0}=1$ (tester $e_n$). La convergence simple donne seulement $\sup_n\opnorm{T_n}<\infty$ et $\opnorm T\le\liminf\opnorm{T_n}$ (Corollaire~3.3).
+
+\medskip
+\noindent\textbf{13. Faux.} Sur $E=\R[x]$ muni de la norme uniforme sur $[0,1]$, les formes $A_n(P):=n\big(P(1)-P(1-\frac1n)\big)$ sont continues ($|A_n(P)|\le2n\norm P_\infty$) et convergent simplement vers $P\mapsto P'(1)$, qui est discontinue (Contre-exemple~2.1, Exercice~3.9). C'est vrai si $E$ est de Banach (Corollaire~3.3) : ici $E$ ne l'est pas (question~8).
+
+\medskip
+\noindent\textbf{14. Faux.} L'identité de $(c_{<\infty},\norm\cdot_1)$ dans $(c_{<\infty},\norm\cdot_\infty)$ est linéaire, bijective et continue ($\norm u_\infty\le\norm u_1$), mais son inverse ne l'est pas : $u^{(n)}:=e_0+\dots+e_{n-1}$ vérifie $\norm{u^{(n)}}_\infty=1$ et $\norm{u^{(n)}}_1=n$. C'est vrai entre espaces de Banach (Corollaire~3.4).
+\end{solution}
+
+\begin{piege}
+\textbf{Dimension finie, complétude : les deux hypothèses cachées.} En dimension finie tout est vrai : normes équivalentes, applications linéaires continues, sous-espaces fermés, fermés bornés compacts (1, 2, 3, 9). En dimension infinie, c'est la \emph{complétude} qui remplace la dimension finie dans les grands théorèmes : limite simple d'opérateurs, inverse continu, absence de base dénombrable (8, 13, 14). Les contre-exemples à connaître par cœur sont donc des espaces non complets, $c_{<\infty}$ et $\R[x]$, ou une norme trop faible sur un bon espace, $(\Cz([0,1]),\norm\cdot_1)$ (7).
+\end{piege}
+
+\end{document}
