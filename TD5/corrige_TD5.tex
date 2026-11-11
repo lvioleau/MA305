@@ -416,7 +416,7 @@ le premier terme par la convergence forte, le second par la convergence faible d
 \begin{exo}{Exercice 10 -- Les opérateurs compacts sont ceux qui transforment le faible en fort}
 Soit $H$ un espace de Hilbert séparable de dimension infinie et $T\in\Lc(H)$. La Proposition~5.8 montre que si $T$ est compact, alors $w_k\wk w$ entraîne $Tw_k\to Tw$ ; la note qui l'accompagne affirme que c'est une caractérisation.
 \begin{enumerate}[label=(\alph*)]
-  \item Montrer la réciproque : si $w_k\wk w$ entraîne $Tw_k\to Tw$ pour toute suite $(w_k)$ de $H$, alors $T$ est compact.
+  \item Montrer la réciproque : si $w_k\wk w$ entraîne $Tw_k\to Tw$ pour toute suite $(w_k)$ de $H$, alors $T$ est compact. (Cette réciproque figure déjà au TD4, Exercice~8(d) : la refaire sans s'y reporter.)
   \item En déduire que si $T$ est compact et $(e_n)$ est une suite orthonormée, alors $Te_n\to0$ ; en particulier, si $Te_n=\lambda_ne_n$, alors $\lambda_n\to0$, et $\mathrm{Id}_H$ n'est pas compact.
   \item Soient $T$ compact et $S\in\Lc(H)$. Montrer que $ST$ et $TS$ sont compacts, puis que $T^\star$ est compact. \emph{Indication pour $T^\star$ : calculer $\norm{T^\star u}^2$ et utiliser la seconde assertion de la Proposition~5.8 pour $TT^\star$.}
   \item Soit $(T_n)$ une suite d'opérateurs compacts avec $\opnorm{T_n-T}\to0$. Montrer que $T$ est compact.
@@ -533,7 +533,7 @@ donc $x=p\in C$. La convexité est essentielle (question~3) ; le cas de la boule
 \noindent\textbf{13. Faux.} L'opérateur de Volterra $Vf(x)=\int_0^xf$ sur $L^2(]0,1[)$ est compact et sans valeur propre (TD0 ch.~5, Remarque~5.14). Le Lemme~5.1 demande que l'opérateur soit auto-adjoint.
 
 \medskip
-\noindent\textbf{14. Vrai.} Par le Théorème~5.5 il existe une base hilbertienne de vecteurs propres, de valeurs propres réelles $\lambda_n\to0$, et $\opnorm T=\sup_n|\lambda_n|$ (TD0 ch.~5). Si $T=0$ c'est clair. Sinon, comme $\lambda_n\to0$, seul un nombre fini de $\lambda_n$ vérifient $|\lambda_n|\ge\frac12\opnorm T$ : le sup est un max, atteint en un $\lambda_{n_0}=\pm\opnorm T$.
+\noindent\textbf{14. Vrai.} Par le Théorème~5.5 il existe une base hilbertienne de vecteurs propres, de valeurs propres réelles $\lambda_n\to0$, et $\opnorm T=\sup_n|\lambda_n|$ (TD0 ch.~5). Si $T=0$ c'est clair. Sinon, comme $\lambda_n\to0$, seul un nombre fini de $\lambda_n$ vérifient $|\lambda_n|\ge\frac12\opnorm T$ : le sup est un max, atteint en un $\lambda_{n_0}=\pm\opnorm T$. (Le TD4, Exercice~7(d), le démontre directement, sans le théorème spectral.)
 
 \medskip
 \noindent\textbf{15. Vrai.} Si $T$ était bijectif, $T^{-1}$ serait continu (théorème d'isomorphisme de Banach, chapitre~3), et $\mathrm{Id}=T^{-1}T$ serait compact (Exercice~10(c)), ce qui est faux en dimension infinie (Exercice~10(b)). Directement : par le Théorème~5.5, $T$ admet une base hilbertienne $(e_n)$ de vecteurs propres, de valeurs propres $\lambda_n\ne0$ (injectivité) tendant vers $0$. Choisissons une sous-suite avec $|\lambda_{n_k}|\le2^{-k}$ et posons $y:=\sum_k\lambda_{n_k}e_{n_k}$, série convergente dans $H$ (Proposition~4.4). Si $Tx=y$, alors $\lambda_n\ps x{e_n}=\ps y{e_n}$ pour tout $n$, donc $\ps x{e_{n_k}}=1$ pour tout $k$, ce qui contredit $\sum_n|\ps x{e_n}|^2<\infty$.
