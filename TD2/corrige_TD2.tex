@@ -140,7 +140,7 @@ Cette distance a deux propriétés supplémentaires qui la distinguent d'une dis
 
 \emph{Étape 2 : extractions successives.} Par le théorème de Bolzano--Weierstrass (Théorème~1.2), la suite réelle bornée $(x^{(k)}_1)_k$ admet une sous-suite convergente : il existe une extractrice $\varphi_1$ et $\ell_1\in[-R,R]$ avec $x^{(\varphi_1(k))}_1\to\ell_1$. La suite $(x^{(\varphi_1(k))}_2)_k$ est encore bornée : on en extrait une sous-suite convergente via $\varphi_2$, $x^{(\varphi_1\circ\varphi_2(k))}_2\to\ell_2$ ; la première coordonnée converge toujours vers $\ell_1$ le long de $\varphi_1\circ\varphi_2$ (sous-suite d'une suite convergente). On itère $d$ fois et l'on pose $\varphi:=\varphi_1\circ\cdots\circ\varphi_d$ (extractrice comme composée d'extractrices) : pour chaque $i\in\{1,\dots,d\}$, $x^{(\varphi(k))}_i\to\ell_i$.
 
-\emph{Étape 3 : convergence coordonnée par coordonnée $\Rightarrow$ convergence en norme.} Posons $\ell:=(\ell_1,\dots,\ell_d)$. Alors
+\emph{Étape 3 : la convergence coordonnée par coordonnée entraîne la convergence en norme.} Posons $\ell:=(\ell_1,\dots,\ell_d)$. Alors
 \[
 \norm{x^{(\varphi(k))}-\ell}^2=\sum_{i=1}^d\big|x^{(\varphi(k))}_i-\ell_i\big|^2\xrightarrow[k\to\infty]{}0
 \]
@@ -178,7 +178,7 @@ x\in O\iff d(F,x)>0 .
 
 \emph{Croissance.} Si $x\in K_n$, alors $\norm x\le n\le n+1$ et $d(F,x)\ge\frac1n\ge\frac1{n+1}$, donc $x\in K_{n+1}$.
 
-\emph{Recouvrement.} Soit $x\in O$. Par \eqref{eq:dF}, $d(F,x)>0$. Choisissons un entier $n\ge\max\big(\norm x,\,1/d(F,x)\big)$ : alors $\norm x\le n$ et $d(F,x)\ge1/n$, \ie{} $x\in K_n$. Donc $O=\bigcup_nK_n$.
+\emph{Recouvrement.} Soit $x\in O$. Par \eqref{eq:dF}, $d(F,x)>0$. Choisissons un entier $n$ tel que $n\ge\norm x$ et $n\ge1/d(F,x)$ : alors $\norm x\le n$ et $d(F,x)\ge1/n$, \ie{} $x\in K_n$. Donc $O=\bigcup_nK_n$.
 
 \medskip
 \noindent\textbf{Complément utile : $K_n\subset\interieur{K_{n+1}}$.} Soit $x\in K_n$ et $\rho:=\min\big(1,\frac1n-\frac1{n+1}\big)>0$. Pour $y\in B(x,\rho)$, on a $\norm y\le\norm x+\rho<n+1$, et par le caractère $1$-lipschitzien de $d(F,\cdot)$,
@@ -381,7 +381,7 @@ On a même $\opnorm T=\sup_{\norm x_E<1}\norm{Tx}_F$ (boule ouverte) : pour $\no
 
 % =====================================================================
 \begin{exo}{Exercice 7 (Exercice 2.5 du poly) -- Coefficients de Fourier et noyau de Dirichlet}
-On considère, pour $f\in\Cz(\Sun;\C)$ (identifié aux fonctions continues $2\pi$-périodiques, Exemple~2.2) et $n\in\Z$,
+On considère, pour $f\in\Cz(\Sun;\C)$ (identifié aux fonctions continues et $2\pi$-périodiques sur $\R$, Exemple~2.2) et $n\in\Z$,
 \[
 c_n(f):=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_n},\qquad e_n:t\mapsto e^{int}.
 \]
