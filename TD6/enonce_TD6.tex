@@ -217,4 +217,82 @@ On dit que $T\in\D'(\R)$ est \emph{$2\pi$-périodique} si $\tau_{2\pi}T=T$. On f
 \end{enumerate}
 \end{exo}
 
+\section*{Vers l'examen : questions de cours, problème transversal, compléments}
+
+\begin{commentaire}
+Ces quatre exercices complètent la feuille dans l'optique de l'examen. L'Exercice~11 fait restituer les preuves du polycopié ; l'Exercice~12 est un problème long qui relie les chapitres 4, 5 et 6 autour de la Proposition~6.6 ; l'Exercice~13 traite deux points du polycopié absents des exercices précédents (la convexité de l'Exemple~6.11 et un opérateur non hypoelliptique, à comparer à la Remarque~6.9) ; l'Exercice~14 est un vrai ou faux sur les pièges du chapitre.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 11 -- Questions de cours}
+\emph{À traiter sans document, en rédigeant comme le jour de l'examen : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le Théorème~6.2 (une forme linéaire positive sur $\D(\Omega)$ est une distribution d'ordre $0$).
+  \item Énoncer et démontrer le lemme de du Bois-Reymond (Lemme~6.2).
+  \item Énoncer la formule des sauts (Théorème~6.3) et la démontrer lorsque $A=\{a\}$ est réduit à un point.
+  \item Soit $I\subset\R$ un intervalle ouvert et $T\in\D'(I)$ telle que $T'=0$. Démontrer que $T$ est constante (Théorème~6.4 en dimension~$1$ ; on redémontrera le cas utile du Lemme~6.3).
+  \item Énoncer et démontrer la Proposition~6.2 ($|T(\varphi)|\lesssim\norm\varphi_p$ entraîne $T\in L^{p'}(\Omega)$, pour $p<\infty$). Que se passe-t-il pour $p=\infty$ ?
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 12 -- Problème : séries de Fourier, dérivée dans $L^2$ et résolution spectrale (chapitres 4, 5 et 6)}
+On note $J:=\,]0,2\pi[$ et $H:=L^2(J)$ muni du produit scalaire $\langle f,g\rangle:=\frac1{2\pi}\int_Jf\bar g$, pour lequel $e_k:x\mapsto e^{ikx}$ ($k\in\Z$) est une base hilbertienne (Exemple~4.7) ; $c_k(f):=\langle f,e_k\rangle$ et $S_Nf:=\sum_{|k|\le N}c_k(f)e_k$. Pour $f\in H$ on note $f^\sharp$ son prolongement $2\pi$-périodique à $\R$ (défini presque partout), qui est dans $L^2_{\mathrm{loc}}(\R)$, et l'on considère $S_Nf$ comme une fonction sur $\R$. On pose enfin
+\[
+H^1_\sharp:=\Big\{u\in H:\ \sum_{k\in\Z}k^2|c_k(u)|^2<\infty\Big\},\qquad L^2_0:=\{f\in H:\ c_0(f)=0\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $f\in H$. Montrer que $S_Nf\to f^\sharp$ dans $L^2([a,b])$ pour tout segment $[a,b]$, puis dans $\D'(\R)$. En déduire que $\sum_{|k|\le N}ik\,c_k(f)e_k\wk(f^\sharp)'$ dans $\D'(\R)$.
+  \item Soit $u\in H^1_\sharp$. Montrer qu'il existe $v\in H$ tel que $(u^\sharp)'=v^\sharp$ dans $\D'(\R)$ ; on note $u':=v$. Montrer que la série de Fourier de $u$ converge normalement sur $\R$, que $u$ admet un représentant continu $\tilde u$ sur $[0,2\pi]$ avec $\tilde u(0)=\tilde u(2\pi)$, et que
+  \[
+  \norm{\tilde u-c_0(u)}_\infty\le\frac\pi{\sqrt3}\,\norm{u'}_H .
+  \]
+  Réciproquement, montrer à l'aide de l'Exercice~10 que si $u,w\in H$ vérifient $(u^\sharp)'=w^\sharp$ dans $\D'(\R)$, alors $u\in H^1_\sharp$.
+  \item Soit $f(x):=x$ sur $J$. Calculer $c_k(f)$. Vérifier que $T_f'=T_1$ dans $\D'(J)$, mais que $f\notin H^1_\sharp$. Calculer $(f^\sharp)'$ dans $\D'(\R)$ de deux façons et commenter.
+  \item (Proposition~6.6.) Soit $f\in L^2_0$. Montrer qu'il existe un unique $\varphi_f\in L^2_0$ tel que $(\varphi_f^\sharp)''=f^\sharp$ dans $\D'(\R)$, et l'expliciter. Montrer que $\varphi_f$ admet un représentant de classe $\mathcal C^1$. Montrer enfin que l'unicité est \emph{fausse} si l'on demande seulement $\varphi''=f$ dans $\D'(J)$.
+  \item Montrer que $K:f\mapsto\varphi_f$ est un opérateur linéaire continu, auto-adjoint et compact de l'espace de Hilbert $L^2_0$ ; calculer $\opnorm K$, ses valeurs propres et ses espaces propres, et comparer avec la Proposition~4.7 et le Théorème~5.5.
+  \item On munit $H^1_\sharp$ de $\langle u,v\rangle_1:=\langle u,v\rangle+\langle u',v'\rangle$. Montrer que c'est un espace de Hilbert séparable. Soit $f\in H$ ; à l'aide du Théorème~4.6 de Riesz, montrer qu'il existe un unique $u\in H^1_\sharp$ tel que $\langle v,u\rangle_1=\langle v,f\rangle$ pour tout $v\in H^1_\sharp$, calculer ses coefficients de Fourier et vérifier que $-(u^\sharp)''+u^\sharp=f^\sharp$ dans $\D'(\R)$.
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 13 -- Différences secondes, convexité, équation des ondes}
+\textbf{A. Convexité (Exemple~6.11).} Pour $T\in\D'(\R)$ et $h\ne0$ on pose $D_hT:=\dfrac{\tau_hT+\tau_{-h}T-2T}{h^2}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $D_hT\wk T''$ dans $\D'(\R)$ quand $h\to0$. En déduire la limite de $n^2\big(\delta_{1/n}+\delta_{-1/n}-2\delta_0\big)$.
+  \item Soit $f:\R\to\R$ convexe (donc continue). Montrer que $T_f''$ est une distribution positive, donc une mesure de Radon positive.
+  \item Réciproquement, soit $f:\R\to\R$ continue telle que $T_f''$ soit positive. Montrer que $f$ est convexe. \emph{Indication : régulariser par $f\star\rho_n$.}
+  \item Les fonctions $|x|$, $e^{-|x|}$ et $|x^2-1|$ sont-elles convexes ? Répondre en calculant leur dérivée seconde dans $\D'(\R)$.
+\end{enumerate}
+\textbf{B. Équation des ondes.} On fixe $c>0$ et l'on note $\square:=\partial_{tt}-c^2\partial_{xx}$ sur $\R^2$, de variables $(x,t)$.
+\begin{enumerate}[label=(\alph*),resume]
+  \item Soit $f\in L^1_{\mathrm{loc}}(\R)$ et $u(x,t):=f(x-ct)$. Montrer que $u\in L^1_{\mathrm{loc}}(\R^2)$, que $\partial_tu+c\,\partial_xu=0$ dans $\D'(\R^2)$, puis que $\square u=0$. L'opérateur $\square$ vérifie-t-il un analogue du lemme de Weyl ?
+  \item Soit $E:=\frac1{2c}\mathbf 1_{\mathcal C}$ avec $\mathcal C:=\{(x,t):t>0,\ |x|<ct\}$. Montrer que $\square E=\delta_{(0,0)}$ dans $\D'(\R^2)$.
+  \item Soit $\psi\in\D(\R^2)$. Expliciter $u:=\psi\star E$, montrer que $\square u=\psi$ et que $u(x,t)=0$ si $t\le\min\{s:\ (y,s)\in\supp\psi\}$.
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 14 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. (Viser deux à trois minutes par question.)
+\begin{enumerate}[label=\arabic*.]
+  \item Si $(\varphi_n)$ est une suite de $\D(\R)$ telle que $\varphi_n^{(j)}\to0$ uniformément sur $\R$ pour tout $j\in\N$, alors $\varphi_n\to0$ dans $\D(\R)$.
+  \item Si $T\in\D'(\R)$ et si $\varphi\in\D(\R)$ est nulle sur $\supp T$, alors $\langle T,\varphi\rangle=0$.
+  \item Si $(f_n)$ est une suite de $L^1_{\mathrm{loc}}(\R)$ qui converge presque partout vers $f\in L^1_{\mathrm{loc}}(\R)$, alors $T_{f_n}\wk T_f$.
+  \item Si $T_{f_n}\wk0$ dans $\D'(\R)$, alors une sous-suite de $(f_n)$ converge vers $0$ presque partout.
+  \item $\delta_0'$ est une mesure de Radon.
+  \item Si $T\in\D'(\R)$ vérifie $xT=0$, alors $T=0$.
+  \item Si $f\in\Cinf(\R)$ ne s'annule pas et si $fT=0$, alors $T=0$.
+  \item $(x\delta_0')'=-\delta_0'$.
+  \item On peut prolonger le produit $(f,T)\mapsto fT$ en donnant un sens à $h\,\delta_0$ par continuité : si $T_{g_n}\wk\delta_0$ avec $g_n\in\D(\R)$, la suite $T_{hg_n}$ a une limite indépendante du choix de $(g_n)$.
+  \item Les solutions dans $\D'(\R)$ de $T'=T$ sont les $Ce^x$, $C\in\C$.
+  \item Si $\psi\in\D(\R)$ est non nulle et $\psi\star T=0$, alors $T=0$.
+  \item Si $f\in L^1_{\mathrm{loc}}(\R)$ et si $\langle T_f',\varphi\rangle=0$ pour toute $\varphi\in\D(\R\setminus\{0\})$, alors $f$ est constante presque partout.
+  \item Si $T_n'\wk0$ dans $\D'(\R)$, alors $(T_n)$ converge dans $\D'(\R)$.
+  \item La dérivée de $\ln|x|$ dans $\D'(\R)$ est la fonction $x\mapsto1/x$.
+  \item Si $T\in\D'(\R)$ est d'ordre $m$, alors $T'$ est d'ordre exactement $m+1$.
+  \item Si $T\in\D'(\R)$ et si $T'$ est d'ordre $0$, alors $T$ est une fonction, et même $T\in L^\infty_{\mathrm{loc}}(\R)$.
+\end{enumerate}
+\end{exo}
+
 \end{document}
