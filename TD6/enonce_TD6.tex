@@ -144,7 +144,7 @@ Déterminer les limites dans $\D'(\R)$, quand $n\to\infty$, des suites suivantes
 \begin{exo}{Exercice 5 -- Primitives d'une distribution}
 Soit $I\subset\R$ un intervalle ouvert et $T\in\D'(I)$.
 \begin{enumerate}[label=(\alph*)]
-  \item Soit $\theta\in\D(I)$ d'intégrale $1$. Montrer que pour toute $\varphi\in\D(I)$, la fonction $\psi:=\varphi-\big(\int_I\varphi\big)\theta$ admet une unique primitive $\Psi\in\D(I)$, et que $\varphi\mapsto\Psi$ est linéaire et vérifie $\norm\Psi_{m+1,K'}\le C_K\norm\varphi_{m,K'}$ pour $\varphi\in\D_K(I)$, avec $K':=K\cup\supp\theta$ et des constantes convenables (préciser).
+  \item Soit $\theta\in\D(I)$ d'intégrale $1$. Montrer que pour toute $\varphi\in\D(I)$, la fonction $\psi:=\varphi-\big(\int_I\varphi\big)\theta$ admet une unique primitive $\Psi\in\D(I)$, et que $\varphi\mapsto\Psi$ est linéaire et vérifie $\norm\Psi_{m+1,K'}\le C_K\norm\varphi_{m,K'}$ pour $\varphi\in\D_K(I)$, avec $K':=\mathrm{conv}(K\cup\supp\theta)$ (enveloppe convexe : un segment de $I$) et des constantes convenables (préciser).
   \item On pose $\langle S,\varphi\rangle:=-\langle T,\Psi\rangle$. Montrer que $S\in\D'(I)$ et que $S'=T$.
   \item Montrer que les primitives de $T$ (les $U\in\D'(I)$ avec $U'=T$) sont exactement les $S+c$, $c\in\K$.
   \item Application : soit $g\in L^1_{\mathrm{loc}}(I)$ et $U\in\D'(I)$ avec $U'=T_g$. Montrer que $U$ est une fonction continue, de la forme $U=T_F$ avec $F(x)=c+\int_{x_0}^xg$.
