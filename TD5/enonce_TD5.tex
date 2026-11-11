@@ -157,9 +157,9 @@ Soit $E$ un espace de Banach séparable. On dit que $E$ est réflexif si $J:E\to
 \end{enumerate}
 \end{exo}
 
-\section*{Théorème spectral}
+\section*{Théorème spectral (hors programme 2026--2027)}
 
-\begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales}
+\begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales (hors programme 2026--2027)}
 Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]0,1[;\R)$, $T_Kf(x):=\int_0^1K(x,y)f(y)\,dy$.
 \begin{enumerate}[label=(\alph*)]
   \item Montrer que $T_K$ est un opérateur auto-adjoint compact de $H$, à valeurs dans $\Cz([0,1])$.
@@ -169,7 +169,7 @@ Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]
 \end{enumerate}
 \end{exo}
 
-\begin{exo}{Exercice 8 -- Quotient de Rayleigh et principe du min-max}
+\begin{exo}{Exercice 8 -- Quotient de Rayleigh et principe du min-max (hors programme 2026--2027)}
 Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjoint compact \emph{positif} ($\ps{Tx}x\ge0$), et $\lambda_1\ge\lambda_2\ge\dots\ge0$ ses valeurs propres rangées par ordre décroissant avec multiplicité, et $(e_n)_{n\ge1}$ une famille orthonormée de vecteurs propres associés. Si $T$ a une infinité de valeurs propres strictement positives, cette énumération ne contient pas la valeur propre $0$ et $(e_n)$ est une base hilbertienne de $(\Ker T)^\perp$ seulement ; sinon c'est une base hilbertienne de $H$. Dans les deux cas, le Théorème~5.5 donne $\ps{Tx}x=\sum_{n\ge1}\lambda_n|\ps x{e_n}|^2$ pour tout $x\in H$. On pose $\mathcal R(x):=\ps{Tx}x/\norm x^2$ pour $x\ne0$ (quotient de Rayleigh).
 \begin{enumerate}[label=(\alph*)]
   \item Montrer que $\lambda_1=\max_{x\ne0}\mathcal R(x)$, atteint exactement sur $E_{\lambda_1}\setminus\{0\}$.
@@ -186,7 +186,7 @@ Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjo
 \section*{Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
 
 \begin{commentaire}
-Ces trois exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible.
+Ces trois exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible. Les opérateurs compacts et le théorème spectral ne sont plus au programme en 2026--2027 : les exercices et questions qui en relèvent sont signalés « hors programme » et peuvent être laissés de côté pour l'examen.
 \end{commentaire}
 
 % =====================================================================
@@ -197,12 +197,12 @@ Ces trois exercices complètent la feuille dans l'optique de l'examen. L'Exercic
   \item Énoncer et démontrer la Proposition~5.5 (une suite faiblement convergente est bornée, et la norme est semi-continue inférieurement).
   \item Énoncer et démontrer le Théorème~5.4 de Banach--Alaoglu.
   \item En déduire le Corollaire~5.2 : dans un espace de Hilbert, toute suite bornée admet une sous-suite faiblement convergente.
-  \item Énoncer et démontrer la Proposition~5.8 (un opérateur compact transforme la convergence faible en convergence forte).
+  \item \emph{(Hors programme 2026--2027.)} Énoncer et démontrer la Proposition~5.8 (un opérateur compact transforme la convergence faible en convergence forte).
 \end{enumerate}
 \end{exo}
 
 % =====================================================================
-\begin{exo}{Exercice 10 -- Les opérateurs compacts sont ceux qui transforment le faible en fort}
+\begin{exo}{Exercice 10 -- Les opérateurs compacts sont ceux qui transforment le faible en fort (hors programme 2026--2027)}
 Soit $H$ un espace de Hilbert séparable de dimension infinie et $T\in\Lc(H)$. La Proposition~5.8 montre que si $T$ est compact, alors $w_k\wk w$ entraîne $Tw_k\to Tw$ ; la note qui l'accompagne affirme que c'est une caractérisation.
 \begin{enumerate}[label=(\alph*)]
   \item Montrer la réciproque : si $w_k\wk w$ entraîne $Tw_k\to Tw$ pour toute suite $(w_k)$ de $H$, alors $T$ est compact. (Cette réciproque figure déjà au TD4, Exercice~8(d) : la refaire sans s'y reporter.)
@@ -229,9 +229,9 @@ Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une 
   \item Dans $\ell^1(\N)$, vu comme dual de $c_0(\N)$, la convergence préfaible entraîne la convergence faible.
   \item Dans le dual d'un EVN quelconque (non supposé complet), toute suite préfaiblement convergente est bornée.
   \item Le dual de $\ell^\infty(\N)$ s'identifie à $\ell^1(\N)$.
-  \item Tout opérateur compact de $H$ possède une valeur propre.
-  \item Si $T\in\Lc(H)$ est auto-adjoint et compact, alors $\opnorm T$ ou $-\opnorm T$ est valeur propre de $T$.
-  \item Si $T\in\Lc(H)$ est auto-adjoint, compact et injectif, alors $T$ n'est pas surjectif.
+  \item \emph{(Hors programme 2026--2027.)} Tout opérateur compact de $H$ possède une valeur propre.
+  \item \emph{(Hors programme 2026--2027.)} Si $T\in\Lc(H)$ est auto-adjoint et compact, alors $\opnorm T$ ou $-\opnorm T$ est valeur propre de $T$.
+  \item \emph{(Hors programme 2026--2027.)} Si $T\in\Lc(H)$ est auto-adjoint, compact et injectif, alors $T$ n'est pas surjectif.
 \end{enumerate}
 \end{exo}
 
