@@ -350,4 +350,197 @@ Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjo
 \textbf{Les valeurs propres sans les vecteurs propres.} Le principe du min-max caractérise chaque $\lambda_n$ par un problème d'optimisation sur la seule forme quadratique $x\mapsto\ps{Tx}x$, sans référence aux vecteurs propres des rangs précédents. C'est ce qui permet de \emph{comparer} des opérateurs ((d)), d'encadrer des valeurs propres par des sous-espaces test (méthode de Rayleigh--Ritz, base des méthodes numériques), et, pour les problèmes aux limites, de montrer que les valeurs propres du laplacien décroissent quand le domaine grossit. La question (a) est le TD4 ex.~7 (b,d) sous une autre forme : pour un opérateur positif, $\opnorm T=\lambda_1=\max\mathcal R$.
 \end{pointcle}
 
+\section*{Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
+
+\begin{commentaire}
+Ces trois exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 9 -- Questions de cours}
+\emph{À traiter sans document, en rédigeant comme le jour de l'examen : énoncé complet, puis démonstration.} $E$ désigne un EVN séparable, $H$ un espace de Hilbert.
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le Théorème~5.3 (l'injection canonique $J:E\to E''$ est une isométrie), en admettant le théorème de Hahn--Banach.
+  \item Énoncer et démontrer la Proposition~5.5 (une suite faiblement convergente est bornée, et la norme est semi-continue inférieurement).
+  \item Énoncer et démontrer le Théorème~5.4 de Banach--Alaoglu.
+  \item En déduire le Corollaire~5.2 : dans un espace de Hilbert, toute suite bornée admet une sous-suite faiblement convergente.
+  \item Énoncer et démontrer la Proposition~5.8 (un opérateur compact transforme la convergence faible en convergence forte).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Énoncé.} Soit $E$ un EVN séparable. L'application $J:E\to E''$, $x\mapsto J_x$ avec $J_x(T):=T(x)$ pour $T\in E'$, est une isométrie linéaire.
+
+\emph{Preuve.} Pour $x\in E$, $J_x$ est linéaire sur $E'$ et $|J_x(T)|=|T(x)|\le\opnorm T\norm x$ : donc $J_x\in E''$ et $\norm{J_x}_{E''}\le\norm x$. La linéarité de $x\mapsto J_x$ est immédiate. Reste l'inégalité inverse ; soit $a\ne0$. Sur la droite $\K a$, la forme $f_0(\lambda a):=\lambda\norm a$ est de norme $1$ ; par le Théorème~5.2 de Hahn--Banach, elle se prolonge en $f\in E'$ avec $\opnorm f=1$ et $f(a)=\norm a$. Alors $\norm{J_a}_{E''}\ge|J_a(f)|=|f(a)|=\norm a$. Donc $\norm{J_a}_{E''}=\norm a$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Énoncé.} Soit $E$ un EVN séparable. Si $x_n\wk x$ dans $E$, alors $(x_n)$ est bornée et $\norm x\le\liminf_n\norm{x_n}$.
+
+\emph{Preuve.} L'hypothèse dit que pour tout $T\in E'$, $J_{x_n}(T)=T(x_n)\to T(x)=J_x(T)$ : la suite $(J_{x_n})_n$ de $E''=\Lc(E',\K)$ converge simplement vers $J_x$ sur $E'$, qui est un espace de \emph{Banach} (Proposition~5.1). Le théorème de Banach--Steinhaus (Théorème~3.7, sous la forme du Corollaire~3.3) donne alors que $(J_{x_n})$ est bornée dans $E''$ et que $\norm{J_x}_{E''}\le\liminf_n\norm{J_{x_n}}_{E''}$. Comme $J$ est une isométrie (question (a)), cela se lit $\sup_n\norm{x_n}<\infty$ et $\norm x\le\liminf_n\norm{x_n}$. (Le détour par le bidual est indispensable : $E$ n'est pas supposé complet, alors que $E'$ l'est toujours.)
+
+\medskip
+\noindent\textbf{(c)} \emph{Énoncé.} Soit $E$ un EVN séparable. Toute suite bornée de $E'$ admet une sous-suite préfaiblement convergente.
+
+\emph{Preuve.} Soit $(T_n)$ dans $E'$ avec $\opnorm{T_n}\le M$, et $D=\{z_m:m\in\N\}$ une partie dénombrable dense de $E$.
+
+\emph{Étape 1 : extraction diagonale.} Pour chaque $m$, la suite $(T_n(z_m))_n$ est bornée dans $\K$ par $M\norm{z_m}$. On construit par récurrence des extractrices $\varphi_0,\varphi_1,\dots$, chacune extraite de la précédente, telles que $(T_{\varphi_m(n)}(z_k))_n$ converge pour tout $k\le m$ : $\varphi_0$ par Bolzano--Weierstrass appliqué à $(T_n(z_0))_n$ ; puis, $\varphi_m$ étant construite, la suite bornée $(T_{\varphi_m(n)}(z_{m+1}))_n$ a une sous-suite convergente, ce qui définit $\varphi_{m+1}$ extraite de $\varphi_m$, les convergences pour $k\le m$ étant conservées. Posons $\varphi(n):=\varphi_n(n)$ : c'est une extractrice, et pour tout $m$, $(T_{\varphi(n)}(z_m))_{n\ge m}$ est extraite de $(T_{\varphi_m(n)}(z_m))_n$, donc converge. Notons $L_n:=T_{\varphi(n)}$ : $(L_n(z))_n$ converge pour tout $z\in D$.
+
+\emph{Étape 2 : de $D$ à $E$.} Soit $x\in E$ et $\varepsilon>0$ ; soit $z\in D$ avec $\norm{x-z}\le\varepsilon$, et $N$ tel que $|L_n(z)-L_p(z)|\le\varepsilon$ pour $n,p\ge N$. Alors, pour $n,p\ge N$,
+\[
+|L_n(x)-L_p(x)|\le|L_n(x-z)|+|L_n(z)-L_p(z)|+|L_p(z-x)|\le(2M+1)\varepsilon .
+\]
+La suite $(L_n(x))_n$ est de Cauchy dans $\K$, donc converge ; notons $T(x)$ sa limite.
+
+\emph{Étape 3 : la limite est dans $E'$.} $T$ est linéaire (limite simple de formes linéaires) et $|T(x)|=\lim|L_n(x)|\le M\norm x$ : $T\in E'$, et $L_n\wks T$.
+
+\medskip
+\noindent\textbf{(d)} Soit $(x_k)$ bornée dans $H$ et $V:=\adh{\Vect(x_k:k\in\N)}$ : c'est un espace de Hilbert séparable. Par le Théorème~4.6 de Riesz, $z\mapsto\ps\cdot z$ identifie $V$ à $V'$ isométriquement ; la suite $(\ps\cdot{x_k})_k$ est donc bornée dans $V'$, et le Théorème~5.4 fournit une sous-suite préfaiblement convergente, vers une forme qui s'écrit $\ps\cdot x$ avec $x\in V$ (Riesz encore) : $\ps v{x_{n_k}}\to\ps vx$ pour tout $v\in V$. Soit enfin $h\in H$, décomposé en $h=v+w$ avec $v\in V$, $w\in V^\perp$ (Corollaire~4.1) : comme $x_{n_k}$ et $x$ sont dans $V$, $\ps h{x_{n_k}}=\ps v{x_{n_k}}\to\ps vx=\ps hx$. Donc, par conjugaison, $\ps{x_{n_k}}h\to\ps xh$ pour tout $h\in H$ : $x_{n_k}\wk x$ dans $H$. (Le passage par $V$ dispense de supposer $H$ séparable.)
+
+\medskip
+\noindent\textbf{(e)} \emph{Énoncé.} Soit $T\in\Lc(H)$ un opérateur compact. Si $w_k\wk w$, alors $T(w_k)\to T(w)$ fortement, et $\ps{T(w_k)}{w_k}\to\ps{T(w)}w$.
+
+\emph{Preuve.} \emph{Convergence faible de $(Tw_k)$ :} pour $y\in H$, $\ps{Tw_k}y=\ps{w_k}{T^\star y}\to\ps w{T^\star y}=\ps{Tw}y$, donc $Tw_k\wk Tw$ (c'est vrai pour tout opérateur, Exercice~4.9). \emph{Convergence forte :} supposons qu'elle n'ait pas lieu ; il existe $\varepsilon>0$ et une sous-suite avec $\norm{Tw_{k_j}-Tw}\ge\varepsilon$ pour tout $j$. La suite $(w_{k_j})$ est bornée (Proposition~5.5), donc par compacité de $T$ on peut en extraire une sous-suite, encore notée $(w_{k_j})$, telle que $Tw_{k_j}\to y$ fortement. Alors $Tw_{k_j}\wk y$ (Proposition~5.4), et aussi $Tw_{k_j}\wk Tw$ : par unicité de la limite faible, $y=Tw$, ce qui contredit $\norm{Tw_{k_j}-Tw}\ge\varepsilon$. \emph{Forme quadratique :} avec $M:=\sup_k\norm{w_k}$,
+\begin{align*}
+|\ps{Tw_k}{w_k}-\ps{Tw}w|&\le|\ps{Tw_k-Tw}{w_k}|+|\ps{Tw}{w_k-w}|\\
+&\le M\norm{Tw_k-Tw}+|\ps{Tw}{w_k-w}|\xrightarrow[k\to\infty]{}0,
+\end{align*}
+le premier terme par la convergence forte, le second par la convergence faible de $(w_k)$.
+\end{solution}
+
+\begin{methode}
+\textbf{La chaîne logique du chapitre, à savoir dérouler.} Hahn--Banach $\Rightarrow$ $J$ isométrique (a) $\Rightarrow$ unicité de la limite faible et, avec Banach--Steinhaus dans $E'$, bornitude des suites faiblement convergentes (b). Séparabilité $+$ extraction diagonale $\Rightarrow$ Banach--Alaoglu (c) $\Rightarrow$, via Riesz, compacité faible des bornés d'un Hilbert (d) $\Rightarrow$, avec (e), existence d'un vecteur maximisant $|\ps{Tx}x|$, donc d'une valeur propre (Lemme~5.1), puis théorème spectral. Dans (c), les trois étapes sont à annoncer explicitement : extraire sur une partie dense dénombrable, étendre par un argument en $\varepsilon/3$ qui utilise la borne uniforme $M$, vérifier que la limite est continue. L'argument « toute sous-suite a une sous-sous-suite qui converge vers la \emph{même} limite » de (e) est un réflexe à acquérir : c'est lui qui transforme une compacité en convergence de toute la suite.
+\end{methode}
+
+
+% =====================================================================
+\begin{exo}{Exercice 10 -- Les opérateurs compacts sont ceux qui transforment le faible en fort}
+Soit $H$ un espace de Hilbert séparable de dimension infinie et $T\in\Lc(H)$. La Proposition~5.8 montre que si $T$ est compact, alors $w_k\wk w$ entraîne $Tw_k\to Tw$ ; la note qui l'accompagne affirme que c'est une caractérisation.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer la réciproque : si $w_k\wk w$ entraîne $Tw_k\to Tw$ pour toute suite $(w_k)$ de $H$, alors $T$ est compact.
+  \item En déduire que si $T$ est compact et $(e_n)$ est une suite orthonormée, alors $Te_n\to0$ ; en particulier, si $Te_n=\lambda_ne_n$, alors $\lambda_n\to0$, et $\mathrm{Id}_H$ n'est pas compact.
+  \item Soient $T$ compact et $S\in\Lc(H)$. Montrer que $ST$ et $TS$ sont compacts, puis que $T^\star$ est compact. \emph{Indication pour $T^\star$ : calculer $\norm{T^\star u}^2$ et utiliser la seconde assertion de la Proposition~5.8 pour $TT^\star$.}
+  \item Soit $(T_n)$ une suite d'opérateurs compacts avec $\opnorm{T_n-T}\to0$. Montrer que $T$ est compact.
+  \item Soit $(f_k)_{k\ge1}$ une suite orthonormée et $P$ la projection orthogonale sur $\adh{\Vect(f_k:k\ge1)}$. Montrer que $P$ n'est pas compact. Construire une base hilbertienne $(e_n)$ de $\ell^2(\N)$ et une telle projection $P$ avec $Pe_n\to0$ : la condition « $Te_n\to0$ pour \emph{une} base hilbertienne » ne suffit donc pas à la compacité.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $B$ la boule unité fermée de $H$ ; il s'agit de montrer que $\adh{T(B)}$ est compacte (Remarque~4.7). Soit $(x_n)$ une suite de $B$. Par le Corollaire~5.2, une sous-suite vérifie $x_{n_k}\wk x$, et par hypothèse $Tx_{n_k}\to Tx$ fortement. Ainsi toute suite de $T(B)$ admet une sous-suite convergente dans $H$. Il en va de même pour une suite $(y_n)$ de $\adh{T(B)}$ : on choisit $y_n'\in T(B)$ avec $\norm{y_n-y_n'}\le\frac1n$, une sous-suite $y'_{n_k}\to y$, et alors $y_{n_k}\to y\in\adh{T(B)}$. Donc $\adh{T(B)}$ est (séquentiellement) compacte : $T$ est compact. Avec la Proposition~5.8 : \emph{$T$ est compact si et seulement s'il transforme toute suite faiblement convergente en suite fortement convergente.}
+
+\medskip
+\noindent\textbf{(b)} Une suite orthonormée converge faiblement vers $0$ : pour $z\in H$, l'inégalité de Bessel donne $\sum_n|\ps z{e_n}|^2\le\norm z^2$, donc $\ps{e_n}z\to0$ (Proposition~4.8, sans la totalité). Par la Proposition~5.8, $Te_n\to T0=0$. Si $Te_n=\lambda_ne_n$, alors $|\lambda_n|=\norm{Te_n}\to0$. Enfin $\mathrm{Id}_H$ n'est pas compact : $H$ étant de dimension infinie, il contient une suite orthonormée, et $\norm{\mathrm{Id}\,e_n}=1\not\to0$ (on retrouve le Théorème~3.1 de Riesz dans le cadre hilbertien).
+
+\medskip
+\noindent\textbf{(c)} On utilise la caractérisation. Soit $w_k\wk w$. \emph{$ST$ :} $Tw_k\to Tw$ fortement, et $S$ est continu, donc $STw_k\to STw$. \emph{$TS$ :} $Sw_k\wk Sw$ (Exercice~4.9 : $\ps{Sw_k}y=\ps{w_k}{S^\star y}$), puis $T(Sw_k)\to T(Sw)$ puisque $T$ est compact. \emph{$T^\star$ :} posons $u_k:=w_k-w\wk0$. Alors
+\[
+\norm{T^\star u_k}^2=\ps{T^\star u_k}{T^\star u_k}=\ps{TT^\star u_k}{u_k}.
+\]
+L'opérateur $TT^\star$ est compact par ce qui précède ($T$ compact, $T^\star$ continu), et la seconde assertion de la Proposition~5.8 donne $\ps{TT^\star u_k}{u_k}\to\ps{TT^\star0}0=0$. Donc $T^\star w_k\to T^\star w$ : $T^\star$ est compact par (a).
+
+\medskip
+\noindent\textbf{(d)} Soit $w_k\wk w$, $u_k:=w_k-w$ et $M:=\sup_k\norm{u_k}<\infty$ (Proposition~5.5). Pour tout $n$,
+\[
+\norm{Tu_k}\le\norm{(T-T_n)u_k}+\norm{T_nu_k}\le M\opnorm{T-T_n}+\norm{T_nu_k}.
+\]
+À $n$ fixé, $T_nu_k\to0$ quand $k\to\infty$ ($T_n$ compact) : $\limsup_k\norm{Tu_k}\le M\opnorm{T-T_n}$, pour tout $n$. En faisant $n\to\infty$, $Tu_k\to0$. Par (a), $T$ est compact. (L'ensemble des opérateurs compacts est donc un sous-espace fermé de $\Lc(H)$, stable par composition à gauche et à droite et par adjoint. En particulier une limite en norme d'opérateurs de rang fini est compacte : c'est l'argument utilisé pour $K$ dans la preuve de la Proposition~6.6, et pour les multiplicateurs de l'Exercice~4.7.)
+
+\medskip
+\noindent\textbf{(e)} $Pf_k=f_k$, donc $\norm{Pf_k}=1\not\to0$ alors que $(f_k)$ est orthonormée : par (b), $P$ n'est pas compact.
+
+\emph{Construction.} Dans $\ell^2(\N)$, de base canonique $(e_n)_{n\ge0}$, découpons $\N$ en blocs consécutifs $I_k$, $k\ge1$, de cardinal $2^k$, et posons
+\[
+f_k:=2^{-k/2}\sum_{n\in I_k}e_n .
+\]
+Les $f_k$ sont unitaires ($2^k$ termes de carré $2^{-k}$) et deux à deux orthogonaux (supports disjoints). La projection sur $F:=\adh{\Vect(f_k)}$ s'écrit $Px=\sum_k\ps x{f_k}f_k$ (Théorème~4.5 dans $F$, dont $(f_k)$ est une base hilbertienne). Pour $n\in I_k$, $\ps{e_n}{f_j}=2^{-k/2}\delta_{jk}$, donc $Pe_n=2^{-k/2}f_k$ et $\norm{Pe_n}=2^{-k/2}$, qui tend vers $0$ quand $n\to\infty$ (car alors $k\to\infty$). Ainsi $Pe_n\to0$ le long de la base canonique, et pourtant $P$ n'est pas compact.
+\end{solution}
+
+\begin{piege}
+\textbf{« Pour toute suite faiblement convergente » ne se remplace pas par « pour une base ».} La caractérisation (a) quantifie sur \emph{toutes} les suites faiblement convergentes ; (e) montre qu'on ne peut pas la tester sur une seule base hilbertienne, même si la tentation est grande après l'Exercice~4.7 (où $M_a$ est compact si et seulement si $a_n\to0$, c'est-à-dire $M_ae_n\to0$ : mais là, la base est celle qui \emph{diagonalise} l'opérateur). Dans l'exemple, la masse de $e_n$ est « diluée » : $P$ est petit sur chaque $e_n$ mais de norme $1$ sur les moyennes $f_k$.
+\end{piege}
+
+\begin{pointcle}
+\textbf{Trois façons de reconnaître un opérateur compact dans un Hilbert.} (1) La définition : l'image de la boule unité est relativement compacte (Arzelà--Ascoli pour les opérateurs à noyau, Exercice~7). (2) La caractérisation séquentielle de cet exercice : faible $\to$ fort ; c'est la plus commode pour les propriétés de stabilité ((c), (d)). (3) L'approximation : limite en norme d'opérateurs de rang fini (question (d)) ; dans un Hilbert séparable c'est en fait une équivalence. À l'inverse, pour montrer qu'un opérateur \emph{n'est pas} compact, on exhibe une suite orthonormée dont l'image ne tend pas vers $0$ (question (b)).
+\end{pointcle}
+
+
+% =====================================================================
+\begin{exo}{Exercice 11 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $H$ désigne un espace de Hilbert séparable de dimension infinie, $(e_n)$ une base hilbertienne de $H$, et $E$ un espace de Banach séparable.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $x_n\wk x$ dans $H$, alors $\norm{x_n}\to\norm x$.
+  \item Si $x_n\wk x$ et $y_n\wk y$ dans $H$, alors $\ps{x_n}{y_n}\to\ps xy$.
+  \item La sphère unité de $H$ est faiblement séquentiellement fermée.
+  \item La boule unité fermée de $H$ est faiblement séquentiellement compacte.
+  \item Si $C\subset H$ est convexe et fermé, et si $x_n\in C$, $x_n\wk x$, alors $x\in C$.
+  \item Toute suite bornée de $L^1(]0,1[)$ admet une sous-suite faiblement convergente.
+  \item Toute suite bornée de $L^\infty(]0,1[)$ admet une sous-suite $(f_{n_k})$ et $f\in L^\infty$ tels que $\int f_{n_k}g\to\int fg$ pour toute $g\in L^1(]0,1[)$.
+  \item Si $(f_n)$ est bornée dans $L^2(]0,1[)$ et $f_n\to f$ presque partout, alors $f_n\to f$ dans $L^2$.
+  \item Dans $E'$, la convergence faible entraîne la convergence préfaible.
+  \item Dans $\ell^1(\N)$, vu comme dual de $c_0(\N)$, la convergence préfaible entraîne la convergence faible.
+  \item Dans le dual d'un EVN quelconque (non supposé complet), toute suite préfaiblement convergente est bornée.
+  \item Le dual de $\ell^\infty(\N)$ s'identifie à $\ell^1(\N)$.
+  \item Tout opérateur compact de $H$ possède une valeur propre.
+  \item Si $T\in\Lc(H)$ est auto-adjoint et compact, alors $\opnorm T$ ou $-\opnorm T$ est valeur propre de $T$.
+  \item Si $T\in\Lc(H)$ est auto-adjoint, compact et injectif, alors $T$ n'est pas surjectif.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} $e_n\wk0$ (Proposition~4.8) et $\norm{e_n}=1$. On a seulement $\norm x\le\liminf\norm{x_n}$ (Proposition~5.5) ; et si de plus $\norm{x_n}\to\norm x$, la convergence est forte (Exercice~4.11).
+
+\medskip
+\noindent\textbf{2. Faux.} $x_n=y_n=e_n$ : $\ps{e_n}{e_n}=1\not\to0$. Il faut que l'une des deux convergences soit forte (Exercice~4.10).
+
+\medskip
+\noindent\textbf{3. Faux.} $e_n$ est dans la sphère unité et $e_n\wk0$, qui n'y est pas.
+
+\medskip
+\noindent\textbf{4. Vrai.} Une suite de la boule unité fermée a une sous-suite faiblement convergente (Corollaire~5.2), et sa limite $x$ vérifie $\norm x\le\liminf\norm{x_{n_k}}\le1$ (Proposition~5.5). Comparer avec 3 : la boule est faiblement fermée, pas la sphère.
+
+\medskip
+\noindent\textbf{5. Vrai.} Soit $p:=P_C(x)$ la projection de $x$ sur $C$ (Théorème~4.1). Elle est caractérisée par $\Re\ps{x-p}{c-p}\le0$ pour tout $c\in C$. Prenons $c=x_n$ et passons à la limite : on a
+\[
+\ps{x-p}{x_n}=\overline{\ps{x_n}{x-p}}\xrightarrow[n\to\infty]{}\ps{x-p}x ,
+\]
+d'où
+\[
+\norm{x-p}^2=\Re\ps{x-p}{x-p}\le0,
+\]
+donc $x=p\in C$. La convexité est essentielle (question~3) ; le cas de la boule est la question~4.
+
+\medskip
+\noindent\textbf{6. Faux.} $f_n=n\mathbf 1_{]0,1/n[}$ est de norme $1$ dans $L^1$. Si $f_{n_k}\wk f$, en testant contre $\mathbf 1_{]a,1[}\in L^\infty$ on obtient $\int_a^1f=0$ pour tout $a>0$, donc $f=0$ p.p. ; mais en testant contre $\mathbf 1$, $\int f=\lim\int f_{n_k}=1$. Contradiction (Exercice~4(c)). $L^1$ n'est pas réflexif, et ce n'est pas un dual.
+
+\medskip
+\noindent\textbf{7. Vrai.} C'est le Corollaire~5.3 avec $q=\infty$, $p=1$ : $L^\infty=(L^1)'$ (Théorème~5.6) et $L^1(]0,1[)$ est séparable, donc Banach--Alaoglu s'applique.
+
+\medskip
+\noindent\textbf{8. Faux.} $f_n=\sqrt n\,\mathbf 1_{]0,1/n[}$ : $\norm{f_n}_2=1$, $f_n\to0$ p.p., mais $\norm{f_n-0}_2=1$. La convergence est seulement faible (Exercice~4(c),(d)).
+
+\medskip
+\noindent\textbf{9. Vrai.} Si $T_n\wk T$ dans $E'$, alors $\xi(T_n)\to\xi(T)$ pour tout $\xi\in E''$, en particulier pour $\xi=J_x$ : $T_n(x)\to T(x)$ pour tout $x\in E$ (Remarque~5.11).
+
+\medskip
+\noindent\textbf{10. Faux.} Dans $\ell^1=(c_0)'$ (TD0 ch.~5), la suite canonique vérifie $\Psi_{e_n}(x)=x_n\to0$ pour tout $x\in c_0$ : $e_n\wks0$. Mais $(\ell^1)'=\ell^\infty$ (Exercice~5.1), et en testant contre $\mathbf 1\in\ell^\infty$ : $\sum_k(e_n)_k=1\not\to0$. Donc $e_n\not\wk0$. Les deux notions coïncident lorsque l'espace est réflexif, ce que $c_0$ n'est pas.
+
+\medskip
+\noindent\textbf{11. Faux.} Sur $F=c_{<\infty}(\N)$ muni de $\norm\cdot_\infty$, soit $T_n(u):=n\,u_n$ : $T_n\in F'$ avec $\opnorm{T_n}=n$, et pour tout $u\in F$, $T_n(u)=0$ dès que $n$ dépasse le support de $u$, donc $T_n\wks0$. La Proposition~5.7 suppose $E$ de Banach, parce qu'elle repose sur Banach--Steinhaus.
+
+\medskip
+\noindent\textbf{12. Faux.} $\ell^1$ s'injecte isométriquement dans $(\ell^\infty)'$, mais pas surjectivement (Remarque~5.1) : sinon $\ell^1$ serait réflexif, donc de dual séparable (Exercice~6(a)), alors que $\ell^\infty$ ne l'est pas. De façon équivalente : $(\ell^\infty)'$ séparable entraînerait $\ell^\infty$ séparable (Exercice~1(d)).
+
+\medskip
+\noindent\textbf{13. Faux.} L'opérateur de Volterra $Vf(x)=\int_0^xf$ sur $L^2(]0,1[)$ est compact et sans valeur propre (TD0 ch.~5, Remarque~5.14). Le Lemme~5.1 demande que l'opérateur soit auto-adjoint.
+
+\medskip
+\noindent\textbf{14. Vrai.} Par le Théorème~5.5 il existe une base hilbertienne de vecteurs propres, de valeurs propres réelles $\lambda_n\to0$, et $\opnorm T=\sup_n|\lambda_n|$ (TD0 ch.~5). Si $T=0$ c'est clair. Sinon, comme $\lambda_n\to0$, seul un nombre fini de $\lambda_n$ vérifient $|\lambda_n|\ge\frac12\opnorm T$ : le sup est un max, atteint en un $\lambda_{n_0}=\pm\opnorm T$.
+
+\medskip
+\noindent\textbf{15. Vrai.} Si $T$ était bijectif, $T^{-1}$ serait continu (théorème d'isomorphisme de Banach, chapitre~3), et $\mathrm{Id}=T^{-1}T$ serait compact (Exercice~10(c)), ce qui est faux en dimension infinie (Exercice~10(b)). Directement : par le Théorème~5.5, $T$ admet une base hilbertienne $(e_n)$ de vecteurs propres, de valeurs propres $\lambda_n\ne0$ (injectivité) tendant vers $0$. Choisissons une sous-suite avec $|\lambda_{n_k}|\le2^{-k}$ et posons $y:=\sum_k\lambda_{n_k}e_{n_k}$, série convergente dans $H$ (Proposition~4.4). Si $Tx=y$, alors $\lambda_n\ps x{e_n}=\ps y{e_n}$ pour tout $n$, donc $\ps x{e_{n_k}}=1$ pour tout $k$, ce qui contredit $\sum_n|\ps x{e_n}|^2<\infty$.
+\end{solution}
+
+\begin{piege}
+\textbf{Ce que la convergence faible conserve, et ce qu'elle perd.} Elle conserve : les relations linéaires, les inégalités larges sur la norme ($\norm x\le\liminf\norm{x_n}$), l'appartenance à un convexe fermé (4, 5), l'action de tout opérateur continu. Elle perd : la norme (1), les produits (2), les contraintes non convexes (3), la convergence presque partout (8). Et elle ne donne de la compacité que dans les duaux d'espaces séparables : $L^p$ pour $1<p\le\infty$, pas $L^1$ (6, 7). Les questions 9 à 12 rappellent qu'en dehors du cas réflexif il y a \emph{deux} convergences sur un dual, et que $\ell^1$, $\ell^\infty$, $c_0$ sont les contre-exemples à avoir en tête.
+\end{piege}
+
 \end{document}
