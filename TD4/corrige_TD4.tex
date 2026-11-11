@@ -687,4 +687,151 @@ Si $f\in M^\perp$, $\ps fu=0$ pour tout $u\in M$ : l'infimum vaut $0$ et est att
 Sous forme duale : $u\mapsto\ps fu$ restreinte à $M$ est une forme linéaire continue sur le Hilbert $M$, de norme $\norm{P_Mf}$ (théorème de Riesz dans $M$, le représentant étant $P_Mf$), et minimiser sur la sphère unité revient à calculer $-\norm{\text{forme}}$ ; la sphère unité d'un Hilbert a la propriété que toute forme linéaire continue non nulle y atteint sa norme en un unique point (c'est une conséquence de la convexité uniforme, et c'est faux dans $\ell^1$ ou $\ell^\infty$ — cf.\ le chapitre~5 et le TD5). L'exercice est une version « à la main » de ce fait.
 \end{commentaire}
 
+% =====================================================================
+% =====================================================================
+\section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
+
+\begin{commentaire}
+Deux exercices ajoutés dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~10 fait restituer les preuves centrales du chapitre~4 ; l'Exercice~11 est un vrai ou faux sur ses pièges, qui renvoie aux exercices des parties A et B.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 10 -- Questions de cours}
+\emph{À traiter sans document, en rédigeant comme le jour de l'examen : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le théorème de projection sur un convexe fermé (Théorème~4.1), caractérisation comprise.
+  \item Énoncer et démontrer la proposition relative à la convergence des séries orthogonales (Proposition~4.4).
+  \item Énoncer et démontrer que $A$ est totale si et seulement si $A^\perp=\{0\}$ (Théorème~4.3), en admettant $H=F\oplus^\perp F^\perp$ pour $F$ fermé.
+  \item Énoncer l'inégalité de Bessel, puis énoncer et démontrer le Théorème~4.5 (décomposition dans une base hilbertienne et identité de Parseval).
+  \item Énoncer et démontrer le théorème de représentation de Riesz (Théorème~4.6).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Énoncé.} Soit $C$ une partie convexe fermée non vide d'un espace de Hilbert $H$. Pour tout $x\in H$, la distance $d(x,C)$ est atteinte en un unique point $P_C(x)\in C$, caractérisé parmi les points de $C$ par : $\Re\ps{x-P_C(x)}{y-P_C(x)}\le0$ pour tout $y\in C$.
+
+\emph{Existence.} Notons $d:=d(x,C)$ et soit $(x_n)$ une suite de $C$ avec $\norm{x-x_n}\to d$. Pour $y,z\in C$, l'identité du parallélogramme appliquée à $x-y$ et $x-z$ donne
+\[
+\norm{x-y}^2+\norm{x-z}^2=2\Big\|x-\frac{y+z}2\Big\|^2+\frac12\norm{y-z}^2\ \ge\ 2d^2+\frac12\norm{y-z}^2 ,
+\]
+puisque $\frac{y+z}2\in C$ par convexité. Avec $y=x_n$, $z=x_p$ :
+\[
+\norm{x_n-x_p}^2\le2\big(\norm{x-x_n}^2+\norm{x-x_p}^2-2d^2\big)\xrightarrow[n,p\to\infty]{}0 .
+\]
+La suite $(x_n)$ est de Cauchy dans $H$ complet ; elle converge vers un point $p$, qui est dans $C$ (fermé) et vérifie $\norm{x-p}=\lim\norm{x-x_n}=d$.
+
+\emph{Unicité.} Si $p,p'\in C$ réalisent tous deux la distance, la même inégalité avec $y=p$, $z=p'$ donne $\norm{p-p'}^2\le2(d^2+d^2-2d^2)=0$.
+
+\emph{Caractérisation.} Soient $z\in C$, $y\in C$ et $y_t:=z+t(y-z)\in C$ pour $t\in[0,1]$. Par (4.1),
+\[
+\norm{x-y_t}^2=\norm{x-z}^2-2t\,\Re\ps{x-z}{y-z}+t^2\norm{y-z}^2 .\tag{$\star$}
+\]
+Si $z=P_C(x)$, alors $\norm{x-y_t}^2\ge\norm{x-z}^2$, donc $0\le-2t\,\Re\ps{x-z}{y-z}+t^2\norm{y-z}^2$ ; en divisant par $t>0$ puis en faisant $t\to0$, $\Re\ps{x-z}{y-z}\le0$. Réciproquement, si $z\in C$ vérifie cette inégalité pour tout $y\in C$, alors $(\star)$ avec $t=1$ donne $\norm{x-y}^2\ge\norm{x-z}^2$ pour tout $y\in C$ : $z$ réalise la distance, donc $z=P_C(x)$ par unicité.
+
+\medskip
+\noindent\textbf{(b)} \emph{Énoncé.} Soit $(x_n)$ une suite de vecteurs deux à deux orthogonaux d'un espace de Hilbert $H$, et $S_n:=\sum_{k=0}^nx_k$. Alors $(S_n)$ converge dans $H$ si et seulement si $\sum_k\norm{x_k}^2<\infty$, et dans ce cas $\big\|\sum_kx_k\big\|^2=\sum_k\norm{x_k}^2$.
+
+\emph{Preuve.} Par orthogonalité, la relation de Pythagore donne, pour $n<m$,
+\[
+\norm{S_n}^2=\sum_{k=0}^n\norm{x_k}^2,\qquad\norm{S_m-S_n}^2=\sum_{k=n+1}^m\norm{x_k}^2 .
+\]
+Si $(S_n)$ converge, elle est bornée, donc les sommes partielles de la série à termes positifs $\sum\norm{x_k}^2$ sont bornées : elle converge, et en passant à la limite dans la première égalité (continuité de la norme) on obtient Pythagore infini. Réciproquement, si $\sum\norm{x_k}^2<\infty$, la seconde égalité donne $\norm{S_m-S_n}^2\le\sum_{k>n}\norm{x_k}^2\to0$ : $(S_n)$ est de Cauchy, donc converge puisque $H$ est complet.
+
+\medskip
+\noindent\textbf{(c)} \emph{Énoncé.} Une partie $A$ d'un espace de Hilbert $H$ est totale (\ie\ $\Vect A$ est dense) si et seulement si $A^\perp=\{0\}$.
+
+\emph{Preuve.} ($\Rightarrow$) Soit $x\in A^\perp$. L'ensemble $\{x\}^\perp$ est un sous-espace fermé (Proposition~4.3) qui contient $A$, donc $\Vect A$, donc son adhérence $H$ : en particulier $x\perp x$, soit $x=0$. ($\Leftarrow$) Posons $F:=\adh{\Vect A}$, sous-espace fermé. Comme $A\subset F$, on a $F^\perp\subset A^\perp=\{0\}$. Par le Théorème~4.2, $H=F\oplus^\perp F^\perp=F$ : $\Vect A$ est dense.
+
+\medskip
+\noindent\textbf{(d)} \emph{Inégalité de Bessel.} Si $(e_k)$ est une suite orthonormée de $H$, alors $\sum_k|\ps x{e_k}|^2\le\norm x^2$ pour tout $x\in H$.
+
+\emph{Théorème~4.5.} Soit $(e_k)$ une base hilbertienne d'un espace de Hilbert séparable $H$. Tout $x\in H$ s'écrit $x=\sum_k\ps x{e_k}e_k$ (série convergente dans $H$), et $\norm x^2=\sum_k|\ps x{e_k}|^2$.
+
+\emph{Preuve.} Les vecteurs $\ps x{e_k}e_k$ sont deux à deux orthogonaux et, par Bessel, $\sum_k\norm{\ps x{e_k}e_k}^2=\sum_k|\ps x{e_k}|^2<\infty$ : par (b), la série converge vers un $z\in H$. Par continuité du produit scalaire, $\ps z{e_j}=\lim_n\sum_{k\le n}\ps x{e_k}\ps{e_k}{e_j}=\ps x{e_j}$ pour tout $j$, donc $z-x\in\{e_j:j\in\N\}^\perp$. La famille $(e_j)$ étant totale, (c) donne $z-x=0$. Enfin Pythagore infini (b) donne $\norm x^2=\sum_k|\ps x{e_k}|^2$.
+
+\medskip
+\noindent\textbf{(e)} \emph{Énoncé.} Soit $H$ un espace de Hilbert séparable. L'application $\Phi:H\to H'$, $z\mapsto\Phi_z:=\ps\cdot z$, est une bijection isométrique, linéaire si $\K=\R$ et antilinéaire si $\K=\C$.
+
+\emph{Preuve.} $\Phi_z$ est linéaire, et $|\Phi_z(x)|\le\norm x\norm z$ (Cauchy--Schwarz) : $\Phi_z\in H'$ et $\opnorm{\Phi_z}\le\norm z$ ; pour $z\ne0$, $\Phi_z(z/\norm z)=\norm z$, d'où $\opnorm{\Phi_z}=\norm z$. L'(anti)linéarité de $\Phi$ vient de celle du produit scalaire en la seconde variable ; isométrique, $\Phi$ est injective. \emph{Surjectivité.} Soit $\varphi\in H'$ et $(e_k)$ une base hilbertienne. Posons $z_n:=\sum_{k\le n}\overline{\varphi(e_k)}\,e_k$, de sorte que pour tout $x\in H$,
+\[
+\ps x{z_n}=\sum_{k\le n}\varphi(e_k)\ps x{e_k}=\varphi\Big(\sum_{k\le n}\ps x{e_k}e_k\Big).\tag{$\star\star$}
+\]
+Donc $|\ps x{z_n}|\le\opnorm\varphi\,\big\|\sum_{k\le n}\ps x{e_k}e_k\big\|\le\opnorm\varphi\norm x$ (Bessel), soit $\norm{z_n}=\opnorm{\Phi_{z_n}}\le\opnorm\varphi$ : ainsi $\sum_{k\le n}|\varphi(e_k)|^2=\norm{z_n}^2\le\opnorm\varphi^2$ pour tout $n$, et $(\varphi(e_k))_k\in\ell^2$. Par (b), $z:=\sum_k\overline{\varphi(e_k)}\,e_k$ existe, et en passant à la limite dans $(\star\star)$ (continuité du produit scalaire à gauche, de $\varphi$ et Théorème~4.5 à droite), $\ps xz=\varphi(x)$ pour tout $x$ : $\varphi=\Phi_z$.
+
+\emph{Variante sans séparabilité} (Exercice~4.6, TD0). Si $\varphi\ne0$, $F:=\Ker\varphi$ est un sous-espace fermé strict, donc $F^\perp\ne\{0\}$ ; soit $w\in F^\perp$ avec $\varphi(w)=1$. Pour $x\in H$, $x-\varphi(x)w\in F$, donc $0=\ps{x-\varphi(x)w}w=\ps xw-\varphi(x)\norm w^2$, et $z:=w/\norm w^2$ convient.
+\end{solution}
+
+\begin{methode}
+\textbf{Ce que l'examinateur attend dans ces cinq preuves.} (a) L'identité du parallélogramme, la convexité (le milieu est dans $C$), puis la complétude et la fermeture, dans cet ordre ; la caractérisation s'obtient en dérivant en $t=0$ le long du segment $[z,y]$. (b) Pythagore fini, puis le critère de Cauchy : c'est la complétude qui fait le sens difficile. (c) Un orthogonal est fermé ; le sens réciproque \emph{utilise le théorème de projection} via $H=F\oplus F^\perp$. (d) Bessel donne la convergence, la totalité identifie la limite. (e) L'isométrie est Cauchy--Schwarz avec son cas d'égalité ; pour la surjectivité, le candidat est imposé par les valeurs $\varphi(e_k)$ et tout le travail est de montrer qu'il est dans $\ell^2$. Dans le cas complexe, attention au conjugué : avec un produit scalaire linéaire à gauche, c'est $\overline{\varphi(e_k)}$ qui apparaît dans $z$.
+\end{methode}
+
+
+% =====================================================================
+\begin{exo}{Exercice 11 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $H$ désigne un espace de Hilbert de dimension infinie.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $\K=\C$ et si $\norm{x+y}^2=\norm x^2+\norm y^2$, alors $x\perp y$.
+  \item Pour tout sous-espace vectoriel $F$ de $H$, on a $(F^\perp)^\perp=F$.
+  \item Pour tout sous-espace vectoriel $F$ de $H$, on a $H=F\oplus F^\perp$.
+  \item Si $F$ est un sous-espace fermé, $P_F$ est un opérateur auto-adjoint, de norme $\le1$, et $P_F^2=P_F$.
+  \item Le théorème de projection sur un convexe fermé reste vrai dans un espace préhilbertien non complet.
+  \item Si $(e_n)$ est une suite orthonormée telle que $\sum_n|\ps x{e_n}|^2=\norm x^2$ pour tout $x\in H$, alors $(e_n)$ est une base hilbertienne.
+  \item Si $H$ est séparable, toute famille orthonormée de $H$ est au plus dénombrable.
+  \item Si $\sum_n\norm{x_n}^2<\infty$, alors la série $\sum_nx_n$ converge dans $H$.
+  \item Si $T$ est un opérateur avec $T^\star T=\mathrm{Id}$, alors $TT^\star=\mathrm{Id}$.
+  \item Si $T$ est auto-adjoint et $\ps{Tx}x=0$ pour tout $x$, alors $T=0$.
+  \item Tout opérateur auto-adjoint de $H$ possède au moins une valeur propre.
+  \item Si $x_n\rightharpoonup x$ et $\norm{x_n}\le\norm x$ pour tout $n$, alors $x_n\to x$.
+  \item Si $\K=\C$, l'application $z\mapsto\ps\cdot z$ est un isomorphisme linéaire de $H$ sur $H'$.
+  \item Si $F$ et $G$ sont deux sous-espaces fermés de $H$, alors $F+G$ est fermé.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} Par (4.1), l'hypothèse équivaut à $\Re\ps xy=0$, pas à $\ps xy=0$. Pour $x\ne0$ et $y=ix$ : $\norm{x+ix}^2=|1+i|^2\norm x^2=2\norm x^2=\norm x^2+\norm{ix}^2$, mais $\ps x{ix}=-i\norm x^2\ne0$. (Vrai si $\K=\R$ : Exercice~4.3.)
+
+\medskip
+\noindent\textbf{2. Faux.} $(F^\perp)^\perp=\adh F$ (Théorème~4.2 appliqué à $\adh F$, et $F^\perp=\adh F^\perp$). Pour $F=c_{<\infty}(\N)$ dans $\ell^2(\N)$ : $F^\perp=\{0\}$ et $(F^\perp)^\perp=\ell^2\ne F$.
+
+\medskip
+\noindent\textbf{3. Faux.} Même exemple : $F\oplus F^\perp=c_{<\infty}\ne\ell^2$. La décomposition demande $F$ fermé.
+
+\medskip
+\noindent\textbf{4. Vrai.} Pour $x,y\in H$, $x-P_Fx\perp P_Fy$ et $y-P_Fy\perp P_Fx$, donc $\ps{P_Fx}y=\ps{P_Fx}{P_Fy}=\ps x{P_Fy}$ : $P_F^\star=P_F$. Par Pythagore, $\norm x^2=\norm{P_Fx}^2+\norm{x-P_Fx}^2\ge\norm{P_Fx}^2$. Enfin $P_Fx\in F$ donne $P_F(P_Fx)=P_Fx$.
+
+\medskip
+\noindent\textbf{5. Faux.} Dans $E=(\Cz([0,1];\R),\norm\cdot_2)$, soit $\varphi\in E'$ une forme non représentable par un élément de $E$ (Exercice~4.5, par exemple $\varphi(f)=\int_0^{1/2}f$) et $C:=\Ker\varphi$, sous-espace fermé, donc convexe fermé. Soit $x\notin C$. Si la distance de $x$ à $C$ était atteinte en $p\in C$, la preuve du Corollaire~4.1 (qui n'utilise que l'existence du projeté) donnerait $w:=x-p\perp C$ avec $w\ne0$ ; alors, pour tout $f\in E$, $f-\frac{\varphi(f)}{\varphi(w)}w\in C$ (noter $\varphi(w)=\varphi(x)\ne0$), d'où $\ps fw=\frac{\varphi(f)}{\varphi(w)}\norm w^2$ : $\varphi$ serait représentée par un multiple de $w\in E$. Contradiction. La complétude sert à faire converger la suite minimisante.
+
+\medskip
+\noindent\textbf{6. Vrai.} Si $x\perp e_n$ pour tout $n$, l'hypothèse donne $\norm x^2=0$ : $\{e_n\}^\perp=\{0\}$, la famille est totale (Théorème~4.3), donc c'est une base hilbertienne (et $H$ est séparable).
+
+\medskip
+\noindent\textbf{7. Vrai.} Deux éléments distincts d'une famille orthonormée sont à distance $\sqrt2$ ; les boules ouvertes de rayon $\frac{\sqrt2}2$ centrées en ces éléments sont deux à deux disjointes. Une partie dénombrable dense rencontre chacune d'elles, en des points distincts : la famille s'injecte dans une partie dénombrable.
+
+\medskip
+\noindent\textbf{8. Faux.} Sans orthogonalité : $x_n:=\frac1{n+1}e$ avec $e$ unitaire ; $\sum\norm{x_n}^2<\infty$ mais $\sum_{n\le N}x_n=\big(\sum_{n\le N}\frac1{n+1}\big)e$ diverge. La Proposition~4.4 suppose les $x_n$ deux à deux orthogonaux ; sans cela il faut $\sum\norm{x_n}<\infty$ (Proposition~3.1).
+
+\medskip
+\noindent\textbf{9. Faux.} Le décalage à droite $S$ de $\ell^2(\N)$ : $S^\star S=\mathrm{Id}$ et $SS^\star=\mathrm{Id}-P_0\ne\mathrm{Id}$ (Exercice~5(c)). En dimension finie c'est vrai.
+
+\medskip
+\noindent\textbf{10. Vrai.} Par l'Exercice~7(b), $\opnorm T=\sup_{\norm x=1}|\ps{Tx}x|=0$. (Sans l'hypothèse auto-adjoint, c'est vrai sur $\C$ et faux sur $\R$ : Exercice~7(c).)
+
+\medskip
+\noindent\textbf{11. Faux.} Sur $L^2(]0,1[)$, $Tf(x):=xf(x)$ est un opérateur ($\norm{Tf}_2\le\norm f_2$), auto-adjoint ($\int xf\bar g=\int f\,\overline{xg}$), sans valeur propre : $(x-\lambda)f(x)=0$ p.p.\ entraîne $f=0$ p.p. C'est l'analogue hilbertien de l'Exemple~2.6 (Remarque~5.14). Il faut la compacité (Exercice~7(d)).
+
+\medskip
+\noindent\textbf{12. Vrai.} $\norm x^2=\lim\ps{x_n}x\le\liminf\norm{x_n}\,\norm x$, donc $\norm x\le\liminf\norm{x_n}\le\limsup\norm{x_n}\le\norm x$ : $\norm{x_n}\to\norm x$, et l'Exercice~8(a) donne $x_n\to x$.
+
+\medskip
+\noindent\textbf{13. Faux.} C'est une bijection isométrique \emph{antilinéaire} : $\ps\cdot{\lambda z}=\bar\lambda\ps\cdot z$ (Théorème~4.6).
+
+\medskip
+\noindent\textbf{14. Faux.} Exercice~6(c) : deux sous-espaces fermés de $\ell^2$ en somme directe, de somme dense et stricte. C'est vrai si $F\perp G$ ou si l'un des deux est de dimension finie (Exercice~6(a),(b)).
+\end{solution}
+
+\begin{piege}
+\textbf{Les hypothèses qui font tout.} \emph{Fermé} : $(F^\perp)^\perp=F$, $H=F\oplus F^\perp$ et la fermeture de $F+G$ (2, 3, 14). \emph{Complet} : l'existence du projeté et, derrière elle, le théorème de Riesz (5). \emph{Orthogonal} : la convergence des séries sous la seule condition $\sum\norm{x_n}^2<\infty$ (8). \emph{Dimension finie} : inverse à gauche $=$ inverse à droite, existence de valeurs propres (9, 11). \emph{Complexe} : $\Re\ps xy$ contre $\ps xy$, antilinéarité de l'isomorphisme de Riesz (1, 13).
+\end{piege}
+
 \end{document}
