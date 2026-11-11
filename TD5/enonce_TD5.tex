@@ -101,7 +101,7 @@ Soit $E$ un EVN séparable.
   \item Soit $a\in E\setminus\{0\}$. Montrer qu'il existe $f\in E'$ avec $\opnorm f=1$ et $f(a)=\norm a$. En déduire la \emph{formule duale de la norme} : $\norm x=\max\{|f(x)|:f\in E',\ \opnorm f\le1\}$ pour tout $x\in E$.
   \item Soit $V$ un sous-espace de $E$ et $a\in E$ avec $d:=\dist(a,V)>0$. Montrer qu'il existe $f\in E'$ avec $f|_V=0$, $f(a)=d$ et $\opnorm f=1$. \emph{Indication : définir $f$ sur $V\oplus\K a$.}
   \item En déduire : $V$ est dense dans $E$ si et seulement si $V^\perp=\{0\}$. Comparer avec le Théorème~4.3.
-  \item Montrer que si $E'$ est séparable, alors $E$ est séparable. La réciproque est-elle vraie ?
+  \item Dans cette question seulement, $E$ est un EVN quelconque, et l'on admet le théorème de Hahn--Banach sans hypothèse de séparabilité (Remarque~5.3), de sorte que (c) reste valable. Montrer que si $E'$ est séparable, alors $E$ est séparable. La réciproque est-elle vraie ?
 \end{enumerate}
 \end{exo}
 
@@ -120,7 +120,7 @@ Soit $E$ un EVN séparable et $V$ un sous-espace fermé. On rappelle que $E/V$ e
 \begin{enumerate}[label=(\alph*)]
   \item Montrer que $\Theta:(E/V)'\to V^\perp$, $\varphi\mapsto\varphi\circ\pi$, est une isométrie linéaire surjective : « $(E/V)'=V^\perp$ ».
   \item Soit $R:E'\to V'$ la restriction $f\mapsto f|_V$. Montrer que $R$ est linéaire continue de norme $\le1$, de noyau $V^\perp$, et surjective. Montrer que l'application induite $\bar R:E'/V^\perp\to V'$ est une isométrie bijective : « $V'=E'/V^\perp$ ».
-  \item Expliquer pourquoi il n'existe pas en général d'isométrie linéaire $V'\to E'$ inverse à droite de $R$. Montrer qu'il en existe une si $E$ est un espace de Hilbert.
+  \item Montrer, par un exemple dans $(\R^2,\norm\cdot_1)$, que le prolongement de même norme fourni par Hahn--Banach n'est pas unique en général. Montrer que si $E=H$ est un espace de Hilbert, tout $\varphi\in V'$ admet un \emph{unique} prolongement de même norme, et que $L:\varphi\mapsto\varphi\circ P_V$ est une isométrie linéaire $V'\to H'$ inverse à droite de $R$.
 \end{enumerate}
 \end{exo}
 
@@ -170,7 +170,7 @@ Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]
 \end{exo}
 
 \begin{exo}{Exercice 8 -- Quotient de Rayleigh et principe du min-max}
-Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjoint compact \emph{positif} ($\ps{Tx}x\ge0$), et $\lambda_1\ge\lambda_2\ge\dots\ge0$ ses valeurs propres rangées par ordre décroissant avec multiplicité, $(e_n)$ une base hilbertienne associée. On pose $\mathcal R(x):=\ps{Tx}x/\norm x^2$ pour $x\ne0$ (quotient de Rayleigh).
+Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjoint compact \emph{positif} ($\ps{Tx}x\ge0$), et $\lambda_1\ge\lambda_2\ge\dots\ge0$ ses valeurs propres rangées par ordre décroissant avec multiplicité, et $(e_n)_{n\ge1}$ une famille orthonormée de vecteurs propres associés. Si $T$ a une infinité de valeurs propres strictement positives, cette énumération ne contient pas la valeur propre $0$ et $(e_n)$ est une base hilbertienne de $(\Ker T)^\perp$ seulement ; sinon c'est une base hilbertienne de $H$. Dans les deux cas, le Théorème~5.5 donne $\ps{Tx}x=\sum_{n\ge1}\lambda_n|\ps x{e_n}|^2$ pour tout $x\in H$. On pose $\mathcal R(x):=\ps{Tx}x/\norm x^2$ pour $x\ne0$ (quotient de Rayleigh).
 \begin{enumerate}[label=(\alph*)]
   \item Montrer que $\lambda_1=\max_{x\ne0}\mathcal R(x)$, atteint exactement sur $E_{\lambda_1}\setminus\{0\}$.
   \item Montrer que $\lambda_{n+1}=\max\{\mathcal R(x):x\ne0,\ x\perp e_1,\dots,e_n\}$.
