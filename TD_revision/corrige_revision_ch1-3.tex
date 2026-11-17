@@ -88,7 +88,7 @@
 \maketitle
 
 \begin{commentaire}
-Feuille de révision des chapitres~1 à~3 (espaces métriques, espaces vectoriels normés, espaces de Banach), composée dans l'optique de l'examen sur le modèle des sections « Vers l'examen » des TD4, TD5 et TD6. Elle ne figure pas parmi les feuilles officielles. Les Exercices~1 et~2 font restituer les preuves du polycopié le plus souvent demandées en question de cours ; les Exercices~3 et~4 sont des vrai ou faux sur les pièges de ces trois chapitres. La numérotation des énoncés cités est celle du polycopié ; les encadrés « Méthode » et « Piège » résument ce qu'il faut retenir.
+Feuille de révision des chapitres~1 à~3 (espaces métriques, espaces vectoriels normés, espaces de Banach), composée dans l'optique de l'examen sur le modèle des sections « Vers l'examen » des TD4, TD5 et TD6. Elle ne figure pas parmi les feuilles officielles. Les Exercices~1 et~2 font restituer les preuves du polycopié le plus souvent demandées en question de cours ; les Exercices~3, 4 et~5 sont des vrai ou faux sur les pièges de ces trois chapitres (l'Exercice~5 complète l'Exercice~4 sur le chapitre~3). La numérotation des énoncés cités est celle du polycopié ; les encadrés « Méthode » et « Piège » résument ce qu'il faut retenir.
 \end{commentaire}
 
 \section*{Questions de cours}
@@ -353,5 +353,85 @@ Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une 
 \begin{piege}
 \textbf{Dimension finie, complétude : les deux hypothèses cachées.} En dimension finie tout est vrai : normes équivalentes, applications linéaires continues, sous-espaces fermés, fermés bornés compacts (1, 2, 3, 9). En dimension infinie, c'est la \emph{complétude} qui remplace la dimension finie dans les grands théorèmes : limite simple d'opérateurs, inverse continu, absence de base dénombrable (8, 13, 14). Les contre-exemples à connaître par cœur sont donc des espaces non complets, $c_{<\infty}$ et $\R[x]$, ou une norme trop faible sur un bon espace, $(\Cz([0,1]),\norm\cdot_1)$ (7).
 \end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Vrai ou faux ? Chapitre 3 (suite)}
+Même consigne. $E$ et $F$ désignent des EVN, $(e_n)_{n\in\N}$ la suite canonique des espaces de suites.
+\begin{enumerate}[label=\arabic*.]
+  \item Dans un EVN, toute série absolument convergente est convergente.
+  \item Si $F$ est un espace de Banach, alors $\Lc(E,F)$ est un espace de Banach, même si $E$ n'est pas complet.
+  \item $\ell^1(\N)$ muni de la norme $\norm\cdot_\infty$ est un espace de Banach.
+  \item $\mathcal C^1([0,1])$ muni de la norme $\norm\cdot_\infty$ est un espace de Banach.
+  \item Dans un EVN de dimension infinie, tout compact est d'intérieur vide.
+  \item Un espace de Banach de dimension infinie n'est pas réunion dénombrable de parties compactes.
+  \item La suite $f_n:x\mapsto\sin(nx)$ admet une sous-suite uniformément convergente sur $[0,2\pi]$.
+  \item Si $f_n\to f$ dans $L^1(]0,1[)$, alors $f_n\to f$ presque partout.
+  \item Pour $f\in L^1(\R)$, l'application $a\mapsto\tau_af$ est uniformément continue de $\R$ dans $L^1(\R)$.
+  \item Si $(\rho_n)$ est une approximation de l'unité issue d'une fonction test et $f\in L^\infty(\R)$, alors $\rho_n\star f\to f$ dans $L^\infty(\R)$.
+  \item Soient $E$ un espace de Banach, $D$ une partie dense de $E$ et $(T_n)$ une suite de $\Lc(E,F)$ telle que $\sup_n\norm{T_nx}<\infty$ pour tout $x\in D$. Alors $\sup_n\opnorm{T_n}<\infty$.
+  \item Soient $F$ un espace de Banach, $D$ une partie dense de $E$ et $(T_n)$ une suite \emph{bornée} de $\Lc(E,F)$ telle que $(T_nx)_n$ converge pour tout $x\in D$. Alors $(T_nx)_n$ converge pour tout $x\in E$.
+  \item Une application linéaire continue et surjective entre deux espaces de Banach envoie les fermés sur des fermés.
+  \item Si deux normes $N_1\le C\,N_2$ rendent toutes deux $E$ complet, elles sont équivalentes.
+  \item Si $E$ et $F$ sont des espaces de Banach et $T\in\Lc(E,F)$ est injectif, alors $\Ima T$ est fermée dans $F$.
+  \item Soient $E,F$ des espaces de Banach et $T:E\to F$ linéaire telle que : si $x_n\to x$ dans $E$ et $Tx_n\to y$ dans $F$, alors $y=Tx$. Alors $T$ est continue.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} C'est vrai dans un Banach (Proposition~3.1), et cela \emph{caractérise} les Banach (Exercice~3.1). Dans $(c_{<\infty}(\N),\norm\cdot_\infty)$, la série $\sum_n2^{-n}e_n$ est absolument convergente ; si elle convergeait vers $u\in c_{<\infty}$, on aurait $u_k=2^{-k}$ pour tout $k$ (les formes coordonnées sont continues), et $u$ ne serait pas à support fini.
+
+\medskip
+\noindent\textbf{2. Vrai.} C'est la Proposition~3.4 : seule la complétude de l'espace d'arrivée intervient. En particulier le dual $E'=\Lc(E,\K)$ d'un EVN quelconque est toujours un Banach.
+
+\medskip
+\noindent\textbf{3. Faux.} La suite $u^n:=\sum_{k<n}\frac1{k+1}e_k$ est dans $\ell^1$ et de Cauchy pour $\norm\cdot_\infty$ ($\norm{u^n-u^m}_\infty\le\frac1{\min(n,m)+1}$). Si elle convergeait vers $u\in\ell^1$ pour cette norme, on aurait $u_k=\frac1{k+1}$, qui n'est pas sommable. Autrement dit $\ell^1$ n'est pas fermé dans $(c_0,\norm\cdot_\infty)$ : il y est dense et strict.
+
+\medskip
+\noindent\textbf{4. Faux.} Par le théorème de Weierstrass (Exemple~2.3), il existe des polynômes $P_n\to g:=|x-\frac12|$ uniformément : $(P_n)$ est de Cauchy dans $(\mathcal C^1,\norm\cdot_\infty)$ mais sa limite uniforme n'est pas $\mathcal C^1$. La bonne norme est $\norm f_\infty+\norm{f'}_\infty$ (Exemple~3.2). Même schéma qu'en 3 : \emph{un sous-espace dense et strict n'est jamais complet} (Proposition~1.8).
+
+\medskip
+\noindent\textbf{5. Vrai.} Si un compact $K$ contenait une boule $\Bf(a,r)$, $r>0$, celle-ci serait compacte (fermé dans un compact), donc par translation et homothétie la boule unité fermée aussi, et $E$ serait de dimension finie par le Théorème~3.1 de Riesz (TD0, Exercice~3.3).
+
+\medskip
+\noindent\textbf{6. Vrai.} Si $E=\bigcup_nK_n$ avec $K_n$ compacts, donc fermés, le Lemme~1.1 de Baire fournirait un $K_n$ d'intérieur non vide, ce qui contredit la question~5. C'est le même schéma que « pas de base algébrique dénombrable » (TD2 ex.~1).
+
+\medskip
+\noindent\textbf{7. Faux.} Pour $n\ne m$, par orthogonalité, $\int_0^{2\pi}(\sin nx-\sin mx)^2dx=\pi+\pi=2\pi$, donc $2\pi\norm{f_n-f_m}_\infty^2\ge2\pi$ et $\norm{f_n-f_m}_\infty\ge1$ : aucune sous-suite n'est de Cauchy. La suite est bornée mais pas équicontinue ($f_n'(0)=n$) : l'hypothèse manquante du Corollaire~3.1.
+
+\medskip
+\noindent\textbf{8. Faux.} « Bosse glissante » : pour $n=2^k+j$, $0\le j<2^k$, soit $f_n:=\mathbf 1_{[j2^{-k},(j+1)2^{-k}]}$. Alors $\norm{f_n}_1=2^{-k}\to0$, mais pour tout $x$ la suite $(f_n(x))$ prend la valeur $1$ une infinité de fois (une fois par génération $k$) : elle ne tend vers $0$ en aucun point. Seule une \emph{sous-suite} converge p.p. (Corollaire~3.2) ; ici $f_{2^k}$.
+
+\medskip
+\noindent\textbf{9. Vrai.} Par invariance de la mesure de Lebesgue par translation, $\norm{\tau_af-\tau_bf}_1=\norm{\tau_{a-b}f-f}_1$, qui tend vers $0$ quand $a-b\to0$ par le Théorème~3.5 : le module de continuité ne dépend que de $a-b$.
+
+\medskip
+\noindent\textbf{10. Faux.} Pour $f\in L^\infty$ et $\rho_n\in L^1$, $\rho_n\star f$ est continue et bornée (TD3 ex.~7(a)). Si $\rho_n\star f\to f$ dans $L^\infty$, la suite serait de Cauchy pour la norme uniforme, donc convergerait uniformément vers une fonction continue égale à $f$ presque partout. Or $f=\mathbf 1_{[0,1]}$ n'a pas de représentant continu. Les Théorèmes~3.5 et~3.6 excluent bien $p=\infty$ : $\norm{\tau_a\mathbf 1_{[0,1]}-\mathbf 1_{[0,1]}}_\infty=1$ pour $0<|a|<1$.
+
+\medskip
+\noindent\textbf{11. Faux.} $E=\ell^2(\N)$, $F=\K$, $T_n(u):=n\,u_n$, $D=c_{<\infty}(\N)$ : pour $u\in D$, $T_nu=0$ dès que $n$ dépasse le support, mais $\opnorm{T_n}=n$. Banach--Steinhaus (Théorème~3.7) demande la bornitude ponctuelle sur \emph{tout} $E$ : une partie dense peut être maigre.
+
+\medskip
+\noindent\textbf{12. Vrai.} Soit $M:=\sup_n\opnorm{T_n}$, $x\in E$ et $\varepsilon>0$ ; choisissons $d\in D$ avec $\norm{x-d}\le\varepsilon$. Alors
+\[
+\norm{T_nx-T_mx}\le\norm{T_n(x-d)}+\norm{T_nd-T_md}+\norm{T_m(d-x)}\le2M\varepsilon+\norm{T_nd-T_md},
+\]
+et le dernier terme est $\le\varepsilon$ pour $n,m$ grands. Donc $(T_nx)$ est de Cauchy dans $F$ complet. Comparer avec 11 : \emph{borne uniforme $+$ convergence sur une partie dense $\Rightarrow$ convergence partout} ; c'est ainsi qu'on utilise Banach--Steinhaus en pratique (preuves des Théorèmes~3.5, 3.6 et~5.4).
+
+\medskip
+\noindent\textbf{13. Faux.} Le Théorème~3.8 dit « ouverte », pas « fermée ». $T:\R^2\to\R$, $(x,y)\mapsto x$, est linéaire, continue, surjective, et envoie le fermé $\{xy=1\}$ sur $\R^\star$, qui n'est pas fermé.
+
+\medskip
+\noindent\textbf{14. Vrai.} L'identité $(E,N_2)\to(E,N_1)$ est linéaire, bijective et continue entre deux Banach : son inverse est continu par le Corollaire~3.4, \ie{} $N_2\le C'N_1$ (Exemple~3.6). Sans la complétude des \emph{deux} normes c'est faux (Exercice~4, question~14).
+
+\medskip
+\noindent\textbf{15. Faux.} Sur $E=F=\ell^2(\N)$, $T(u):=\big(\frac{u_n}{n+1}\big)_n$ est continu et injectif ; son image contient $c_{<\infty}$, donc est dense, mais ne contient pas $\big(\frac1{n+1}\big)_n$ : elle n'est pas fermée. Pour $T$ injectif, $\Ima T$ est fermée si et seulement s'il existe $c>0$ avec $\norm{Tx}\ge c\norm x$ (appliquer le Corollaire~3.4 à $T:E\to\Ima T$).
+
+\medskip
+\noindent\textbf{16. Vrai.} C'est le théorème du graphe fermé (Remarque~3.8, démontré dans le TD0). Idée : la norme $N(x):=\norm x_E+\norm{Tx}_F$ rend $E$ complet (c'est là que sert l'hypothèse) et domine $\norm\cdot_E$ ; par la question~14 elle lui est équivalente, d'où $\norm{Tx}_F\le N(x)\le C\norm x_E$.
+\end{solution}
+
+\begin{methode}
+\textbf{Complet ou pas ?} Pour montrer qu'un espace \emph{n'est pas} complet, le réflexe est de le voir comme sous-espace dense et strict d'un espace plus gros (3, 4), ou de produire une série absolument convergente qui ne converge pas (1). \textbf{Les trois théorèmes « de Baire »} (Banach--Steinhaus, application ouverte, graphe fermé) ont chacun une hypothèse qu'on ne peut pas affaiblir : bornitude ponctuelle partout (11), surjectivité et complétude des deux côtés (13, 14, 15), graphe fermé entre deux Banach (16). \textbf{Les exposants extrêmes} : tout ce qui repose sur la densité de $\Cc$ (translations, approximations de l'unité) tombe pour $p=\infty$ (10).
+\end{methode}
 
 \end{document}

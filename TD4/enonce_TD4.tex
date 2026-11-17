@@ -265,7 +265,7 @@ est atteint en un point unique.
 \section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
 
 \begin{commentaire}
-Deux exercices ajoutés dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~10 fait restituer les preuves centrales du chapitre~4 ; l'Exercice~11 est un vrai ou faux sur ses pièges, qui renvoie aux exercices des parties A et B.
+Trois exercices ajoutés dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~10 fait restituer les preuves centrales du chapitre~4 ; l'Exercice~11 est un vrai ou faux sur ses pièges, qui renvoie aux exercices des parties A et B ; l'Exercice~12 est un second vrai ou faux, sur la géométrie, les familles orthonormées et les opérateurs.
 \end{commentaire}
 
 % =====================================================================
@@ -298,6 +298,29 @@ Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une 
   \item Si $x_n\rightharpoonup x$ et $\norm{x_n}\le\norm x$ pour tout $n$, alors $x_n\to x$.
   \item Si $\K=\C$, l'application $z\mapsto\ps\cdot z$ est un isomorphisme linéaire de $H$ sur $H'$.
   \item Si $F$ et $G$ sont deux sous-espaces fermés de $H$, alors $F+G$ est fermé.
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 12 -- Vrai ou faux ? (suite)}
+Même consigne qu'à l'Exercice~11. $H$ désigne un espace de Hilbert séparable de dimension infinie et $(e_n)_{n\in\N}$ une base hilbertienne de $H$.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $x,y\in H$ sont non nuls et $\norm{x+y}=\norm x+\norm y$, alors $y=\lambda x$ avec $\lambda>0$.
+  \item Si $\norm x=\norm y=1$ et $x\ne y$, alors $\norm{\frac{x+y}2}<1$.
+  \item Si $C\subset H$ est fermé et non vide (non supposé convexe), la distance $d(x,C)$ est atteinte pour tout $x\in H$.
+  \item Si $F\subset G$ sont deux sous-espaces fermés de $H$, alors $P_FP_G=P_GP_F=P_F$.
+  \item Pour toute suite orthonormée $(f_n)$ de $H$ et tout $x\in H$, $\ps x{f_n}\to0$.
+  \item Tout $x\in H$ est combinaison linéaire finie des $e_n$.
+  \item La famille $(e_n+e_{n+1})_{n\in\N}$ est totale dans $H$.
+  \item La série $\sum_n\frac1{n+1}e_n$ converge dans $H$, mais pas absolument.
+  \item Pour toute suite orthonormée $(f_n)$ de $H$ et tout $x\in H$, la série $\sum_n\ps x{f_n}f_n$ converge et sa somme est $x$.
+  \item Pour toute $f\in L^2(]0,2\pi[)$, les sommes partielles de Fourier $S_Nf$ convergent uniformément vers $f$.
+  \item Sur l'espace préhilbertien $(\Cz([0,1]),\norm\cdot_2)$, la forme linéaire $f\mapsto f(0)$ est continue.
+  \item Pour tous opérateurs $S,T$ de $H$, $(ST)^\star=S^\star T^\star$.
+  \item Si un opérateur $T$ vérifie $\norm{Tx}=\norm x$ pour tout $x\in H$, alors $T^\star T=\mathrm{Id}$.
+  \item Un opérateur $T$ tel que $T^2=T$ est une projection orthogonale.
+  \item ($\K=\R$.) Soit $a$ une forme bilinéaire symétrique continue sur $H$ avec $a(u,u)>0$ pour tout $u\ne0$. Alors pour toute $\ell\in H'$ il existe $u\in H$ tel que $a(u,v)=\ell(v)$ pour tout $v\in H$.
+  \item Les espaces $L^2(]0,1[)$ et $L^2(\R)$ sont isométriques.
 \end{enumerate}
 \end{exo}
 

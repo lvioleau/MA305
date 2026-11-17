@@ -186,7 +186,7 @@ Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjo
 \section*{Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
 
 \begin{commentaire}
-Ces trois exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible. Les opérateurs compacts et le théorème spectral ne sont plus au programme en 2026--2027 : les exercices et questions qui en relèvent sont signalés « hors programme » et peuvent être laissés de côté pour l'examen.
+Ces quatre exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible ; l'Exercice~12 est un second vrai ou faux, entièrement au programme, sur la dualité, Hahn--Banach et les convergences faibles dans les espaces de suites et de fonctions. Les opérateurs compacts et le théorème spectral ne sont plus au programme en 2026--2027 : les exercices et questions qui en relèvent sont signalés « hors programme » et peuvent être laissés de côté pour l'examen.
 \end{commentaire}
 
 % =====================================================================
@@ -232,6 +232,29 @@ Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une 
   \item \emph{(Hors programme 2026--2027.)} Tout opérateur compact de $H$ possède une valeur propre.
   \item \emph{(Hors programme 2026--2027.)} Si $T\in\Lc(H)$ est auto-adjoint et compact, alors $\opnorm T$ ou $-\opnorm T$ est valeur propre de $T$.
   \item \emph{(Hors programme 2026--2027.)} Si $T\in\Lc(H)$ est auto-adjoint, compact et injectif, alors $T$ n'est pas surjectif.
+\end{enumerate}
+\end{exo}
+
+% =====================================================================
+\begin{exo}{Exercice 12 -- Vrai ou faux ? Dualité, Hahn--Banach, convergences (suite)}
+Même consigne qu'à l'Exercice~11. $E$ et $F$ désignent des EVN séparables, $H$ un espace de Hilbert séparable de dimension infinie, $(e_n)_{n\in\N}$ la suite canonique des espaces de suites, et les fonctions sont à valeurs réelles. Toutes les questions sont au programme 2026--2027.
+\begin{enumerate}[label=\arabic*.]
+  \item Une forme linéaire $f:E\to\K$ est continue si et seulement si son noyau est fermé.
+  \item Si $x,y\in E$ vérifient $f(x)=f(y)$ pour toute $f\in E'$, alors $x=y$.
+  \item Dans les deux formules $\norm x=\sup\{|f(x)|:\opnorm f\le1\}$ et $\opnorm f=\sup\{|f(x)|:\norm x\le1\}$, la borne supérieure est toujours atteinte.
+  \item Si $E$ est réflexif (\ie{} $J:E\to E''$ est surjective), alors $E$ est un espace de Banach.
+  \item Toute forme linéaire continue sur $(\ell^1(\N),\norm\cdot_1)$ se prolonge en une forme linéaire continue sur $(\ell^2(\N),\norm\cdot_2)$.
+  \item Toute forme linéaire continue sur $L^\infty(]0,1[)$ est de la forme $f\mapsto\int_0^1fg$ avec $g\in L^1(]0,1[)$. \emph{(On admet Hahn--Banach sans séparabilité.)}
+  \item Si $T\in\Lc(E,F)$ est injectif, alors sa transposée $T':F'\to E'$ est surjective.
+  \item Dans $c_0(\N)$, la suite canonique $(e_n)$ converge faiblement vers $0$.
+  \item Dans $\ell^2(\N)$, si $u^n_k\to u_k$ quand $n\to\infty$ pour tout $k\in\N$, alors $u^n\wk u$.
+  \item Si $x_n\wk x$ dans $E$ et $T\in\Lc(E,F)$, alors $Tx_n\wk Tx$ dans $F$.
+  \item Si $x_n\wk x$ dans $E$ et $f_n\to f$ en norme dans $E'$, alors $f_n(x_n)\to f(x)$.
+  \item Si la suite $(f(x_n))_n$ converge pour toute $f\in E'$, alors $(x_n)$ converge faiblement dans $E$.
+  \item Si $f_n\wk f$ dans $L^2(]0,1[)$, alors une sous-suite de $(f_n)$ converge vers $f$ presque partout.
+  \item Si $f_n\wk f$ dans $L^2(]0,1[)$ et $f_n\ge0$ presque partout pour tout $n$, alors $f\ge0$ presque partout.
+  \item Si $f_n\wk f$ dans $L^2(]0,1[)$, alors $|f_n|\wk|f|$ dans $L^2(]0,1[)$.
+  \item Toute suite bornée du dual de $\ell^\infty(\N)$ admet une sous-suite préfaiblement convergente.
 \end{enumerate}
 \end{exo}
 

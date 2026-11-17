@@ -692,7 +692,7 @@ Sous forme duale : $u\mapsto\ps fu$ restreinte à $M$ est une forme linéaire co
 \section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
 
 \begin{commentaire}
-Deux exercices ajoutés dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~10 fait restituer les preuves centrales du chapitre~4 ; l'Exercice~11 est un vrai ou faux sur ses pièges, qui renvoie aux exercices des parties A et B.
+Trois exercices ajoutés dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~10 fait restituer les preuves centrales du chapitre~4 ; l'Exercice~11 est un vrai ou faux sur ses pièges, qui renvoie aux exercices des parties A et B ; l'Exercice~12 est un second vrai ou faux, sur la géométrie, les familles orthonormées et les opérateurs.
 \end{commentaire}
 
 % =====================================================================
@@ -833,5 +833,81 @@ Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une 
 \begin{piege}
 \textbf{Les hypothèses qui font tout.} \emph{Fermé} : $(F^\perp)^\perp=F$, $H=F\oplus F^\perp$ et la fermeture de $F+G$ (2, 3, 14). \emph{Complet} : l'existence du projeté et, derrière elle, le théorème de Riesz (5). \emph{Orthogonal} : la convergence des séries sous la seule condition $\sum\norm{x_n}^2<\infty$ (8). \emph{Dimension finie} : inverse à gauche $=$ inverse à droite, existence de valeurs propres (9, 11). \emph{Complexe} : $\Re\ps xy$ contre $\ps xy$, antilinéarité de l'isomorphisme de Riesz (1, 13).
 \end{piege}
+
+% =====================================================================
+\begin{exo}{Exercice 12 -- Vrai ou faux ? (suite)}
+Même consigne qu'à l'Exercice~11. $H$ désigne un espace de Hilbert séparable de dimension infinie et $(e_n)_{n\in\N}$ une base hilbertienne de $H$.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $x,y\in H$ sont non nuls et $\norm{x+y}=\norm x+\norm y$, alors $y=\lambda x$ avec $\lambda>0$.
+  \item Si $\norm x=\norm y=1$ et $x\ne y$, alors $\norm{\frac{x+y}2}<1$.
+  \item Si $C\subset H$ est fermé et non vide (non supposé convexe), la distance $d(x,C)$ est atteinte pour tout $x\in H$.
+  \item Si $F\subset G$ sont deux sous-espaces fermés de $H$, alors $P_FP_G=P_GP_F=P_F$.
+  \item Pour toute suite orthonormée $(f_n)$ de $H$ et tout $x\in H$, $\ps x{f_n}\to0$.
+  \item Tout $x\in H$ est combinaison linéaire finie des $e_n$.
+  \item La famille $(e_n+e_{n+1})_{n\in\N}$ est totale dans $H$.
+  \item La série $\sum_n\frac1{n+1}e_n$ converge dans $H$, mais pas absolument.
+  \item Pour toute suite orthonormée $(f_n)$ de $H$ et tout $x\in H$, la série $\sum_n\ps x{f_n}f_n$ converge et sa somme est $x$.
+  \item Pour toute $f\in L^2(]0,2\pi[)$, les sommes partielles de Fourier $S_Nf$ convergent uniformément vers $f$.
+  \item Sur l'espace préhilbertien $(\Cz([0,1]),\norm\cdot_2)$, la forme linéaire $f\mapsto f(0)$ est continue.
+  \item Pour tous opérateurs $S,T$ de $H$, $(ST)^\star=S^\star T^\star$.
+  \item Si un opérateur $T$ vérifie $\norm{Tx}=\norm x$ pour tout $x\in H$, alors $T^\star T=\mathrm{Id}$.
+  \item Un opérateur $T$ tel que $T^2=T$ est une projection orthogonale.
+  \item ($\K=\R$.) Soit $a$ une forme bilinéaire symétrique continue sur $H$ avec $a(u,u)>0$ pour tout $u\ne0$. Alors pour toute $\ell\in H'$ il existe $u\in H$ tel que $a(u,v)=\ell(v)$ pour tout $v\in H$.
+  \item Les espaces $L^2(]0,1[)$ et $L^2(\R)$ sont isométriques.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Vrai.} En développant, $\norm{x+y}^2=(\norm x+\norm y)^2$ équivaut à $\Re\ps xy=\norm x\norm y$. Alors $|\ps xy|\ge\Re\ps xy=\norm x\norm y$ : c'est le cas d'égalité de Cauchy--Schwarz, donc $y=\lambda x$ (avec $\lambda:=\ps yx/\norm x^2$, on calcule $\norm{y-\lambda x}^2=\norm y^2-|\ps xy|^2/\norm x^2=0$). Enfin $\Re\ps x{\lambda x}=\Re(\lambda)\norm x^2=|\lambda|\norm x^2$ force $\lambda\in\R_+$, et $\lambda\ne0$. C'est faux dans $(\R^2,\norm\cdot_1)$ : $x=(1,0)$, $y=(0,1)$.
+
+\medskip
+\noindent\textbf{2. Vrai.} Identité du parallélogramme : $\norm{\frac{x+y}2}^2=\frac12\norm x^2+\frac12\norm y^2-\norm{\frac{x-y}2}^2=1-\norm{\frac{x-y}2}^2<1$. Cette \emph{stricte convexité} de la boule est ce qui donne l'unicité dans le Théorème~4.1.
+
+\medskip
+\noindent\textbf{3. Faux.} $C:=\{(1+\frac1{n+1})e_n:n\in\N\}$. Deux points distincts de $C$ sont à distance $\ge\sqrt2$, donc toute suite convergente de $C$ est stationnaire : $C$ est fermé. Mais $d(0,C)=\inf_n(1+\frac1{n+1})=1$ n'est pas atteinte. En dimension finie c'est vrai (compacité des fermés bornés) ; en dimension infinie c'est la \emph{convexité} qui remplace la compacité.
+
+\medskip
+\noindent\textbf{4. Vrai.} $P_Fx\in F\subset G$, donc $P_GP_Fx=P_Fx$. Pour l'autre : $P_FP_Gx\in F$ et $x-P_FP_Gx=(x-P_Gx)+(P_Gx-P_FP_Gx)$, où le premier terme est dans $G^\perp\subset F^\perp$ et le second dans $F^\perp$. Par la caractérisation du Corollaire~4.1, $P_FP_Gx=P_Fx$.
+
+\medskip
+\noindent\textbf{5. Vrai.} Inégalité de Bessel (Proposition~4.5) : $\sum_n|\ps x{f_n}|^2\le\norm x^2<\infty$, donc le terme général tend vers $0$. Autrement dit \emph{toute} suite orthonormée converge faiblement vers $0$, pas seulement les bases hilbertiennes (Proposition~4.8).
+
+\medskip
+\noindent\textbf{6. Faux.} $x:=\sum_n\frac1{n+1}e_n$ (question~8) a tous ses coefficients non nuls. Une base hilbertienne n'est pas une base algébrique : $\Vect(e_n)$ est dense et strict, et un Banach de dimension infinie n'a pas de base algébrique dénombrable (TD2 ex.~1).
+
+\medskip
+\noindent\textbf{7. Vrai.} Par le Théorème~4.3, il suffit de voir que l'orthogonal est nul. Si $x\perp e_n+e_{n+1}$ pour tout $n$, les coefficients $x_n:=\ps x{e_n}$ vérifient $x_{n+1}=-x_n$, donc $|x_n|=|x_0|$ pour tout $n$ ; comme $\sum|x_n|^2<\infty$ (Parseval), $x_0=0$ et $x=0$. Noter que la famille n'est pas orthogonale, et que $(e_n)_{n\ge1}$, elle, n'est pas totale ($e_0$ lui est orthogonal).
+
+\medskip
+\noindent\textbf{8. Vrai.} Les termes sont deux à deux orthogonaux et $\sum\frac1{(n+1)^2}<\infty$ : la série converge (Proposition~4.4). Mais $\sum\norm{\frac1{n+1}e_n}=\sum\frac1{n+1}=\infty$. C'est le raffinement de la Proposition~3.1 signalé à la Remarque~4.3 : $\ell^2$ au lieu de $\ell^1$, grâce à l'orthogonalité.
+
+\medskip
+\noindent\textbf{9. Faux.} La série converge toujours (Bessel et Proposition~4.4), mais vers $P_Fx$ avec $F:=\adh{\Vect(f_n)}$ ; sa somme est $x$ pour tout $x$ si et seulement si la suite est totale (Théorème~4.5). Contre-exemple : $f_n:=e_{n+1}$ et $x=e_0$, la somme est $0$.
+
+\medskip
+\noindent\textbf{10. Faux.} La convergence a lieu dans $L^2$ (Exemple~4.7 et Théorème~4.5). Si elle était uniforme, $f$ serait égale presque partout à une fonction continue (limite uniforme des $S_Nf$, qui sont continues) ; $f=\mathbf 1_{]0,\pi[}$ ne l'est pas. Même pour $f$ continue périodique la convergence uniforme peut échouer (TD0, Exemples~3.4 et~3.5).
+
+\medskip
+\noindent\textbf{11. Faux.} $f_n(x):=\max(0,1-nx)$ vérifie $\norm{f_n}_2^2=\int_0^{1/n}(1-nx)^2dx=\frac1{3n}\to0$ et $f_n(0)=1$. Ce n'est donc pas un élément du dual ; en revanche l'Exercice~4.5 montre que le dual de cet espace \emph{non complet} contient des formes qui ne sont pas de la forme $\ps\cdot g$ avec $g$ continue.
+
+\medskip
+\noindent\textbf{12. Faux.} La formule est $(ST)^\star=T^\star S^\star$ (Exercice~5(a)). Avec le décalage à droite $S$ de $\ell^2$ et $T:=S^\star$ : $(SS^\star)^\star=SS^\star$, projection sur $\{e_0\}^\perp$, alors que $S^\star T^\star=S^\star S=\mathrm{Id}$ (Exercice~5(c)).
+
+\medskip
+\noindent\textbf{13. Vrai.} L'opérateur $A:=T^\star T-\mathrm{Id}$ est auto-adjoint et $\ps{Ax}x=\norm{Tx}^2-\norm x^2=0$ pour tout $x$ : donc $A=0$ (Exercice~11, question~10). En revanche $TT^\star$ peut différer de l'identité (Exercice~11, question~9) : une isométrie n'est pas forcément surjective.
+
+\medskip
+\noindent\textbf{14. Faux.} Il faut en plus $T^\star=T$. Soit $T(x):=\ps x{e_0}(e_0+e_1)$ : $T^2x=\ps x{e_0}\ps{e_0+e_1}{e_0}(e_0+e_1)=Tx$, mais $T^\star y=\ps y{e_0+e_1}e_0$, donc $T^\star e_1=e_0\ne0=Te_1$. C'est une projection \emph{oblique} sur $\K(e_0+e_1)$ parallèlement à $\{e_0\}^\perp$, de norme $\sqrt2>1$. Les projections orthogonales sont exactement les opérateurs vérifiant $T^2=T=T^\star$ (Exercice~11, question~4, et sa réciproque).
+
+\medskip
+\noindent\textbf{15. Faux.} Il manque la \emph{coercivité} $a(u,u)\ge\alpha\norm u^2$ (Exercice~2). Sur $\ell^2(\N;\R)$, soit $a(u,v):=\sum_n\frac{u_nv_n}{n+1}$ et $\ell(v):=\sum_n\frac{v_n}{n+1}$, continue car $\big(\frac1{n+1}\big)_n\in\ell^2$. En testant contre $v=e_n$, une solution vérifierait $u_n=1$ pour tout $n$ : impossible dans $\ell^2$. Ici $a(e_n,e_n)=\frac1{n+1}\to0$.
+
+\medskip
+\noindent\textbf{16. Vrai.} Ce sont deux espaces de Hilbert séparables (Proposition~2.8) de dimension infinie : chacun est isométrique à $\ell^2(\N)$ par le Corollaire~4.2. À isométrie près il n'y a \emph{qu'un seul} espace de Hilbert séparable de dimension infinie, alors que les $L^p$, $p\ne2$, ne sont même pas préhilbertiens (Exercice~4.2).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Ce que la géométrie hilbertienne apporte.} L'identité du parallélogramme donne la stricte convexité (1, 2), et \emph{convexe $+$ fermé $+$ complet} remplace la compacité pour atteindre une distance (3). Une suite orthonormée fournit toujours Bessel, donc $\ps x{f_n}\to0$ et la convergence de $\sum\ps x{f_n}f_n$ vers un projeté (5, 9) ; c'est la \emph{totalité}, testée par l'orthogonal (7), qui donne $x$ lui-même, au sens d'une série et jamais d'une somme finie (6, 8), et en norme $L^2$, pas uniformément (10). Côté opérateurs : l'adjoint renverse l'ordre (12), isométrie signifie $T^\star T=\mathrm{Id}$ (13), projection orthogonale signifie $T^2=T=T^\star$ (14), et Lax--Milgram exige la coercivité (15).
+\end{pointcle}
 
 \end{document}
