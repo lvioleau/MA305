@@ -1,0 +1,363 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+\newcommand{\su}[1]{\underline{#1}}
+\newcommand{\linf}{\ell^\infty(\N)}
+\newcommand{\lun}{\ell^1(\N)}
+\newcommand{\cz}{c_0(\N)}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Corrigé détaillé du devoir EAD n\textsuperscript{o}1 -- Convergence faible et propriété de Schur de $\ell^1(\N)$}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+\textbf{Conventions.} Les numéros de résultats renvoient au polycopié. On note $\su e^k$ la $k$-ième suite canonique ($e^k_j=1$ si $j=k$, $0$ sinon) et $c_{<\infty}(\N)$ l'espace des suites à support fini, engendré par les $\su e^k$. Pour un réel $t$, $\sgn(t)\in\{-1,0,1\}$ désigne son signe, de sorte que $t\,\sgn(t)=|t|$. Tous les espaces sont réels, comme dans le sujet.
+
+\textbf{Plan du problème.} Les questions~1 et~2 sont des questions de cours sur deux espaces modèles : calcul d'un dual, unicité de la limite faible, comparaison fort/faible. La question~3 démontre le théorème de Schur par un argument de Baire : on rend la boule unité de $\linf=\lun'$ métrique compacte pour la convergence préfaible (3(a) à 3(c)), on la recouvre par des fermés $F_j$ (3(e)), Baire fournit une boule dans l'un d'eux (3(f)), et l'on exploite cette boule en modifiant librement les coordonnées de grand indice (3(g)).
+\end{commentaire}
+
+\begin{exo}{Cadre et notations du sujet}
+Dans ce problème on s'intéresse à la notion de \emph{convergence faible} définie sur un espace de Banach (réel).
+
+\medskip
+\noindent\textbf{Définition.} Étant donné un espace de Banach $E$, on dit qu'une suite $(x^n)_n\in E^\N$ \emph{converge faiblement} vers un élément $x\in E$ si, pour tout élément $f\in E'$, on a $(f(x^n))_n\to_n f(x)$. Cette convergence est alors notée $(x^n)_n\wk_n x$. On dit que la suite $(x^n)_n$ \emph{converge fortement} vers $x\in E$ si la convergence a lieu usuellement pour la norme $\norm\cdot_E$ de $E$, i.e.\ $\norm{x-x^n}_E\to0$, ce que l'on notera classiquement $(x^n)_n\to_n x$.
+
+\medskip
+Pour manipuler les espaces de suites on adoptera la notation suivante : les suites sont notées avec un soulignement, les éléments de la suite sont notés avec des indices, alors que les éléments d'une suite de suites sont eux notés avec un exposant. On note donc $\su x:=(x_k)_k$ une suite et $(\su x^n)_n$ une suite de suites, avec $\su x^n=(x^n_k)_k$.
+\end{exo}
+
+\begin{exo}{Question 1 -- L'espace $c_0(\N)$}
+Soit $\cz$ l'ensemble des suites réelles convergentes vers $0$. Montrer les affirmations suivantes.
+\begin{enumerate}[label=(\alph*)]
+  \item Équipé de la norme $\norm\cdot_\infty$, $\cz$ est un espace de Banach dont le dual topologique s'identifie à $\lun$.
+  \item Une suite $(\su x^n)_n\in\cz^\N$ ne peut avoir au plus qu'une seule limite faible dans $\cz$. On note alors $(\su x^n)_n\wk_n\su x$ lorsqu'une telle limite existe.
+  \item Si une suite $(\su x^n)_n\in\cz^\N$ converge fortement, alors elle converge faiblement dans $\cz$.
+  \item Il existe $(\su x^n)_n\in\cz^\N$ qui converge faiblement mais pas fortement, dans $\cz$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Espace de Banach.} $\cz$ est un sous-espace vectoriel de $\linf$ (une suite convergente est bornée) et $\linf$ est un espace de Banach (Proposition~3.5). Il suffit de montrer que $\cz$ est fermé dans $\linf$ : une suite de Cauchy de $\cz$ converge alors dans $\linf$ vers une limite qui reste dans $\cz$. Soit donc $(\su x^n)_n\in\cz^\N$ avec $\norm{\su x^n-\su x}_\infty\to0$, où $\su x\in\linf$, et soit $\eta>0$. On fixe $n$ tel que $\norm{\su x^n-\su x}_\infty\le\eta$, puis $K$ tel que $|x^n_k|\le\eta$ pour $k\ge K$. Alors, pour $k\ge K$,
+\[
+  |x_k|\le|x_k-x^n_k|+|x^n_k|\le2\eta,
+\]
+donc $\su x\in\cz$.
+
+\emph{Dual.} Pour $\su u\in\lun$ et $\su x\in\cz$ on pose $\Psi_{\su u}(\su x):=\sum_{k\in\N}u_kx_k$. La série converge absolument et
+\begin{equation}\label{eq:psi}
+  |\Psi_{\su u}(\su x)|\le\sum_k|u_k||x_k|\le\norm{\su u}_1\norm{\su x}_\infty .
+\end{equation}
+Donc $\Psi_{\su u}\in\cz'$ avec $\opnorm{\Psi_{\su u}}\le\norm{\su u}_1$, et $\Psi:\su u\mapsto\Psi_{\su u}$ est linéaire de $\lun$ dans $\cz'$. Montrons que c'est une isométrie surjective.
+
+\emph{Isométrie.} Pour $N\in\N$ posons $\su s^N:=\sum_{k=0}^N\sgn(u_k)\,\su e^k$. C'est une suite à support fini, donc dans $\cz$, et $\norm{\su s^N}_\infty\le1$. Par conséquent
+\[
+  \opnorm{\Psi_{\su u}}\ge\Psi_{\su u}(\su s^N)=\sum_{k=0}^N|u_k|\xrightarrow[N\to\infty]{}\norm{\su u}_1 .
+\]
+Avec \eqref{eq:psi}, $\opnorm{\Psi_{\su u}}=\norm{\su u}_1$. En particulier $\Psi$ est injective.
+
+\emph{Surjectivité.} Soit $\varphi\in\cz'$. On pose $u_k:=\varphi(\su e^k)$ et $\su u:=(u_k)_k$. Avec la même suite $\su s^N$ (construite sur ce $\su u$), par linéarité de $\varphi$,
+\[
+  \sum_{k=0}^N|u_k|=\sum_{k=0}^N\sgn(u_k)\varphi(\su e^k)=\varphi(\su s^N)\le\opnorm\varphi\norm{\su s^N}_\infty\le\opnorm\varphi .
+\]
+Les sommes partielles de la série à termes positifs $\sum|u_k|$ sont majorées : $\su u\in\lun$, et $\Psi_{\su u}$ est bien définie et continue sur $\cz$. Les formes $\Psi_{\su u}$ et $\varphi$ coïncident sur chaque $\su e^k$, donc sur $c_{<\infty}(\N)$ par linéarité. Or $c_{<\infty}(\N)$ est dense dans $\cz$ : si $\su x\in\cz$, la suite tronquée $\su x^{(N)}:=\sum_{k\le N}x_k\su e^k$ vérifie $\norm{\su x-\su x^{(N)}}_\infty=\sup_{k>N}|x_k|\to0$. Deux formes linéaires continues qui coïncident sur une partie dense sont égales : $\varphi=\Psi_{\su u}$.
+
+Ainsi $\Psi:\lun\to\cz'$ est une isométrie linéaire bijective : c'est le sens de « $\cz'$ s'identifie à $\lun$ ».
+
+\medskip
+\noindent\textbf{(b)} Pour $k\in\N$, la forme coordonnée $\pi_k:\su x\mapsto x_k$ est linéaire et $|\pi_k(\su x)|\le\norm{\su x}_\infty$, donc $\pi_k\in\cz'$ (c'est $\Psi_{\su e^k}$). Si $(\su x^n)_n$ converge faiblement vers $\su x$ et vers $\su y$ dans $\cz$, alors pour tout $k$, par unicité de la limite dans $\R$,
+\[
+  x_k=\pi_k(\su x)=\lim_n\pi_k(\su x^n)=\pi_k(\su y)=y_k,
+\]
+donc $\su x=\su y$.
+
+\medskip
+\noindent\textbf{(c)} Si $\norm{\su x^n-\su x}_\infty\to0$, alors pour toute $f\in\cz'$,
+\[
+  |f(\su x^n)-f(\su x)|=|f(\su x^n-\su x)|\le\opnorm f\,\norm{\su x^n-\su x}_\infty\to0,
+\]
+donc $(\su x^n)_n\wk_n\su x$.
+
+\medskip
+\noindent\textbf{(d)} Prenons $\su x^n:=\su e^n$, qui est dans $\cz$. Soit $f\in\cz'$ : par (a), $f=\Psi_{\su u}$ pour un $\su u\in\lun$, et
+\[
+  f(\su e^n)=u_n\xrightarrow[n\to\infty]{}0=f(0),
+\]
+puisque le terme général d'une série convergente tend vers $0$. Donc $(\su e^n)_n\wk_n0$. Si la suite convergeait fortement vers un $\su y\in\cz$, elle convergerait faiblement vers $\su y$ par (c), d'où $\su y=0$ par (b) ; or $\norm{\su e^n-0}_\infty=1$ ne tend pas vers $0$. La suite $(\su e^n)_n$ converge donc faiblement mais pas fortement.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le schéma « calcul d'un dual d'espace de suites ».} Toujours les trois mêmes étapes : (1) une inégalité de type Hölder donne $\opnorm{\Psi_{\su u}}\le\norm{\su u}$ ; (2) une suite test bien choisie (des signes, tronqués) donne l'égalité ; (3) pour la surjectivité, le candidat est $u_k:=\varphi(\su e^k)$, on montre qu'il est dans le bon espace en testant $\varphi$ sur des suites \emph{à support fini}, puis on conclut par densité de $c_{<\infty}(\N)$. C'est le plan de la preuve du Théorème~5.1. L'étape (3) exige la densité de $c_{<\infty}(\N)$ dans l'espace de départ : vraie dans $\cz$ et dans $\ell^p(\N)$ pour $p<\infty$, fausse dans $\linf$ (Proposition~2.3).
+\end{pointcle}
+
+\begin{commentaire}
+La Proposition~5.3 donne l'unicité de la limite faible dans tout EVN séparable, via Hahn--Banach. La question (b) ne demande pas tant : dans un espace de suites, les formes coordonnées suffisent à séparer les points. Elles serviront encore en 2(b) et en 3(h) : \emph{la convergence faible entraîne la convergence coordonnée par coordonnée}.
+\end{commentaire}
+
+\begin{exo}{Question 2 -- L'espace $\ell^1(\N)$}
+Reprendre les questions (a), (b) et (c) en remplaçant $\cz$ par $\lun$ et la norme idoine (et en précisant le dual topologique).
+\end{exo}
+
+\begin{solution}
+La norme idoine est $\norm{\su x}_1=\sum_k|x_k|$, et le dual s'identifie à $\linf$.
+
+\medskip
+\noindent\textbf{(a)} $(\lun,\norm\cdot_1)$ est un espace de Banach : c'est la Proposition~3.5. Pour $\su a\in\linf$ et $\su x\in\lun$ on pose $\Phi_{\su a}(\su x):=\sum_{k\in\N}a_kx_k$ ; la série converge absolument et
+\begin{equation}\label{eq:phi}
+  |\Phi_{\su a}(\su x)|\le\norm{\su a}_\infty\norm{\su x}_1 .
+\end{equation}
+Donc $\Phi_{\su a}\in\lun'$, $\opnorm{\Phi_{\su a}}\le\norm{\su a}_\infty$, et $\Phi:\linf\to\lun'$ est linéaire.
+
+\emph{Isométrie.} Pour tout $k$, $\norm{\su e^k}_1=1$ et $\Phi_{\su a}(\su e^k)=a_k$, donc $\opnorm{\Phi_{\su a}}\ge|a_k|$. En prenant le sup sur $k$ : $\opnorm{\Phi_{\su a}}\ge\norm{\su a}_\infty$, d'où l'égalité avec \eqref{eq:phi}.
+
+\emph{Surjectivité.} Soit $\varphi\in\lun'$ et $a_k:=\varphi(\su e^k)$. On a $|a_k|\le\opnorm\varphi\norm{\su e^k}_1=\opnorm\varphi$, donc $\su a\in\linf$. Les formes continues $\Phi_{\su a}$ et $\varphi$ coïncident sur les $\su e^k$, donc sur $c_{<\infty}(\N)$, qui est dense dans $\lun$ (Proposition~2.3) : $\varphi=\Phi_{\su a}$.
+
+Ainsi $\Phi:\linf\to\lun'$ est une isométrie linéaire bijective.
+
+\medskip
+\noindent\textbf{(b)} Les formes coordonnées $\pi_k:\su x\mapsto x_k$ sont continues sur $\lun$, car $|x_k|\le\norm{\su x}_1$ (c'est $\Phi_{\su e^k}$). Le raisonnement de 1(b) s'applique mot pour mot : deux limites faibles ont les mêmes coordonnées.
+
+\medskip
+\noindent\textbf{(c)} Même preuve qu'en 1(c) : $|f(\su x^n)-f(\su x)|\le\opnorm f\norm{\su x^n-\su x}_1\to0$ pour toute $f\in\lun'$.
+\end{solution}
+
+\begin{piege}
+\textbf{La suite canonique ne fournit plus de contre-exemple.} Dans $\lun$, $(\su e^n)_n$ ne converge pas faiblement. Si elle convergeait faiblement vers $\su y$, les formes coordonnées donneraient $y_k=\lim_ne^n_k=0$, donc $\su y=0$ ; mais avec $\su a=(1,1,1,\dots)\in\linf$ on a $\Phi_{\su a}(\su e^n)=1\not\to0$. Le dual de $\lun$ est « trop gros » : il contient des suites qui ne tendent pas vers $0$, là où le dual de $\cz$ n'en contenait pas. En revanche $(\su e^n)_n$ converge \emph{préfaiblement} vers $0$ dans $\lun=\cz'$ (c'est le calcul de 1(d)) : la propriété de Schur concerne la convergence faible de $\lun$, pas sa convergence préfaible.
+\end{piege}
+
+\begin{exo}{Question 3 -- Propriété de Schur}
+Il n'est pas possible d'établir (d) pour $\lun$. Le reste du sujet se concentre sur cette propriété tout à fait \emph{pathologique} de l'espace $\lun$, appelée « propriété de Schur » : dans cet espace on a $(\su x^n)_n\wk_n\su x\iff(\su x^n)_n\to_n\su x$.
+\begin{enumerate}[label=(\alph*)]
+  \item Pour $\su a$ et $\su b$ deux éléments de $\linf$ on pose
+  \[
+    d(\su a,\su b):=\sum_{k\in\N}\frac{|a_k-b_k|}{2^k}.
+  \]
+  Démontrer que $d$ est une distance sur $\linf$.
+  \item Soit $(\su a^n)_n$ une suite bornée de $\linf$. Dans l'identification $\linf\simeq\lun'$, démontrer que $(\su a^n)_n$ converge faible-$\star$ vers $\su a\in\linf$ si et seulement si $(\su a^n)_n$ converge vers $\su a$ au sens de la distance $d$.
+  \item Soit $B$ la boule unité fermée de $\linf$. Démontrer que l'espace métrique $(B,d)$ est compact.
+  \item Montrer que pour établir la propriété de Schur de l'espace $\lun$, il suffit de traiter le cas d'une limite nulle. Par la suite on fixe donc $(\su x^n)_n\in\lun^\N$ convergeant faiblement vers $0$ et notre but est de montrer $\norm{\su x^n}_1\to_n0$.
+  \item Soit $\varepsilon>0$, fixé. Montrer, pour tout $j\in\N$, que l'ensemble $F_j$ ci-dessous est fermé dans $(B,d)$.
+  \[
+    F_j:=\Bigl\{\su a\in B:\ \forall n\ge j,\ \Bigl|\sum_{k\in\N}a_kx^n_k\Bigr|\le\varepsilon\Bigr\}
+  \]
+  \item En déduire l'existence de $j_\varepsilon\in\N$, $\su a^\varepsilon\in B$ et $r_\varepsilon>0$ pour lesquels
+  \[
+    \forall\,\su a\in B,\qquad d(\su a^\varepsilon,\su a)<r_\varepsilon\implies\su a\in F_{j_\varepsilon}.
+  \]
+  \item Montrer l'existence de $m_\varepsilon\in\N$ tel que
+  \[
+    \forall n\ge j_\varepsilon,\qquad\norm{\su x^n}_1\le\varepsilon+2\sum_{k=0}^{m_\varepsilon}|x^n_k|.
+  \]
+  \item Conclure.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Bonne définition.} Pour $\su a,\su b\in\linf$, $|a_k-b_k|\le\norm{\su a-\su b}_\infty$ et $\sum_k2^{-k}=2$, donc la série converge et
+\begin{equation}\label{eq:dnorm}
+  0\le d(\su a,\su b)\le2\norm{\su a-\su b}_\infty<\infty .
+\end{equation}
+\emph{Symétrie} : évidente. \emph{Séparation} : une somme de termes positifs est nulle si et seulement si chaque terme est nul, donc $d(\su a,\su b)=0\iff a_k=b_k$ pour tout $k\iff\su a=\su b$. \emph{Inégalité triangulaire} : pour $\su a,\su b,\su c\in\linf$ et tout $k$, $|a_k-c_k|\le|a_k-b_k|+|b_k-c_k|$ ; on multiplie par $2^{-k}$ et on somme (les trois séries convergent) : $d(\su a,\su c)\le d(\su a,\su b)+d(\su b,\su c)$.
+
+\medskip
+\noindent\textbf{(b)} Soit $M$ tel que $\norm{\su a^n}_\infty\le M$ pour tout $n$, et $M':=M+\norm{\su a}_\infty$, de sorte que $|a^n_k-a_k|\le M'$ pour tous $n,k$. Via l'identification de 2(a), la convergence faible-$\star$ de $(\su a^n)_n$ vers $\su a$ signifie (Définition~5.3) :
+\[
+  \text{(i)}\qquad\forall\,\su x\in\lun,\qquad\sum_ka^n_kx_k\xrightarrow[n\to\infty]{}\sum_ka_kx_k .
+\]
+On introduit la convergence coordonnée par coordonnée :
+\[
+  \text{(ii)}\qquad\forall k\in\N,\qquad a^n_k\xrightarrow[n\to\infty]{}a_k,
+\]
+et l'on note (iii) la convergence $d(\su a^n,\su a)\to0$. On montre (i)$\Rightarrow$(ii)$\Rightarrow$(iii)$\Rightarrow$(ii)$\Rightarrow$(i).
+
+\emph{(i)$\Rightarrow$(ii).} On applique (i) à $\su x=\su e^k$.
+
+\emph{(ii)$\Rightarrow$(iii).} Soit $\eta>0$ et $K$ tel que $M'2^{-K}\le\eta$. Comme $\sum_{k>K}2^{-k}=2^{-K}$,
+\[
+  d(\su a^n,\su a)\le\sum_{k=0}^K|a^n_k-a_k|+M'\sum_{k>K}2^{-k}\le\sum_{k=0}^K|a^n_k-a_k|+\eta .
+\]
+La somme finie tend vers $0$ par (ii), donc $\limsup_nd(\su a^n,\su a)\le\eta$ pour tout $\eta>0$ : $d(\su a^n,\su a)\to0$.
+
+\emph{(iii)$\Rightarrow$(ii).} Pour tout $k$, $|a^n_k-a_k|\le2^k\,d(\su a^n,\su a)\to0$.
+
+\emph{(ii)$\Rightarrow$(i).} Soit $\su x\in\lun$, $\eta>0$ et $K$ tel que $\sum_{k>K}|x_k|\le\eta$. Alors
+\[
+  \Bigl|\sum_k(a^n_k-a_k)x_k\Bigr|\le\Bigl(\max_{0\le k\le K}|a^n_k-a_k|\Bigr)\norm{\su x}_1+M'\sum_{k>K}|x_k|\le\Bigl(\max_{0\le k\le K}|a^n_k-a_k|\Bigr)\norm{\su x}_1+M'\eta .
+\]
+Le maximum porte sur un nombre fini de coordonnées et tend vers $0$ par (ii), donc la limite supérieure du membre de gauche est $\le M'\eta$, pour tout $\eta>0$ : c'est (i).
+
+On a donc (i)$\iff$(iii), et l'on retient au passage que, \emph{pour une suite bornée}, ces deux convergences équivalent à la convergence coordonnée par coordonnée (ii).
+
+\medskip
+\noindent\textbf{(c)} On montre que toute suite de $B$ admet une sous-suite convergente dans $(B,d)$. Soit $(\su a^n)_n\in B^\N$. Pour chaque $k$, la suite réelle $(a^n_k)_n$ est à valeurs dans le segment $[-1,1]$, qui est compact (Théorème~1.2).
+
+\emph{Extraction diagonale.} On construit par récurrence des extractrices $\varphi_0,\varphi_1,\dots$ telles que, en posant $\psi_k:=\varphi_0\circ\dots\circ\varphi_k$, la suite $(a^{\psi_k(n)}_k)_n$ converge vers un réel $a_k\in[-1,1]$ : $\varphi_0$ s'obtient par compacité de $[-1,1]$ appliquée à $(a^n_0)_n$, et $\varphi_{k+1}$ par compacité appliquée à $(a^{\psi_k(n)}_{k+1})_n$. On pose $\psi(n):=\psi_n(n)$. C'est une extractrice, et pour chaque $k$, la suite $(\psi(n))_{n\ge k}$ est extraite de $(\psi_k(n))_n$ ; donc $a^{\psi(n)}_k\to a_k$ pour tout $k$.
+
+\emph{Conclusion.} La suite $\su a:=(a_k)_k$ vérifie $|a_k|\le1$ pour tout $k$, donc $\su a\in B$. La suite $(\su a^{\psi(n)})_n$ est bornée dans $\linf$ et converge vers $\su a$ coordonnée par coordonnée : par l'implication (ii)$\Rightarrow$(iii) de la question (b), $d(\su a^{\psi(n)},\su a)\to0$. Toute suite de $(B,d)$ a une valeur d'adhérence dans $B$ : $(B,d)$ est compact.
+
+\medskip
+\noindent\textbf{(d)} L'implication $(\su x^n)_n\to_n\su x\implies(\su x^n)_n\wk_n\su x$ est la question 2(c). Pour la réciproque, supposons acquis le cas d'une limite nulle : toute suite de $\lun$ convergeant faiblement vers $0$ converge fortement vers $0$. Soit $(\su x^n)_n\wk_n\su x$ dans $\lun$ et $\su y^n:=\su x^n-\su x$. Pour toute $f\in\lun'$, par linéarité, $f(\su y^n)=f(\su x^n)-f(\su x)\to0=f(0)$, donc $(\su y^n)_n\wk_n0$. Le cas particulier donne $\norm{\su y^n}_1\to0$, c'est-à-dire $\norm{\su x^n-\su x}_1\to0$.
+
+\medskip
+\noindent\textbf{(e)} Pour $n\in\N$ fixé, posons $g_n:B\to\R$, $g_n(\su a):=\sum_ka_kx^n_k=\Phi_{\su a}(\su x^n)$.
+
+\emph{$g_n$ est continue sur $(B,d)$.} Dans un espace métrique il suffit de vérifier la continuité séquentielle. Soit $(\su a^m)_m\in B^\N$ avec $d(\su a^m,\su a)\to0$, $\su a\in B$. La suite $(\su a^m)_m$ est bornée dans $\linf$ (par $1$), donc par la question (b) elle converge faible-$\star$ vers $\su a$ ; appliqué à l'élément $\su x^n\in\lun$, cela donne $g_n(\su a^m)\to g_n(\su a)$.
+
+\emph{Conclusion.} On écrit
+\[
+  F_j=\bigcap_{n\ge j}g_n^{-1}\bigl([-\varepsilon,\varepsilon]\bigr).
+\]
+Chaque $g_n^{-1}([-\varepsilon,\varepsilon])$ est fermé dans $(B,d)$ comme image réciproque d'un fermé de $\R$ par une application continue, et une intersection de fermés est fermée.
+
+\medskip
+\noindent\textbf{(f)} On applique le Lemme~1.1 de Baire dans l'espace métrique $(B,d)$.
+
+\emph{$(B,d)$ est complet et non vide} : il est compact par (c), donc complet (Proposition~1.12), et il contient $0$.
+
+\emph{$B=\bigcup_{j\in\N}F_j$.} Soit $\su a\in B$. La forme $\Phi_{\su a}$ est dans $\lun'$ (question 2(a)) et $(\su x^n)_n\wk_n0$, donc $\Phi_{\su a}(\su x^n)\to\Phi_{\su a}(0)=0$. Il existe donc $j$ tel que $|\Phi_{\su a}(\su x^n)|\le\varepsilon$ pour tout $n\ge j$, c'est-à-dire $\su a\in F_j$.
+
+\emph{Baire.} Si chaque fermé $F_j$ était d'intérieur vide dans $(B,d)$, leur réunion $B$ serait d'intérieur vide dans $(B,d)$ (Lemme~1.1, (ii)). Or l'intérieur de $B$ dans lui-même est $B\ne\emptyset$. Il existe donc $j_\varepsilon\in\N$ tel que $F_{j_\varepsilon}$ est d'intérieur non vide dans $(B,d)$ : il contient une boule ouverte de $(B,d)$, de centre $\su a^\varepsilon\in B$ et de rayon $r_\varepsilon>0$. C'est exactement
+\[
+  \forall\,\su a\in B,\qquad d(\su a^\varepsilon,\su a)<r_\varepsilon\implies\su a\in F_{j_\varepsilon}.
+\]
+
+\medskip
+\noindent\textbf{(g)} On choisit $m_\varepsilon\in\N$ tel que $2\cdot2^{-m_\varepsilon}<r_\varepsilon$ ; ce choix ne dépend que de $r_\varepsilon$. Soit $n\ge j_\varepsilon$. On définit $\su a\in\linf$ en gardant les premières coordonnées de $\su a^\varepsilon$ et en choisissant les suivantes en fonction de $\su x^n$ :
+\[
+  a_k:=\begin{cases}a^\varepsilon_k&\text{si }k\le m_\varepsilon,\\ \sgn(x^n_k)&\text{si }k>m_\varepsilon.\end{cases}
+\]
+On a $|a_k|\le1$ pour tout $k$, donc $\su a\in B$, et comme $|a^\varepsilon_k-a_k|\le2$ :
+\[
+  d(\su a^\varepsilon,\su a)=\sum_{k>m_\varepsilon}\frac{|a^\varepsilon_k-a_k|}{2^k}\le2\sum_{k>m_\varepsilon}2^{-k}=2\cdot2^{-m_\varepsilon}<r_\varepsilon .
+\]
+Par (f), $\su a\in F_{j_\varepsilon}$, et comme $n\ge j_\varepsilon$ : $\bigl|\sum_ka_kx^n_k\bigr|\le\varepsilon$. Or
+\[
+  \sum_ka_kx^n_k=\sum_{k=0}^{m_\varepsilon}a^\varepsilon_kx^n_k+\sum_{k>m_\varepsilon}|x^n_k| ,
+\]
+donc, puisque $|a^\varepsilon_k|\le1$,
+\[
+  \sum_{k>m_\varepsilon}|x^n_k|\le\varepsilon+\Bigl|\sum_{k=0}^{m_\varepsilon}a^\varepsilon_kx^n_k\Bigr|\le\varepsilon+\sum_{k=0}^{m_\varepsilon}|x^n_k| .
+\]
+En ajoutant $\sum_{k\le m_\varepsilon}|x^n_k|$ aux deux membres :
+\[
+  \norm{\su x^n}_1\le\varepsilon+2\sum_{k=0}^{m_\varepsilon}|x^n_k| .
+\]
+La suite $\su a$ dépend de $n$, mais $j_\varepsilon$ et $m_\varepsilon$ n'en dépendent pas : l'inégalité vaut pour tout $n\ge j_\varepsilon$.
+
+\medskip
+\noindent\textbf{(h)} Pour chaque $k$, la forme coordonnée $\pi_k$ est dans $\lun'$ (question 2(b)), donc la convergence faible vers $0$ donne $x^n_k=\pi_k(\su x^n)\to0$ quand $n\to\infty$. La somme \emph{finie} $\sum_{k=0}^{m_\varepsilon}|x^n_k|$, dont le nombre de termes ne dépend pas de $n$, tend donc vers $0$. En passant à la limite supérieure dans (g) :
+\[
+  \limsup_{n\to\infty}\norm{\su x^n}_1\le\varepsilon .
+\]
+Ceci vaut pour tout $\varepsilon>0$, donc $\norm{\su x^n}_1\to0$. Avec la réduction (d) et la question 2(c), on a démontré la propriété de Schur : dans $\lun$,
+\[
+  (\su x^n)_n\wk_n\su x\iff(\su x^n)_n\to_n\su x .
+\]
+\end{solution}
+
+\begin{piege}
+\textbf{Trois endroits où la rédaction peut déraper.}
+\begin{itemize}[leftmargin=*]
+  \item \emph{Question (b) : l'hypothèse « bornée » sert vraiment}, dans les deux majorations de queue de série (le facteur $M'$). Sans elle l'équivalence est fausse : $\su a^n:=n\,\su e^n$ vérifie $d(\su a^n,0)=n2^{-n}\to0$, mais n'est pas bornée dans $\linf$, donc ne peut pas converger préfaiblement (une suite préfaiblement convergente dans le dual d'un Banach est bornée, Corollaire~3.3).
+  \item \emph{Question (f) : l'intérieur est relatif à $(B,d)$.} On applique Baire dans l'espace métrique $(B,d)$, pas dans $\linf$ muni de sa norme ; la boule obtenue est $\{\su a\in B:d(\su a^\varepsilon,\su a)<r_\varepsilon\}$. C'est ce qui rend l'étape (g) possible : une boule pour $d$ ne contraint presque pas les coordonnées de grand indice, alors qu'une boule pour $\norm\cdot_\infty$ les contraindrait toutes.
+  \item \emph{Question (g) : l'ordre des quantificateurs.} $m_\varepsilon$ doit être choisi avant $n$ ; c'est la suite $\su a$ qui dépend de $n$. Si $m$ dépendait de $n$, la somme $\sum_{k\le m}|x^n_k|$ de la question (h) n'aurait plus de raison de tendre vers $0$.
+\end{itemize}
+\end{piege}
+
+\begin{pointcle}
+\textbf{L'idée de la preuve.} La convergence faible $(\su x^n)_n\wk0$ dit que, pour \emph{chaque} $\su a\in B$, on a $|\Phi_{\su a}(\su x^n)|\le\varepsilon$ à partir d'un rang $j$ qui dépend de $\su a$. La convergence forte demande un rang \emph{uniforme} en $\su a\in B$, puisque $\norm{\su x^n}_1=\sup_{\su a\in B}|\Phi_{\su a}(\su x^n)|$. Baire fournit cette uniformité sur une petite boule de $(B,d)$, et la structure de $d$ permet de la transporter : dans une boule pour $d$, on est libre de choisir toutes les coordonnées au-delà d'un rang $m_\varepsilon$, donc en particulier les signes de $\su x^n$. Les coordonnées restantes, en nombre fini, sont contrôlées par la convergence coordonnée par coordonnée. C'est le même mécanisme que dans la preuve de Banach--Steinhaus (Théorème~3.7) : du ponctuel à l'uniforme par Baire.
+\end{pointcle}
+
+\begin{commentaire}
+\textbf{Variantes et conséquences.}
+\begin{itemize}[leftmargin=*]
+  \item \emph{Question (c) par Banach--Alaoglu.} $\lun$ est séparable, donc toute suite bornée de $\lun'\simeq\linf$ admet une sous-suite préfaiblement convergente (Théorème~5.4) ; sa limite $\su a$ vérifie $|a_k|=\lim|a^{\psi(n)}_k|\le1$, donc reste dans $B$, et la question (b) traduit cette convergence en convergence pour $d$. L'extraction diagonale faite plus haut est exactement la preuve du Théorème~5.4 dans ce cas particulier. On peut aussi voir $(B,d)$ comme le produit dénombrable $[-1,1]^\N$ muni d'une distance produit.
+  \item \emph{Ce que dit le résultat.} Dans $\lun$, les suites faiblement convergentes et fortement convergentes sont les mêmes. On en déduit que $\lun$ n'est pas réflexif : dans un espace réflexif, toute suite bornée a une sous-suite faiblement convergente (TD5, Exercice~6), donc ici fortement convergente par Schur, et la boule unité fermée de $\lun$ serait compacte, ce qui contredit le Théorème~3.1 de Riesz puisque $\lun$ est de dimension infinie.
+  \item \emph{Pathologique, en quel sens ?} En dimension infinie, la situation normale est celle de $\cz$, de $\ell^p(\N)$ pour $1<p<\infty$ ou d'un Hilbert : la suite canonique converge faiblement vers $0$ sans converger fortement (question 1(d), TD0 ch.~5). L'espace $\lun$ est l'exemple classique d'espace de dimension infinie où cela n'arrive pas.
+  \item \emph{Autre preuve.} La démonstration classique, sans Baire, est celle de la « bosse glissante » : si $\norm{\su x^n}_1\not\to0$, on extrait une sous-suite dont les masses se concentrent sur des blocs d'indices disjoints, et l'on construit à la main un $\su a\in B$ (des signes, bloc par bloc) tel que $\Phi_{\su a}(\su x^n)\not\to0$.
+\end{itemize}
+\end{commentaire}
+
+\end{document}

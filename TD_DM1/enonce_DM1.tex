@@ -1,0 +1,151 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\wk}{\rightharpoonup}
+\newcommand{\wks}{\rightharpoonup^{\!\star}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\renewcommand{\Re}{\operatorname{Re}}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+\newcommand{\su}[1]{\underline{#1}}
+\newcommand{\linf}{\ell^\infty(\N)}
+\newcommand{\lun}{\ell^1(\N)}
+\newcommand{\cz}{c_0(\N)}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large Énoncé du devoir EAD n\textsuperscript{o}1 -- Convergence faible et propriété de Schur de $\ell^1(\N)$}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Transcription du sujet « Devoir EAD » distribué le 23 novembre 2026. Deux coquilles manifestes de l'original sont corrigées ici : l'en-tête porte le code « 4M005 » (lire 4MA305), et la question~3(d) note la suite « $(x_k)_k$ » avec le but « $\norm{x_k}_1\to_k0$ » (lire $(\su x^n)_n$ et $\norm{\su x^n}_1\to_n0$, conformément aux notations des questions (e) à (g)). Le corrigé se trouve dans \texttt{corrige\_DM1.tex}.
+\end{commentaire}
+
+\begin{exo}{Cadre et notations du sujet}
+Dans ce problème on s'intéresse à la notion de \emph{convergence faible} définie sur un espace de Banach (réel).
+
+\medskip
+\noindent\textbf{Définition.} Étant donné un espace de Banach $E$, on dit qu'une suite $(x^n)_n\in E^\N$ \emph{converge faiblement} vers un élément $x\in E$ si, pour tout élément $f\in E'$, on a $(f(x^n))_n\to_n f(x)$. Cette convergence est alors notée $(x^n)_n\wk_n x$. On dit que la suite $(x^n)_n$ \emph{converge fortement} vers $x\in E$ si la convergence a lieu usuellement pour la norme $\norm\cdot_E$ de $E$, i.e.\ $\norm{x-x^n}_E\to0$, ce que l'on notera classiquement $(x^n)_n\to_n x$.
+
+\medskip
+Pour manipuler les espaces de suites on adoptera la notation suivante : les suites sont notées avec un soulignement, les éléments de la suite sont notés avec des indices, alors que les éléments d'une suite de suites sont eux notés avec un exposant. On note donc $\su x:=(x_k)_k$ une suite et $(\su x^n)_n$ une suite de suites, avec $\su x^n=(x^n_k)_k$.
+\end{exo}
+
+\begin{exo}{Question 1 -- L'espace $c_0(\N)$}
+Soit $\cz$ l'ensemble des suites réelles convergentes vers $0$. Montrer les affirmations suivantes.
+\begin{enumerate}[label=(\alph*)]
+  \item Équipé de la norme $\norm\cdot_\infty$, $\cz$ est un espace de Banach dont le dual topologique s'identifie à $\lun$.
+  \item Une suite $(\su x^n)_n\in\cz^\N$ ne peut avoir au plus qu'une seule limite faible dans $\cz$. On note alors $(\su x^n)_n\wk_n\su x$ lorsqu'une telle limite existe.
+  \item Si une suite $(\su x^n)_n\in\cz^\N$ converge fortement, alors elle converge faiblement dans $\cz$.
+  \item Il existe $(\su x^n)_n\in\cz^\N$ qui converge faiblement mais pas fortement, dans $\cz$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Question 2 -- L'espace $\ell^1(\N)$}
+Reprendre les questions (a), (b) et (c) en remplaçant $\cz$ par $\lun$ et la norme idoine (et en précisant le dual topologique).
+\end{exo}
+
+\begin{exo}{Question 3 -- Propriété de Schur}
+Il n'est pas possible d'établir (d) pour $\lun$. Le reste du sujet se concentre sur cette propriété tout à fait \emph{pathologique} de l'espace $\lun$, appelée « propriété de Schur » : dans cet espace on a $(\su x^n)_n\wk_n\su x\iff(\su x^n)_n\to_n\su x$.
+\begin{enumerate}[label=(\alph*)]
+  \item Pour $\su a$ et $\su b$ deux éléments de $\linf$ on pose
+  \[
+    d(\su a,\su b):=\sum_{k\in\N}\frac{|a_k-b_k|}{2^k}.
+  \]
+  Démontrer que $d$ est une distance sur $\linf$.
+  \item Soit $(\su a^n)_n$ une suite bornée de $\linf$. Dans l'identification $\linf\simeq\lun'$, démontrer que $(\su a^n)_n$ converge faible-$\star$ vers $\su a\in\linf$ si et seulement si $(\su a^n)_n$ converge vers $\su a$ au sens de la distance $d$.
+  \item Soit $B$ la boule unité fermée de $\linf$. Démontrer que l'espace métrique $(B,d)$ est compact.
+  \item Montrer que pour établir la propriété de Schur de l'espace $\lun$, il suffit de traiter le cas d'une limite nulle. Par la suite on fixe donc $(\su x^n)_n\in\lun^\N$ convergeant faiblement vers $0$ et notre but est de montrer $\norm{\su x^n}_1\to_n0$.
+  \item Soit $\varepsilon>0$, fixé. Montrer, pour tout $j\in\N$, que l'ensemble $F_j$ ci-dessous est fermé dans $(B,d)$.
+  \[
+    F_j:=\Bigl\{\su a\in B:\ \forall n\ge j,\ \Bigl|\sum_{k\in\N}a_kx^n_k\Bigr|\le\varepsilon\Bigr\}
+  \]
+  \item En déduire l'existence de $j_\varepsilon\in\N$, $\su a^\varepsilon\in B$ et $r_\varepsilon>0$ pour lesquels
+  \[
+    \forall\,\su a\in B,\qquad d(\su a^\varepsilon,\su a)<r_\varepsilon\implies\su a\in F_{j_\varepsilon}.
+  \]
+  \item Montrer l'existence de $m_\varepsilon\in\N$ tel que
+  \[
+    \forall n\ge j_\varepsilon,\qquad\norm{\su x^n}_1\le\varepsilon+2\sum_{k=0}^{m_\varepsilon}|x^n_k|.
+  \]
+  \item Conclure.
+\end{enumerate}
+\end{exo}
+
+\end{document}
