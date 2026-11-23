@@ -90,10 +90,11 @@
 \maketitle
 
 \begin{commentaire}
-Feuille d'exercices sur le chapitre~5 du polycopié, complémentaire des exercices du poly et des développements du TD0. On note $V^\perp:=\{f\in E':f|_V=0\}$ l'annulateur d'un sous-espace $V$ ; le théorème de Hahn--Banach est admis dans sa version générale pour les espaces non séparables. Le corrigé détaillé est dans \texttt{corrige\_TD5.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative : 1, 2, 5 (fondamentaux) ; 3, 4, 8 (classiques d'examen) ; 6, 7 (plus longs).
+Feuille d'exercices sur le chapitre~5 du polycopié. La \textbf{partie A} (Exercices~1 à~8) est complémentaire des exercices du poly et des développements du TD0. La \textbf{partie B} reproduit la \textbf{feuille officielle} du TD n\textsuperscript{o}5 (Exercices officiels~1 à~6). La \textbf{partie C} (Exercices~9 à~12) prépare l'examen. On note $V^\perp:=\{f\in E':f|_V=0\}$ l'annulateur d'un sous-espace $V$ ; le théorème de Hahn--Banach est admis dans sa version générale pour les espaces non séparables. Le corrigé détaillé est dans \texttt{corrige\_TD5.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative, partie A : 1, 2, 5 (fondamentaux) ; 3, 4, 8 (classiques d'examen) ; 6, 7 (plus longs). Partie B : 1, 3, 6 (cours, à savoir refaire) ; 2, 4 (Hahn--Banach, courts) ; 5 (le plus proche d'un exercice d'examen).
 \end{commentaire}
 
-\section*{Dualité et Hahn--Banach}
+\section*{Partie A -- Exercices complémentaires}
+\subsection*{Dualité et Hahn--Banach}
 
 \begin{exo}{Exercice 1 -- Ce que donne Hahn--Banach}
 Soit $E$ un EVN séparable.
@@ -124,7 +125,7 @@ Soit $E$ un EVN séparable et $V$ un sous-espace fermé. On rappelle que $E/V$ e
 \end{enumerate}
 \end{exo}
 
-\section*{Convergences faibles}
+\subsection*{Convergences faibles}
 
 \begin{exo}{Exercice 4 -- Convergence faible dans $L^p$ : oscillation et concentration}
 Soit $1<p<\infty$ et $I=]0,1[$.
@@ -157,7 +158,7 @@ Soit $E$ un espace de Banach séparable. On dit que $E$ est réflexif si $J:E\to
 \end{enumerate}
 \end{exo}
 
-\section*{Théorème spectral (hors programme 2026--2027)}
+\subsection*{Théorème spectral (hors programme 2026--2027)}
 
 \begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales (hors programme 2026--2027)}
 Soit $K\in\Cz([0,1]^2;\R)$ symétrique ($K(x,y)=K(y,x)$) et, pour $f\in H:=L^2(]0,1[;\R)$, $T_Kf(x):=\int_0^1K(x,y)f(y)\,dy$.
@@ -183,7 +184,74 @@ Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjo
 \end{enumerate}
 \end{exo}
 
-\section*{Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
+% =====================================================================
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}5}
+
+\begin{commentaire}
+Les six exercices qui suivent sont ceux de la \textbf{feuille officielle} du TD n\textsuperscript{o}5 (« Dualités et convergences faibles »), numérotés comme sur la feuille. Les espaces y sont réels ; on note $\norm f_{E'}:=\sup_{\norm x_E=1}|f(x)|$ la norme duale et $\langle f,x\rangle:=f(x)$.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 1 -- Le dual en dimension finie}
+Soit $E$ un espace vectoriel sur $\R$ de dimension finie $N$ muni d'une norme $\norm\cdot_E$. Soit $(E',\norm\cdot_{E'})$ l'espace dual de $(E,\norm\cdot_E)$, où $\norm f_{E'}:=\sup_{x\in E,\,\norm x_E=1}|f(x)|$. Soit enfin $(e_i)_{i=1}^N$ une base de $E$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que la famille $(e_i^*)_{i=1}^N$, définie par
+  \[
+  \forall i\in\{1,\dots,N\},\ \forall x=\sum_{j=1}^Nx_je_j\in E,\qquad e_i^*(x)=x_i,
+  \]
+  est une base de $E'$ (appelée base duale de la base $(e_i)_{i=1}^N$). En déduire que $E'$ est un espace vectoriel de dimension $N$.
+  \item On munit $E$ de la norme définie par $\norm x_E=\norm x_1:=\sum_{i=1}^N|x_i|$ pour $x=\sum_{i=1}^Nx_ie_i$. Vérifier qu'il s'agit bien d'une norme. Déterminer explicitement $\norm\cdot_{E'}$.
+  \item Mêmes questions, $E$ étant maintenant muni de la norme $\norm x_E=\norm x_\infty:=\max_{1\le i\le N}|x_i|$.
+  \item Soit $1<p<\infty$. On munit $E$ de la norme $\norm x_E=\norm x_p:=\big(\sum_{i=1}^N|x_i|^p\big)^{1/p}$. Vérifier qu'il s'agit bien d'une norme. Déterminer explicitement $\norm\cdot_{E'}$.
+\end{enumerate}
+\end{exo}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 2 -- Formule duale de la norme}
+Soit $E$ un espace vectoriel normé. Montrer que, pour tout $x\in E$,
+\[
+\norm x_E=\sup_{\norm f_{E'}\le1}\langle f,x\rangle=\sup_{\norm f_{E'}=1}\langle f,x\rangle=\sup_{\norm f_{E'}\le1}|\langle f,x\rangle|=\sup_{f\ne0}\frac{|\langle f,x\rangle|}{\norm f_{E'}} .
+\]
+Montrer que les « sup » ci-dessus sont atteints.
+\end{exo}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 3 -- La convergence faible en dimension finie}
+Soit $(E,\norm\cdot_E)$ un espace vectoriel réel normé de dimension finie. Montrer qu'une suite de $E'$ converge $\star$-faiblement si et seulement si elle converge.
+
+\emph{Rappel :} une suite $(f_n)_{n\in\N}\subset E'$ converge $\star$-faiblement vers $f\in E'$ si, pour tout $x\in E$, $\lim_{n\to\infty}f_n(x)=f(x)$. Une suite $(f_n)_{n\in\N}\subset E'$ converge vers $f\in E'$ si $\lim_{n\to\infty}\norm{f_n-f}_{E'}=0$.
+\end{exo}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 4 -- Interpolation par une forme linéaire continue}
+Soit $E$ un espace vectoriel normé. Soient $x_1,\dots,x_n\in E$ linéairement indépendants et $r_1,\dots,r_n\in\R$. Montrer qu'il existe $f\in E'$ tel que $f(x_i)=r_i$ pour tout $i=1,\dots,n$.
+\end{exo}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 5 -- Stricte convexité du dual et unicité du prolongement}
+Soit $E$ un espace vectoriel normé et $S:=\{f\in E':\norm f_{E'}=1\}$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose que $E'$ est strictement convexe, c'est-à-dire,
+  \[
+  \forall f_1,f_2\in S,\qquad f_1\ne f_2\ \Rightarrow\ \tfrac12(f_1+f_2)\notin S .
+  \]
+  Soit $F$ un sous-espace vectoriel, $f\in F'$ et $\norm f_{F'}=1$. Montrer qu'il existe un unique $\tilde f\in E'$ avec $\norm{\tilde f}_{E'}=1$ et $\tilde f|_F=f$.
+  \item On suppose inversement qu'il existe $f_1\ne f_2$ satisfaisant $f_1,f_2\in S$ et $(f_1+f_2)/2\in S$. Montrer qu'il existe un sous-espace vectoriel $F$ de $E$ et $\varphi\in F'$ tels que $\varphi$ admet deux prolongements linéaires continus distincts sur $E$ de norme $\norm\varphi_{F'}$.
+  \item Trouver un exemple de prolongements multiples dans $L^1(\R)$.
+\end{enumerate}
+\end{exo}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 6 -- Convergence faible vs. convergence}
+Soit $(X',\norm\cdot)$ le dual d'un espace de Banach réel. La convergence et la convergence faible-$\star$ dans $X'$ sont notées respectivement $\to$ et $\wks$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f_n\to f\ \Rightarrow\ f_n\wks f$ et $\norm{f_n}\to\norm f$.
+  \item Montrer que toute suite convergente faiblement-$\star$ est bornée.
+  \item Montrer que $f_n\wks f\ \Rightarrow\ \norm f\le\liminf\norm{f_n}$.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie C -- Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
 
 \begin{commentaire}
 Ces quatre exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible ; l'Exercice~12 est un second vrai ou faux, entièrement au programme, sur la dualité, Hahn--Banach et les convergences faibles dans les espaces de suites et de fonctions. Les opérateurs compacts et le théorème spectral ne sont plus au programme en 2026--2027 : les exercices et questions qui en relèvent sont signalés « hors programme » et peuvent être laissés de côté pour l'examen.

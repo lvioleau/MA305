@@ -92,10 +92,11 @@
 \begin{commentaire}
 \textbf{Conventions.} $E$ désigne un EVN, $E'=\Lc(E,\K)$ son dual muni de $\opnorm\cdot$, $E''$ son bidual et $J:E\to E''$ l'injection canonique (Théorème~5.3). Pour $V\subset E$ on note $V^\perp:=\{f\in E':f|_V=0\}$ l'\emph{annulateur} de $V$ (sous-espace fermé de $E'$ ; dans un Hilbert, il correspond à l'orthogonal via Riesz). On utilise librement le théorème de Hahn--Banach (Théorème~5.2) ; pour un espace non séparable on admet sa version générale (Remarque~5.3). Les convergences faible ($\wk$, Définition~5.2) et préfaible ($\wks$, Définition~5.3), Banach--Alaoglu (Théorème~5.4), le théorème spectral (Théorème~5.5) et la dualité $L^p$ (Théorème~5.6) sont supposés connus.
 
-Cette feuille ne figure pas parmi les feuilles officielles du cours ; elle complète les exercices du polycopié et les développements du TD0 (dual de $c_0$, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité dans $L^q$). Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
+La \textbf{partie A} (Exercices~1 à~8) ne figure pas parmi les feuilles officielles du cours ; elle complète les exercices du polycopié et les développements du TD0 (dual de $c_0$, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité dans $L^q$). La \textbf{partie B} corrige les six exercices de la feuille officielle du TD n\textsuperscript{o}5, numérotés « Exercice officiel 1 » à « Exercice officiel 6 ». La \textbf{partie C} (Exercices~9 à~12) prépare l'examen. Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
 \end{commentaire}
 
-\section*{Dualité et Hahn--Banach}
+\section*{Partie A -- Exercices complémentaires}
+\subsection*{Dualité et Hahn--Banach}
 
 % =====================================================================
 \begin{exo}{Exercice 1 -- Ce que donne Hahn--Banach}
@@ -183,7 +184,7 @@ Soit $E$ un EVN séparable et $V$ un sous-espace fermé. On rappelle que $E/V$ e
 \textbf{Les deux identifications à retenir :} $(E/V)'\simeq V^\perp$ (les formes sur le quotient sont les formes qui tuent $V$) et $V'\simeq E'/V^\perp$ (les formes sur $V$ sont les formes sur $E$ modulo celles qui tuent $V$). Dans un Hilbert, $V^\perp$ est l'orthogonal et $E'/V^\perp\simeq(V^\perp)^\perp=V$ : les deux énoncés redonnent $H=V\oplus V^\perp$. Dans un Banach général, ils sont ce qui reste de la décomposition orthogonale — un quotient, pas un supplémentaire.
 \end{pointcle}
 
-\section*{Convergences faibles}
+\subsection*{Convergences faibles}
 
 % =====================================================================
 \begin{exo}{Exercice 4 -- Convergence faible dans $L^p$ : oscillation et concentration}
@@ -285,7 +286,7 @@ Soit $E$ un espace de Banach séparable. On dit que $E$ est réflexif si $J:E\to
 \textbf{Réflexif = on peut extraire.} Les espaces réflexifs sont ceux où la boule unité est faiblement séquentiellement compacte (question (b), et réciproque vraie, théorème d'Eberlein--Šmulian hors programme) ; les exemples du cours sont les Hilbert, $\ell^p$ et $L^p$ pour $1<p<\infty$ (Théorèmes~5.1 et 5.6, Remarque~5.16). Les contre-exemples sont $c_0$, $\ell^1$, $\ell^\infty$, $L^1$, $L^\infty$, $\Cz(K)$ : dans tous, on trouve une suite bornée dont la limite faible « n'existe pas dans l'espace » (question (d)), et une forme linéaire qui n'atteint pas sa norme (question (c), théorème de James pour la réciproque). La question (e) montre que la réflexivité passe aux sous-espaces fermés ; elle passe aussi aux quotients et au dual ($E$ réflexif $\iff E'$ réflexif), mais pas à un sous-espace muni d'une autre norme que la norme induite : $\ell^1\subset\ell^2$ n'hérite pas de la réflexivité de $\ell^2$.
 \end{pointcle}
 
-\section*{Théorème spectral (hors programme 2026--2027)}
+\subsection*{Théorème spectral (hors programme 2026--2027)}
 
 % =====================================================================
 \begin{exo}{Exercice 7 -- Opérateurs à noyau et équations intégrales (hors programme 2026--2027)}
@@ -350,7 +351,217 @@ Soit $H$ un Hilbert séparable de dimension infinie, $T$ un opérateur auto-adjo
 \textbf{Les valeurs propres sans les vecteurs propres.} Le principe du min-max caractérise chaque $\lambda_n$ par un problème d'optimisation sur la seule forme quadratique $x\mapsto\ps{Tx}x$, sans référence aux vecteurs propres des rangs précédents. C'est ce qui permet de \emph{comparer} des opérateurs ((d)), d'encadrer des valeurs propres par des sous-espaces test (méthode de Rayleigh--Ritz, base des méthodes numériques), et, pour les problèmes aux limites, de montrer que les valeurs propres du laplacien décroissent quand le domaine grossit. La question (a) est le TD4 ex.~7 (b,d) sous une autre forme : pour un opérateur positif, $\opnorm T=\lambda_1=\max\mathcal R$.
 \end{pointcle}
 
-\section*{Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
+% =====================================================================
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}5}
+
+\begin{commentaire}
+Les six exercices qui suivent sont ceux de la \textbf{feuille officielle} du TD n\textsuperscript{o}5 (« Dualités et convergences faibles »), numérotés comme sur la feuille. Les espaces y sont réels ; on note $\norm f_{E'}:=\sup_{\norm x_E=1}|f(x)|$ la norme duale (notée $\opnorm f$ dans la partie A) et $\langle f,x\rangle:=f(x)$. Plusieurs recoupent la partie A : l'officiel~2 est l'Exercice~1(a), l'officiel~5 prolonge l'Exercice~3(c), l'officiel~6 est la version préfaible de la question de cours~9(b). On en donne néanmoins une correction complète, pour que cette partie soit autonome. Le théorème de Hahn--Banach (Théorème~5.2) est utilisé sans hypothèse de séparabilité, comme l'autorise la Remarque~5.3.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 1 -- Le dual en dimension finie}
+Soit $E$ un espace vectoriel sur $\R$ de dimension finie $N$ muni d'une norme $\norm\cdot_E$. Soit $(E',\norm\cdot_{E'})$ l'espace dual de $(E,\norm\cdot_E)$, où $\norm f_{E'}:=\sup_{x\in E,\,\norm x_E=1}|f(x)|$. Soit enfin $(e_i)_{i=1}^N$ une base de $E$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que la famille $(e_i^*)_{i=1}^N$, définie par
+  \[
+  \forall i\in\{1,\dots,N\},\ \forall x=\sum_{j=1}^Nx_je_j\in E,\qquad e_i^*(x)=x_i,
+  \]
+  est une base de $E'$ (appelée base duale de la base $(e_i)_{i=1}^N$). En déduire que $E'$ est un espace vectoriel de dimension $N$.
+  \item On munit $E$ de la norme définie par $\norm x_E=\norm x_1:=\sum_{i=1}^N|x_i|$ pour $x=\sum_{i=1}^Nx_ie_i$. Vérifier qu'il s'agit bien d'une norme. Déterminer explicitement $\norm\cdot_{E'}$.
+  \item Mêmes questions, $E$ étant maintenant muni de la norme $\norm x_E=\norm x_\infty:=\max_{1\le i\le N}|x_i|$.
+  \item Soit $1<p<\infty$. On munit $E$ de la norme $\norm x_E=\norm x_p:=\big(\sum_{i=1}^N|x_i|^p\big)^{1/p}$. Vérifier qu'il s'agit bien d'une norme. Déterminer explicitement $\norm\cdot_{E'}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Chaque $e_i^*$ est une forme linéaire sur $E$ ; elle est continue parce que $E$ est de dimension finie (toute application linéaire y est continue : c'est une conséquence du Corollaire~2.1, détaillée dans le TD0, Contre-exemple~2.1(a)). Donc $e_i^*\in E'$, et $E'$ est l'espace de \emph{toutes} les formes linéaires sur $E$.
+
+\emph{Libre.} Si $\sum_i\lambda_ie_i^*=0$, on évalue en $e_j$ : comme $e_i^*(e_j)=\delta_{ij}$, il reste $\lambda_j=0$.
+
+\emph{Génératrice.} Pour $f\in E'$ et $x=\sum_jx_je_j$, la linéarité donne
+\[
+f(x)=\sum_{j=1}^Nx_jf(e_j)=\sum_{j=1}^Nf(e_j)\,e_j^*(x),\qquad\text{soit}\qquad f=\sum_{j=1}^Na_j\,e_j^*\quad\text{avec }a_j:=f(e_j) .
+\]
+La famille est une base de $E'$, qui est donc de dimension $N$. Dans toute la suite on note $a=(a_1,\dots,a_N)$ les coordonnées de $f$ dans la base duale, de sorte que $f(x)=\sum_ia_ix_i$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Norme.} $\norm x_1=0$ force tous les $x_i$ nuls ; $\norm{\lambda x}_1=|\lambda|\norm x_1$ ; et $|x_i+y_i|\le|x_i|+|y_i|$ se somme en $\norm{x+y}_1\le\norm x_1+\norm y_1$.
+
+\emph{Norme duale.} Pour $\norm x_1=1$,
+\[
+|f(x)|\le\sum_i|a_i|\,|x_i|\le\max_i|a_i|\,\sum_i|x_i|=\max_i|a_i| .
+\]
+L'égalité est atteinte : si $i_0$ réalise le maximum, $x:=e_{i_0}$ est de norme $1$ et $|f(e_{i_0})|=|a_{i_0}|$. Donc $\norm f_{E'}=\max_i|a_i|=\norm a_\infty$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Norme.} Séparation et homogénéité sont claires, et $|x_i+y_i|\le\norm x_\infty+\norm y_\infty$ pour tout $i$.
+
+\emph{Norme duale.} Pour $\norm x_\infty=1$, $|f(x)|\le\sum_i|a_i|\,|x_i|\le\sum_i|a_i|$. Égalité pour le vecteur de coordonnées $x_i:=\sgn(a_i)$ (avec $\sgn(0):=1$), de norme $1$ : $f(x)=\sum_i|a_i|$. Donc $\norm f_{E'}=\sum_i|a_i|=\norm a_1$.
+
+\medskip
+\noindent\textbf{(d)} Notons $p':=\frac p{p-1}$ l'exposant conjugué.
+
+\emph{Norme.} Séparation et homogénéité sont claires. Pour l'inégalité triangulaire (Minkowski, Proposition~2.1), on écrit
+\[
+\sum_i|x_i+y_i|^p\le\sum_i|x_i|\,|x_i+y_i|^{p-1}+\sum_i|y_i|\,|x_i+y_i|^{p-1}
+\]
+et l'on applique l'inégalité de Hölder (Lemme~2.1) à chaque somme ; comme $(p-1)p'=p$,
+\[
+\norm{x+y}_p^p\le\big(\norm x_p+\norm y_p\big)\Big(\sum_i|x_i+y_i|^p\Big)^{1/p'}=\big(\norm x_p+\norm y_p\big)\norm{x+y}_p^{p-1},
+\]
+d'où $\norm{x+y}_p\le\norm x_p+\norm y_p$ après division (le cas $x+y=0$ est trivial).
+
+\emph{Norme duale.} Par Hölder, $|f(x)|\le\sum_i|a_i||x_i|\le\norm a_{p'}\norm x_p$, donc $\norm f_{E'}\le\norm a_{p'}$. Pour l'égalité (cas $a\ne0$), on prend le vecteur qui sature Hölder : $x_i:=\sgn(a_i)|a_i|^{p'-1}$. Alors
+\[
+f(x)=\sum_i|a_i|^{p'}=\norm a_{p'}^{p'},\qquad\norm x_p^p=\sum_i|a_i|^{(p'-1)p}=\sum_i|a_i|^{p'}=\norm a_{p'}^{p'},
+\]
+car $(p'-1)p=p'$. Donc $\dfrac{f(x)}{\norm x_p}=\norm a_{p'}^{p'-p'/p}=\norm a_{p'}$, puisque $p'-\frac{p'}p=p'\big(1-\frac1p\big)=1$. Ainsi $\norm f_{E'}=\norm a_{p'}$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le dual de $(\R^N,\norm\cdot_p)$ est $(\R^N,\norm\cdot_{p'})$}, pour tout $p\in[1,\infty]$ : c'est la version en dimension finie du Théorème~5.1. La méthode est toujours la même et sert telle quelle dans $\ell^p$ et $L^p$ : (1) majorer par Hölder ; (2) exhiber le vecteur qui \emph{sature} Hölder, $x=\sgn(a)|a|^{p'-1}$, ce qui est aussi la preuve du Lemme~2.2. En dimension finie les cas $p=1$ et $p=\infty$ sont symétriques. En dimension infinie la symétrie se brise : $(\ell^1)'=\ell^\infty$, mais $(\ell^\infty)'\supsetneq\ell^1$ (Exercice~11, question~12) ; et la borne de (b), qui devient un supremum, n'est plus forcément atteinte (TD3 ex.~8).
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 2 -- Formule duale de la norme}
+Soit $E$ un espace vectoriel normé. Montrer que, pour tout $x\in E$,
+\[
+\norm x_E=\sup_{\norm f_{E'}\le1}\langle f,x\rangle=\sup_{\norm f_{E'}=1}\langle f,x\rangle=\sup_{\norm f_{E'}\le1}|\langle f,x\rangle|=\sup_{f\ne0}\frac{|\langle f,x\rangle|}{\norm f_{E'}} .
+\]
+Montrer que les « sup » ci-dessus sont atteints.
+\end{exo}
+
+\begin{solution}
+On suppose $E\ne\{0\}$ (sinon $E'=\{0\}$ et deux des ensembles sont vides). Notons $s_1,s_2,s_3,s_4$ les quatre bornes supérieures, dans l'ordre.
+
+\emph{Majoration.} Pour toute $f\in E'$, $\langle f,x\rangle\le|\langle f,x\rangle|\le\norm f_{E'}\norm x_E$. Chacune des quatre quantités est donc $\le\norm x_E$.
+
+\emph{Minoration, cas $x\ne0$.} Sur la droite $D:=\R x$, la forme $g(tx):=t\norm x_E$ est linéaire et $|g(tx)|=\norm{tx}_E$, donc $\norm g_{D'}=1$. Par le théorème de Hahn--Banach (Théorème~5.2), elle se prolonge en $f_0\in E'$ avec
+\[
+\norm{f_0}_{E'}=1\qquad\text{et}\qquad\langle f_0,x\rangle=\norm x_E .
+\]
+Cette forme $f_0$ appartient aux quatre ensembles sur lesquels on prend les bornes supérieures, et y donne à chaque fois la valeur $\norm x_E$. Avec la majoration : $s_1=s_2=s_3=s_4=\norm x_E$, et les quatre bornes sont atteintes en $f_0$.
+
+\emph{Cas $x=0$.} Les quatre quantités valent $0$, atteintes en n'importe quel élément des ensembles considérés, qui sont non vides : $E'\ne\{0\}$ par ce qui précède appliqué à un vecteur non nul.
+\end{solution}
+
+\begin{piege}
+\textbf{Les deux formules de la norme ne sont pas symétriques.} Par \emph{définition}, $\norm f_{E'}=\sup_{\norm x\le1}|f(x)|$, et cette borne n'est pas toujours atteinte (Exercice~12, question~3 ; elle l'est dans un espace réflexif, Exercice~6(c)). Par \emph{Hahn--Banach}, $\norm x_E=\sup_{\norm f\le1}|f(x)|$, et cette borne est \emph{toujours} atteinte. Sans Hahn--Banach on ne saurait même pas que $E'\ne\{0\}$. Cette formule dit que l'injection canonique $J:E\to E''$ est une isométrie (Théorème~5.3).
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 3 -- La convergence faible en dimension finie}
+Soit $(E,\norm\cdot_E)$ un espace vectoriel réel normé de dimension finie. Montrer qu'une suite de $E'$ converge $\star$-faiblement si et seulement si elle converge.
+
+\emph{Rappel :} une suite $(f_n)_{n\in\N}\subset E'$ converge $\star$-faiblement vers $f\in E'$ si, pour tout $x\in E$, $\lim_{n\to\infty}f_n(x)=f(x)$. Une suite $(f_n)_{n\in\N}\subset E'$ converge vers $f\in E'$ si $\lim_{n\to\infty}\norm{f_n-f}_{E'}=0$.
+\end{exo}
+
+\begin{solution}
+\emph{($\Leftarrow$)} Vrai dans tout EVN : $|f_n(x)-f(x)|\le\norm{f_n-f}_{E'}\norm x_E\to0$.
+
+\emph{($\Rightarrow$)} Soit $(e_i)_{i=1}^N$ une base de $E$ et $(e_i^*)$ sa base duale (Exercice officiel~1(a)). Pour toute $g\in E'$, $g=\sum_ig(e_i)e_i^*$, donc
+\[
+\norm{f_n-f}_{E'}\le\sum_{i=1}^N\big|f_n(e_i)-f(e_i)\big|\,\norm{e_i^*}_{E'} .
+\]
+Si $f_n\wks f$, chacun des $N$ termes tend vers $0$ (convergence au point $e_i$), et la somme est \emph{finie} : $\norm{f_n-f}_{E'}\to0$. Les deux convergences ont de plus la même limite.
+\end{solution}
+
+\begin{commentaire}
+\textbf{Autre lecture.} $g\mapsto\max_i|g(e_i)|$ est une norme sur $E'$, de dimension finie, donc équivalente à $\norm\cdot_{E'}$ (Corollaire~2.1) : la convergence préfaible, qui n'est que la convergence « coordonnée par coordonnée », coïncide avec la convergence en norme. Le même argument montre que dans $E$ la convergence faible est la convergence forte. C'est une caractérisation de la dimension finie dans le cadre hilbertien (Proposition~4.8, Exercice~4.11) : dans $\ell^2$, $e_n\wk0$ sans converger. Le point qui casse en dimension infinie est la somme finie ci-dessus.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 4 -- Interpolation par une forme linéaire continue}
+Soit $E$ un espace vectoriel normé. Soient $x_1,\dots,x_n\in E$ linéairement indépendants et $r_1,\dots,r_n\in\R$. Montrer qu'il existe $f\in E'$ tel que $f(x_i)=r_i$ pour tout $i=1,\dots,n$.
+\end{exo}
+
+\begin{solution}
+Soit $F:=\Vect(x_1,\dots,x_n)$. Les $x_i$ étant linéairement indépendants, ils forment une base de $F$, et il existe une unique forme linéaire $g:F\to\R$ telle que $g(x_i)=r_i$ pour tout $i$. Comme $F$ est de dimension finie, $g$ est continue : $g\in F'$. Par le théorème de Hahn--Banach (Théorème~5.2), $g$ se prolonge en $f\in E'$ (avec $\norm f_{E'}=\norm g_{F'}$, ce qui ne sert pas ici). Alors $f(x_i)=g(x_i)=r_i$.
+\end{solution}
+
+\begin{commentaire}
+\textbf{Où sert chaque hypothèse.} L'indépendance linéaire sert à \emph{définir} $g$ : si par exemple $x_3=x_1+x_2$, il faut $r_3=r_1+r_2$. La dimension finie de $F$ donne la continuité de $g$ gratuitement. Hahn--Banach fait le reste.
+
+\textbf{Variante.} Avec l'Exercice~1(b) : pour chaque $i$, $V_i:=\Vect(x_j:j\ne i)$ est fermé (dimension finie) et ne contient pas $x_i$, donc $d_i:=\dist(x_i,V_i)>0$ et il existe $f_i\in E'$ nulle sur $V_i$ avec $f_i(x_i)=d_i$. Alors $f:=\sum_i\frac{r_i}{d_i}f_i$ convient. Les formes $\frac1{d_i}f_i$ vérifient $\frac1{d_i}f_i(x_j)=\delta_{ij}$ : c'est une « base duale » de $(x_i)$ formée de formes continues sur $E$ tout entier, généralisation de l'Exercice officiel~1(a).
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 5 -- Stricte convexité du dual et unicité du prolongement}
+Soit $E$ un espace vectoriel normé et $S:=\{f\in E':\norm f_{E'}=1\}$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose que $E'$ est strictement convexe, c'est-à-dire,
+  \[
+  \forall f_1,f_2\in S,\qquad f_1\ne f_2\ \Rightarrow\ \tfrac12(f_1+f_2)\notin S .
+  \]
+  Soit $F$ un sous-espace vectoriel, $f\in F'$ et $\norm f_{F'}=1$. Montrer qu'il existe un unique $\tilde f\in E'$ avec $\norm{\tilde f}_{E'}=1$ et $\tilde f|_F=f$.
+  \item On suppose inversement qu'il existe $f_1\ne f_2$ satisfaisant $f_1,f_2\in S$ et $(f_1+f_2)/2\in S$. Montrer qu'il existe un sous-espace vectoriel $F$ de $E$ et $\varphi\in F'$ tels que $\varphi$ admet deux prolongements linéaires continus distincts sur $E$ de norme $\norm\varphi_{F'}$.
+  \item Trouver un exemple de prolongements multiples dans $L^1(\R)$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Existence.} C'est le théorème de Hahn--Banach (Théorème~5.2).
+
+\emph{Unicité.} Soient $g_1,g_2\in E'$ deux prolongements de $f$ de norme $1$, et $h:=\frac12(g_1+g_2)$. D'une part $\norm h_{E'}\le\frac12(\norm{g_1}_{E'}+\norm{g_2}_{E'})=1$. D'autre part $h$ prolonge encore $f$, et la norme d'un prolongement est au moins celle de la forme prolongée (le sup est pris sur un ensemble plus grand) : $\norm h_{E'}\ge\norm f_{F'}=1$. Donc $h\in S$, avec $g_1,g_2\in S$ : la stricte convexité impose $g_1=g_2$.
+
+\medskip
+\noindent\textbf{(b)} Posons $g:=f_1-f_2\ne0$, $F:=\Ker g$ (sous-espace de $E$) et $\varphi:=f_1|_F=f_2|_F$. Les formes $f_1$ et $f_2$ sont deux prolongements distincts de $\varphi$, de norme $1$. Il reste à montrer que $\norm\varphi_{F'}=1$ ; on a déjà $\norm\varphi_{F'}\le\norm{f_1}_{E'}=1$.
+
+Notons $f_0:=\frac12(f_1+f_2)$, qui coïncide aussi avec $\varphi$ sur $F$, et fixons $y\in E$ avec $g(y)=1$. Soit $\varepsilon>0$. Comme $\norm{f_0}_{E'}=1$, il existe $x$ avec $\norm x_E=1$ et $f_0(x)>1-\varepsilon$, soit $f_1(x)+f_2(x)>2-2\varepsilon$. Chacun des deux termes étant $\le1$, chacun est $>1-2\varepsilon$, donc
+\[
+|g(x)|=|f_1(x)-f_2(x)|<2\varepsilon .
+\]
+Autrement dit $x$ est \emph{presque} dans $F$. On le corrige : $x':=x-g(x)\,y$ vérifie $g(x')=0$, donc $x'\in F$, et $\norm{x'-x}_E\le2\varepsilon\norm y_E$. Alors
+\[
+\varphi(x')=f_0(x')\ge f_0(x)-\norm{x'-x}_E>1-\varepsilon-2\varepsilon\norm y_E,\qquad\norm{x'}_E\le1+2\varepsilon\norm y_E .
+\]
+Donc $\norm\varphi_{F'}\ge\dfrac{1-\varepsilon-2\varepsilon\norm y_E}{1+2\varepsilon\norm y_E}$ pour tout $\varepsilon>0$, et en faisant $\varepsilon\to0$ (le vecteur $y$ ne dépend pas de $\varepsilon$) : $\norm\varphi_{F'}\ge1$. Finalement $\norm\varphi_{F'}=1=\norm{f_1}_{E'}=\norm{f_2}_{E'}$.
+
+\medskip
+\noindent\textbf{(c)} Dans $E=L^1(\R)$, soit $F:=\{u\in L^1(\R):u=0\text{ p.p. hors de }[0,1]\}$ et $\varphi(u):=\int_0^1u$ pour $u\in F$. On a $|\varphi(u)|\le\norm u_1$, avec égalité pour $u=\mathbf 1_{[0,1]}$ : $\norm\varphi_{F'}=1$. Pour toute $h\in L^\infty(\R)$ avec $h=1$ sur $[0,1]$ et $\norm h_\infty=1$, la forme
+\[
+\Phi_h(u):=\int_\R u\,h
+\]
+est continue sur $L^1(\R)$, de norme $\norm h_\infty=1$ (Théorème~5.6), et prolonge $\varphi$. Les choix $h_1:=\mathbf 1_{[0,1]}$ et $h_2:=\mathbf 1_\R$ donnent deux prolongements distincts de même norme : $\Phi_{h_1}(u)=\int_0^1u$ et $\Phi_{h_2}(u)=\int_\R u$. Il y en a une infinité (prendre pour $h$ n'importe quelle fonction de module $\le1$ hors de $[0,1]$).
+\end{solution}
+
+\begin{pointcle}
+\textbf{L'unicité dans Hahn--Banach est une propriété géométrique du dual.} (a) et (b) disent ensemble : \emph{tout prolongement de même norme est unique si et seulement si la sphère unité de $E'$ ne contient aucun segment}. En (c), $E'=L^\infty$ n'est pas strictement convexe ($h_1$, $h_2$ et leur milieu sont de norme $1$), comme $(\R^2,\norm\cdot_\infty)$, dual de $(\R^2,\norm\cdot_1)$, à l'Exercice~3(c). À l'inverse, le dual d'un Hilbert est strictement convexe (identité du parallélogramme, TD4, Exercice~12, question~2), et l'on retrouve l'unicité de l'Exercice~3(c) ; il en va de même pour $L^p$, $1<p<\infty$.
+\end{pointcle}
+
+\begin{methode}
+\textbf{Le schéma de (b), à retenir.} Pour montrer qu'une borne supérieure prise sur un sous-espace $F=\Ker g$ est aussi grande que sur $E$ : prendre un vecteur presque optimal $x$ dans $E$, montrer que $g(x)$ est petit, puis le \emph{corriger} en $x-g(x)y$ avec $y$ fixé tel que $g(y)=1$. La correction coûte $|g(x)|\,\norm y$, qui tend vers $0$. La même correction a servi à montrer qu'une forme linéaire discontinue a un noyau dense (TD0, Contre-exemple~2.1(c)).
+\end{methode}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exercice officiel 6 -- Convergence faible vs. convergence}
+Soit $(X',\norm\cdot)$ le dual d'un espace de Banach réel. La convergence et la convergence faible-$\star$ dans $X'$ sont notées respectivement $\to$ et $\wks$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f_n\to f\ \Rightarrow\ f_n\wks f$ et $\norm{f_n}\to\norm f$.
+  \item Montrer que toute suite convergente faiblement-$\star$ est bornée.
+  \item Montrer que $f_n\wks f\ \Rightarrow\ \norm f\le\liminf\norm{f_n}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Pour $x\in X$, $|f_n(x)-f(x)|\le\norm{f_n-f}\,\norm x\to0$ : $f_n\wks f$. Et par l'inégalité triangulaire renversée, $\big|\norm{f_n}-\norm f\big|\le\norm{f_n-f}\to0$.
+
+\medskip
+\noindent\textbf{(b)} Soit $f_n\wks f$. Pour chaque $x\in X$, la suite réelle $(f_n(x))_n$ converge, donc est bornée : $\sup_n|f_n(x)|<\infty$. Les $f_n$ sont des applications linéaires continues de l'espace de \emph{Banach} $X$ dans $\R$, ponctuellement bornées : par le théorème de Banach--Steinhaus (Théorème~3.7), $\sup_n\norm{f_n}<\infty$.
+
+\medskip
+\noindent\textbf{(c)} Soit $x\in X$ avec $\norm x\le1$. Pour tout $n$, $|f_n(x)|\le\norm{f_n}$, donc en passant à la limite inférieure, le membre de gauche convergeant vers $|f(x)|$ :
+\[
+|f(x)|=\lim_{n\to\infty}|f_n(x)|\le\liminf_{n\to\infty}\norm{f_n} .
+\]
+Le membre de droite ne dépend pas de $x$ : on prend le supremum sur la boule unité, $\norm f\le\liminf\norm{f_n}$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{C'est la Proposition~5.7 du poly}, et le pendant préfaible de la Proposition~5.5 (question de cours~9(b)). Trois remarques. (1) Seule la question (b) utilise la complétude de $X$ ; sans elle c'est faux (Exercice~11, question~11). (2) L'inégalité (c) peut être stricte : dans $\ell^2$, $e_n\wk0$ et $\norm{e_n}=1$. La norme est \emph{semi-continue inférieurement} pour la convergence préfaible, pas continue ; comparer avec (a). (3) Le piège de rédaction en (c) : on ne sait pas que $\norm{f_n}$ converge, d'où la limite inférieure ; et il faut majorer $|f(x)|$ pour $x$ fixé \emph{avant} de prendre le supremum.
+\end{pointcle}
+
+\section*{Partie C -- Vers l'examen : questions de cours, opérateurs compacts, vrai ou faux}
 
 \begin{commentaire}
 Ces quatre exercices complètent la feuille dans l'optique de l'examen. L'Exercice~9 fait restituer les preuves du chapitre~5 ; l'Exercice~10 démontre la caractérisation des opérateurs compacts annoncée en note de la Proposition~5.8 et en tire les propriétés de stabilité ; l'Exercice~11 est un vrai ou faux sur les pièges des convergences faible et préfaible ; l'Exercice~12 est un second vrai ou faux, entièrement au programme, sur la dualité, Hahn--Banach et les convergences faibles dans les espaces de suites et de fonctions. Les opérateurs compacts et le théorème spectral ne sont plus au programme en 2026--2027 : les exercices et questions qui en relèvent sont signalés « hors programme » et peuvent être laissés de côté pour l'examen.
