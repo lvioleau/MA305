@@ -1,0 +1,258 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}2 -- Espaces vectoriels normés (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~2 du polycopié. La \textbf{partie A} (Exercices~1 à~6) est complémentaire des exercices du poly (corrigés dans le TD0). La \textbf{partie B} reproduit la \textbf{feuille officielle} du TD n\textsuperscript{o}2 (Exercices officiels~1 à~9). La \textbf{partie C} (Exercices~7 et~8) prépare l'examen. Le corrigé détaillé est dans \texttt{corrige\_TD2.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative, partie A : 1, 2, 5 (fondamentaux) ; 3, 4, 6 (classiques d'examen). Partie B : 1, 2, 6 (cours) ; 3, 4, 8, 9 (à savoir refaire) ; 5, 7 (plus longs).
+\end{commentaire}
+
+\section*{Partie A -- Exercices complémentaires}
+
+\begin{exo}{Exercice 1 -- Normes d'opérateur des matrices}
+Soit $A=(a_{ij})\in M_d(\K)$, identifiée à l'endomorphisme $x\mapsto Ax$ de $\K^d$. Pour une norme $\norm\cdot$ sur $\K^d$, on note $\opnorm A$ la norme d'opérateur associée (même norme au départ et à l'arrivée).
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que pour $\norm\cdot_\infty$, $\opnorm A_\infty=\max_i\sum_j|a_{ij}|$ (plus grande somme en ligne).
+  \item Montrer que pour $\norm\cdot_1$, $\opnorm A_1=\max_j\sum_i|a_{ij}|$ (plus grande somme en colonne).
+  \item Montrer que toute norme d'opérateur vérifie $\opnorm{AB}\le\opnorm A\,\opnorm B$, et que toute valeur propre $\lambda$ de $A$ vérifie $|\lambda|\le\opnorm A$. Application : encadrer les valeurs propres de $\begin{pmatrix}1&2\\3&4\end{pmatrix}$.
+  \item Montrer que pour la norme euclidienne $\norm\cdot_2$, $\opnorm A_2\le\big(\sum_{i,j}|a_{ij}|^2\big)^{1/2}$, et que l'inégalité peut être stricte.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Norme d'un opérateur de multiplication et d'un opérateur intégral}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $a\in\ell^\infty(\N)$ et $1\le p\le\infty$. Montrer que $M_a:u\mapsto(a_nu_n)_n$ est un opérateur de $\ell^p(\N)$ et que $\opnorm{M_a}=\norm a_\infty$.
+  \item Pour $p<\infty$, montrer que la norme de $M_a$ est atteinte si et seulement si $\sup_n|a_n|$ est atteint. Que se passe-t-il pour $p=\infty$ ?
+  \item Soit $k\in\Cz([0,1]^2;\R)$ et $Tf(x):=\int_0^1k(x,y)f(y)\,dy$ pour $f\in E:=\Cz([0,1];\R)$ muni de la norme uniforme. Montrer que $T\in\Lc(E)$ et que $\opnorm T\le M:=\max_{x\in[0,1]}\int_0^1|k(x,y)|\,dy$.
+  \item Montrer que $\opnorm T=M$. \emph{Indication : si $x_0$ réalise le maximum, tester $f_\varepsilon(y):=\dfrac{k(x_0,y)}{|k(x_0,y)|+\varepsilon}$.}
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 -- Formes linéaires et hyperplans}
+Soit $E$ un EVN, $f:E\to\K$ une forme linéaire non nulle et $H:=\Ker f$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $H$ est soit fermé, soit dense dans $E$.
+  \item Montrer que $f$ est continue si et seulement si $H$ est fermé.
+  \item On suppose $f$ continue. Montrer que pour tout $x\in E$, $\dist(x,H)=\dfrac{|f(x)|}{\opnorm f}$.
+  \item Montrer que, pour $x\notin H$, la distance $\dist(x,H)$ est atteinte si et seulement si $f$ atteint sa norme sur la sphère unité. Étudier l'exemple $E=c_0(\N)$, $f(u):=\sum_n2^{-n-1}u_n$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 4 -- Meilleure approximation dans un sous-espace de dimension finie}
+Soit $E$ un EVN, $F$ un sous-espace de dimension finie et $x\in E$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer qu'il existe $y\in F$ tel que $\norm{x-y}=\dist(x,F)$.
+  \item En déduire que $F$ est fermé dans $E$.
+  \item Montrer par un exemple dans $(\R^2,\norm\cdot_\infty)$ que $y$ n'est pas unique en général. Montrer qu'il est unique si la norme est \emph{strictement convexe} : $\norm u=\norm v=1$ et $u\ne v$ entraînent $\norm{\frac{u+v}2}<1$.
+  \item Soit $f\in\Cz([0,1];\R)$ et $n\in\N$. Montrer qu'il existe un polynôme de degré $\le n$ réalisant la meilleure approximation uniforme de $f$, et que l'erreur $E_n(f):=\dist\big(f,\R_n[x]\big)$ décroît vers $0$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 5 -- L'espace $c$ des suites convergentes}
+On note $c$ l'ensemble des suites $u\in\K^\N$ convergentes, muni de $\norm\cdot_\infty$, et $\mathbf 1$ la suite constante égale à $1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $c$ est un sous-espace fermé de $\ell^\infty(\N)$.
+  \item Montrer que $L:u\mapsto\lim_nu_n$ est une forme linéaire continue sur $c$, calculer sa norme, et montrer que $c=c_0(\N)\oplus\K\mathbf 1$.
+  \item Montrer que $c_0(\N)$ et $c$ sont séparables.
+  \item Soit $\Phi:c\to c_0(\N)$ définie par $\Phi(u):=\big(L(u),u_0-L(u),u_1-L(u),\dots\big)$. Montrer que $\Phi$ est linéaire, bijective, continue et d'inverse continu.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 6 -- Applications du théorème de Stone--Weierstrass}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{(Problème des moments.)} Soit $f\in\Cz([0,1];\R)$ telle que $\int_0^1f(x)x^n\,dx=0$ pour tout $n\in\N$. Montrer que $f=0$.
+  \item Même question en supposant seulement $\int_0^1f(x)x^{2n}\,dx=0$ pour tout $n\in\N$. Le résultat subsiste-t-il sur $[-1,1]$ ?
+  \item Montrer que les fonctions de la forme $(x,y)\mapsto\sum_{i=1}^Nu_i(x)v_i(y)$, avec $u_i,v_i\in\Cz([0,1];\R)$, sont denses dans $\Cz([0,1]^2;\R)$.
+  \item Montrer par des exemples que chacune des deux hypothèses « unitaire » et « séparant les points » est nécessaire. Montrer que les polynômes en $z$ ne sont pas denses dans $\Cz(\Sun;\C)$.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}2}
+
+\begin{exo}{Exercice officiel 1 -- Pas de Banach à base dénombrable}
+Montrer qu'un espace vectoriel possédant une base infinie dénombrable n'est complet pour aucune norme (on pourra admettre qu'un sous-espace de dimension finie est toujours fermé).
+\end{exo}
+
+\begin{exo}{Exercice officiel 2 -- Distance associée à une norme ; compacts de $\R^d$}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $(E,\norm\cdot)$ est un espace normé, l'application $(x,y)\mapsto\norm{x-y}$ est une distance.
+  \item On munit $\R^d$ de la norme euclidienne $\norm x=(\sum_{i=1}^d|x_i|^2)^{1/2}$. Montrer que tout sous-ensemble fermé borné est compact.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 3 (Exercice 2.2 du poly) -- Suite exhaustive de compacts}
+Soit $O$ un ouvert de $\R^d$, $F$ son complémentaire et $B_n$ la boule fermée de rayon $n$ centrée en l'origine. Montrer que les ensembles
+\[
+K_n:=B_n\cap\{x\in O : d(F,x)\ge1/n\}
+\]
+forment une suite croissante de compacts tous contenus dans $O$ et le recouvrant.
+\end{exo}
+
+\begin{exo}{Exercice officiel 4 -- La distance de la convergence uniforme sur tout compact}
+Soit $O$ un ouvert de $\R^d$, $X:=\Cz(O)$ et $(K_n)_{n\ge0}$ une suite exhaustive de compacts associée à $O$. On pose
+\[
+d_X(f,g):=\sum_{n\ge0}\frac{\min\{1,\norm{f-g}_{K_n}\}}{2^n},\qquad f,g\in X .
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $d_X$ est une distance sur $X$.
+  \item Soit $f\in X$ et $(f_j)_{j\in\N}\in X^\N$. Montrer que $\lim_jd_X(f_j,f)=0\iff f_j\to f$ uniformément sur $K_n$ pour tout $n\ge0$.
+  \item Conclure que la topologie induite par $d_X$ ne dépend pas du choix de la suite $(K_n)_{n\ge0}$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 5 -- Séparabilité de $\Cz(K;\R)$}
+Soit $K$ un compact de $\R^d$. Montrer que $\Cz(K;\R)$ (muni de la norme uniforme) est séparable.
+\end{exo}
+
+\begin{exo}{Exercice officiel 6 -- Trois expressions de la norme d'opérateur}
+Soient $(E,\norm\cdot_E)$ et $(F,\norm\cdot_F)$ deux EVN et $\norm T_{\Lc(E,F)}:=\sup_{\norm x_E\le1}\norm{T(x)}_F$. Montrer que pour tout $T\in\Lc(E,F)$,
+\[
+\norm T_{\Lc(E,F)}=\sup_{\norm x_E=1}\norm{T(x)}_F=\sup_{x\in E\setminus\{0\}}\frac{\norm{T(x)}_F}{\norm x_E}.
+\]
+\end{exo}
+
+\begin{exo}{Exercice officiel 7 (Exercice 2.5 du poly) -- Coefficients de Fourier et noyau de Dirichlet}
+On considère, pour $f\in\Cz(\Sun;\C)$ (identifié aux fonctions continues et $2\pi$-périodiques sur $\R$, Exemple~2.2) et $n\in\Z$,
+\[
+c_n(f):=\frac1{2\pi}\int_0^{2\pi}f\,\overline{e_n},\qquad e_n:t\mapsto e^{int}.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f\mapsto c_n(f)$ est une forme linéaire continue sur $\Cz(\Sun;\C)$ et calculer sa norme.
+  \item Pour $N\in\N$, on cherche la norme de $\Phi_N:f\mapsto\sum_{|n|\le N}c_n(f)$.
+  \begin{enumerate}[label=(b.\arabic*)]
+    \item Montrer que $\opnorm{\Phi_N}\le(2\pi)^{-1}\int_0^{2\pi}|D_N|$, où $D_N:=\sum_{|n|\le N}e_n$ (noyau de Dirichlet).
+    \item En considérant $f_n:=D_N\,(n^{-1}+|D_N|)^{-1}$, transformer l'inégalité précédente en égalité.
+  \end{enumerate}
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 8 (Exercice 2.7 du poly) -- Lemme de Riemann--Lebesgue}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que l'ensemble $c_0(\Z)$ des suites tendant vers $0$ en $\pm\infty$ est un sous-espace fermé de $\ell^\infty(\Z)$.
+  \item Montrer que $\mathcal F:f\mapsto(c_n(f))_{n\in\Z}$ envoie continûment $\Cz(\Sun;\C)$ dans $\ell^\infty(\Z)$.
+  \item En utilisant la densité des fonctions en escalier dans $\Cz(\Sun;\C)$, montrer que l'image de $\mathcal F$ est contenue dans $c_0(\Z)$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 9 (Exercices 2.6 et 2.8 du poly) -- Non-séparabilité de $\ell^\infty$ et $L^\infty$}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que l'ensemble des suites ne prenant comme valeurs que $0$ et $1$ est indénombrable. En déduire que $\ell^\infty(\N)$ n'est pas séparable.
+  \item Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $L^\infty(\Omega)$ n'est pas séparable.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
+
+\begin{exo}{Exercice 7 -- Questions de cours}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer la caractérisation des applications linéaires continues entre EVN (Théorème~2.4).
+  \item Énoncer et démontrer l'équivalence des normes sur $\K^d$ (Théorème~2.1).
+  \item Énoncer l'inégalité de Young $ab\le\frac{a^p}p+\frac{b^q}q$, puis énoncer et démontrer l'inégalité de Hölder dans $\K^d$ (Lemme~2.1).
+  \item Montrer que $c_{<\infty}(\N)$ est dense dans $\ell^p(\N)$ pour $1\le p<\infty$ (Proposition~2.3), et en déduire que $\ell^p(\N)$ est séparable (Corollaire~2.2). Que se passe-t-il pour $p=\infty$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 8 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $E$, $F$ et $G$ désignent des EVN.
+\begin{enumerate}[label=\arabic*.]
+  \item Deux normes sur un même espace vectoriel sont toujours équivalentes.
+  \item Si $E$ est de dimension finie, toute application linéaire $E\to F$ est continue.
+  \item Tout sous-espace vectoriel de $E$ est fermé.
+  \item Un sous-espace vectoriel strict de $E$ est d'intérieur vide.
+  \item Si $T:E\to F$ est linéaire et bornée sur une boule $B(a,r)$, $r>0$, alors $T$ est continue.
+  \item Pour $1\le p\le q\le\infty$, on a $L^p(]0,1[)\subset L^q(]0,1[)$.
+  \item Dans un EVN, l'adhérence de la boule ouverte $B(a,r)$ est la boule fermée $\Bf(a,r)$.
+  \item $c_{<\infty}(\N)$ est dense dans $\ell^\infty(\N)$.
+  \item La norme d'un opérateur $T\in\Lc(E,F)$ est toujours atteinte sur la sphère unité de $E$.
+  \item Si $T\in\Lc(E,F)$ et $S\in\Lc(F,G)$, alors $\opnorm{S\circ T}=\opnorm S\,\opnorm T$.
+  \item Toute fonction continue et bornée sur $\R$ est limite uniforme sur $\R$ d'une suite de polynômes.
+  \item $\Cz([0,1];\R)$ muni de la norme uniforme est séparable.
+  \item Sur $\R[x]$, les normes $N(P):=\sup_{[0,1]}|P|$ et $N'(P):=\sup_{[0,2]}|P|$ sont équivalentes.
+\end{enumerate}
+\end{exo}
+
+\end{document}

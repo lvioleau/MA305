@@ -1,0 +1,272 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rb}{\overline{\R}}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\DeclareMathOperator{\Ker}{Ker}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}1 -- Topologie des espaces métriques (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~1 du polycopié. La \textbf{partie A} (Exercices~1 à~6) est complémentaire des exercices du poly (corrigés dans le TD0). La \textbf{partie B} reproduit la \textbf{feuille officielle} du TD n\textsuperscript{o}1 (Exercices officiels~1 à~13). La \textbf{partie C} (Exercices~7 et~8) prépare l'examen. Le corrigé détaillé est dans \texttt{corrige\_TD1.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative, partie A : 1, 2, 3 (fondamentaux) ; 4, 5 (classiques d'examen) ; 6 (plus astucieux). Partie B : 1 à 6 (cours) ; 7, 8, 10, 11 (à savoir refaire) ; 13 (le plus long).
+\end{commentaire}
+
+\section*{Partie A -- Exercices complémentaires}
+
+\begin{exo}{Exercice 1 -- Distances bornées : ce qu'une distance retient de plus que sa topologie}
+Soit $(X,d)$ un espace métrique. On pose $\delta:=\min(1,d)$ et $\delta':=\dfrac d{1+d}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\varphi:\R_+\to\R_+$ croissante, sous-additive ($\varphi(s+t)\le\varphi(s)+\varphi(t)$) et ne s'annulant qu'en $0$. Montrer que $\varphi\circ d$ est une distance sur $X$. En déduire que $\delta$ et $\delta'$ sont des distances.
+  \item Montrer que l'identité de $(X,d)$ dans $(X,\delta)$ est uniformément continue ainsi que sa réciproque ; même question pour $\delta'$. En déduire que $d$, $\delta$ et $\delta'$ ont les mêmes ouverts, les mêmes suites de Cauchy, et que $(X,d)$ est complet si et seulement si $(X,\delta)$ l'est.
+  \item Montrer que $X$ est borné pour $\delta$. À quelle condition existe-t-il $c>0$ tel que $c\,d\le\delta$ ?
+  \item Montrer que $(X,d)$ et $(X,\delta)$ ont les mêmes parties précompactes. Que dire de $(\R,\min(1,|\cdot|))$ : borné ? complet ? précompact ? compact ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Séparabilité}
+Un espace métrique est \emph{séparable} s'il contient une partie dénombrable dense.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $X$ un espace métrique séparable et $A\subset X$. Montrer que $A$, muni de la distance induite, est séparable.
+  \item Montrer qu'un espace métrique précompact est séparable. En déduire que tout espace métrique compact est séparable.
+  \item Soit $X$ un espace métrique séparable. Montrer que toute famille d'ouverts non vides deux à deux disjoints de $X$ est au plus dénombrable.
+  \item Soit $X:=\{0,1\}^\N$ muni de $d_\infty(u,v):=\sup_n|u_n-v_n|$. Montrer que $X$ n'est pas séparable. En déduire que $\ell^\infty(\N)$ ne l'est pas.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 -- Uniforme continuité : critère séquentiel, exemples, prolongement}
+\begin{enumerate}[label=(\alph*)]
+  \item Soient $(X,d)$, $(Y,d')$ deux espaces métriques et $f:X\to Y$. Montrer que $f$ est uniformément continue si et seulement si, pour toutes suites $(x_n)$, $(y_n)$ de $X$ telles que $d(x_n,y_n)\to0$, on a $d'(f(x_n),f(y_n))\to0$.
+  \item Les fonctions $x\mapsto x^2$ et $x\mapsto\sin(x^2)$ sont-elles uniformément continues sur $\R$ ? La fonction $x\mapsto\sqrt x$ est-elle uniformément continue sur $\R_+$ ? lipschitzienne ?
+  \item Soit $f:\,]0,1]\to\R$ continue. Montrer que $f$ est uniformément continue si et seulement si elle admet une limite finie en $0$. Application : $\sin\frac1x$ et $x\sin\frac1x$.
+  \item Soit $f:\R\to\R$ continue admettant des limites finies en $+\infty$ et en $-\infty$. Montrer que $f$ est uniformément continue.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 4 -- Trois applications du lemme de Baire}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $X$ un espace métrique complet, non vide et sans point isolé. Montrer que $X$ n'est pas dénombrable. En déduire qu'il n'existe aucune distance sur $\Q$ définissant sa topologie usuelle et le rendant complet.
+  \item Soit $X$ un espace métrique complet non vide et $(f_n)$ une suite de fonctions continues de $X$ dans $\R$ telle que, pour tout $x\in X$, la suite $(f_n(x))_n$ soit bornée. Montrer qu'il existe un ouvert non vide $U\subset X$ et $M\ge0$ tels que $|f_n(x)|\le M$ pour tout $n$ et tout $x\in U$.
+  \item Soit $f:\,]0,+\infty[\,\to\R$ continue telle que, pour tout $x>0$, $f(nx)\to0$ quand l'entier $n$ tend vers l'infini. Montrer que $f(x)\to0$ quand $x\to+\infty$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 5 -- Théorème de Dini}
+Soit $X$ un espace métrique compact et $(f_n)$ une suite \emph{croissante} de fonctions continues de $X$ dans $\R$, convergeant simplement vers une fonction $f$ \emph{continue}.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que la convergence est uniforme. \emph{Indication : pour $\varepsilon>0$, considérer les fermés $K_n:=\{x:f(x)-f_n(x)\ge\varepsilon\}$.}
+  \item Montrer par des exemples que chacune des trois hypothèses (compacité de $X$, continuité de la limite, monotonie) est nécessaire.
+  \item On définit des polynômes par $P_0:=0$ et $P_{n+1}(x):=P_n(x)+\frac12\big(x-P_n(x)^2\big)$. Montrer que $0\le P_n\le P_{n+1}\le\sqrt x$ sur $[0,1]$, puis que $(P_n)$ converge uniformément vers $\sqrt x$ sur $[0,1]$. En déduire que $t\mapsto|t|$ est limite uniforme de polynômes sur $[-1,1]$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 6 -- Isométries et applications dilatantes d'un compact}
+Soit $(X,d)$ un espace métrique compact non vide et $f:X\to X$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose que $f$ est une isométrie : $d(f(x),f(y))=d(x,y)$ pour tous $x,y$. Montrer que $f$ est surjective. \emph{Indication : si $a\notin f(X)$, étudier la suite $(f^n(a))_n$.}
+  \item Donner un exemple d'isométrie non surjective d'un espace métrique complet dans lui-même. En déduire une nouvelle preuve que la boule unité fermée de $\ell^2(\N)$ n'est pas compacte.
+  \item On suppose seulement que $f$ est \emph{dilatante} : $d(f(x),f(y))\ge d(x,y)$ pour tous $x,y$. Montrer que $f$ est une isométrie. \emph{Indication : pour $x,y$ fixés, extraire une sous-suite convergente de $\big(f^n(x),f^n(y)\big)_n$ dans $X\times X$.}
+  \item Soit $g:X\to X$ surjective et $1$-lipschitzienne. Montrer que $g$ est une isométrie.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}1}
+
+\subsection*{Topologie générale d'un espace métrique}
+
+\begin{exo}{Exercice officiel 1 -- Intérieur, adhérence et frontière ne commutent pas}
+Soit $X$ un espace métrique et $A$ une partie de $X$. Donner des contre-exemples aux propriétés suivantes :
+\begin{enumerate}[label=\arabic*.]
+  \item $\interieur{\adh{A}} \subset A$,
+  \item $\interieur{\adh{A}} \supset A$,
+  \item $\partial A \subset \partial \adh{A}$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 2 (Exercice 1.3 du poly) -- Topologie induite}
+Soit $(X,d)$ un espace métrique et $A\subset X$. Vérifier que les ouverts et fermés de $A$ (pour la distance induite) sont respectivement les intersections avec $A$ des parties ouvertes et fermées de $X$.
+\end{exo}
+
+\begin{exo}{Exercice officiel 3 -- Vrai ou faux sur la topologie induite}
+Soit $X$ un espace métrique, $A\neq\emptyset$ une partie de $X$. Dire si les propriétés suivantes sont vraies ; si elles sont fausses, donner des contre-exemples et, éventuellement, des conditions supplémentaires pour qu'elles soient vraies.
+\begin{enumerate}[label=\arabic*.]
+  \item Si $B\subseteq A$ est un ouvert de $A$ alors $B$ est aussi ouvert dans $X$.
+  \item Si $B$ est ouvert dans $X$, $B\cap A$ est aussi ouvert dans $A$.
+  \item Si $B\subseteq A$ est fermé dans $A$, $B$ est aussi fermé dans $X$.
+  \item Si $B\subseteq A$ est fermé dans $X$, $B$ est aussi fermé dans $A$.
+  \item Si $X$ est un espace métrique complet, $A$ est complet.
+  \item Il existe une fonction $f:\Q\to\N$ non constante, continue.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 4 -- Boules ouvertes, boules fermées, sphères}
+Soit $(X,d)$ un espace métrique, $a\in X$ et $r\ge0$. On note $B(a,r)$, $\Bf(a,r)$, $S(a,r)$ la boule ouverte, la boule fermée et la sphère de centre $a$ et de rayon $r$.
+\begin{enumerate}[label=\alph*)]
+  \item Montrer que $B(a,r)$ est ouvert, que $\Bf(a,r)$ est fermé et que $S(a,r)$ est fermé.
+  \item Montrer que $\adh{B(a,r)}\subset\Bf(a,r)$ et $B(a,r)\subset\Int(\Bf(a,r))$. Montrer que dans un espace vectoriel normé ce sont des égalités. Donner des exemples d'espaces métriques où ces inclusions sont strictes.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 5 (Exercice 1.7 du poly) -- Convergence dans un produit}
+Soient $(X,d_X)$ et $(Y,d_Y)$ deux espaces métriques. On munit $X\times Y$ de la distance
+\[
+D_1\big((x_1,y_1),(x_2,y_2)\big):=d_X(x_1,x_2)+d_Y(y_1,y_2).
+\]
+Montrer que la convergence de $z_n:=(x_n,y_n)$ vers $z:=(x,y)$ équivaut aux deux convergences $x_n\to x$ dans $X$ et $y_n\to y$ dans $Y$.
+\end{exo}
+
+\begin{exo}{Exercice officiel 6 (Exercice 1.11 du poly) -- La distance à une partie est $1$-lipschitzienne}
+Soit $(X,d)$ un espace métrique et $A\subset X$ une partie non vide. Montrer que $x\mapsto d(A,x):=\inf_{a\in A}d(x,a)$ est $1$-lipschitzienne.
+\end{exo}
+
+\subsection*{Complétude}
+
+\begin{exo}{Exercice officiel 7 -- Deux applications du lemme de Baire}
+\begin{enumerate}[label=\arabic*.]
+  \item Soit $E$ un espace métrique complet et $(F_n)_{n\in\N}$ une suite de fermés de $E$ telle que $E=\bigcup_{n}F_n$. Montrer que $\bigcup_n\interieur{F_n}$ est un ouvert dense de $E$.
+  \item Soit $T:E\to E$ linéaire continue, $E$ normé complet. On suppose que pour tout $x\in E$ il existe $n_x$ tel que $T^{n_x}x=0$. Montrer que $T$ est nilpotente.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 8 -- Théorème de Cantor (Exercice 1.14 du poly)}
+Montrer que pour un espace métrique $(X,d)$, la complétude équivaut à la propriété suivante : si $(F_n)_{n\in\N}$ est une suite décroissante de fermés non vides vérifiant $\lim_n\diam(F_n)=0$, alors $\bigcap_nF_n$ est un singleton.
+\end{exo}
+
+\subsection*{Compacité}
+
+\begin{exo}{Exercice officiel 9 -- Fermés bornés non compacts}
+Donner des exemples de fermés bornés d'un espace métrique qui ne sont pas compacts.
+\end{exo}
+
+\begin{exo}{Exercice officiel 10 (Exercice 1.19 du poly) -- Unique valeur d'adhérence dans un compact}
+Soit $(X,d)$ un espace métrique compact et $(x_n)_n$ une suite d'éléments de $X$ ne possédant qu'une valeur d'adhérence $x$. Montrer que $(x_n)_n$ converge vers $x$.
+\end{exo}
+
+\begin{exo}{Exercice officiel 11 -- Distance entre deux compacts}
+Soit $(X,d)$ un espace métrique. On définit la distance entre deux sous-ensembles $A,B\subset X$ par $\dist(A,B):=\inf_{a\in A,\,b\in B}d(a,b)$. Montrer que si $A$ et $B$ sont compacts (et non vides), alors il existe $a_*\in A$ et $b_*\in B$ tels que $\dist(A,B)=d(a_*,b_*)$.
+\end{exo}
+
+\begin{exo}{Exercice officiel 12 -- Fonction continue tendant vers $0$ à l'infini}
+Soit $f:\R\to\R$ continue telle que $\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=0$. Montrer que $f$ est bornée et atteint au moins une de ses bornes.
+\end{exo}
+
+\begin{exo}{Exercice officiel 13 -- Points fixes}
+\begin{enumerate}[label=\arabic*.]
+  \item Soit $E$ un espace vectoriel normé et $C\subseteq E$ un convexe compact (non vide). Montrer que toute application $1$-lipschitzienne de $C$ dans lui-même admet un point fixe. \emph{Indication : considérer, pour $z\in C$ fixé, $f_n(x):=\frac{1}{n+1}z+\frac{n}{n+1}f(x)$.}
+  \item Soit $(X,d)$ un espace métrique compact (non vide) et $f:X\to X$ telle que $d(f(x),f(y))<d(x,y)$ pour $x\ne y$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Expliquer pourquoi le théorème de point fixe de Picard ne s'applique pas.
+    \item Montrer cependant que $f$ admet un unique point fixe $a\in X$.
+    \item Montrer que la suite des itérées de $f$ converge simplement vers la fonction constante égale à $a$.
+    \item Que dire dans le cas de l'inégalité large $d(f(x),f(y))\le d(x,y)$ ?
+  \end{enumerate}
+\end{enumerate}
+\end{exo}
+
+\section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
+
+\begin{exo}{Exercice 7 -- Questions de cours}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le théorème de prolongement des applications uniformément continues (Théorème~1.1).
+  \item Énoncer et démontrer le lemme de Baire (Lemme~1.1).
+  \item Énoncer et démontrer le théorème de Heine (Théorème~1.3).
+  \item Montrer que dans un espace métrique complet, une partie est compacte si et seulement si elle est fermée et précompacte (Corollaire~1.4 ; on redémontrera les Propositions~1.13 et 1.14).
+  \item Énoncer et démontrer le théorème de point fixe de Picard (Exercice~1.16).
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 8 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $(X,d)$ et $(Y,d')$ désignent des espaces métriques.
+\begin{enumerate}[label=\arabic*.]
+  \item L'adhérence de la boule ouverte $B(a,r)$ est la boule fermée $\Bf(a,r)$.
+  \item Dans un espace métrique complet, toute partie fermée et bornée est compacte.
+  \item L'image réciproque d'un compact par une application continue est compacte.
+  \item L'image d'un fermé par une application continue est fermée.
+  \item Une application continue transforme les suites de Cauchy en suites de Cauchy.
+  \item Si $X$ est compact et $f:X\to Y$ est continue et bijective, alors $f^{-1}$ est continue.
+  \item Si $X$ et $Y$ sont homéomorphes et $X$ est complet, alors $Y$ est complet.
+  \item Dans un espace métrique complet, une intersection dénombrable d'ouverts denses est un ouvert dense.
+  \item $\Q$ est une intersection dénombrable d'ouverts de $\R$.
+  \item Tout espace métrique compact est séparable.
+  \item Dans un espace métrique, toute partie fermée et précompacte est compacte.
+  \item Si $D$ est dense dans $X$ et $f:D\to Y$ est uniformément continue, alors $f$ se prolonge en une application continue $X\to Y$.
+\end{enumerate}
+\end{exo}
+
+\end{document}

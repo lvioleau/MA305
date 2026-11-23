@@ -1,0 +1,277 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage et langue ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}  % décommenter si disponible (police vectorielle)
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+
+% ---------- Mathématiques ----------
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% ---------- Macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Sun}{\mathbb{S}^1}
+\newcommand{\interieur}[1]{\mathring{#1}}
+\newcommand{\adh}[1]{\overline{#1}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\Bf}{B_f}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
+\newcommand{\ie}{c'est-à-dire}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+% ---------- Environnements ----------
+\newtcolorbox{exo}[1]{
+  enhanced, breakable,
+  colback=black!3, colframe=black!70,
+  fonttitle=\bfseries, title={#1},
+  boxrule=0.6pt, arc=1pt, left=6pt, right=6pt
+}
+\newtcolorbox{pointcle}{
+  enhanced, breakable,
+  colback=blue!4, colframe=blue!55!black,
+  fonttitle=\bfseries, title={Point clé},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{piege}{
+  enhanced, breakable,
+  colback=red!4, colframe=red!60!black,
+  fonttitle=\bfseries, title={Piège / difficulté},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{commentaire}{
+  enhanced, breakable,
+  colback=gray!8, colframe=gray!55!black,
+  fonttitle=\bfseries, title={Commentaire},
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt
+}
+\newtcolorbox{methode}{
+  enhanced, breakable,
+  colback=green!4, colframe=green!40!black,
+  fonttitle=\bfseries, title={Méthode},
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt
+}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{\textbf{4MA305 -- Bases d'analyse fonctionnelle}\\[2mm]
+\Large TD n\textsuperscript{o}3 -- Espaces de Banach (énoncés)}
+\author{}
+\date{Année universitaire 2026--2027}
+
+\begin{document}
+\maketitle
+
+\begin{commentaire}
+Feuille d'exercices sur le chapitre~3 du polycopié. La \textbf{partie A} (Exercices~1 à~6) est complémentaire des exercices du poly (corrigés dans le TD0). La \textbf{partie B} reproduit la \textbf{feuille officielle} du TD n\textsuperscript{o}3 (Exercices officiels~1 à~9). La \textbf{partie C} (Exercices~7 à~9) prépare l'examen. Le corrigé détaillé est dans \texttt{corrige\_TD3.pdf} ; l'idée est de chercher les exercices en conditions d'examen avant de le lire. Difficulté indicative, partie A : 1, 2, 4 (classiques d'examen) ; 3, 6 (applications directes des théorèmes) ; 5 (synthèse). Partie B : 1, 3, 4 (cours) ; 2, 5, 7, 9 (à savoir refaire) ; 6, 8 (courts).
+\end{commentaire}
+
+\section*{Partie A -- Exercices complémentaires}
+
+\begin{exo}{Exercice 1 -- Série de Neumann et équation de Volterra}
+Soit $E$ un espace de Banach et $T\in\Lc(E)$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose $\sum_{n\ge0}\opnorm{T^n}<\infty$ (c'est le cas si $\opnorm T<1$). Montrer que la série $\sum_nT^n$ converge dans $\Lc(E)$, que $\mathrm{Id}-T$ est inversible d'inverse $\sum_nT^n$, et que si $\opnorm T<1$ alors $\opnorm{(\mathrm{Id}-T)^{-1}}\le\frac1{1-\opnorm T}$.
+  \item Soit $A\in\Lc(E)$ inversible (d'inverse continu) et $B\in\Lc(E)$ avec $\opnorm{A-B}<\frac1{\opnorm{A^{-1}}}$. Montrer que $B$ est inversible. Qu'en déduit-on sur l'ensemble des opérateurs inversibles ?
+  \item Soit $k\in\Cz([0,1]^2;\R)$, $M:=\norm k_\infty$, et $Vf(x):=\int_0^xk(x,y)f(y)\,dy$ pour $f\in E:=\Cz([0,1];\R)$ muni de la norme uniforme. On admet que $V\in\Lc(E)$. Montrer que $|V^nf(x)|\le\frac{M^nx^n}{n!}\norm f_\infty$, et en déduire que pour toute $g\in E$ l'équation $f-Vf=g$ admet une unique solution $f\in E$.
+  \item Résoudre par cette méthode $f(x)-\int_0^xf(y)\,dy=1$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 2 -- Deux applications de Banach--Steinhaus}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $a=(a_n)_{n\in\N}$ une suite de scalaires telle que la série $\sum_na_nx_n$ converge pour toute suite $x\in c_0(\N)$. Montrer que $a\in\ell^1(\N)$.
+  \item Soit $1<p<\infty$. Même question en supposant la convergence pour tout $x\in\ell^p(\N)$ : montrer que $a\in\ell^{p'}(\N)$. Que dire pour $p=1$ ?
+  \item Soient $E$, $F$ deux espaces de Banach et $B:E\times F\to\K$ bilinéaire, \emph{séparément continue} : pour tout $x$, $B(x,\cdot)$ est continue, et pour tout $y$, $B(\cdot,y)$ est continue. Montrer qu'il existe $C$ tel que $|B(x,y)|\le C\norm x\norm y$.
+  \item Montrer que (c) est faux sans complétude : considérer $B(P,Q):=\int_0^1PQ$ sur $\R[x]$ muni de la norme $\norm P_1:=\int_0^1|P|$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 3 -- Sous-espaces supplémentaires et projections continues}
+Soit $E$ un espace de Banach, $F$ et $G$ deux sous-espaces vectoriels tels que $E=F\oplus G$ (somme directe algébrique), et $P$ la projection sur $F$ parallèlement à $G$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que si $P$ est continue, alors $F$ et $G$ sont fermés.
+  \item Réciproquement, on suppose $F$ et $G$ fermés. Montrer que $P$ est continue, en appliquant le Corollaire~3.4 à $\Phi:F\times G\to E$, $(f,g)\mapsto f+g$.
+  \item Redémontrer (b) par le théorème du graphe fermé.
+  \item Soit $F$ un sous-espace fermé d'un EVN $E$ et $a\notin F$. Montrer que $F\oplus\K a$ est fermé. En déduire que la somme d'un sous-espace fermé et d'un sous-espace de dimension finie est fermée.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 4 -- Opérateurs injectifs à image fermée}
+Soient $E$, $F$ deux espaces de Banach et $T\in\Lc(E,F)$ injectif.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Ima T$ est fermée si et seulement s'il existe $c>0$ tel que $\norm{Tx}\ge c\norm x$ pour tout $x\in E$.
+  \item Étudier les exemples : $T(u):=\big(\frac{u_n}{n+1}\big)_n$ sur $\ell^2(\N)$ ; l'injection de $\ell^1(\N)$ dans $\ell^2(\N)$ ; le décalage à droite $S$ de $\ell^2(\N)$.
+  \item Montrer que si $\norm{Tx}\ge c\norm x$ pour tout $x$ et si $\Ima T$ est dense, alors $T$ est bijectif d'inverse continu.
+  \item Montrer que si $\norm{Tx}\ge c\norm x$ pour tout $x$ et si $S\in\Lc(E,F)$ vérifie $\opnorm{S-T}<c$, alors $S$ est injectif et d'image fermée.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 5 -- Un sous-espace fermé de $\Cz$ formé de fonctions $\mathcal C^1$ est de dimension finie}
+Soit $F$ un sous-espace vectoriel \emph{fermé} de $\big(\Cz([0,1];\R),\norm\cdot_\infty\big)$ dont tous les éléments sont de classe $\mathcal C^1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que l'application $D:F\to\Cz([0,1])$, $f\mapsto f'$, a un graphe fermé. En déduire qu'il existe $C$ tel que $\norm{f'}_\infty\le C\norm f_\infty$ pour toute $f\in F$.
+  \item Montrer que la boule unité fermée de $F$ est compacte.
+  \item Conclure que $F$ est de dimension finie.
+  \item L'hypothèse « fermé » est-elle nécessaire ?
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 6 -- Séries de fonctions dans $L^p$ : Riesz--Fischer en action}
+Soit $\Omega$ un ouvert de $\R^d$, $1\le p<\infty$, et $(f_n)$ une suite de $L^p(\Omega)$ telle que $M:=\sum_n\norm{f_n}_p<\infty$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\sum_n|f_n(x)|<\infty$ pour presque tout $x$, que $f:=\sum_nf_n$ (définie presque partout) appartient à $L^p(\Omega)$, et que la série converge vers $f$ dans $L^p(\Omega)$.
+  \item En déduire que $L^p(\Omega)$ est complet, puis que toute suite convergente dans $L^p(\Omega)$ admet une sous-suite convergeant presque partout.
+  \item Soit $(r_n)_{n\in\N}$ une énumération de $\Q\cap\,]0,1[$ et $f(x):=\sum_n2^{-n}|x-r_n|^{-1/2}$. Montrer que $f\in L^1(]0,1[)$, que $f$ est finie presque partout, mais que $f$ n'est de carré intégrable sur aucun intervalle ouvert non vide de $]0,1[$.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}3}
+
+\subsection*{Complétude}
+
+\begin{exo}{Exercice officiel 1 (Exercice 3.1 du poly) -- Caractérisation des Banach par les séries}
+Montrer qu'un EVN dans lequel toute série absolument convergente est convergente est un espace de Banach.
+\end{exo}
+
+\begin{exo}{Exercice officiel 2 (Exercice 3.4 du poly) -- $\Cz(\Omega)$ est complet, $\Cc(\Omega)$ ne l'est pas}
+Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $\Cz(\Omega)$ muni de la distance $d_{\Cz(\Omega)}$ de l'Exemple~2.5 est complet (espace de Fréchet). Montrer par contre que $\Cc(\Omega)$ n'est complet ni pour la norme uniforme, ni pour $d_{\Cz(\Omega)}$.
+\end{exo}
+
+\subsection*{Équicontinuité et compacité}
+
+\begin{exo}{Exercice officiel 3 -- Équicontinuité et uniforme équicontinuité sur un compact}
+Soient $(X_1,d_1)$ et $(X_2,d_2)$ deux espaces métriques, $X_1$ compact, et $A\subset\Cz(X_1;X_2)$. Montrer l'équivalence entre :
+\begin{enumerate}[label=\alph*)]
+  \item $A$ est \emph{uniformément équicontinue} : $\forall\varepsilon>0,\ \exists\delta>0,\ \forall f\in A,\ \forall x,y\in X_1,\ d_1(x,y)<\delta\Rightarrow d_2(f(x),f(y))<\varepsilon$ ;
+  \item $A$ est \emph{équicontinue} : $\forall x\in X_1,\ \forall\varepsilon>0,\ \exists\delta>0,\ \forall f\in A,\ \forall y\in X_1,\ d_1(x,y)<\delta\Rightarrow d_2(f(x),f(y))<\varepsilon$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 4 -- Bornitude et équicontinuité passent à l'adhérence}
+\begin{enumerate}[label=\alph*)]
+  \item Soit $(X,d)$ un espace métrique et $A\subset X$. Montrer que $A$ est borné si et seulement si $\adh A$ est borné.
+  \item Soient $(X_1,d_1)$, $(X_2,d_2)$ métriques, $X_1$ compact, et $A\subset\Cz(X_1;X_2)$ (muni de la distance uniforme). Montrer que $A$ est équicontinue si et seulement si $\adh A$ l'est, et de même pour l'uniforme équicontinuité.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 5 -- Compacts de $\Cz([0,1];\R)$}
+Déterminer si les ensembles suivants sont compacts dans $(\Cz([0,1];\R),\norm\cdot_\infty)$ :
+\begin{enumerate}[label=(\alph*)]
+  \item $A=\{f\text{ continue} : \norm f_\infty\le1\}$ ;
+  \item $A=\{f\text{ polynôme} : \norm f_\infty\le1\}$ ;
+  \item $A_N=\{f\text{ polynôme de degré}\le N : \norm f_\infty\le1\}$ ;
+  \item $\adh A$, où $A=\{f\text{ dérivable} : |f'|\le1\}$ ;
+  \item $\adh A$, où $A=\{f\text{ dérivable} : f(1)=2,\ |f'|\le1\}$ ;
+  \item $\adh A$, où $A=\{f : |f(0)|\le3\ \text{et}\ |f(x)-f(y)|\le5|x-y|^{1/3}\ \forall x\ne y\}$ ;
+  \item $A=\{f : |f(x)-f(y)|\le4|x-y|^2\ \forall x\ne y\}$ ;
+  \item $A=\{f : |f(1/2)|+\frac{|f(x)-f(y)|}{|x-y|^{3/2}}\le4\ \forall x\ne y\}$.
+\end{enumerate}
+\end{exo}
+
+\subsection*{Convolution et opérateurs}
+
+\begin{exo}{Exercice officiel 6 (Exercice 3.7 du poly) -- Pas d'élément neutre pour la convolution dans $L^1(\R^d)$}
+Montrer que la convolution, comme loi interne sur $L^1(\R^d)$, n'admet pas d'élément neutre.
+\end{exo}
+
+\begin{exo}{Exercice officiel 7 -- Convolution $L^p\star L^{p'}$}
+Soient $1\le p,q\le\infty$ avec $\frac1p+\frac1q=1$, $f\in L^p(\R^d)$ et $g\in L^q(\R^d)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f\star g$ est bornée et uniformément continue.
+  \item Montrer que si $1<p,q<\infty$, $f\star g$ tend vers $0$ à l'infini.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 8 -- Une forme linéaire de norme $1$ qui n'atteint pas sa norme}
+Soit $(a_n)_{n\in\N}$ une suite de $]0,1[$ tendant vers $0$. On définit sur $\ell^1(\N)$ la forme linéaire $\langle\ell_a,\mathbf x\rangle:=\sum_{n\in\N}(1-a_n)x_n$.
+\begin{enumerate}[label=\alph*)]
+  \item Montrer que $\norm{\ell_a}_{\Lc(\ell^1(\N),\R)}=1$.
+  \item Montrer que pour tout $\mathbf x$ de la sphère unité de $\ell^1(\N)$, $\langle\ell_a,\mathbf x\rangle<1$.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice officiel 9 -- Limite simple d'une suite d'opérateurs}
+Soient $(X,\norm\cdot_X)$ et $(Y,\norm\cdot_Y)$ deux EVN sur $\C$, $(f_n)_{n\ge1}\subset\Lc(X,Y)$ une suite convergeant en tout point, et $f(x):=\lim_nf_n(x)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $f$ est linéaire.
+  \item Montrer que $\sup_{\norm x_X=1}\norm{f(x)}_Y\le\liminf_n\norm{f_n}_{\Lc(X,Y)}$.
+  \item Montrer par un contre-exemple que $f$ n'est pas forcément continue.
+  \item Montrer que $f$ est continue si $X$ est complet, ou si $(f_n)$ possède une sous-suite bornée.
+\end{enumerate}
+\end{exo}
+
+\section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
+
+\begin{exo}{Exercice 7 -- Questions de cours}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer qu'un EVN est de Banach si et seulement si toute série absolument convergente y converge (Proposition~3.1 et Exercice~3.1).
+  \item Énoncer et démontrer le théorème de Riesz (Théorème~3.1), en passant par le Lemme~3.1.
+  \item Montrer que $\Lc(E,F)$ est un espace de Banach dès que $F$ en est un (Proposition~3.4).
+  \item Énoncer et démontrer le théorème de Banach--Steinhaus (Théorème~3.7).
+  \item Énoncer le théorème de l'application ouverte (Théorème~3.8, admis ici). En déduire le Corollaire~3.4 (continuité automatique de l'inverse), puis énoncer et démontrer le théorème du graphe fermé (Remarque~3.8).
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 8 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $E$ et $F$ désignent des EVN.
+\begin{enumerate}[label=\arabic*.]
+  \item $\Cz([0,1])$ muni de la norme $\norm f_1=\int_0^1|f|$ est un espace de Banach.
+  \item Un espace de Banach de dimension infinie n'admet pas de base (algébrique) dénombrable.
+  \item La boule unité fermée de $\Cz([0,1])$ est compacte pour la norme uniforme.
+  \item Une partie bornée et uniformément équicontinue de $\Cz([0,1])$ est compacte.
+  \item Si $(f_n)$ est une suite de $\mathcal C^1([0,1])$ avec $\norm{f_n}_\infty+\norm{f_n'}_\infty\le M$ pour tout $n$, alors $(f_n)$ admet une sous-suite uniformément convergente.
+  \item Si $E$ est de Banach et si $(T_n)$ est une suite de $\Lc(E,F)$ convergeant simplement vers $T$, alors $\opnorm{T_n-T}\to0$.
+  \item Une limite simple d'applications linéaires continues de $E$ dans $F$ est continue.
+  \item Une bijection linéaire continue $E\to F$ a un inverse continu.
+\end{enumerate}
+\end{exo}
+
+\begin{exo}{Exercice 9 -- Vrai ou faux ? (suite)}
+Même consigne. $E$ et $F$ désignent des EVN, $(e_n)_{n\in\N}$ la suite canonique des espaces de suites.
+\begin{enumerate}[label=\arabic*.]
+  \item Dans un EVN, toute série absolument convergente est convergente.
+  \item Si $F$ est un espace de Banach, alors $\Lc(E,F)$ est un espace de Banach, même si $E$ n'est pas complet.
+  \item $\ell^1(\N)$ muni de la norme $\norm\cdot_\infty$ est un espace de Banach.
+  \item $\mathcal C^1([0,1])$ muni de la norme $\norm\cdot_\infty$ est un espace de Banach.
+  \item Dans un EVN de dimension infinie, tout compact est d'intérieur vide.
+  \item Un espace de Banach de dimension infinie n'est pas réunion dénombrable de parties compactes.
+  \item La suite $f_n:x\mapsto\sin(nx)$ admet une sous-suite uniformément convergente sur $[0,2\pi]$.
+  \item Si $f_n\to f$ dans $L^1(]0,1[)$, alors $f_n\to f$ presque partout.
+  \item Pour $f\in L^1(\R)$, l'application $a\mapsto\tau_af$ est uniformément continue de $\R$ dans $L^1(\R)$.
+  \item Si $(\rho_n)$ est une approximation de l'unité issue d'une fonction test et $f\in L^\infty(\R)$, alors $\rho_n\star f\to f$ dans $L^\infty(\R)$.
+  \item Soient $E$ un espace de Banach, $D$ une partie dense de $E$ et $(T_n)$ une suite de $\Lc(E,F)$ telle que $\sup_n\norm{T_nx}<\infty$ pour tout $x\in D$. Alors $\sup_n\opnorm{T_n}<\infty$.
+  \item Soient $F$ un espace de Banach, $D$ une partie dense de $E$ et $(T_n)$ une suite \emph{bornée} de $\Lc(E,F)$ telle que $(T_nx)_n$ converge pour tout $x\in D$. Alors $(T_nx)_n$ converge pour tout $x\in E$.
+  \item Une application linéaire continue et surjective entre deux espaces de Banach envoie les fermés sur des fermés.
+  \item Si deux normes $N_1\le C\,N_2$ rendent toutes deux $E$ complet, elles sont équivalentes.
+  \item Si $E$ et $F$ sont des espaces de Banach et $T\in\Lc(E,F)$ est injectif, alors $\Ima T$ est fermée dans $F$.
+  \item Soient $E,F$ des espaces de Banach et $T:E\to F$ linéaire telle que : si $x_n\to x$ dans $E$ et $Tx_n\to y$ dans $F$, alors $y=Tx$. Alors $T$ est continue.
+\end{enumerate}
+\end{exo}
+
+\end{document}

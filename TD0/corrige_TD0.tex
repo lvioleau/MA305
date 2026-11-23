@@ -93,7 +93,7 @@
 \textbf{Objet et conventions.} Ce document corrige les exercices \emph{intercalés dans le polycopié} (chapitres 1 à 6) qui ne figurent pas sur les feuilles de TD. Les exercices suivants sont volontairement omis car déjà traités :
 \begin{itemize}
   \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
-  \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
+  \item TD2 : Exercice 2.1 (identique au TD1 off.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
 \end{itemize}
 Les chapitres~1 et~2 se terminent chacun par quelques développements d'exemples et de remarques du polycopié (droite achevée et précompacité, distance uniforme sur $\Cz(X;Y)$ ; applications linéaires discontinues, multiplication par $x$, intégrale des fonctions réglées, comparaison des espaces $\ell^p$ et $L^p$), et le chapitre~3 par deux développements de plus (Exemple~3.6 et Corollaire~3.5 ; Corollaire~3.1 en action). Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Le chapitre~6 (distributions) contient six exercices, corrigés ici avec une dizaine de développements (continuité séquentielle, séries trigonométriques, masse de Dirac et ordre, formule des sauts et peigne de Dirac, valeur principale, équation $y'=ay$, solution fondamentale du laplacien dans le plan). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
 \end{commentaire}
@@ -119,7 +119,7 @@ Rappelons que $d(A,x)=\inf_{a\in A}d(x,a)$ ; la distance est « atteinte en $a$ 
 \end{solution}
 
 \begin{commentaire}
-Le premier cas (inf non atteint) est lié au défaut de \emph{fermeture} de $A$ : si $A$ est fermé non vide dans $\R^d$, la distance est toujours atteinte (minimiser la fonction continue $d(x,\cdot)$ sur le compact $A\cap\Bf(x,R)$ pour $R>d(A,x)$). Dans un espace métrique général, il faut $A$ compact (TD1 ex.~11) ; $A$ fermé ne suffit pas (le TD1 ex.~11 en donne un contre-exemple, et l'exercice~3.3 ci-dessous un autre). Le cas « une infinité de points » est lié à l'absence de \emph{stricte convexité} de l'ensemble.
+Le premier cas (inf non atteint) est lié au défaut de \emph{fermeture} de $A$ : si $A$ est fermé non vide dans $\R^d$, la distance est toujours atteinte (minimiser la fonction continue $d(x,\cdot)$ sur le compact $A\cap\Bf(x,R)$ pour $R>d(A,x)$). Dans un espace métrique général, il faut $A$ compact (TD1 off.~11) ; $A$ fermé ne suffit pas (le TD1 off.~11 en donne un contre-exemple, et l'exercice~3.3 ci-dessous un autre). Le cas « une infinité de points » est lié à l'absence de \emph{stricte convexité} de l'ensemble.
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -128,7 +128,7 @@ Les ouverts sont exactement les unions quelconques de boules ouvertes.
 \end{exo}
 
 \begin{solution}
-\emph{Une boule ouverte est un ouvert.} Soit $y\in B(a,r)$ et $\rho:=r-d(y,a)>0$. Si $z\in B(y,\rho)$ alors $d(z,a)\le d(z,y)+d(y,a)<\rho+d(y,a)=r$ : $B(y,\rho)\subset B(a,r)$. (C'est le TD1 ex.~4a.)
+\emph{Une boule ouverte est un ouvert.} Soit $y\in B(a,r)$ et $\rho:=r-d(y,a)>0$. Si $z\in B(y,\rho)$ alors $d(z,a)\le d(z,y)+d(y,a)<\rho+d(y,a)=r$ : $B(y,\rho)\subset B(a,r)$. (C'est le TD1 off.~4a.)
 
 \emph{Une union de boules ouvertes est un ouvert.} Soit $O=\bigcup_{i\in I}B(a_i,r_i)$ et $x\in O$. Alors $x\in B(a_i,r_i)$ pour un certain $i$, et par ce qui précède il existe $\rho>0$ avec $B(x,\rho)\subset B(a_i,r_i)\subset O$. Donc $O$ est ouvert (Définition~1.6). L'ensemble vide est l'union de la famille vide.
 
@@ -239,7 +239,7 @@ l'on a utilisé $D_1\le\sqrt2D_2$ et $D_2\le\sqrt2D_\infty$ (inégalités entre 
 \end{solution}
 
 \begin{commentaire}
-C'est cette continuité qui autorise à « passer à la limite dans les distances » : si $x_n\to x$ et $y_n\to y$, alors $d(x_n,y_n)\to d(x,y)$ (caractérisation séquentielle de la continuité et Exercice~1.7). On l'a utilisée sans cesse au TD1 (ex.~10, 11, 13). La constante $\sqrt2$ importe peu : seule compte la lipschitzianité.
+C'est cette continuité qui autorise à « passer à la limite dans les distances » : si $x_n\to x$ et $y_n\to y$, alors $d(x_n,y_n)\to d(x,y)$ (caractérisation séquentielle de la continuité et Exercice~1.7). On l'a utilisée sans cesse au TD1 (off.~10, 11, 13). La constante $\sqrt2$ importe peu : seule compte la lipschitzianité.
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -319,7 +319,7 @@ d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le d(x_1,x_0)\sum_{j=n}^{m-1}k^j\le 
 \end{solution}
 
 \begin{pointcle}
-C'est l'archétype de l'usage de la complétude : \emph{on prouve la convergence d'une suite sans connaître sa limite}, puis on identifie la limite par continuité. Les trois hypothèses sont nécessaires : $X$ complet ($f(x)=x/2$ sur $]0,1]$ n'a pas de point fixe), $k<1$ uniforme (TD1 ex.~13.2, où $d(f(x),f(y))<d(x,y)$ ne suffit pas sans compacité), $f(X)\subset X$. Applications au chapitre~3 et au-delà : Cauchy--Lipschitz, inversion locale, équations intégrales.
+C'est l'archétype de l'usage de la complétude : \emph{on prouve la convergence d'une suite sans connaître sa limite}, puis on identifie la limite par continuité. Les trois hypothèses sont nécessaires : $X$ complet ($f(x)=x/2$ sur $]0,1]$ n'a pas de point fixe), $k<1$ uniforme (TD1 off.~13.2, où $d(f(x),f(y))<d(x,y)$ ne suffit pas sans compacité), $f(X)\subset X$. Applications au chapitre~3 et au-delà : Cauchy--Lipschitz, inversion locale, équations intégrales.
 \end{pointcle}
 
 % ---------------------------------------------------------------------
@@ -410,7 +410,7 @@ En général $(x_{\psi(\varphi(n))})_n$ n'est pas extraite de $(x_{\varphi(n)})_
 \end{solution}
 
 \begin{piege}
-Dans une extraction successive (TD1 ex.~10, ex.~11 ; Proposition~1.9), la nouvelle extractrice se compose \emph{à droite} : après $\varphi$, extraire encore donne $\varphi\circ\psi$, et non $\psi\circ\varphi$. Écrire $x_{\varphi(\psi(n))}$ et non $x_{\psi(\varphi(n))}$.
+Dans une extraction successive (TD1 off.~10, ex.~11 ; Proposition~1.9), la nouvelle extractrice se compose \emph{à droite} : après $\varphi$, extraire encore donne $\varphi\circ\psi$, et non $\psi\circ\varphi$. Écrire $x_{\varphi(\psi(n))}$ et non $x_{\psi(\varphi(n))}$.
 \end{piege}
 
 % ---------------------------------------------------------------------
@@ -436,7 +436,7 @@ Montrer que $\Q\cap[0,1]$ est fermé dans $\Q$ et précompact, mais n'est pas co
 \end{exo}
 
 \begin{solution}
-\emph{Fermé dans $\Q$.} $\Q\cap[0,1]$ est la trace sur $\Q$ du fermé $[0,1]$ de $\R$ : c'est un fermé de $\Q$ pour la distance induite (Exercice~1.3, TD1 ex.~2).
+\emph{Fermé dans $\Q$.} $\Q\cap[0,1]$ est la trace sur $\Q$ du fermé $[0,1]$ de $\R$ : c'est un fermé de $\Q$ pour la distance induite (Exercice~1.3, TD1 off.~2).
 
 \emph{Précompact.} Soit $\varepsilon>0$ et $N\in\N^*$ avec $1/N<\varepsilon$. Les boules $B(k/N,\varepsilon)$, $k=0,\dots,N$, ont des centres rationnels et recouvrent $[0,1]$ : tout $x\in[0,1]$ est à distance $\le\frac1{2N}<\varepsilon$ du point $k/N$ le plus proche. Elles recouvrent a fortiori $\Q\cap[0,1]$ : c'est la Définition~1.22 (les centres sont même dans la partie, cf.\ Remarque~1.9).
 
@@ -578,7 +578,7 @@ d(0,f)=\sum_{n>N}\frac{\min\{1,\norm f_{K_n}\}}{2^n}\le\sum_{n>N}2^{-n}=2^{-N}.
 \]
 Ainsi $V_N\subset B_d(0,\rho)$ dès que $\rho>2^{-N}$.
 
-\emph{Étape 2 : $V_N\ne\{0\}$.} Il suffit de trouver $x_1\in\Omega\setminus K_N$ : la fonction $f:=d(K_N,\cdot)$ est alors continue (TD1 ex.~6), nulle sur $K_N$, et $f(x_1)>0$ car $K_N$ est fermé et $x_1\notin K_N$ (Corollaire~1.1). Or $\Omega\not\subset K_N$ : si $\Omega=\R^d$, $K_N\subset\Bf(0,N)$ est borné et $\Omega$ ne l'est pas ; sinon $F:=\R^d\setminus\Omega$ est non vide, et pour $a\in\Omega$, $b\in F$, posons $t^*:=\sup\{t\in[0,1] : a+s(b-a)\in\Omega\ \forall s\in[0,t]\}$ et $c:=a+t^*(b-a)$. Le point $c$ n'est pas dans $\Omega$ (sinon, $\Omega$ étant ouvert, on pourrait dépasser $t^*$, sauf si $t^*=1$, mais alors $c=b\notin\Omega$), donc $c\in F$, et les points $a+t(b-a)$, $t<t^*$, sont dans $\Omega$ et tendent vers $c$ : ils vérifient $d(F,\cdot)\to0$, donc l'un d'eux a $d(F,\cdot)<1/N$ et n'est pas dans $K_N$.
+\emph{Étape 2 : $V_N\ne\{0\}$.} Il suffit de trouver $x_1\in\Omega\setminus K_N$ : la fonction $f:=d(K_N,\cdot)$ est alors continue (TD1 off.~6), nulle sur $K_N$, et $f(x_1)>0$ car $K_N$ est fermé et $x_1\notin K_N$ (Corollaire~1.1). Or $\Omega\not\subset K_N$ : si $\Omega=\R^d$, $K_N\subset\Bf(0,N)$ est borné et $\Omega$ ne l'est pas ; sinon $F:=\R^d\setminus\Omega$ est non vide, et pour $a\in\Omega$, $b\in F$, posons $t^*:=\sup\{t\in[0,1] : a+s(b-a)\in\Omega\ \forall s\in[0,t]\}$ et $c:=a+t^*(b-a)$. Le point $c$ n'est pas dans $\Omega$ (sinon, $\Omega$ étant ouvert, on pourrait dépasser $t^*$, sauf si $t^*=1$, mais alors $c=b\notin\Omega$), donc $c\in F$, et les points $a+t(b-a)$, $t<t^*$, sont dans $\Omega$ et tendent vers $c$ : ils vérifient $d(F,\cdot)\to0$, donc l'un d'eux a $d(F,\cdot)<1/N$ et n'est pas dans $K_N$.
 
 \emph{Étape 3 : conclusion.} Supposons qu'une norme $\mathcal N$ définisse la même topologie que $d$. La boule $B_{\mathcal N}(0,1)$ est un ouvert contenant $0$, donc contient une boule $B_d(0,\rho)$ ; choisissons $N$ avec $2^{-N}<\rho$, de sorte que $V_N\subset B_{\mathcal N}(0,1)$. Soit $f\in V_N$ et $t>0$ : $tf\in V_N$ (sous-espace), donc $\mathcal N(tf)<1$, \ie{} $\mathcal N(f)<1/t$. En faisant $t\to+\infty$, $\mathcal N(f)=0$, donc $f=0$ : $V_N=\{0\}$, ce qui contredit l'étape 2.
 \end{solution}
@@ -598,11 +598,11 @@ Les deux applications sont linéaires. \emph{Majoration :} pour $f\in E$,
 |\delta_a(f)|=|f(a)|\le\sup_{[0,1]}|f|=\norm f_\infty,\qquad
 |I(f)|=\Big|\int_0^1f\Big|\le\int_0^1|f|\le\norm f_\infty .
 \]
-Elles sont donc continues (Théorème~2.4 (iv)) et $\opnorm{\delta_a}\le1$, $\opnorm I\le1$ (TD2 ex.~6). \emph{Vecteur test :} la fonction constante $\mathbf 1$ vérifie $\norm{\mathbf 1}_\infty=1$, $\delta_a(\mathbf 1)=1$ et $I(\mathbf 1)=1$, d'où $\opnorm{\delta_a}\ge1$ et $\opnorm I\ge1$. Finalement $\opnorm{\delta_a}=\opnorm I=1$.
+Elles sont donc continues (Théorème~2.4 (iv)) et $\opnorm{\delta_a}\le1$, $\opnorm I\le1$ (TD2 off.~6). \emph{Vecteur test :} la fonction constante $\mathbf 1$ vérifie $\norm{\mathbf 1}_\infty=1$, $\delta_a(\mathbf 1)=1$ et $I(\mathbf 1)=1$, d'où $\opnorm{\delta_a}\ge1$ et $\opnorm I\ge1$. Finalement $\opnorm{\delta_a}=\opnorm I=1$.
 \end{solution}
 
 \begin{commentaire}
-Le schéma « majoration $+$ vecteur test » est celui du TD2 ex.~7. Ici le sup est \emph{atteint} (par $\mathbf 1$) ; ce n'est pas toujours le cas (TD2 ex.~6, commentaire). Noter que $\delta_a$ n'est pas continue pour la norme $L^1$ sur $E$ (prendre des « pics » de hauteur $1$ et de base $1/n$ en $a$) : la continuité d'une forme linéaire dépend de la norme choisie sur l'espace de départ.
+Le schéma « majoration $+$ vecteur test » est celui du TD2 off.~7. Ici le sup est \emph{atteint} (par $\mathbf 1$) ; ce n'est pas toujours le cas (TD2 off.~6, commentaire). Noter que $\delta_a$ n'est pas continue pour la norme $L^1$ sur $E$ (prendre des « pics » de hauteur $1$ et de base $1/n$ en $a$) : la continuité d'une forme linéaire dépend de la norme choisie sur l'espace de départ.
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -773,11 +773,11 @@ En utilisant le théorème de Riesz, montrer qu'en dimension infinie une partie 
 \begin{solution}
 \emph{Un compact est d'intérieur vide.} Soit $E$ un EVN de dimension infinie et $K\subset E$ compact. Supposons par l'absurde qu'il existe $a\in E$ et $r>0$ avec $B(a,r)\subset K$. Alors $\Bf(a,r/2)\subset B(a,r)\subset K$, et $\Bf(a,r/2)$ est un fermé contenu dans un compact, donc compact (Proposition~1.11). L'application $h:x\mapsto a+\frac r2x$ est continue et envoie $\Bf(0,1)$ sur $\Bf(a,r/2)$ ; sa réciproque $y\mapsto\frac2r(y-a)$ est continue et envoie $\Bf(a,r/2)$ sur $\Bf(0,1)$, qui est donc compacte comme image d'un compact par une application continue (Théorème~1.3). Le Théorème~3.1 de Riesz donne alors $\dim E<\infty$ : contradiction.
 
-\emph{La réciproque est fausse.} La sphère unité $S:=\{x : \norm x=1\}$ est fermée (TD1 ex.~4a) et bornée. Elle est d'intérieur vide dans tout EVN non nul : pour $x\in S$, les points $(1+\frac1n)x$ ne sont pas dans $S$ et tendent vers $x$, donc aucune boule centrée en $x$ n'est contenue dans $S$. Pourtant $S$ n'est pas compacte en dimension infinie : si elle l'était, $\Bf(0,1)$ serait l'image du compact $[0,1]\times S$ (Proposition~1.9) par l'application continue $(t,x)\mapsto tx$, donc compacte, ce qui contredit Riesz. Concrètement, dans $\ell^p(\N)$, la suite $(\mathbf e^k)_k$ de $S$ vérifie $\norm{\mathbf e^k-\mathbf e^j}_p=2^{1/p}$ et n'a pas de sous-suite de Cauchy.
+\emph{La réciproque est fausse.} La sphère unité $S:=\{x : \norm x=1\}$ est fermée (TD1 off.~4a) et bornée. Elle est d'intérieur vide dans tout EVN non nul : pour $x\in S$, les points $(1+\frac1n)x$ ne sont pas dans $S$ et tendent vers $x$, donc aucune boule centrée en $x$ n'est contenue dans $S$. Pourtant $S$ n'est pas compacte en dimension infinie : si elle l'était, $\Bf(0,1)$ serait l'image du compact $[0,1]\times S$ (Proposition~1.9) par l'application continue $(t,x)\mapsto tx$, donc compacte, ce qui contredit Riesz. Concrètement, dans $\ell^p(\N)$, la suite $(\mathbf e^k)_k$ de $S$ vérifie $\norm{\mathbf e^k-\mathbf e^j}_p=2^{1/p}$ et n'a pas de sous-suite de Cauchy.
 \end{solution}
 
 \begin{commentaire}
-En dimension infinie, les compacts sont « maigres » : d'intérieur vide, et en fait \emph{précompacts} (Proposition~1.13), ce qui est une condition bien plus restrictive que « borné ». Le TD1 ex.~9 et le TD2 ex.~2 discutent ce contraste. Conséquence pratique : en dimension infinie, aucun voisinage n'est compact (l'espace n'est pas \emph{localement compact}), ce qui interdit de nombreux arguments de la dimension finie (extraction dans une boule).
+En dimension infinie, les compacts sont « maigres » : d'intérieur vide, et en fait \emph{précompacts} (Proposition~1.13), ce qui est une condition bien plus restrictive que « borné ». Le TD1 off.~9 et le TD2 off.~2 discutent ce contraste. Conséquence pratique : en dimension infinie, aucun voisinage n'est compact (l'espace n'est pas \emph{localement compact}), ce qui interdit de nombreux arguments de la dimension finie (extraction dans une boule).
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -786,7 +786,7 @@ Soit $\Omega$ un ouvert non vide de $\R^d$. Montrer que $\Cz(\Omega)$ muni de la
 \end{exo}
 
 \begin{solution}
-On note $d:=d_{\Cz(\Omega)}$ et $(K_n)$ la suite exhaustive de compacts utilisée, avec $K_n\subset\interieur{K_{n+1}}$ (TD2 ex.~3, complément). On utilise librement le TD2 ex.~4 : $d(f_j,f)\to0\iff\norm{f_j-f}_{K_n}\to0$ pour tout $n$.
+On note $d:=d_{\Cz(\Omega)}$ et $(K_n)$ la suite exhaustive de compacts utilisée, avec $K_n\subset\interieur{K_{n+1}}$ (TD2 off.~3, complément). On utilise librement le TD2 off.~4 : $d(f_j,f)\to0\iff\norm{f_j-f}_{K_n}\to0$ pour tout $n$.
 
 \medskip
 \noindent\textbf{Complétude de $(\Cz(\Omega),d)$.} Soit $(f_j)_j$ une suite de Cauchy pour $d$.
@@ -797,7 +797,7 @@ On note $d:=d_{\Cz(\Omega)}$ et $(K_n)$ la suite exhaustive de compacts utilisé
 
 \emph{Étape 3 : $f$ est continue.} Soit $x\in\Omega$ et $n$ avec $x\in K_n$. Sur l'\emph{ouvert} $\interieur{K_{n+1}}$, qui contient $x$, $f$ coïncide avec la fonction continue $g_{n+1}$. La continuité étant une propriété locale, $f$ est continue en $x$.
 
-\emph{Étape 4 : convergence.} Pour tout $n$, $\norm{f_j-f}_{K_n}=\norm{f_j-g_n}_{K_n}\to0$, donc $d(f_j,f)\to0$ (TD2 ex.~4b). $(\Cz(\Omega),d)$ est complet.
+\emph{Étape 4 : convergence.} Pour tout $n$, $\norm{f_j-f}_{K_n}=\norm{f_j-g_n}_{K_n}\to0$, donc $d(f_j,f)\to0$ (TD2 off.~4b). $(\Cz(\Omega),d)$ est complet.
 
 \medskip
 \noindent\textbf{Non-complétude de $\Cc(\Omega)$.} Rappelons que $\Cc(\Omega)$ est l'ensemble des $f\in\Cz(\Omega)$ dont le support $\supp f=\adh{\{f\ne0\}}$ (adhérence prise dans $\Omega$) est compact. L'idée : construire une fonction continue sur $\Omega$, à support non compact, mais « petite hors de $K_n$ », et l'approcher par des fonctions à support compact.
@@ -823,11 +823,11 @@ avec la convention $\min\{1,d(\emptyset,x)\}=1$. Elle est continue, strictement 
   \item \emph{Distance $d$.} La convergence uniforme sur $\Omega$ entraîne la convergence uniforme sur chaque $K_n$, donc $d(f_n,f)\to0$ dans l'espace ambiant $(\Cz(\Omega),d)$, dont on vient d'établir la complétude ; à nouveau $f\notin\Cc(\Omega)$, et $\Cc(\Omega)$ n'est ni fermé ni complet pour $d$.
 \end{itemize}
 
-\emph{Complément : les adhérences.} L'autre moitié de la Proposition~1.8 (fermé $\Rightarrow$ complet, dans un ambiant complet) dit que $\adh{\Cc(\Omega)}$ est, elle, complète. Pour la norme uniforme, cette adhérence est l'espace $\Cz_0(\Omega)$ des fonctions continues « nulles au bord et à l'infini », \ie{} telles que $\sup_{\Omega\setminus K_n}|g|\to0$ (le calcul ci-dessus montre $\supset$ ; pour $\subset$, une limite uniforme de fonctions à support compact vérifie cette condition par un argument $\varepsilon/2$). Pour $d$, l'adhérence est $\Cz(\Omega)$ tout entier : si $g\in\Cz(\Omega)$, alors $\chi_ng\in\Cc(\Omega)$ et $\chi_ng=g$ sur $K_m$ dès que $n\ge m$, donc $\norm{\chi_ng-g}_{K_m}=0$ pour $n\ge m$ et $d(\chi_ng,g)\to0$ par le TD2 ex.~4b : \emph{$\Cc(\Omega)$ est dense dans $(\Cz(\Omega),d)$}.
+\emph{Complément : les adhérences.} L'autre moitié de la Proposition~1.8 (fermé $\Rightarrow$ complet, dans un ambiant complet) dit que $\adh{\Cc(\Omega)}$ est, elle, complète. Pour la norme uniforme, cette adhérence est l'espace $\Cz_0(\Omega)$ des fonctions continues « nulles au bord et à l'infini », \ie{} telles que $\sup_{\Omega\setminus K_n}|g|\to0$ (le calcul ci-dessus montre $\supset$ ; pour $\subset$, une limite uniforme de fonctions à support compact vérifie cette condition par un argument $\varepsilon/2$). Pour $d$, l'adhérence est $\Cz(\Omega)$ tout entier : si $g\in\Cz(\Omega)$, alors $\chi_ng\in\Cc(\Omega)$ et $\chi_ng=g$ sur $K_m$ dès que $n\ge m$, donc $\norm{\chi_ng-g}_{K_m}=0$ pour $n\ge m$ et $d(\chi_ng,g)\to0$ par le TD2 off.~4b : \emph{$\Cc(\Omega)$ est dense dans $(\Cz(\Omega),d)$}.
 \end{solution}
 
 \begin{pointcle}
-La preuve de complétude suit le modèle de la Proposition~3.3 : \emph{compléter « localement »} (sur chaque $K_n$), \emph{recoller}, puis vérifier que l'objet recollé est dans le bon espace. Le point délicat est l'étape 3 : la continuité de $f$ en $x\in K_n$ ne se lit pas sur $K_n$ (qui n'est pas un voisinage de $x$) mais sur $\interieur{K_{n+1}}$ ; c'est précisément pour cela qu'on a établi $K_n\subset\interieur{K_{n+1}}$ au TD2 ex.~3.
+La preuve de complétude suit le modèle de la Proposition~3.3 : \emph{compléter « localement »} (sur chaque $K_n$), \emph{recoller}, puis vérifier que l'objet recollé est dans le bon espace. Le point délicat est l'étape 3 : la continuité de $f$ en $x\in K_n$ ne se lit pas sur $K_n$ (qui n'est pas un voisinage de $x$) mais sur $\interieur{K_{n+1}}$ ; c'est précisément pour cela qu'on a établi $K_n\subset\interieur{K_{n+1}}$ au TD2 off.~3.
 \end{pointcle}
 
 \begin{commentaire}
@@ -875,7 +875,7 @@ $(\Rightarrow)$ Si $\norm a\le R$ pour tout $a\in A$, alors $\norm{\lambda_ka_k}
 $(\Leftarrow)$ Si $A$ n'est pas bornée, on peut choisir $a_k\in A$ avec $\norm{a_k}\ge k^2$. Avec $\lambda_k:=1/k\to0$, on a $\norm{\lambda_ka_k}\ge k\not\to0$ : $A$ n'est pas topologiquement bornée.
 
 \medskip
-\noindent\textbf{2.} On note $\norm f_n:=\norm f_{n,[0,1]}=\sup|f|+\max_{1\le k\le n}\sup|f^{(k)}|$ (Exemple~2.10 ; $\norm\cdot_0$ est la norme uniforme), suite croissante de normes sur $\Cinf([0,1])$, et $d:=d_{\Cinf}$. Comme au TD2 ex.~4b, on a
+\noindent\textbf{2.} On note $\norm f_n:=\norm f_{n,[0,1]}=\sup|f|+\max_{1\le k\le n}\sup|f^{(k)}|$ (Exemple~2.10 ; $\norm\cdot_0$ est la norme uniforme), suite croissante de normes sur $\Cinf([0,1])$, et $d:=d_{\Cinf}$. Comme au TD2 off.~4b, on a
 \begin{equation}\label{eq:cvCinf}
 d(f_j,f)\to0\iff\forall n\in\N,\ \norm{f_j-f}_n\to0 ,
 \end{equation}
@@ -925,7 +925,7 @@ g_r(0)=\int_{B(0,r)}e(y)\,dy=1\qquad\text{pour tout }r>0 .
 \end{solution}
 
 \begin{commentaire}
-L'élément neutre « voulu » est la masse de Dirac $\delta_0$ : $f\star\delta_0=f$, mais $\delta_0$ est une mesure, pas une fonction de $L^1$ (elle donnerait $\int_{B(0,r)}e=1$ pour tout $r$, exactement ce que l'argument interdit à une fonction intégrable). Le Théorème~3.6 et l'exercice~3.8 montrent que l'on peut toutefois \emph{approcher} $\delta_0$ par des fonctions $\rho_n\in L^1$ : $L^1(\R^d)$ est une algèbre de Banach commutative sans unité mais avec « unité approchée ». En termes de transformée de Fourier (plus tard) : $\widehat{f\star e}=\hat f\hat e$ forcerait $\hat e=1$, incompatible avec le lemme de Riemann--Lebesgue ($\hat e\to0$ à l'infini, TD2 ex.~8).
+L'élément neutre « voulu » est la masse de Dirac $\delta_0$ : $f\star\delta_0=f$, mais $\delta_0$ est une mesure, pas une fonction de $L^1$ (elle donnerait $\int_{B(0,r)}e=1$ pour tout $r$, exactement ce que l'argument interdit à une fonction intégrable). Le Théorème~3.6 et l'exercice~3.8 montrent que l'on peut toutefois \emph{approcher} $\delta_0$ par des fonctions $\rho_n\in L^1$ : $L^1(\R^d)$ est une algèbre de Banach commutative sans unité mais avec « unité approchée ». En termes de transformée de Fourier (plus tard) : $\widehat{f\star e}=\hat f\hat e$ forcerait $\hat e=1$, incompatible avec le lemme de Riemann--Lebesgue ($\hat e\to0$ à l'infini, TD2 off.~8).
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -993,13 +993,13 @@ A_n(P)=-\,\frac{P(1)-P(1-\frac1n)}{\frac1n}\xrightarrow[n\to\infty]{}-P'(1)
 \]
 (taux d'accroissement). Ainsi $(A_n)$ converge simplement vers $-\delta'_1:P\mapsto-P'(1)$, et $-\delta_1'$ est discontinue, comme $\delta_1'$ (Contre-exemple~2.1 : $\delta_1'(x^k)=k$ alors que $\norm{x^k}_\infty=1$). \emph{(Au signe près, c'est bien la forme linéaire de l'énoncé ; on peut aussi remplacer $A_n$ par $-A_n$.)}
 
-\emph{L'apparente contradiction.} Le Corollaire~3.3 affirme qu'une limite simple d'opérateurs continus est continue… \emph{lorsque l'espace de départ est un espace de Banach}. Or $(\R[x],\norm\cdot_\infty)$ n'est pas complet. L'argument le plus court : \emph{une partie dense et stricte n'est jamais complète}. En effet $\R[x]$ est dense dans $\Cz([0,1])$ (théorème de Weierstrass, Exemple~2.3), donc $\adh{\R[x]}=\Cz([0,1])\ne\R[x]$ (la fonction $x\mapsto e^x$, ou $x\mapsto|x-\tfrac12|$ qui n'est pas dérivable, n'est pas polynomiale) ; $\R[x]$ n'est donc pas fermé dans $\Cz([0,1])$, et une partie complète est toujours fermée (Proposition~1.8, cf.\ exercice~3.4). Concrètement, les sommes partielles $\sum_{k\le n}x^k/k!$ forment une suite de Cauchy de $\R[x]$ (elles convergent uniformément vers $e^x$) sans limite dans $\R[x]$. Le TD2 ex.~1 donne un résultat plus fort : $\R[x]$ n'est complet pour \emph{aucune} norme (Baire, base dénombrable $(x^k)_k$). L'hypothèse du corollaire n'est pas satisfaite, et il n'y a pas de contradiction.
+\emph{L'apparente contradiction.} Le Corollaire~3.3 affirme qu'une limite simple d'opérateurs continus est continue… \emph{lorsque l'espace de départ est un espace de Banach}. Or $(\R[x],\norm\cdot_\infty)$ n'est pas complet. L'argument le plus court : \emph{une partie dense et stricte n'est jamais complète}. En effet $\R[x]$ est dense dans $\Cz([0,1])$ (théorème de Weierstrass, Exemple~2.3), donc $\adh{\R[x]}=\Cz([0,1])\ne\R[x]$ (la fonction $x\mapsto e^x$, ou $x\mapsto|x-\tfrac12|$ qui n'est pas dérivable, n'est pas polynomiale) ; $\R[x]$ n'est donc pas fermé dans $\Cz([0,1])$, et une partie complète est toujours fermée (Proposition~1.8, cf.\ exercice~3.4). Concrètement, les sommes partielles $\sum_{k\le n}x^k/k!$ forment une suite de Cauchy de $\R[x]$ (elles convergent uniformément vers $e^x$) sans limite dans $\R[x]$. Le TD2 off.~1 donne un résultat plus fort : $\R[x]$ n'est complet pour \emph{aucune} norme (Baire, base dénombrable $(x^k)_k$). L'hypothèse du corollaire n'est pas satisfaite, et il n'y a pas de contradiction.
 
 \emph{Ce qui se passe vraiment.} Le mécanisme du Corollaire~3.3 est Banach--Steinhaus : la bornitude ponctuelle $\sup_n|A_n(P)|<\infty$ (vraie ici, car $(A_n(P))_n$ converge) devrait entraîner $\sup_n\opnorm{A_n}<\infty$. Or $\opnorm{A_n}=2n\to\infty$ : pour le voir, on choisit par le théorème de Weierstrass un polynôme $P$ avec $\norm P_\infty\le1$, $P(1-\tfrac1n)\approx-1$ et $P(1)\approx1$, ce qui donne $A_n(P)\approx2n$. Sans complétude, la conclusion « uniforme » de Banach--Steinhaus tombe en défaut, alors même que l'hypothèse « ponctuelle » est satisfaite.
 \end{solution}
 
 \begin{piege}
-Le théorème de Banach--Steinhaus (Théorème~3.7) et son Corollaire~3.3 sont des conséquences du lemme de Baire, donc \emph{exigent la complétude de l'espace de départ} (celle de l'espace d'arrivée est sans importance). Cet exercice est le contre-exemple canonique montrant que l'hypothèse ne peut pas être supprimée. À rapprocher du TD1 ex.~7 (piège) : sur $\R[X]$, la dérivation fournissait déjà un contre-exemple à un énoncé « à la Baire » en l'absence de complétude.
+Le théorème de Banach--Steinhaus (Théorème~3.7) et son Corollaire~3.3 sont des conséquences du lemme de Baire, donc \emph{exigent la complétude de l'espace de départ} (celle de l'espace d'arrivée est sans importance). Cet exercice est le contre-exemple canonique montrant que l'hypothèse ne peut pas être supprimée. À rapprocher du TD1 off.~7 (piège) : sur $\R[X]$, la dérivation fournissait déjà un contre-exemple à un énoncé « à la Baire » en l'absence de complétude.
 \end{piege}
 
 
@@ -1014,7 +1014,7 @@ S_N(f)(x):=\sum_{|n|\le N}c_n(f)e^{inx},
 D_N(t):=\sum_{|n|\le N}e^{int},\qquad
 L_N:=\frac1{2\pi}\int_0^{2\pi}|D_N(t)|\,dt .
 \]
-On rappelle (TD2 ex.~8) que $c:f\mapsto(c_n(f))_{n\in\Z}$ envoie $E$ dans $c_0(\Z)$ et est linéaire continue de norme $1$ lorsque $c_0(\Z)$ est muni de la norme de $\ell^\infty(\Z)$.
+On rappelle (TD2 off.~8) que $c:f\mapsto(c_n(f))_{n\in\Z}$ envoie $E$ dans $c_0(\Z)$ et est linéaire continue de norme $1$ lorsque $c_0(\Z)$ est muni de la norme de $\ell^\infty(\Z)$.
 
 \medskip
 \noindent\textbf{Partie A -- Les sommes partielles de Fourier en $0$.}
@@ -1057,7 +1057,7 @@ D_N(t)=e^{-iNt}\,\frac{e^{i(2N+1)t}-1}{e^{it}-1}
 (on a multiplié haut et bas par $e^{-it/2}$). Enfin $|D_N(t)|\le\sum_{|n|\le N}1=2N+1=D_N(0)$, d'où $\norm{D_N}_\infty=2N+1$.
 
 \medskip
-\noindent\textbf{(c)} C'est le TD2 ex.~7 (b) ; rappelons l'argument. Par (b) en $x=0$ et parité de $D_N$, $\Phi_N(f)=\frac1{2\pi}\int_0^{2\pi}f\,D_N$, expression linéaire en $f$, et
+\noindent\textbf{(c)} C'est le TD2 off.~7 (b) ; rappelons l'argument. Par (b) en $x=0$ et parité de $D_N$, $\Phi_N(f)=\frac1{2\pi}\int_0^{2\pi}f\,D_N$, expression linéaire en $f$, et
 \[
 |\Phi_N(f)|\le\frac1{2\pi}\int_0^{2\pi}|f|\,|D_N|\le L_N\norm f_\infty ,
 \]
@@ -1105,7 +1105,7 @@ est fermé (intersection d'images réciproques de fermés par des applications c
 \noindent\textbf{(g)} $c_n(D_N)=\frac1{2\pi}\sum_{|k|\le N}\int_0^{2\pi}e^{i(k-n)t}\,dt=\mathbf 1_{|n|\le N}$ : $c(D_N)$ est l'indicatrice de $\{-N,\dots,N\}$, suite à support fini, et $\norm{c(D_N)}_\infty=1$.
 
 \medskip
-\noindent\textbf{(h)} Supposons $c:E\to F:=c_0(\Z)$ surjective. $E$ et $F$ sont des espaces de Banach ($F$ est fermé dans $\ell^\infty(\Z)$, TD2 ex.~8 (a)), et $c$ est linéaire continue : par le Théorème~3.8 de l'application ouverte, $c(B_E(0,1))$ est un ouvert de $F$ contenant $c(0)=0$, donc il existe $r>0$ tel que $B_F(0,r)\subset c(B_E(0,1))$. Puisque $\norm{\frac r2c(D_N)}_\infty=\frac r2<r$, il existe $g_N\in B_E(0,1)$ tel que $c(g_N)=\frac r2c(D_N)$, c'est-à-dire $c_n(g_N)=\frac r2\mathbf 1_{|n|\le N}$. Alors
+\noindent\textbf{(h)} Supposons $c:E\to F:=c_0(\Z)$ surjective. $E$ et $F$ sont des espaces de Banach ($F$ est fermé dans $\ell^\infty(\Z)$, TD2 off.~8 (a)), et $c$ est linéaire continue : par le Théorème~3.8 de l'application ouverte, $c(B_E(0,1))$ est un ouvert de $F$ contenant $c(0)=0$, donc il existe $r>0$ tel que $B_F(0,r)\subset c(B_E(0,1))$. Puisque $\norm{\frac r2c(D_N)}_\infty=\frac r2<r$, il existe $g_N\in B_E(0,1)$ tel que $c(g_N)=\frac r2c(D_N)$, c'est-à-dire $c_n(g_N)=\frac r2\mathbf 1_{|n|\le N}$. Alors
 \[
 \Phi_N(g_N)=\sum_{|n|\le N}c_n(g_N)=\frac r2(2N+1),
 \quad\text{mais}\quad
@@ -1215,7 +1215,7 @@ Soient $E$, $F$ deux espaces de Banach et $T:E\to F$ une application \emph{liné
 \end{exo}
 
 \begin{solution}
-\noindent\textbf{(a)} La norme produit induit la distance $D_1$ de l'Exemple~1.3, pour laquelle une suite converge (resp. est de Cauchy) si et seulement si ses deux composantes le sont (exercice~1.7, TD1 ex.~5) ; $E$ et $F$ étant complets, $E\times F$ l'est. $\Gamma_T$ est un sous-espace vectoriel car $T$ est linéaire : $\lambda(x,Tx)+(x',Tx')=(\lambda x+x',T(\lambda x+x'))$.
+\noindent\textbf{(a)} La norme produit induit la distance $D_1$ de l'Exemple~1.3, pour laquelle une suite converge (resp. est de Cauchy) si et seulement si ses deux composantes le sont (exercice~1.7, TD1 off.~5) ; $E$ et $F$ étant complets, $E\times F$ l'est. $\Gamma_T$ est un sous-espace vectoriel car $T$ est linéaire : $\lambda(x,Tx)+(x',Tx')=(\lambda x+x',T(\lambda x+x'))$.
 
 \medskip
 \noindent\textbf{(b)} \emph{Équivalence des deux formulations.} $\Gamma_T$ est fermé si et seulement si toute limite $(x,y)$ d'une suite $(x_n,T(x_n))$ de $\Gamma_T$ est dans $\Gamma_T$, \ie{} $y=T(x)$ (Proposition~1.3) ; et $(x_n,T(x_n))\to(x,y)$ signifie $x_n\to x$ et $T(x_n)\to y$.
@@ -1315,7 +1315,7 @@ uniformément en $n$. Le Corollaire~3.1 conclut. (En particulier $Tf$ est contin
 \end{solution}
 
 \begin{pointcle}
-\textbf{Compacité dans $\Cz$ : une borne sur les valeurs et une borne sur un module de continuité.} La seconde vient presque toujours d'une dérivée bornée (a), d'une condition de Lipschitz ou de Hölder (c), ou d'une formule intégrale à noyau régulier (b). Deux précautions : l'équicontinuité ne contrôle que les oscillations, il faut une information en un point pour borner (ici $f(0)=0$, comparer TD3 ex.~5) ; et la limite n'hérite que de ce qui passe à la limite uniforme, l'inégalité de Lipschitz mais pas la dérivabilité (a). En (d), la compacité joue le rôle que jouent la convexité et la complétude dans le théorème de projection hilbertien (Théorème~4.1) : ici la norme $L^1$ n'est pas hilbertienne, et c'est Ascoli qui donne l'existence d'un minimiseur. L'opérateur $T$ de (b) est le prototype des opérateurs compacts, notion hors programme 2026--2027 ; l'énoncé (b) lui-même n'utilise que le Corollaire~3.1.
+\textbf{Compacité dans $\Cz$ : une borne sur les valeurs et une borne sur un module de continuité.} La seconde vient presque toujours d'une dérivée bornée (a), d'une condition de Lipschitz ou de Hölder (c), ou d'une formule intégrale à noyau régulier (b). Deux précautions : l'équicontinuité ne contrôle que les oscillations, il faut une information en un point pour borner (ici $f(0)=0$, comparer TD3 off.~5) ; et la limite n'hérite que de ce qui passe à la limite uniforme, l'inégalité de Lipschitz mais pas la dérivabilité (a). En (d), la compacité joue le rôle que jouent la convexité et la complétude dans le théorème de projection hilbertien (Théorème~4.1) : ici la norme $L^1$ n'est pas hilbertienne, et c'est Ascoli qui donne l'existence d'un minimiseur. L'opérateur $T$ de (b) est le prototype des opérateurs compacts, notion hors programme 2026--2027 ; l'énoncé (b) lui-même n'utilise que le Corollaire~3.1.
 \end{pointcle}
 
 % =====================================================================
@@ -1456,7 +1456,7 @@ f=\sum_{k\in\Z}\Big\langle f,\tfrac{e_k}{\sqrt{2\pi}}\Big\rangle\tfrac{e_k}{\sqr
 \[
 \norm f_2^2=\sum_{k\in\Z}\Big|\frac{\ps f{e_k}}{\sqrt{2\pi}}\Big|^2=2\pi\sum_{k\in\Z}|c_k(f)|^2 .
 \]
-(Les sommes sur $\Z$ sont des séries orthogonales : par la Proposition~4.4, elles convergent indépendamment de l'ordre d'énumération, et toute façon de faire tendre les sommes partielles vers $\Z$ donne la même limite ; en particulier les sommes symétriques $\sum_{|k|\le N}$.) Enfin, la série $\sum_k|c_k(f)|^2$ converge, donc son terme général tend vers $0$ : $c_k(f)\to0$. C'est le lemme de Riemann--Lebesgue dans $L^2$ (comparer avec sa version $\Cz$ du TD2 ex.~8, obtenue par un argument de densité analogue).
+(Les sommes sur $\Z$ sont des séries orthogonales : par la Proposition~4.4, elles convergent indépendamment de l'ordre d'énumération, et toute façon de faire tendre les sommes partielles vers $\Z$ donne la même limite ; en particulier les sommes symétriques $\sum_{|k|\le N}$.) Enfin, la série $\sum_k|c_k(f)|^2$ converge, donc son terme général tend vers $0$ : $c_k(f)\to0$. C'est le lemme de Riemann--Lebesgue dans $L^2$ (comparer avec sa version $\Cz$ du TD2 off.~8, obtenue par un argument de densité analogue).
 
 \medskip
 \noindent\textbf{(c)} L'application $c:f\mapsto(c_k(f))_k$ est linéaire et, par Parseval, $\norm{c(f)}_{\ell^2(\Z)}=\frac1{\sqrt{2\pi}}\norm f_2$ : c'est une isométrie à la constante près, donc injective. La surjectivité est la Proposition~4.4 : si $(a_k)\in\ell^2(\Z)$, la série orthogonale $\sum_ka_ke_k$ vérifie $\sum_k\norm{a_ke_k}_2^2=2\pi\sum|a_k|^2<\infty$, donc converge dans $L^2$ vers un $f$, et par continuité du produit scalaire $c_k(f)=\frac1{2\pi}\ps f{e_k}=a_k$. C'est le Corollaire~4.2 (tout Hilbert séparable est isométrique à $\ell^2$), ici sous le nom de théorème de Riesz--Fischer pour les séries de Fourier.
@@ -1578,7 +1578,7 @@ Sans adjoint : la forme linéaire $z'\mapsto\ps{T(z')}z$ est continue (composée
 \end{solution}
 
 \begin{commentaire}
-L'énoncé dit qu'un opérateur transporte la convergence faible en convergence faible. Un opérateur \emph{compact} fait mieux : il transporte la convergence faible en convergence \emph{forte}. Esquisse : si $x_n\rightharpoonup x$, $(x_n)$ est bornée (exercice~4.10), donc $(T x_n)$ est relativement compacte ; toute valeur d'adhérence forte $y$ de $(Tx_n)$ est aussi limite faible d'une sous-suite, donc $y=Tx$ par unicité de la limite faible et par cet exercice ; une suite relativement compacte ayant une unique valeur d'adhérence converge (TD1 ex.~10). Appliqué à $M_a$ avec $a\in c_0$ et $x_n=e_n\rightharpoonup0$ : $M_ae_n=a_ne_n\to0$ fortement, ce qui est bien le cas.
+L'énoncé dit qu'un opérateur transporte la convergence faible en convergence faible. Un opérateur \emph{compact} fait mieux : il transporte la convergence faible en convergence \emph{forte}. Esquisse : si $x_n\rightharpoonup x$, $(x_n)$ est bornée (exercice~4.10), donc $(T x_n)$ est relativement compacte ; toute valeur d'adhérence forte $y$ de $(Tx_n)$ est aussi limite faible d'une sous-suite, donc $y=Tx$ par unicité de la limite faible et par cet exercice ; une suite relativement compacte ayant une unique valeur d'adhérence converge (TD1 off.~10). Appliqué à $M_a$ avec $a\in c_0$ et $x_n=e_n\rightharpoonup0$ : $M_ae_n=a_ne_n\to0$ fortement, ce qui est bien le cas.
 \end{commentaire}
 
 % ---------------------------------------------------------------------
@@ -1685,7 +1685,7 @@ Montrer, avec la structure de preuve du Théorème~5.1, que l'application $\Phi:
 
 % ---------------------------------------------------------------------
 \begin{exo}{Remarques 5.1 et 5.6 -- Le dual de $c_0$ ; $\ell^1$ n'est pas le dual de $\ell^\infty$ ; non-réflexivité}
-On note $c_0(\N)$ le sous-espace fermé de $\ell^\infty(\N)$ des suites tendant vers $0$ (TD2 ex.~8), muni de $\norm\cdot_\infty$.
+On note $c_0(\N)$ le sous-espace fermé de $\ell^\infty(\N)$ des suites tendant vers $0$ (TD2 off.~8), muni de $\norm\cdot_\infty$.
 \begin{enumerate}[label=(\alph*)]
   \item Montrer que $\Psi:\ell^1(\N)\to c_0(\N)'$, $\Psi_u(v):=\sum_kv_ku_k$, est une isométrie linéaire surjective : « $(c_0)'=\ell^1$ ».
   \item En déduire que $c_0(\N)''$ s'identifie isométriquement à $\ell^\infty(\N)$, l'injection $J$ du Théorème~5.3 correspondant à l'inclusion $c_0\subset\ell^\infty$. Conclure que $c_0(\N)$ n'est pas réflexif.
@@ -1757,7 +1757,7 @@ v_k:=\frac{\sgn(u_k)\,|u_k|^{p'-1}}{\norm u_{p'}^{p'-1}}\qquad(\sgn z=\bar z/|z|
 \]
 Comme $(p'-1)p=p'$ (car $p=p'/(p'-1)$), $\sum_k|v_k|^p=\norm u_{p'}^{-p'}\sum_k|u_k|^{p'}=1$ : $v\in\ell^p$, $\norm v_p=1$. Et $\Phi_u(v)=\norm u_{p'}^{1-p'}\sum_k|u_k|^{p'}=\norm u_{p'}=\opnorm\varphi$. C'est le cas d'égalité de Hölder : $|v_k|^p$ et $|u_k|^{p'}$ proportionnels, et $v_ku_k\ge0$.
 
-\emph{Pour $p=1$ :} $\varphi=\Phi_u$ avec $u\in\ell^\infty$, et la norme est atteinte si et seulement si $\sup_k|u_k|$ est un maximum : pour $u_k=1-\frac1{k+1}$, $\opnorm{\Phi_u}=1$ mais $|\Phi_u(v)|\le\sum_k|v_k||u_k|<\norm v_1$ dès que $v\ne0$. \emph{Pour $c_0$ :} $\varphi=\Psi_u$, $u\in\ell^1$ (développement précédent), et $|\Psi_u(v)|=|\sum v_ku_k|<\norm u_1\norm v_\infty$ dès que $u$ a un support infini, puisque $|v_k|<\norm v_\infty$ pour $k$ grand ($v\to0$) : aucune forme à support infini n'atteint sa norme (comparer avec le TD3 ex.~8).
+\emph{Pour $p=1$ :} $\varphi=\Phi_u$ avec $u\in\ell^\infty$, et la norme est atteinte si et seulement si $\sup_k|u_k|$ est un maximum : pour $u_k=1-\frac1{k+1}$, $\opnorm{\Phi_u}=1$ mais $|\Phi_u(v)|\le\sum_k|v_k||u_k|<\norm v_1$ dès que $v\ne0$. \emph{Pour $c_0$ :} $\varphi=\Psi_u$, $u\in\ell^1$ (développement précédent), et $|\Psi_u(v)|=|\sum v_ku_k|<\norm u_1\norm v_\infty$ dès que $u$ a un support infini, puisque $|v_k|<\norm v_\infty$ pour $k$ grand ($v\to0$) : aucune forme à support infini n'atteint sa norme (comparer avec le TD3 off.~8).
 \end{solution}
 
 \begin{commentaire}
@@ -1860,7 +1860,7 @@ Soit $H$ un espace de Hilbert séparable de dimension infinie et $T$ un opérate
 par continuité de $g$ en $0$. Donc $\int fg=g(0)$ pour toute $g\in\Cc(\R^d)$. En prenant $g\in\Cc(\R^d\setminus\{0\})$, on obtient $\int fg=0$ pour toute $g\in\Cc$ de l'ouvert $\R^d\setminus\{0\}$, donc $f=0$ p.p. sur $U:=\R^d\setminus\{0\}$ : en effet, pour tout pavé $B$ avec $\adh B\subset U$, on approche $\mathbf 1_B$ par des $g_n\in\Cc(U)$, $0\le g_n\le1$, $g_n\to\mathbf 1_B$ simplement, et la convergence dominée (par $|f|\in L^1$) donne $\int_Bf=0$ ; une fonction intégrable d'intégrale nulle sur tout pavé est nulle p.p. (théorème de différentiation de Lebesgue). Comme $\{0\}$ est négligeable, $f=0$ p.p. sur $\R^d$. Mais alors $g(0)=\int fg=0$ pour toute $g\in\Cc(\R^d)$, absurde. Donc $(\rho_n)$, bornée dans $L^1$ (norme $1$), n'a aucune sous-suite convergeant au sens du Corollaire~5.3 avec $q=1$, $p=\infty$ — même en ne testant que contre $g\in\Cc\subset L^\infty$. La « limite » existe, mais c'est la masse de Dirac $\delta_0$, qui n'est pas une fonction (TD0 ex.~3.3b).
 
 \medskip
-\noindent\textbf{(c)} La preuve combine Banach--Alaoglu (Théorème~5.4) dans $(L^p)'$ \emph{avec $L^p$ séparable} (Proposition~2.8 : $p<\infty$), et l'identification $(L^p)'=L^q$ du Théorème~5.6 (\emph{$p<\infty$} encore). Pour $q=1$, l'exposant conjugué est $p=\infty$ : $L^\infty$ n'est pas séparable (TD2 ex.~9), et surtout $(L^\infty)'\ne L^1$ (même phénomène que $(\ell^\infty)'\ne\ell^1$). Banach--Alaoglu appliqué au dual de l'espace séparable $\Cz_0(\R^d)$ (fonctions continues tendant vers $0$ à l'infini) fournit bien une sous-suite de $(\rho_n)$ convergeant préfaiblement — mais vers un élément de $\Cz_0(\R^d)'$, l'espace des \emph{mesures} de Radon finies, et non de $L^1$ : c'est $\delta_0$. L'espace $L^1$ n'est le dual d'aucun espace normé (fait hors programme), et c'est la raison profonde de l'absence de compacité faible : les suites bornées de $L^1$ peuvent \emph{concentrer} leur masse en un point (ou la faire fuir à l'infini, $\rho(\cdot-n)$), et la limite sort de $L^1$.
+\noindent\textbf{(c)} La preuve combine Banach--Alaoglu (Théorème~5.4) dans $(L^p)'$ \emph{avec $L^p$ séparable} (Proposition~2.8 : $p<\infty$), et l'identification $(L^p)'=L^q$ du Théorème~5.6 (\emph{$p<\infty$} encore). Pour $q=1$, l'exposant conjugué est $p=\infty$ : $L^\infty$ n'est pas séparable (TD2 off.~9), et surtout $(L^\infty)'\ne L^1$ (même phénomène que $(\ell^\infty)'\ne\ell^1$). Banach--Alaoglu appliqué au dual de l'espace séparable $\Cz_0(\R^d)$ (fonctions continues tendant vers $0$ à l'infini) fournit bien une sous-suite de $(\rho_n)$ convergeant préfaiblement — mais vers un élément de $\Cz_0(\R^d)'$, l'espace des \emph{mesures} de Radon finies, et non de $L^1$ : c'est $\delta_0$. L'espace $L^1$ n'est le dual d'aucun espace normé (fait hors programme), et c'est la raison profonde de l'absence de compacité faible : les suites bornées de $L^1$ peuvent \emph{concentrer} leur masse en un point (ou la faire fuir à l'infini, $\rho(\cdot-n)$), et la limite sort de $L^1$.
 \end{solution}
 
 \begin{pointcle}
@@ -2018,7 +2018,7 @@ Remarquons que la suite $(S_n(x))_n$ ne converge pour aucun $x\notin2\pi\Z$ (son
 \noindent\textbf{(b)} $\sum_{k\le n}k\cos(kx)=S_n'=s_n'''$, et la dérivation continue donne $T_{s_n}'''\rightharpoonup T_S'''$. Par récurrence, $\sum_{k\le n}k^j\sin(kx+j\pi/2)=S_n^{(j)}=s_n^{(j+2)}$ (la dérivée de $\sin(kx+c)$ est $k\sin(kx+c+\pi/2)$), d'où $T_{S_n^{(j)}}=T_{s_n}^{(j+2)}\rightharpoonup T_S^{(j+2)}$.
 
 \medskip
-\noindent\textbf{(c)} Pour $\varphi\in\D(\R)$, $\int e^{inx}\varphi(x)\,dx\to0$ : c'est le lemme de Riemann--Lebesgue (TD2 ex.~8, ou directement : une intégration par parties donne $\int e^{inx}\varphi=-\frac1{in}\int e^{inx}\varphi'$, majoré par $\norm{\varphi'}_1/n$). Donc $T_{e^{inx}}\rightharpoonup0$. Ensuite $n^je^{inx}=(-i)^j\frac{d^j}{dx^j}e^{inx}$, et la dérivation est continue : $T_{n^je^{inx}}=(-i)^jT_{e^{inx}}^{(j)}\rightharpoonup0$. (Directement : $j$ intégrations par parties donnent $|\int n^je^{inx}\varphi|=|\int e^{inx}\varphi^{(j)}|\to0$ par Riemann--Lebesgue ; et même $|\int n^je^{inx}\varphi|\le\norm{\varphi^{(j+1)}}_1/n$.)
+\noindent\textbf{(c)} Pour $\varphi\in\D(\R)$, $\int e^{inx}\varphi(x)\,dx\to0$ : c'est le lemme de Riemann--Lebesgue (TD2 off.~8, ou directement : une intégration par parties donne $\int e^{inx}\varphi=-\frac1{in}\int e^{inx}\varphi'$, majoré par $\norm{\varphi'}_1/n$). Donc $T_{e^{inx}}\rightharpoonup0$. Ensuite $n^je^{inx}=(-i)^j\frac{d^j}{dx^j}e^{inx}$, et la dérivation est continue : $T_{n^je^{inx}}=(-i)^jT_{e^{inx}}^{(j)}\rightharpoonup0$. (Directement : $j$ intégrations par parties donnent $|\int n^je^{inx}\varphi|=|\int e^{inx}\varphi^{(j)}|\to0$ par Riemann--Lebesgue ; et même $|\int n^je^{inx}\varphi|\le\norm{\varphi^{(j+1)}}_1/n$.)
 
 La suite $(n^je^{inx})_n$ n'est bornée dans aucun $L^p_{\mathrm{loc}}$ dès que $j\ge1$ et converge pourtant vers $0$ dans $\D'$ : \emph{la convergence dans $\D'(\Omega)$ n'implique aucune bornitude dans les espaces de fonctions}. C'est très différent de la convergence faible des chapitres~4 et 5 (Proposition~5.5 : une suite faiblement convergente dans un Banach est bornée). L'explication : $\D(\Omega)$ n'est pas un espace de Banach, et Banach--Steinhaus ne s'y applique pas sous la forme du Théorème~3.7. (En revanche, un théorème de Banach--Steinhaus subsiste dans $\D'$, sous la forme : si $T_n(\varphi)$ converge pour toute $\varphi$, la limite est une distribution — hors programme.)
 \end{solution}

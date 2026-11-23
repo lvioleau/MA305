@@ -31,6 +31,14 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 \DeclareMathOperator{\Ker}{Ker}
 \newcommand{\ie}{c'est-à-dire}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Vect}{\operatorname{Vect}}
+\newcommand{\opnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ps}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Cz}{\mathcal{C}^0}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cc}{\mathcal{C}^0_c}
 
 % ---------- Environnements ----------
 \newtcolorbox{exo}[1]{
@@ -78,15 +86,247 @@
 \begin{commentaire}
 \textbf{Conventions.} On suit les notations du polycopié : $B(a,r)$ désigne la boule ouverte, $\Bf(a,r)$ la boule fermée, $d(A,x):=\inf_{a\in A} d(x,a)$ la distance d'un point à une partie, $\interieur{A}$ et $\adh{A}$ l'intérieur et l'adhérence, et $\partial A := \adh{A}\setminus\interieur{A}$ la frontière. Comme dans le poly (Définition~1.20), une partie $A$ d'un espace métrique est dite \emph{compacte} si toute suite d'éléments de $A$ admet une valeur d'adhérence \emph{dans $A$} (compacité séquentielle) ; la propriété de Borel--Lebesgue en est une caractérisation équivalente (Théorème~1.4).
 
-\textbf{Numérotation.} Les titres reprennent les numéros d'exercices du poly tels qu'ils figurent sur la feuille officielle ; trois d'entre eux sont décalés d'un cran par rapport au polycopié 2026--2027 : l'exercice~6 y est l'Exercice~1.12 (et non 1.11), l'exercice~8 l'Exercice~1.15 (et non 1.14), l'exercice~10 l'Exercice~1.20 (et non 1.19).
+\textbf{Numérotation.} Les titres reprennent les numéros d'exercices du poly tels qu'ils figurent sur la feuille officielle ; trois d'entre eux sont décalés d'un cran par rapport au polycopié 2026--2027 : l'exercice officiel~6 y est l'Exercice~1.12 (et non 1.11), l'exercice officiel~8 l'Exercice~1.15 (et non 1.14), l'exercice officiel~10 l'Exercice~1.20 (et non 1.19).
+
+La \textbf{partie A} (Exercices~1 à~6) ne figure pas parmi les feuilles officielles du cours : elle a été composée pour travailler le chapitre~1 au-delà des exercices du polycopié (corrigés dans le TD0). La \textbf{partie B} corrige les treize exercices de la feuille officielle du TD n\textsuperscript{o}1, numérotés « Exercice officiel 1 » à « Exercice officiel 13 ». La \textbf{partie C} (Exercices~7 et~8) prépare l'examen : questions de cours et vrai ou faux.
 
 Les encadrés « Point clé » signalent les idées à retenir, les encadrés « Piège » les erreurs fréquentes, et les « Commentaires » replacent l'exercice dans le cours.
 \end{commentaire}
 
-\section*{Topologie générale d'un espace métrique}
+\section*{Partie A -- Exercices complémentaires}
 
 % =====================================================================
-\begin{exo}{Exercice 1 -- Intérieur, adhérence et frontière ne commutent pas}
+\begin{exo}{Exercice 1 -- Distances bornées : ce qu'une distance retient de plus que sa topologie}
+Soit $(X,d)$ un espace métrique. On pose $\delta:=\min(1,d)$ et $\delta':=\dfrac d{1+d}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $\varphi:\R_+\to\R_+$ croissante, sous-additive ($\varphi(s+t)\le\varphi(s)+\varphi(t)$) et ne s'annulant qu'en $0$. Montrer que $\varphi\circ d$ est une distance sur $X$. En déduire que $\delta$ et $\delta'$ sont des distances.
+  \item Montrer que l'identité de $(X,d)$ dans $(X,\delta)$ est uniformément continue ainsi que sa réciproque ; même question pour $\delta'$. En déduire que $d$, $\delta$ et $\delta'$ ont les mêmes ouverts, les mêmes suites de Cauchy, et que $(X,d)$ est complet si et seulement si $(X,\delta)$ l'est.
+  \item Montrer que $X$ est borné pour $\delta$. À quelle condition existe-t-il $c>0$ tel que $c\,d\le\delta$ ?
+  \item Montrer que $(X,d)$ et $(X,\delta)$ ont les mêmes parties précompactes. Que dire de $(\R,\min(1,|\cdot|))$ : borné ? complet ? précompact ? compact ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Séparation :} $\varphi(d(x,y))=0\iff d(x,y)=0\iff x=y$. \emph{Symétrie :} claire. \emph{Inégalité triangulaire :} $d(x,z)\le d(x,y)+d(y,z)$, donc par croissance puis sous-additivité de $\varphi$,
+\[
+\varphi(d(x,z))\le\varphi\big(d(x,y)+d(y,z)\big)\le\varphi(d(x,y))+\varphi(d(y,z)) .
+\]
+Pour $\varphi(t)=\min(1,t)$ : croissante, nulle seulement en $0$ ; si $s\ge1$ ou $t\ge1$ le membre de droite de $\min(1,s+t)\le\min(1,s)+\min(1,t)$ est $\ge1$, sinon il vaut $s+t$. Pour $\varphi(t)=\frac t{1+t}=1-\frac1{1+t}$ : croissante, nulle seulement en $0$, et
+\[
+\frac{s+t}{1+s+t}=\frac s{1+s+t}+\frac t{1+s+t}\le\frac s{1+s}+\frac t{1+t} .
+\]
+
+\medskip
+\noindent\textbf{(b)} On a $\delta\le d$ et $\delta'\le d$ : l'identité de $(X,d)$ vers $(X,\delta)$ ou $(X,\delta')$ est $1$-lipschitzienne. Dans l'autre sens, soit $\varepsilon\in\,]0,1[$ : si $\delta(x,y)<\varepsilon$ alors $d(x,y)=\delta(x,y)<\varepsilon$ ; et si $\delta'(x,y)<\frac\varepsilon2$ alors $d=\frac{\delta'}{1-\delta'}<2\delta'<\varepsilon$. Les réciproques sont donc uniformément continues.
+
+Conséquences. Une application uniformément continue est continue et envoie les suites de Cauchy sur des suites de Cauchy : les trois distances ont donc les mêmes suites convergentes (avec les mêmes limites), donc les mêmes fermés (Proposition~1.3) et les mêmes ouverts, et les mêmes suites de Cauchy. La complétude s'énonce avec ces deux notions seulement : elle est commune aux trois.
+
+\medskip
+\noindent\textbf{(c)} $\delta\le1$, donc $\diam_\delta(X)\le1$. S'il existe $c>0$ avec $c\,d\le\delta\le1$, alors $d\le\frac1c$ : $d$ est bornée. Réciproquement, si $d\le M$, alors $\delta=\min(1,d)\ge\frac d{\max(1,M)}$. Donc $d$ et $\delta$ sont équivalentes au sens fort ($c\,d\le\delta\le d$) si et seulement si $(X,d)$ est borné.
+
+\medskip
+\noindent\textbf{(d)} Pour $\varepsilon<1$, les boules $B_d(x,\varepsilon)$ et $B_\delta(x,\varepsilon)$ coïncident. Or dans la définition de la précompacité il suffit de considérer les petits rayons (un recouvrement par des boules de rayon $\varepsilon$ en fournit un pour tout rayon plus grand). Les parties précompactes sont donc les mêmes.
+
+L'espace $(\R,\delta)$, avec $\delta=\min(1,|\cdot|)$, est borné par (c) et complet par (b). Il n'est pas précompact, puisque $\R$ ne l'est pas pour la distance usuelle (une partie précompacte est bornée), donc pas compact (Proposition~1.13). C'est un espace \emph{complet, borné, et non compact}, qui a pourtant la topologie usuelle de $\R$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Trois niveaux d'équivalence entre distances.} (1) \emph{Même topologie} (mêmes suites convergentes) : conserve ouverts, fermés, continuité, compacité ; \emph{pas} la complétude (TD0, Exemple~1.2 : $\arctan$ sur $\R$). (2) \emph{Uniformément équivalentes} (l'identité est uniformément continue dans les deux sens) : conserve en plus suites de Cauchy, complétude, uniforme continuité, précompacité ; \emph{pas} le caractère borné : c'est le cas de $d$ et $\min(1,d)$. (3) \emph{Équivalentes} ($c\,d\le\delta\le C\,d$) : conserve tout, y compris bornés et applications lipschitziennes ; c'est la situation de deux normes équivalentes. À retenir : « fermé borné » n'a de rapport avec « compact » que dans un EVN de dimension finie ; la bonne notion métrique est « fermé précompact » (Corollaire~1.4).
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 2 -- Séparabilité}
+Un espace métrique est \emph{séparable} s'il contient une partie dénombrable dense.
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $X$ un espace métrique séparable et $A\subset X$. Montrer que $A$, muni de la distance induite, est séparable.
+  \item Montrer qu'un espace métrique précompact est séparable. En déduire que tout espace métrique compact est séparable.
+  \item Soit $X$ un espace métrique séparable. Montrer que toute famille d'ouverts non vides deux à deux disjoints de $X$ est au plus dénombrable.
+  \item Soit $X:=\{0,1\}^\N$ muni de $d_\infty(u,v):=\sup_n|u_n-v_n|$. Montrer que $X$ n'est pas séparable. En déduire que $\ell^\infty(\N)$ ne l'est pas.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $D=\{x_n:n\in\N\}$ dense dans $X$. Le piège est que $D\cap A$ peut être vide. Pour chaque couple $(n,k)\in\N\times\N^\star$ tel que $B(x_n,\frac1k)\cap A\ne\emptyset$, on choisit un point $a_{n,k}$ dans cette intersection ; l'ensemble $D_A$ de ces points est une partie dénombrable de $A$. Soit $a\in A$ et $\varepsilon>0$ ; fixons $k$ avec $\frac2k<\varepsilon$, puis $n$ avec $d(x_n,a)<\frac1k$ (densité de $D$). Alors $a\in B(x_n,\frac1k)\cap A$, donc $a_{n,k}$ existe, et
+\[
+d(a,a_{n,k})\le d(a,x_n)+d(x_n,a_{n,k})<\tfrac2k<\varepsilon .
+\]
+Donc $D_A$ est dense dans $A$.
+
+\medskip
+\noindent\textbf{(b)} Si $X$ est précompact, pour chaque $k\ge1$ il existe une partie finie $C_k\subset X$ telle que les boules $B(c,\frac1k)$, $c\in C_k$, recouvrent $X$. L'ensemble $D:=\bigcup_kC_k$ est dénombrable, et tout point de $X$ est à distance $<\frac1k$ d'un point de $C_k\subset D$, pour tout $k$ : $D$ est dense. Un compact est précompact (Proposition~1.13), donc séparable.
+
+\medskip
+\noindent\textbf{(c)} Soit $D=\{x_n\}$ dense et $(O_i)_{i\in I}$ une telle famille. Chaque $O_i$, ouvert non vide, rencontre $D$ : posons $n(i):=\min\{n:x_n\in O_i\}$. Les $O_i$ étant deux à deux disjoints, $i\mapsto n(i)$ est injective de $I$ dans $\N$.
+
+\medskip
+\noindent\textbf{(d)} Deux éléments distincts $u\ne v$ de $X$ diffèrent en au moins un indice, donc $d_\infty(u,v)=1$. Les boules $B(u,\frac12)$, $u\in X$, sont donc deux à deux disjointes (ce sont les singletons), ouvertes, non vides. Or $X$ n'est pas dénombrable (argument diagonal de Cantor : si $X=\{u^k:k\in\N\}$, la suite $v_n:=1-u^n_n$ est dans $X$ et diffère de chaque $u^k$ au rang $k$). Par (c), $X$ n'est pas séparable.
+
+Enfin $X\subset\ell^\infty(\N)$ et $d_\infty$ est la distance induite par $\norm\cdot_\infty$ : si $\ell^\infty$ était séparable, $X$ le serait par (a). C'est l'argument du TD2 (off.~9).
+\end{solution}
+
+\begin{methode}
+\textbf{Prouver la non-séparabilité} : exhiber une famille \emph{non dénombrable} de points deux à deux à distance $\ge\varepsilon$ (ou d'ouverts disjoints), puis invoquer (c). \textbf{Prouver la séparabilité} : coefficients rationnels (pour $\ell^p$, $p<\infty$, Corollaire~2.2), précompacité (b), ou sous-espace d'un séparable (a). La séparabilité est l'hypothèse qui rend possibles les extractions diagonales du chapitre~5 (Banach--Alaoglu, Théorème~5.4).
+\end{methode}
+
+% =====================================================================
+\begin{exo}{Exercice 3 -- Uniforme continuité : critère séquentiel, exemples, prolongement}
+\begin{enumerate}[label=(\alph*)]
+  \item Soient $(X,d)$, $(Y,d')$ deux espaces métriques et $f:X\to Y$. Montrer que $f$ est uniformément continue si et seulement si, pour toutes suites $(x_n)$, $(y_n)$ de $X$ telles que $d(x_n,y_n)\to0$, on a $d'(f(x_n),f(y_n))\to0$.
+  \item Les fonctions $x\mapsto x^2$ et $x\mapsto\sin(x^2)$ sont-elles uniformément continues sur $\R$ ? La fonction $x\mapsto\sqrt x$ est-elle uniformément continue sur $\R_+$ ? lipschitzienne ?
+  \item Soit $f:\,]0,1]\to\R$ continue. Montrer que $f$ est uniformément continue si et seulement si elle admet une limite finie en $0$. Application : $\sin\frac1x$ et $x\sin\frac1x$.
+  \item Soit $f:\R\to\R$ continue admettant des limites finies en $+\infty$ et en $-\infty$. Montrer que $f$ est uniformément continue.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} ($\Rightarrow$) Soit $\varepsilon>0$ et $\eta$ le module associé : $d(x,y)<\eta\Rightarrow d'(f(x),f(y))<\varepsilon$. Si $d(x_n,y_n)\to0$, alors $d(x_n,y_n)<\eta$ pour $n$ grand, donc $d'(f(x_n),f(y_n))<\varepsilon$.
+
+($\Leftarrow$) Par contraposée. Si $f$ n'est pas uniformément continue, il existe $\varepsilon>0$ tel que pour tout $\eta>0$ on trouve $x,y$ avec $d(x,y)<\eta$ et $d'(f(x),f(y))\ge\varepsilon$. Avec $\eta=\frac1n$ on obtient deux suites telles que $d(x_n,y_n)\to0$ et $d'(f(x_n),f(y_n))\ge\varepsilon$.
+
+\medskip
+\noindent\textbf{(b)} \emph{$x^2$ : non.} $x_n=n$, $y_n=n+\frac1n$ : $y_n-x_n\to0$ mais $y_n^2-x_n^2=2+\frac1{n^2}\ge2$.
+
+\emph{$\sin(x^2)$ : non}, bien qu'elle soit bornée. $x_n=\sqrt{2\pi n}$, $y_n=\sqrt{2\pi n+\frac\pi2}$ : $y_n-x_n=\dfrac{\pi/2}{x_n+y_n}\to0$, mais $\sin(y_n^2)-\sin(x_n^2)=1$.
+
+\emph{$\sqrt x$ : uniformément continue, non lipschitzienne.} Pour $0\le y\le x$, $(\sqrt x-\sqrt y)^2\le(\sqrt x-\sqrt y)(\sqrt x+\sqrt y)=x-y$, donc $|\sqrt x-\sqrt y|\le\sqrt{|x-y|}$ : $\eta=\varepsilon^2$ convient. Mais $\frac{\sqrt x-\sqrt0}{x-0}=\frac1{\sqrt x}\to\infty$ quand $x\to0$.
+
+\medskip
+\noindent\textbf{(c)} ($\Leftarrow$) Si $f(x)\to\ell$ en $0$, le prolongement par $\ell$ en $0$ est continu sur le compact $[0,1]$, donc uniformément continu (Théorème~1.3 de Heine), et sa restriction $f$ aussi.
+
+($\Rightarrow$) $]0,1]$ est dense dans $[0,1]$ et $\R$ est complet : par le Théorème~1.1, $f$ se prolonge en une application continue sur $[0,1]$, donc admet une limite en $0$. (Directement : si $x_n\to0$, la suite $(x_n)$ est de Cauchy, donc $(f(x_n))$ aussi par uniforme continuité, donc converge ; et deux telles suites donnent la même limite par (a).)
+
+\emph{Application.} $\sin\frac1x$ n'a pas de limite en $0$ (valeurs $0$ en $\frac1{n\pi}$ et $1$ en $\frac1{2n\pi+\pi/2}$) : elle est continue, bornée, mais pas uniformément continue sur $]0,1]$. $x\sin\frac1x\to0$ en $0$ : uniformément continue.
+
+\medskip
+\noindent\textbf{(d)} Notons $\ell_\pm$ les limites et soit $\varepsilon>0$. Il existe $A>0$ tel que $|f(x)-\ell_+|\le\frac\varepsilon2$ pour $x\ge A$ et $|f(x)-\ell_-|\le\frac\varepsilon2$ pour $x\le-A$. Sur le compact $[-A-1,A+1]$, $f$ est uniformément continue (Heine) : il existe $\eta\in\,]0,1]$ tel que $|f(x)-f(y)|\le\varepsilon$ dès que $x,y\in[-A-1,A+1]$ et $|x-y|<\eta$. Soient alors $x<y$ quelconques avec $y-x<\eta\le1$. Ou bien $x,y\in[-A-1,A+1]$, et c'est gagné. Ou bien $y>A+1$, alors $x>A$ et $|f(x)-f(y)|\le|f(x)-\ell_+|+|\ell_+-f(y)|\le\varepsilon$. Ou bien $x<-A-1$, alors $y<-A$ et l'on conclut de même avec $\ell_-$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{L'uniforme continuité se joue au bord et à l'infini.} Sur un compact elle est gratuite (Heine). Sur un domaine non compact, elle exprime un contrôle des oscillations près du bord manquant (c) et à l'infini (d) : $x^2$ accélère, $\sin(x^2)$ et $\sin\frac1x$ oscillent de plus en plus vite. Le critère (a) est l'outil pour la \emph{nier}. Et (c) est le Théorème~1.1 en miniature : \emph{uniformément continue sur une partie dense $=$ prolongeable par continuité à l'adhérence}, dès que le but est complet.
+\end{pointcle}
+
+% =====================================================================
+\begin{exo}{Exercice 4 -- Trois applications du lemme de Baire}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $X$ un espace métrique complet, non vide et sans point isolé. Montrer que $X$ n'est pas dénombrable. En déduire qu'il n'existe aucune distance sur $\Q$ définissant sa topologie usuelle et le rendant complet.
+  \item Soit $X$ un espace métrique complet non vide et $(f_n)$ une suite de fonctions continues de $X$ dans $\R$ telle que, pour tout $x\in X$, la suite $(f_n(x))_n$ soit bornée. Montrer qu'il existe un ouvert non vide $U\subset X$ et $M\ge0$ tels que $|f_n(x)|\le M$ pour tout $n$ et tout $x\in U$.
+  \item Soit $f:\,]0,+\infty[\,\to\R$ continue telle que, pour tout $x>0$, $f(nx)\to0$ quand l'entier $n$ tend vers l'infini. Montrer que $f(x)\to0$ quand $x\to+\infty$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Un singleton $\{x\}$ est fermé. Il est d'intérieur vide : sinon $\{x\}$ serait ouvert, c'est-à-dire que $x$ serait isolé. Si $X$ était dénombrable, $X=\bigcup_{x\in X}\{x\}$ serait une union dénombrable de fermés d'intérieur vide, donc d'intérieur vide par le Lemme~1.1 de Baire ; or l'intérieur de $X$ dans lui-même est $X\ne\emptyset$. Contradiction.
+
+Pour $\Q$ : « être isolé » est une notion topologique, et $\Q$ n'a pas de point isolé pour sa topologie usuelle. Une distance complète définissant cette topologie ferait de $\Q$ un espace complet, non vide, sans point isolé et dénombrable : impossible. (Comparer avec $\R$ : la distance $\arctan$ du TD0 le rend non complet, mais la distance usuelle le rend complet. Pour $\Q$, aucune ne marche.)
+
+\medskip
+\noindent\textbf{(b)} Pour $N\in\N$, soit $F_N:=\{x\in X:\forall n,\ |f_n(x)|\le N\}=\bigcap_n|f_n|^{-1}([0,N])$ : c'est un fermé, intersection d'images réciproques de fermés par des fonctions continues. L'hypothèse de bornitude ponctuelle dit exactement que $X=\bigcup_NF_N$. Par Baire, l'un des $F_N$ est d'intérieur non vide : $U:=\interieur{F_N}$ et $M:=N$ conviennent.
+
+\medskip
+\noindent\textbf{(c)} Soit $\varepsilon>0$. Pour $N\ge1$, posons
+\[
+F_N:=\{x\in[1,2]:\ \forall n\ge N,\ |f(nx)|\le\varepsilon\}=\bigcap_{n\ge N}\{x\in[1,2]:|f(nx)|\le\varepsilon\},
+\]
+fermé de $[1,2]$ par continuité de $x\mapsto f(nx)$. L'hypothèse donne $[1,2]=\bigcup_NF_N$, et $[1,2]$ est complet : par Baire il existe $N$ et un intervalle $[a,b]\subset F_N$ avec $a<b$. Ainsi
+\[
+|f|\le\varepsilon\quad\text{sur}\quad\bigcup_{n\ge N}[na,nb] .
+\]
+Or les intervalles $[na,nb]$ et $[(n+1)a,(n+1)b]$ se chevauchent dès que $(n+1)a\le nb$, soit $n\ge\frac a{b-a}$. Pour $N_0:=\max\big(N,\lceil\frac a{b-a}\rceil\big)$, la réunion des $[na,nb]$, $n\ge N_0$, est donc l'intervalle $[N_0a,+\infty[$. D'où $|f(x)|\le\varepsilon$ pour tout $x\ge N_0a$.
+\end{solution}
+
+\begin{methode}
+\textbf{Le schéma « Baire ».} (1) Fixer la conclusion visée et un $\varepsilon$ (ou une borne $N$). (2) Définir les ensembles $F_N$ des points où la propriété est vraie « à partir du rang $N$ » ou « avec la constante $N$ » ; les écrire comme \emph{intersections d'images réciproques de fermés par des fonctions continues}, pour qu'ils soient fermés. (3) L'hypothèse ponctuelle se traduit par $X=\bigcup_NF_N$. (4) Baire donne un $F_N$ d'intérieur non vide : l'information ponctuelle devient \emph{uniforme sur un ouvert}. (5) Propager de l'ouvert à tout l'espace par un argument de structure : linéarité pour Banach--Steinhaus (Théorème~3.7, dont (b) est la version non linéaire), dilatations en (c). La complétude sert à l'étape~4 et nulle part ailleurs.
+\end{methode}
+
+% =====================================================================
+\begin{exo}{Exercice 5 -- Théorème de Dini}
+Soit $X$ un espace métrique compact et $(f_n)$ une suite \emph{croissante} de fonctions continues de $X$ dans $\R$, convergeant simplement vers une fonction $f$ \emph{continue}.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que la convergence est uniforme. \emph{Indication : pour $\varepsilon>0$, considérer les fermés $K_n:=\{x:f(x)-f_n(x)\ge\varepsilon\}$.}
+  \item Montrer par des exemples que chacune des trois hypothèses (compacité de $X$, continuité de la limite, monotonie) est nécessaire.
+  \item On définit des polynômes par $P_0:=0$ et $P_{n+1}(x):=P_n(x)+\frac12\big(x-P_n(x)^2\big)$. Montrer que $0\le P_n\le P_{n+1}\le\sqrt x$ sur $[0,1]$, puis que $(P_n)$ converge uniformément vers $\sqrt x$ sur $[0,1]$. En déduire que $t\mapsto|t|$ est limite uniforme de polynômes sur $[-1,1]$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Posons $g_n:=f-f_n$ : fonctions continues, positives, et la suite $(g_n)$ décroît simplement vers $0$. Soit $\varepsilon>0$ et $K_n:=g_n^{-1}([\varepsilon,+\infty[)$, fermé de $X$. Comme $g_{n+1}\le g_n$, on a $K_{n+1}\subset K_n$ ; et $\bigcap_nK_n=\emptyset$, puisque $g_n(x)\to0$ pour tout $x$.
+
+Montrons que l'un des $K_n$ est vide. Sinon, choisissons $x_n\in K_n$ pour tout $n$ ; par compacité, une sous-suite converge vers un $x\in X$. Pour $m$ fixé, $x_n\in K_n\subset K_m$ dès que $n\ge m$, et $K_m$ est fermé : $x\in K_m$. Donc $x\in\bigcap_mK_m=\emptyset$, absurde.
+
+Il existe donc $N$ avec $K_N=\emptyset$, et par décroissance $K_n=\emptyset$ pour $n\ge N$ : $0\le f-f_n<\varepsilon$ sur $X$ pour tout $n\ge N$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Limite non continue :} $f_n(x)=-x^n$ sur $[0,1]$ croît vers $-\mathbf 1_{\{1\}}$, et $\sup|f_n-f|=1$. \emph{Espace non compact :} la même suite sur $[0,1[$ croît vers $0$, continue, mais $\sup_{[0,1[}x^n=1$. \emph{Pas de monotonie :} $f_n(x)=\max(0,1-|nx-1|)$ sur $[0,1]$ (bosse de hauteur $1$ centrée en $\frac1n$) converge simplement vers $0$ et $\sup f_n=1$.
+
+\medskip
+\noindent\textbf{(c)} Par récurrence, montrons $0\le P_n\le\sqrt x$ sur $[0,1]$ ; c'est vrai pour $n=0$. Si c'est vrai au rang $n$ : d'abord $x-P_n^2\ge0$, donc $P_{n+1}\ge P_n\ge0$. Ensuite
+\[
+\sqrt x-P_{n+1}=\big(\sqrt x-P_n\big)\Big(1-\tfrac12\big(\sqrt x+P_n\big)\Big),
+\]
+et $0\le\frac12(\sqrt x+P_n)\le\sqrt x\le1$, donc le second facteur est dans $[0,1]$ : $0\le\sqrt x-P_{n+1}\le\sqrt x-P_n$. Ainsi $(P_n(x))_n$ est croissante majorée par $\sqrt x$ : elle converge vers un $\ell(x)\in[0,\sqrt x]$, et en passant à la limite dans la relation de récurrence, $\ell=\ell+\frac12(x-\ell^2)$, soit $\ell(x)=\sqrt x$. La suite $(P_n)$ est croissante, formée de fonctions continues, de limite simple continue sur le compact $[0,1]$ : par (a) la convergence est uniforme.
+
+Enfin, pour $t\in[-1,1]$, $t^2\in[0,1]$ et $\sup_{|t|\le1}\big|P_n(t^2)-|t|\big|=\sup_{x\in[0,1]}|P_n(x)-\sqrt x|\to0$ : les polynômes $t\mapsto P_n(t^2)$ convergent uniformément vers $|t|$.
+\end{solution}
+
+\begin{commentaire}
+\textbf{À quoi sert (c).} L'approximation uniforme de $|t|$ par des polynômes est le lemme clef du théorème de Stone--Weierstrass (Théorème~2.2) : elle montre que l'adhérence d'une algèbre de fonctions est stable par $f\mapsto|f|$, donc par $\max$ et $\min$. \textbf{À retenir de (a)} : dans un compact, une suite décroissante de fermés non vides a une intersection non vide ; c'est la propriété utilisée, sous forme contraposée. Comparer avec le théorème de Cantor (exercice officiel~8), où la complétude et $\diam\to0$ remplacent la compacité.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 6 -- Isométries et applications dilatantes d'un compact}
+Soit $(X,d)$ un espace métrique compact non vide et $f:X\to X$.
+\begin{enumerate}[label=(\alph*)]
+  \item On suppose que $f$ est une isométrie : $d(f(x),f(y))=d(x,y)$ pour tous $x,y$. Montrer que $f$ est surjective. \emph{Indication : si $a\notin f(X)$, étudier la suite $(f^n(a))_n$.}
+  \item Donner un exemple d'isométrie non surjective d'un espace métrique complet dans lui-même. En déduire une nouvelle preuve que la boule unité fermée de $\ell^2(\N)$ n'est pas compacte.
+  \item On suppose seulement que $f$ est \emph{dilatante} : $d(f(x),f(y))\ge d(x,y)$ pour tous $x,y$. Montrer que $f$ est une isométrie. \emph{Indication : pour $x,y$ fixés, extraire une sous-suite convergente de $\big(f^n(x),f^n(y)\big)_n$ dans $X\times X$.}
+  \item Soit $g:X\to X$ surjective et $1$-lipschitzienne. Montrer que $g$ est une isométrie.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Une isométrie est continue, donc $f(X)$ est compact (Théorème~1.3), donc fermé. Supposons qu'il existe $a\notin f(X)$ : alors $\varepsilon:=d(a,f(X))>0$. Posons $x_n:=f^n(a)$. Pour $n<m$, en appliquant $n$ fois le caractère isométrique,
+\[
+d(x_n,x_m)=d\big(f^n(a),f^n(f^{m-n}(a))\big)=d\big(a,f^{m-n}(a)\big)\ge\varepsilon,
+\]
+car $f^{m-n}(a)\in f(X)$. La suite $(x_n)$ n'a donc aucune sous-suite de Cauchy, ce qui contredit la compacité de $X$.
+
+\medskip
+\noindent\textbf{(b)} Sur $\N$ muni de la distance usuelle (complet : les suites de Cauchy sont stationnaires), $n\mapsto n+1$ est une isométrie non surjective. Autre exemple : le décalage à droite $S(u_0,u_1,\dots):=(0,u_0,u_1,\dots)$ de $\ell^2(\N)$ vérifie $\norm{Su-Sv}_2=\norm{u-v}_2$, envoie la boule unité fermée $B$ dans elle-même, et $e_0\notin S(B)$. Si $B$ était compacte, (a) rendrait $S:B\to B$ surjective.
+
+\medskip
+\noindent\textbf{(c)} Soient $x,y\in X$ et $\varepsilon>0$. L'espace produit $X\times X$ est compact, donc la suite $\big(f^n(x),f^n(y)\big)_n$ admet une sous-suite convergente, en particulier de Cauchy : il existe $n<m$ tels que
+\[
+d\big(f^n(x),f^m(x)\big)<\varepsilon\qquad\text{et}\qquad d\big(f^n(y),f^m(y)\big)<\varepsilon .
+\]
+Posons $k:=m-n\ge1$. Le caractère dilatant, appliqué $n$ fois, donne
+\[
+d\big(x,f^k(x)\big)\le d\big(f^n(x),f^{n+k}(x)\big)<\varepsilon,\qquad\text{et de même}\qquad d\big(y,f^k(y)\big)<\varepsilon :
+\]
+\emph{les itérées reviennent près de leur point de départ}. Alors, en appliquant $k-1\ge0$ fois le caractère dilatant puis l'inégalité triangulaire,
+\[
+d(f(x),f(y))\le d\big(f^k(x),f^k(y)\big)\le d\big(f^k(x),x\big)+d(x,y)+d\big(y,f^k(y)\big)<d(x,y)+2\varepsilon .
+\]
+Comme $\varepsilon$ est arbitraire, $d(f(x),f(y))\le d(x,y)$, et avec l'hypothèse : égalité.
+
+\medskip
+\noindent\textbf{(d)} Comme $g$ est surjective, on peut choisir pour chaque $x\in X$ un antécédent $h(x)$ : $g\circ h=\mathrm{Id}_X$. Alors $h$ est dilatante, car $g$ est $1$-lipschitzienne :
+\[
+d(h(x),h(y))\ge d\big(g(h(x)),g(h(y))\big)=d(x,y) .
+\]
+Par (c), $h$ est une isométrie ; par (a), $h$ est surjective, donc bijective (une isométrie est injective). De $g\circ h=\mathrm{Id}$ on tire $g=h^{-1}$, qui est une isométrie.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Dans un compact, on ne peut pas « s'étaler ».} Les trois énoncés disent qu'un compact ne peut être envoyé isométriquement sur une partie stricte de lui-même, ni dilaté, ni contracté surjectivement. La technique commune est celle des \emph{orbites} : considérer $(f^n(a))_n$, en extraire une sous-suite de Cauchy, et exploiter que $f$ transporte les distances pour ramener l'information au rang $0$. L'astuce de (c), extraire dans le produit $X\times X$ pour traiter deux points \emph{avec la même extraction}, est un réflexe à acquérir (comparer avec les exercices officiels~11 et~13).
+\end{pointcle}
+
+% =====================================================================
+\section*{Partie B -- Feuille officielle du TD n\textsuperscript{o}1}
+
+\subsection*{Topologie générale d'un espace métrique}
+
+% =====================================================================
+\begin{exo}{Exercice officiel 1 -- Intérieur, adhérence et frontière ne commutent pas}
 Soit $X$ un espace métrique et $A$ une partie de $X$. Donner des contre-exemples aux propriétés suivantes :
 \begin{enumerate}[label=\arabic*.]
   \item $\interieur{\adh{A}} \subset A$,
@@ -136,7 +376,7 @@ car $\interieur{A}\subset\interieur{\adh{A}}$. Le passage à l'adhérence ne peu
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 2 (Exercice 1.3 du poly) -- Topologie induite}
+\begin{exo}{Exercice officiel 2 (Exercice 1.3 du poly) -- Topologie induite}
 Soit $(X,d)$ un espace métrique et $A\subset X$. Vérifier que les ouverts et fermés de $A$ (pour la distance induite) sont respectivement les intersections avec $A$ des parties ouvertes et fermées de $X$.
 \end{exo}
 
@@ -180,7 +420,7 @@ Le complémentaire doit être pris \emph{dans le bon espace}. Le fermé de $A$ s
 \end{piege}
 
 % =====================================================================
-\begin{exo}{Exercice 3 -- Vrai ou faux sur la topologie induite}
+\begin{exo}{Exercice officiel 3 -- Vrai ou faux sur la topologie induite}
 Soit $X$ un espace métrique, $A\neq\emptyset$ une partie de $X$. Dire si les propriétés suivantes sont vraies ; si elles sont fausses, donner des contre-exemples et, éventuellement, des conditions supplémentaires pour qu'elles soient vraies.
 \begin{enumerate}[label=\arabic*.]
   \item Si $B\subseteq A$ est un ouvert de $A$ alors $B$ est aussi ouvert dans $X$.
@@ -193,7 +433,7 @@ Soit $X$ un espace métrique, $A\neq\emptyset$ une partie de $X$. Dire si les pr
 \end{exo}
 
 \begin{solution}
-Dans tout l'exercice, on utilise la description de l'exercice~2 : les ouverts (resp. fermés) de $A$ sont les $O\cap A$ (resp. $G\cap A$) avec $O$ ouvert (resp. $G$ fermé) de $X$.
+Dans tout l'exercice, on utilise la description de l'exercice officiel~2 : les ouverts (resp. fermés) de $A$ sont les $O\cap A$ (resp. $G\cap A$) avec $O$ ouvert (resp. $G$ fermé) de $X$.
 
 \medskip
 \noindent\textbf{1. Faux.} Dans $X=\R$, prenons $A=[0,1]$ et $B=A$. L'ensemble $A$ est toujours ouvert dans lui-même (c'est $\R\cap A$), mais $[0,1]$ n'est pas ouvert dans $\R$ (aucune boule centrée en $0$ n'est contenue dans $[0,1]$). Autre exemple, avec $B\neq A$ : $A=[0,1]$ et $B=[0,\tfrac12[\,=\,]-1,\tfrac12[\,\cap A$.
@@ -201,7 +441,7 @@ Dans tout l'exercice, on utilise la description de l'exercice~2 : les ouverts (r
 \emph{Condition suffisante :} la propriété devient vraie si \textbf{$A$ est ouvert dans $X$}. En effet $B=O\cap A$ est alors une intersection de deux ouverts de $X$, donc un ouvert de $X$ (Proposition~1.1). Cette condition est aussi nécessaire (prendre $B=A$).
 
 \medskip
-\noindent\textbf{2. Vrai.} C'est exactement le sens $(\Leftarrow)$ de l'exercice~2.
+\noindent\textbf{2. Vrai.} C'est exactement le sens $(\Leftarrow)$ de l'exercice officiel~2.
 
 \medskip
 \noindent\textbf{3. Faux.} Dans $X=\R$, prenons $A=\,]0,1[$ et $B=A$ : $A$ est fermé dans lui-même mais pas dans $\R$ (la suite $(1/n)_{n\ge2}$ est dans $A$ et converge vers $0\notin A$, contredisant la caractérisation séquentielle des fermés, Proposition~1.3). Avec $B\neq A$ : $A=\,]0,1[$ et $B=\,]0,\tfrac12]=[-1,\tfrac12]\cap A$.
@@ -209,7 +449,7 @@ Dans tout l'exercice, on utilise la description de l'exercice~2 : les ouverts (r
 \emph{Condition suffisante (et nécessaire) :} \textbf{$A$ fermé dans $X$}, car alors $B=G\cap A$ est une intersection de deux fermés de $X$.
 
 \medskip
-\noindent\textbf{4. Vrai.} Si $B\subseteq A$ est fermé dans $X$, alors $B=B\cap A$ est la trace sur $A$ du fermé $B$ de $X$, donc $B$ est fermé dans $A$ par l'exercice~2. (Même argument pour les ouverts : un ouvert de $X$ \emph{contenu dans $A$} est ouvert dans $A$.)
+\noindent\textbf{4. Vrai.} Si $B\subseteq A$ est fermé dans $X$, alors $B=B\cap A$ est la trace sur $A$ du fermé $B$ de $X$, donc $B$ est fermé dans $A$ par l'exercice officiel~2. (Même argument pour les ouverts : un ouvert de $X$ \emph{contenu dans $A$} est ouvert dans $A$.)
 
 \medskip
 \noindent\textbf{5. Faux.} $\R$ est complet mais $A=\,]0,1[$ ne l'est pas : la suite $(1/n)_{n\ge2}$ est de Cauchy (elle converge dans $\R$) mais n'a pas de limite dans $A$. De même $\Q\subset\R$ n'est pas complet.
@@ -221,7 +461,7 @@ Dans tout l'exercice, on utilise la description de l'exercice~2 : les ouverts (r
 \[
 f(x) := \begin{cases} 0 & \text{si } x<\sqrt2,\\ 1 & \text{si } x>\sqrt2,\end{cases}\qquad x\in\Q .
 \]
-Cette définition a un sens sur tout $\Q$ car $\sqrt2\notin\Q$. Montrons que $f$ est continue via la caractérisation topologique (Proposition~1.5) : il suffit que $f^{-1}(O)$ soit ouvert dans $\Q$ pour tout ouvert $O$ de $\N$. Or $f^{-1}(O)$ est l'un des quatre ensembles $\emptyset$, $\Q$, $\Q\cap\,]-\infty,\sqrt2[$ et $\Q\cap\,]\sqrt2,+\infty[$, qui sont tous des ouverts de $\Q$ par l'exercice~2 (traces d'ouverts de $\R$). Donc $f$ est continue et non constante.
+Cette définition a un sens sur tout $\Q$ car $\sqrt2\notin\Q$. Montrons que $f$ est continue via la caractérisation topologique (Proposition~1.5) : il suffit que $f^{-1}(O)$ soit ouvert dans $\Q$ pour tout ouvert $O$ de $\N$. Or $f^{-1}(O)$ est l'un des quatre ensembles $\emptyset$, $\Q$, $\Q\cap\,]-\infty,\sqrt2[$ et $\Q\cap\,]\sqrt2,+\infty[$, qui sont tous des ouverts de $\Q$ par l'exercice officiel~2 (traces d'ouverts de $\R$). Donc $f$ est continue et non constante.
 \end{solution}
 
 \begin{pointcle}
@@ -233,7 +473,7 @@ La question 6 illustre la \emph{non-connexité} de $\Q$ : on peut « couper » $
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 4 -- Boules ouvertes, boules fermées, sphères}
+\begin{exo}{Exercice officiel 4 -- Boules ouvertes, boules fermées, sphères}
 Soit $(X,d)$ un espace métrique, $a\in X$ et $r\ge0$. On note $B(a,r)$, $\Bf(a,r)$, $S(a,r)$ la boule ouverte, la boule fermée et la sphère de centre $a$ et de rayon $r$.
 \begin{enumerate}[label=\alph*)]
   \item Montrer que $B(a,r)$ est ouvert, que $\Bf(a,r)$ est fermé et que $S(a,r)$ est fermé.
@@ -259,7 +499,7 @@ donc $B(x,\rho)\subset C$.
 \emph{$S(a,r)$ est fermé.} On a $S(a,r)=\Bf(a,r)\cap\big(X\setminus B(a,r)\big)$ : intersection de deux fermés (le second est le complémentaire d'un ouvert), donc fermé (Proposition~1.1).
 
 \medskip
-\noindent\textbf{Seconde méthode : par continuité.} La fonction $\varphi : x\mapsto d(x,a)$ est $1$-lipschitzienne car $|d(x,a)-d(y,a)|\le d(x,y)$ (inégalité triangulaire « inverse » ; c'est aussi l'exercice~6 avec $A=\{a\}$), donc continue. Alors
+\noindent\textbf{Seconde méthode : par continuité.} La fonction $\varphi : x\mapsto d(x,a)$ est $1$-lipschitzienne car $|d(x,a)-d(y,a)|\le d(x,y)$ (inégalité triangulaire « inverse » ; c'est aussi l'exercice officiel~6 avec $A=\{a\}$), donc continue. Alors
 \[
 B(a,r)=\varphi^{-1}(\,]-\infty,r[\,),\qquad \Bf(a,r)=\varphi^{-1}(\,]-\infty,r]\,),\qquad S(a,r)=\varphi^{-1}(\{r\}),
 \]
@@ -300,7 +540,7 @@ La seconde méthode de la question a) est à retenir : \emph{pour montrer qu'un 
 \end{pointcle}
 
 % =====================================================================
-\begin{exo}{Exercice 5 (Exercice 1.7 du poly) -- Convergence dans un produit}
+\begin{exo}{Exercice officiel 5 (Exercice 1.7 du poly) -- Convergence dans un produit}
 Soient $(X,d_X)$ et $(Y,d_Y)$ deux espaces métriques. On munit $X\times Y$ de la distance
 \[
 D_1\big((x_1,y_1),(x_2,y_2)\big):=d_X(x_1,x_2)+d_Y(y_1,y_2).
@@ -328,7 +568,7 @@ qui montrent que les trois distances ont \emph{les mêmes suites convergentes} (
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 6 (Exercice 1.11 du poly) -- La distance à une partie est $1$-lipschitzienne}
+\begin{exo}{Exercice officiel 6 (Exercice 1.11 du poly) -- La distance à une partie est $1$-lipschitzienne}
 Soit $(X,d)$ un espace métrique et $A\subset X$ une partie non vide. Montrer que $x\mapsto d(A,x):=\inf_{a\in A}d(x,a)$ est $1$-lipschitzienne.
 \end{exo}
 
@@ -364,10 +604,10 @@ Cette fonction est d'un usage constant. Trois conséquences immédiates :
 \end{itemize}
 \end{commentaire}
 
-\section*{Complétude}
+\subsection*{Complétude}
 
 % =====================================================================
-\begin{exo}{Exercice 7 -- Deux applications du lemme de Baire}
+\begin{exo}{Exercice officiel 7 -- Deux applications du lemme de Baire}
 \begin{enumerate}[label=\arabic*.]
   \item Soit $E$ un espace métrique complet et $(F_n)_{n\in\N}$ une suite de fermés de $E$ telle que $E=\bigcup_{n}F_n$. Montrer que $\bigcup_n\interieur{F_n}$ est un ouvert dense de $E$.
   \item Soit $T:E\to E$ linéaire continue, $E$ normé complet. On suppose que pour tout $x\in E$ il existe $n_x$ tel que $T^{n_x}x=0$. Montrer que $T$ est nilpotente.
@@ -412,7 +652,7 @@ Donc $F_N=E$, \ie{} $T^N=0$ : $T$ est nilpotente.
 \end{piege}
 
 % =====================================================================
-\begin{exo}{Exercice 8 -- Théorème de Cantor (Exercice 1.14 du poly)}
+\begin{exo}{Exercice officiel 8 -- Théorème de Cantor (Exercice 1.14 du poly)}
 Montrer que pour un espace métrique $(X,d)$, la complétude équivaut à la propriété suivante : si $(F_n)_{n\in\N}$ est une suite décroissante de fermés non vides vérifiant $\lim_n\diam(F_n)=0$, alors $\bigcap_nF_n$ est un singleton.
 \end{exo}
 
@@ -452,10 +692,10 @@ La preuve du sens réciproque montre \emph{comment fabriquer des fermés emboît
 Les trois hypothèses sur $(F_n)$ sont indispensables : dans $\R$ complet, $F_n=[n,+\infty[$ (diamètres infinis) ou $F_n=\,]0,1/n[$ (non fermés) ont une intersection vide ; et sans « non vides » il n'y a rien à dire. Notez aussi que $\diam(F_n)\to0$ ne peut pas être remplacé par « $F_n$ bornés » : dans un espace de Banach de dimension infinie, on peut trouver des boules fermées emboîtées d'intersection vide.
 \end{piege}
 
-\section*{Compacité}
+\subsection*{Compacité}
 
 % =====================================================================
-\begin{exo}{Exercice 9 -- Fermés bornés non compacts}
+\begin{exo}{Exercice officiel 9 -- Fermés bornés non compacts}
 Donner des exemples de fermés bornés d'un espace métrique qui ne sont pas compacts.
 \end{exo}
 
@@ -469,7 +709,7 @@ Rappelons qu'un compact est toujours fermé et borné (Proposition~1.10) et que 
 \noindent\textbf{2. $\R$ muni d'une distance bornée.} Sur $X=\R$, posons $\delta(x,y):=\min(1,|x-y|)$. C'est une distance, pour laquelle $\R$ est borné ($\diam=1$) et fermé. Une suite converge pour $\delta$ si et seulement si elle converge pour la distance usuelle (car $\delta(x_n,x)\to0\iff|x_n-x|\to0$) : les valeurs d'adhérence sont les mêmes. La suite $x_n=n$ n'a pas de valeur d'adhérence (toute sous-suite tend vers $+\infty$), donc $(\R,\delta)$ n'est pas compact. Même chose avec la distance $|\arctan x-\arctan y|$ de l'Exemple~1.2.
 
 \medskip
-\noindent\textbf{3. $\Q\cap[0,1]$ dans $\Q$.} C'est un fermé de $\Q$ (trace du fermé $[0,1]$ de $\R$, Exercice~2), borné. Une suite de rationnels $(q_n)$ convergeant dans $\R$ vers $\sqrt2/2$ (par densité) n'a qu'une valeur d'adhérence possible dans $\R$, à savoir $\sqrt2/2\notin\Q$ : elle n'a donc aucune valeur d'adhérence dans $\Q\cap[0,1]$. C'est l'Exercice~1.21 : l'ensemble est même \emph{précompact} ; c'est la complétude qui manque.
+\noindent\textbf{3. $\Q\cap[0,1]$ dans $\Q$.} C'est un fermé de $\Q$ (trace du fermé $[0,1]$ de $\R$, Exercice officiel~2), borné. Une suite de rationnels $(q_n)$ convergeant dans $\R$ vers $\sqrt2/2$ (par densité) n'a qu'une valeur d'adhérence possible dans $\R$, à savoir $\sqrt2/2\notin\Q$ : elle n'a donc aucune valeur d'adhérence dans $\Q\cap[0,1]$. C'est l'Exercice~1.21 : l'ensemble est même \emph{précompact} ; c'est la complétude qui manque.
 
 \medskip
 \noindent\textbf{4. La boule unité fermée d'un espace normé de dimension infinie.} Dans $\ell^\infty(\N)$ (suites bornées, norme $\sup$), les vecteurs $e_n=(0,\dots,0,1,0,\dots)$ ($1$ en position $n$) sont dans la boule unité fermée $\Bf(0,1)$, fermée et bornée, et vérifient $\norm{e_n-e_m}_\infty=1$ pour $n\ne m$ : comme au point 1, aucune sous-suite n'est de Cauchy. Le même exemple fonctionne dans $\ell^p$ ($\norm{e_n-e_m}_p=2^{1/p}$) ou dans $C^0([0,1])$ avec $f_n(x)=x^n$ ($\norm{f_n-f_{2n}}_\infty\ge 1/4$ ; ou simplement : une sous-suite convergeant uniformément aurait une limite continue, or $f_n$ converge simplement vers $\mathbf 1_{\{1\}}$, discontinue).
@@ -484,7 +724,7 @@ L'exemple 2 est instructif : $\delta$ et $|\cdot|$ définissent la même topolog
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 10 (Exercice 1.19 du poly) -- Unique valeur d'adhérence dans un compact}
+\begin{exo}{Exercice officiel 10 (Exercice 1.19 du poly) -- Unique valeur d'adhérence dans un compact}
 Soit $(X,d)$ un espace métrique compact et $(x_n)_n$ une suite d'éléments de $X$ ne possédant qu'une valeur d'adhérence $x$. Montrer que $(x_n)_n$ converge vers $x$.
 \end{exo}
 
@@ -502,7 +742,7 @@ Autrement dit, l'ensemble $I:=\{n\in\N : d(x_n,x)\ge\varepsilon\}$ est \emph{inf
 
 \emph{$y$ est une valeur d'adhérence de $(x_n)$.} En effet $\varphi\circ\psi$ est strictement croissante comme composée de deux applications strictement croissantes (c'est le point de l'Exercice~1.18) : $(x_{\varphi(\psi(n))})_n$ est une sous-suite de $(x_n)_n$ qui converge vers $y$.
 
-\emph{$y\ne x$.} L'application $z\mapsto d(z,x)$ est continue ($1$-lipschitzienne, Exercice~6). En passant à la limite dans \eqref{eq:loin} le long de $\psi$, on obtient $d(y,x)\ge\varepsilon>0$, donc $y\ne x$.
+\emph{$y\ne x$.} L'application $z\mapsto d(z,x)$ est continue ($1$-lipschitzienne, Exercice officiel~6). En passant à la limite dans \eqref{eq:loin} le long de $\psi$, on obtient $d(y,x)\ge\varepsilon>0$, donc $y\ne x$.
 
 Nous avons construit une seconde valeur d'adhérence $y\ne x$ : contradiction avec l'hypothèse d'unicité. Donc $x_n\to x$.
 \end{solution}
@@ -516,7 +756,7 @@ Nous avons construit une seconde valeur d'adhérence $y\ne x$ : contradiction av
 \end{piege}
 
 % =====================================================================
-\begin{exo}{Exercice 11 -- Distance entre deux compacts}
+\begin{exo}{Exercice officiel 11 -- Distance entre deux compacts}
 Soit $(X,d)$ un espace métrique. On définit la distance entre deux sous-ensembles $A,B\subset X$ par $\dist(A,B):=\inf_{a\in A,\,b\in B}d(a,b)$. Montrer que si $A$ et $B$ sont compacts (et non vides), alors il existe $a_*\in A$ et $b_*\in B$ tels que $\dist(A,B)=d(a_*,b_*)$.
 \end{exo}
 
@@ -524,7 +764,7 @@ Soit $(X,d)$ un espace métrique. On définit la distance entre deux sous-ensemb
 Il s'agit de montrer qu'une borne inférieure est atteinte, \ie{} est un minimum. On donne deux rédactions.
 
 \medskip
-\noindent\textbf{Première rédaction : minimum d'une fonction continue sur un compact.} Munissons $A\times B$ de la distance $D_1$ de l'exercice~5. L'application $\Phi:(a,b)\mapsto d(a,b)$ est $1$-lipschitzienne sur $(A\times B,D_1)$ : pour $(a,b),(a',b')\in A\times B$, deux inégalités triangulaires donnent
+\noindent\textbf{Première rédaction : minimum d'une fonction continue sur un compact.} Munissons $A\times B$ de la distance $D_1$ de l'exercice officiel~5. L'application $\Phi:(a,b)\mapsto d(a,b)$ est $1$-lipschitzienne sur $(A\times B,D_1)$ : pour $(a,b),(a',b')\in A\times B$, deux inégalités triangulaires donnent
 \[
 d(a,b)\le d(a,a')+d(a',b')+d(b',b),
 \]
@@ -532,7 +772,7 @@ d'où, en échangeant les rôles des deux couples,
 \[
 \abs{d(a,b)-d(a',b')}\le d(a,a')+d(b,b')=D_1\big((a,b),(a',b')\big).
 \]
-Donc $\Phi$ est continue. Par ailleurs $A\times B$ est compact : c'est la Proposition~1.9 (énoncée pour $D_\infty$, mais $D_1$ et $D_\infty$ ont les mêmes suites convergentes, cf.\ le commentaire de l'exercice~5). Le Corollaire~1.3 (une fonction continue sur un compact non vide atteint ses bornes) fournit $(a_*,b_*)\in A\times B$ tel que
+Donc $\Phi$ est continue. Par ailleurs $A\times B$ est compact : c'est la Proposition~1.9 (énoncée pour $D_\infty$, mais $D_1$ et $D_\infty$ ont les mêmes suites convergentes, cf.\ le commentaire de l'exercice officiel~5). Le Corollaire~1.3 (une fonction continue sur un compact non vide atteint ses bornes) fournit $(a_*,b_*)\in A\times B$ tel que
 \[
 d(a_*,b_*)=\min_{(a,b)\in A\times B}\Phi(a,b)=\inf_{a\in A,\,b\in B}d(a,b)=\dist(A,B).
 \]
@@ -562,7 +802,7 @@ puisque $(d(a_{\varphi(\psi(n))},b_{\varphi(\psi(n))}))_n$ est extraite de la su
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 12 -- Fonction continue tendant vers $0$ à l'infini}
+\begin{exo}{Exercice officiel 12 -- Fonction continue tendant vers $0$ à l'infini}
 Soit $f:\R\to\R$ continue telle que $\lim_{x\to-\infty}f(x)=\lim_{x\to+\infty}f(x)=0$. Montrer que $f$ est bornée et atteint au moins une de ses bornes.
 \end{exo}
 
@@ -599,7 +839,7 @@ Une autre façon de voir l'exercice : $f$ se prolonge par continuité à $\Rb=\R
 \end{commentaire}
 
 % =====================================================================
-\begin{exo}{Exercice 13 -- Points fixes}
+\begin{exo}{Exercice officiel 13 -- Points fixes}
 \begin{enumerate}[label=\arabic*.]
   \item Soit $E$ un espace vectoriel normé et $C\subseteq E$ un convexe compact (non vide). Montrer que toute application $1$-lipschitzienne de $C$ dans lui-même admet un point fixe. \emph{Indication : considérer, pour $z\in C$ fixé, $f_n(x):=\frac{1}{n+1}z+\frac{n}{n+1}f(x)$.}
   \item Soit $(X,d)$ un espace métrique compact (non vide) et $f:X\to X$ telle que $d(f(x),f(y))<d(x,y)$ pour $x\ne y$.
@@ -646,7 +886,7 @@ Donc $f(x)=x$.
 \medskip
 \noindent\textbf{2.(b)} \emph{Unicité.} Si $a\ne b$ sont deux points fixes, $d(a,b)=d(f(a),f(b))<d(a,b)$, absurde.
 
-\emph{Existence.} Considérons $g:X\to\R_+$, $g(x):=d(x,f(x))$. L'hypothèse implique que $f$ est $1$-lipschitzienne donc continue, et $d$ est continue sur $X\times X$ (Exercice~1.10) ; $g$ est donc continue comme composée de $x\mapsto(x,f(x))$ (continue, exercice~5) et de $d$. Comme $X$ est compact et non vide, $g$ atteint son minimum en un point $a\in X$ (Corollaire~1.3). Supposons $f(a)\ne a$. Alors
+\emph{Existence.} Considérons $g:X\to\R_+$, $g(x):=d(x,f(x))$. L'hypothèse implique que $f$ est $1$-lipschitzienne donc continue, et $d$ est continue sur $X\times X$ (Exercice~1.10) ; $g$ est donc continue comme composée de $x\mapsto(x,f(x))$ (continue, exercice officiel~5) et de $d$. Comme $X$ est compact et non vide, $g$ atteint son minimum en un point $a\in X$ (Corollaire~1.3). Supposons $f(a)\ne a$. Alors
 \[
 g(f(a))=d\big(f(a),f(f(a))\big)<d(a,f(a))=g(a),
 \]
@@ -694,5 +934,132 @@ Dans la question 2(c), l'inégalité stricte $u_{n+1}<u_n$ ne suffit \emph{pas} 
   \item Que la question 1 exige la \emph{convexité} se voit sur le cercle $S^1\subset\R^2$, compact non convexe : une rotation d'angle non nul est une isométrie sans point fixe.
 \end{itemize}
 \end{commentaire}
+
+% =====================================================================
+\section*{Partie C -- Vers l'examen : questions de cours, vrai ou faux}
+
+\begin{commentaire}
+Deux exercices dans l'optique de l'examen, numérotés à la suite de la partie A. L'Exercice~7 fait restituer les preuves du chapitre~1 le plus souvent demandées en question de cours ; l'Exercice~8 est un vrai ou faux sur ses pièges.
+\end{commentaire}
+
+% =====================================================================
+\begin{exo}{Exercice 7 -- Questions de cours}
+\emph{À traiter sans document : énoncé complet, puis démonstration.}
+\begin{enumerate}[label=(\alph*)]
+  \item Énoncer et démontrer le théorème de prolongement des applications uniformément continues (Théorème~1.1).
+  \item Énoncer et démontrer le lemme de Baire (Lemme~1.1).
+  \item Énoncer et démontrer le théorème de Heine (Théorème~1.3).
+  \item Montrer que dans un espace métrique complet, une partie est compacte si et seulement si elle est fermée et précompacte (Corollaire~1.4 ; on redémontrera les Propositions~1.13 et 1.14).
+  \item Énoncer et démontrer le théorème de point fixe de Picard (Exercice~1.16).
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Énoncé.} Soient $(X,d_X)$ un espace métrique, $(Y,d_Y)$ un espace métrique \emph{complet}, $D$ une partie dense de $X$ et $f:D\to Y$ uniformément continue. Il existe une unique application continue $\tilde f:X\to Y$ prolongeant $f$ ; elle est uniformément continue.
+
+\emph{Unicité.} Deux applications continues qui coïncident sur une partie dense coïncident partout (caractérisation séquentielle).
+
+\emph{Construction.} Soit $x\in X$ et $(d_n)$ une suite de $D$ convergeant vers $x$ (densité). Fixons $\varepsilon>0$ et $\delta>0$ donné par l'uniforme continuité : $d_X(a,b)<\delta\Rightarrow d_Y(f(a),f(b))<\varepsilon$ pour $a,b\in D$. La suite $(d_n)$ est de Cauchy : il existe $N$ avec $d_X(d_n,d_m)<\delta$ pour $n,m\ge N$, donc $d_Y(f(d_n),f(d_m))<\varepsilon$. Ainsi $(f(d_n))$ est de Cauchy dans $Y$ complet : elle converge. Si $(e_n)$ est une autre suite de $D$ tendant vers $x$, la suite alternée $d_0,e_0,d_1,e_1,\dots$ tend aussi vers $x$, donc son image converge, et les deux suites extraites $(f(d_n))$ et $(f(e_n))$ ont la même limite. On pose $\tilde f(x)$ cette limite commune ; pour $x\in D$ la suite constante donne $\tilde f(x)=f(x)$.
+
+\emph{Uniforme continuité.} Soient $x_1,x_2\in X$ avec $d_X(x_1,x_2)<\delta/3$, et $(a_n)$, $(b_n)$ dans $D$ tendant vers $x_1$, $x_2$. Pour $n$ assez grand, $d_X(a_n,b_n)\le d_X(a_n,x_1)+d_X(x_1,x_2)+d_X(x_2,b_n)<\delta$, donc $d_Y(f(a_n),f(b_n))<\varepsilon$ ; en passant à la limite (continuité de $d_Y$), $d_Y(\tilde f(x_1),\tilde f(x_2))\le\varepsilon$.
+
+\medskip
+\noindent\textbf{(b)} \emph{Énoncé.} Dans un espace métrique complet : (i) toute intersection dénombrable d'ouverts denses est dense ; (ii) toute réunion dénombrable de fermés d'intérieur vide est d'intérieur vide.
+
+\emph{Preuve.} (i) et (ii) sont équivalents par passage au complémentaire (un fermé est d'intérieur vide si et seulement si son complémentaire est un ouvert dense). Montrons (i). Soient $(O_n)$ des ouverts denses, $O:=\bigcap_nO_n$ et $U$ un ouvert non vide ; il s'agit de montrer $U\cap O\ne\emptyset$ (Proposition~1.4). L'ouvert $U\cap O_0$ est non vide ($O_0$ dense) : il contient une boule fermée $\Bf(a_0,r_0)$ avec $0<r_0\le1$. L'ouvert $B(a_0,r_0)\cap O_1$ est non vide : il contient $\Bf(a_1,r_1)$ avec $0<r_1\le\frac12$. Par récurrence on construit $a_n$ et $0<r_n\le2^{-n}$ avec
+\[
+\Bf(a_n,r_n)\subset B(a_{n-1},r_{n-1})\cap O_n .
+\]
+Les fermés $F_n:=\Bf(a_n,r_n)$ sont emboîtés. Pour $m\ge n$, $a_m\in F_n$, donc $d(a_n,a_m)\le2^{-n}$ : la suite $(a_n)$ est de Cauchy, elle converge vers un $a$ (complétude). Pour tout $n$, la suite $(a_m)_{m\ge n}$ est dans le fermé $F_n$, donc $a\in F_n$. Ainsi $a\in F_0\subset U$ et $a\in F_n\subset O_n$ pour tout $n$ : $a\in U\cap O$.
+
+\medskip
+\noindent\textbf{(c)} \emph{Énoncé.} Soient $X$ un espace métrique compact, $Y$ un espace métrique et $f:X\to Y$ continue. Alors $f(X)$ est compact et $f$ est uniformément continue.
+
+\emph{Compacité de l'image.} Soit $(y_n)$ dans $f(X)$, $y_n=f(x_n)$. Par compacité, $x_{\varphi(n)}\to x\in X$, et par continuité $y_{\varphi(n)}\to f(x)\in f(X)$.
+
+\emph{Uniforme continuité.} Par l'absurde : il existerait $\varepsilon>0$ et, pour tout $n\ge1$, des points $a_n,b_n$ avec $d_X(a_n,b_n)\le\frac1n$ et $d_Y(f(a_n),f(b_n))\ge\varepsilon$. Par compacité (deux extractions successives), $a_{\varphi(n)}\to a$ et $b_{\varphi(n)}\to b$ ; comme $d_X(a_n,b_n)\to0$, $a=b$. Par continuité de $f$ et de $d_Y$, $d_Y(f(a_{\varphi(n)}),f(b_{\varphi(n)}))\to d_Y(f(a),f(a))=0$, ce qui contredit $\ge\varepsilon$.
+
+\medskip
+\noindent\textbf{(d)} Soit $A$ une partie d'un espace métrique complet $(X,d)$.
+
+\emph{Compacte $\Rightarrow$ fermée et précompacte.} \emph{Fermée :} si $a_n\in A$ et $a_n\to x$, une sous-suite converge dans $A$, nécessairement vers $x$ : $x\in A$. \emph{Précompacte (Proposition~1.13) :} par contraposée, si pour un $\varepsilon>0$ aucune famille finie de boules de rayon $\varepsilon$ ne recouvre $A$, on construit par récurrence $x_n\in A\setminus\bigcup_{k<n}B(x_k,\varepsilon)$ ; alors $d(x_n,x_m)\ge\varepsilon$ pour $n\ne m$, aucune sous-suite n'est de Cauchy, donc aucune ne converge : $A$ n'est pas compacte.
+
+\emph{Fermée et précompacte $\Rightarrow$ compacte.} Soit $(x_n)$ dans $A$. \emph{Extraction d'une sous-suite de Cauchy (Proposition~1.14) :} $A$ est recouverte par un nombre fini de boules de rayon $1$ ; l'une d'elles, $B_0$, contient $x_n$ pour une infinité d'indices. Ces termes sont recouverts par un nombre fini de boules de rayon $\frac12$ ; l'une d'elles, $B_1$, en contient une infinité. On construit ainsi des boules $B_k$ de rayon $2^{-k}$ telles que $B_0\cap\dots\cap B_k$ contienne $x_n$ pour une infinité de $n$, puis une extractrice $\varphi$ avec $x_{\varphi(k)}\in B_0\cap\dots\cap B_k$. Pour $j\ge k$, $x_{\varphi(j)}$ et $x_{\varphi(k)}$ sont dans $B_k$, donc $d(x_{\varphi(j)},x_{\varphi(k)})\le2^{1-k}$ : la suite extraite est de Cauchy. \emph{Conclusion :} $X$ étant complet, elle converge, et sa limite est dans $A$ fermé.
+
+\medskip
+\noindent\textbf{(e)} \emph{Énoncé.} Soit $(X,d)$ un espace métrique complet non vide et $f:X\to X$ une application $k$-lipschitzienne avec $k<1$. Alors $f$ a un unique point fixe.
+
+\emph{Unicité.} Si $f(x)=x$ et $f(y)=y$, alors $d(x,y)=d(f(x),f(y))\le k\,d(x,y)$, donc $(1-k)d(x,y)\le0$ et $x=y$.
+
+\emph{Existence.} Soit $x_0\in X$ et $x_{n+1}:=f(x_n)$. Par récurrence, $d(x_{n+1},x_n)\le k^nd(x_1,x_0)$, donc pour $m>n$,
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le\frac{k^n}{1-k}\,d(x_1,x_0)\xrightarrow[n\to\infty]{}0 .
+\]
+La suite est de Cauchy, donc converge vers un $x\in X$. Comme $f$ est continue (lipschitzienne), $f(x)=\lim f(x_n)=\lim x_{n+1}=x$.
+\end{solution}
+
+\begin{methode}
+\textbf{Le rôle de la complétude, à chaque fois.} Dans (a), (b), (d) et (e), la preuve suit le même schéma : fabriquer une suite de Cauchy (par uniforme continuité, par boules emboîtées de rayons $2^{-n}$, par précompacité, par contraction), la faire converger grâce à la complétude, puis identifier la limite. À l'examen, dire explicitement \emph{où} la complétude intervient : c'est l'hypothèse que l'on vous demandera de justifier. Dans (b), ne pas oublier de prendre des boules \emph{fermées} incluses dans la boule \emph{ouverte} précédente : c'est ce qui garantit que la limite reste dans tous les $F_n$.
+\end{methode}
+
+% =====================================================================
+\begin{exo}{Exercice 8 -- Vrai ou faux ?}
+Pour chaque affirmation, dire si elle est vraie ou fausse, et justifier par une preuve courte ou un contre-exemple. $(X,d)$ et $(Y,d')$ désignent des espaces métriques.
+\begin{enumerate}[label=\arabic*.]
+  \item L'adhérence de la boule ouverte $B(a,r)$ est la boule fermée $\Bf(a,r)$.
+  \item Dans un espace métrique complet, toute partie fermée et bornée est compacte.
+  \item L'image réciproque d'un compact par une application continue est compacte.
+  \item L'image d'un fermé par une application continue est fermée.
+  \item Une application continue transforme les suites de Cauchy en suites de Cauchy.
+  \item Si $X$ est compact et $f:X\to Y$ est continue et bijective, alors $f^{-1}$ est continue.
+  \item Si $X$ et $Y$ sont homéomorphes et $X$ est complet, alors $Y$ est complet.
+  \item Dans un espace métrique complet, une intersection dénombrable d'ouverts denses est un ouvert dense.
+  \item $\Q$ est une intersection dénombrable d'ouverts de $\R$.
+  \item Tout espace métrique compact est séparable.
+  \item Dans un espace métrique, toute partie fermée et précompacte est compacte.
+  \item Si $D$ est dense dans $X$ et $f:D\to Y$ est uniformément continue, alors $f$ se prolonge en une application continue $X\to Y$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{1. Faux.} Sur un ensemble $X$ à au moins deux points muni de la distance discrète ($d(x,y)=1$ si $x\ne y$), $B(a,1)=\{a\}$ est fermée, donc égale à son adhérence, alors que $\Bf(a,1)=X$. On a toujours $\adh{B(a,r)}\subset\Bf(a,r)$, avec égalité dans un EVN.
+
+\medskip
+\noindent\textbf{2. Faux.} La boule unité fermée de $\ell^2(\N)$ est fermée et bornée dans un espace complet, mais la suite $(e_n)$ vérifie $\norm{e_n-e_m}=\sqrt2$ pour $n\ne m$ et n'a aucune sous-suite convergente. C'est vrai dans $\K^d$ (Corollaire~1.2), et cela caractérise la dimension finie (Théorème~3.1).
+
+\medskip
+\noindent\textbf{3. Faux.} $f:\R\to\R$ constante égale à $0$ : $f^{-1}(\{0\})=\R$. (L'image \emph{directe} d'un compact est compacte : Théorème~1.3.)
+
+\medskip
+\noindent\textbf{4. Faux.} $\arctan(\R)=\,]-\frac\pi2,\frac\pi2[$. (L'image \emph{réciproque} d'un fermé est fermée ; et l'image directe d'un fermé est fermée si l'espace de départ est compact.)
+
+\medskip
+\noindent\textbf{5. Faux.} $f(x)=1/x$ sur $]0,1]$ : la suite $(1/n)$ est de Cauchy, son image $(n)$ ne l'est pas. C'est vrai pour une application \emph{uniformément} continue, et c'est le point de départ du Théorème~1.1.
+
+\medskip
+\noindent\textbf{6. Vrai.} Soit $F$ un fermé de $X$ ; il est compact (Proposition~1.11), donc $f(F)$ est compact (Théorème~1.3), donc fermé dans $Y$ (Proposition~1.10). Or $(f^{-1})^{-1}(F)=f(F)$ : l'image réciproque par $f^{-1}$ de tout fermé est fermée, et $f^{-1}$ est continue.
+
+\medskip
+\noindent\textbf{7. Faux.} $\R$ et $]-1,1[$ sont homéomorphes par $x\mapsto\frac x{1+|x|}$, le premier est complet, le second non (Remarque~1.6). La complétude n'est pas une notion topologique.
+
+\medskip
+\noindent\textbf{8. Faux.} Dense, oui (Baire) ; ouvert, non : $\R\setminus\Q=\bigcap_{q\in\Q}(\R\setminus\{q\})$ est une intersection dénombrable d'ouverts denses de $\R$, et n'est pas ouvert puisque $\Q$ est dense.
+
+\medskip
+\noindent\textbf{9. Faux.} Si $\Q=\bigcap_nO_n$ avec $O_n$ ouverts, chaque $O_n$ contient $\Q$, donc est dense. Les ouverts $\R\setminus\{q\}$, $q\in\Q$, sont denses aussi. L'intersection de cette famille dénombrable d'ouverts denses est $\Q\cap(\R\setminus\Q)=\emptyset$, ce qui contredit le lemme de Baire dans $\R$ complet.
+
+\medskip
+\noindent\textbf{10. Vrai.} Un compact est précompact (Proposition~1.13) : pour tout $n\ge1$ il est recouvert par un nombre fini de boules de rayon $\frac1n$, de centres formant un ensemble fini $C_n$. La réunion $\bigcup_nC_n$ est dénombrable, et tout point est à distance $<\frac1n$ d'un point de $C_n$ pour tout $n$ : elle est dense.
+
+\medskip
+\noindent\textbf{11. Faux.} $X=\Q$, $A=\Q\cap[0,1]$ : fermée dans $\Q$, précompacte, mais une suite de rationnels de $[0,1]$ tendant vers $\frac1{\sqrt2}$ n'a pas de valeur d'adhérence dans $A$ (Exercice~1.21). C'est vrai si $X$ est complet (Corollaire~1.4).
+
+\medskip
+\noindent\textbf{12. Faux.} $D=Y=\Q$, $X=\R$, $f=\mathrm{id}$ : $f$ est $1$-lipschitzienne, mais un prolongement continu $\tilde f:\R\to\Q$ vérifierait $\tilde f(x)=\lim f(q_n)=x$ pour $q_n\to x$, impossible si $x\notin\Q$. Il faut $Y$ complet (Théorème~1.1).
+\end{solution}
+
+\begin{piege}
+\textbf{Direct ou réciproque, topologique ou métrique.} Les questions 3, 4 et 6 : l'image \emph{réciproque} préserve ouverts et fermés, l'image \emph{directe} préserve les compacts, et rien d'autre en général. Les questions 5, 7 et 12 : la continuité est une notion topologique, la complétude et le caractère de Cauchy sont des notions métriques, et seule l'uniforme continuité fait le lien. Les questions 2 et 11 : « compact $=$ fermé borné » est propre à $\K^d$ ; l'énoncé général est « complet et précompact ». Les questions 8 et 9 : Baire donne la densité d'une intersection dénombrable d'ouverts denses, jamais son ouverture.
+\end{piege}
 
 \end{document}

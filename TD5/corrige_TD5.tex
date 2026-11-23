@@ -419,7 +419,7 @@ car $(p'-1)p=p'$. Donc $\dfrac{f(x)}{\norm x_p}=\norm a_{p'}^{p'-p'/p}=\norm a_{
 \end{solution}
 
 \begin{pointcle}
-\textbf{Le dual de $(\R^N,\norm\cdot_p)$ est $(\R^N,\norm\cdot_{p'})$}, pour tout $p\in[1,\infty]$ : c'est la version en dimension finie du Théorème~5.1. La méthode est toujours la même et sert telle quelle dans $\ell^p$ et $L^p$ : (1) majorer par Hölder ; (2) exhiber le vecteur qui \emph{sature} Hölder, $x=\sgn(a)|a|^{p'-1}$, ce qui est aussi la preuve du Lemme~2.2. En dimension finie les cas $p=1$ et $p=\infty$ sont symétriques. En dimension infinie la symétrie se brise : $(\ell^1)'=\ell^\infty$, mais $(\ell^\infty)'\supsetneq\ell^1$ (Exercice~11, question~12) ; et la borne de (b), qui devient un supremum, n'est plus forcément atteinte (TD3 ex.~8).
+\textbf{Le dual de $(\R^N,\norm\cdot_p)$ est $(\R^N,\norm\cdot_{p'})$}, pour tout $p\in[1,\infty]$ : c'est la version en dimension finie du Théorème~5.1. La méthode est toujours la même et sert telle quelle dans $\ell^p$ et $L^p$ : (1) majorer par Hölder ; (2) exhiber le vecteur qui \emph{sature} Hölder, $x=\sgn(a)|a|^{p'-1}$, ce qui est aussi la preuve du Lemme~2.2. En dimension finie les cas $p=1$ et $p=\infty$ sont symétriques. En dimension infinie la symétrie se brise : $(\ell^1)'=\ell^\infty$, mais $(\ell^\infty)'\supsetneq\ell^1$ (Exercice~11, question~12) ; et la borne de (b), qui devient un supremum, n'est plus forcément atteinte (TD3 off.~8).
 \end{pointcle}
 
 % ---------------------------------------------------------------------
@@ -788,7 +788,7 @@ inégalité triviale si $f(x)=0$. Donc $f$ est continue, et $\opnorm f\le1/d$ (e
 \noindent\textbf{2. Vrai.} $E'$ sépare les points : par le Théorème~5.3, $\norm{x-y}=\opnorm{J_{x-y}}=\sup_{\opnorm f\le1}|f(x-y)|=0$ (ou Exercice~1(a)). C'est ce qui donne l'unicité de la limite faible (Proposition~5.3).
 
 \medskip
-\noindent\textbf{3. Faux.} La première l'est toujours : c'est Hahn--Banach (Exercice~1(a)). La seconde non : sur $c_0(\N)$, $f(u):=\sum_n2^{-n-1}u_n$ vérifie $\opnorm f=1$ (tester $e_0+\dots+e_N$), mais pour $\norm u_\infty\le1$ on a $|u_n|<1$ à partir d'un certain rang, donc $|f(u)|<\sum_n2^{-n-1}=1$. Voir aussi TD3 ex.~8 sur $\ell^1$. Dans un espace réflexif la seconde borne est atteinte (Exercice~6(c)) : la dissymétrie entre les deux formules mesure le défaut de réflexivité.
+\noindent\textbf{3. Faux.} La première l'est toujours : c'est Hahn--Banach (Exercice~1(a)). La seconde non : sur $c_0(\N)$, $f(u):=\sum_n2^{-n-1}u_n$ vérifie $\opnorm f=1$ (tester $e_0+\dots+e_N$), mais pour $\norm u_\infty\le1$ on a $|u_n|<1$ à partir d'un certain rang, donc $|f(u)|<\sum_n2^{-n-1}=1$. Voir aussi TD3 off.~8 sur $\ell^1$. Dans un espace réflexif la seconde borne est atteinte (Exercice~6(c)) : la dissymétrie entre les deux formules mesure le défaut de réflexivité.
 
 \medskip
 \noindent\textbf{4. Vrai.} $E''=(E')'$ est complet (Proposition~5.1) et $J$ est une isométrie (Théorème~5.3), ici bijective. Si $(x_n)$ est de Cauchy dans $E$, $(J_{x_n})$ l'est dans $E''$, donc converge vers un $\xi=J_x$, et $\norm{x_n-x}=\opnorm{J_{x_n}-J_x}\to0$. Ainsi un EVN non complet, comme $c_{<\infty}(\N)$ ou $(\Cz([0,1]),\norm\cdot_2)$, n'est jamais réflexif.
@@ -831,7 +831,7 @@ C'est la version générale de l'Exercice~4.10 : un facteur fort, un facteur fai
 \noindent\textbf{15. Faux.} Soit $f_n:=\sgn\big(\sin(2\pi nx)\big)$. La suite est bornée dans $L^2$ et, $f_n$ étant de période $\frac1n$ et de moyenne nulle sur chaque période, $\big|\int_a^bf_n\big|\le\frac2n$ pour tous $a<b$ : par l'Exercice~4(a), $f_n\wk0$. Mais $|f_n|=1$ p.p., qui converge (fortement) vers $1\ne|0|$. La convergence faible ne passe à travers \emph{aucune} opération non linéaire.
 
 \medskip
-\noindent\textbf{16. Faux.} C'est l'Exercice~5.3 du poly (TD0) : $T_n(u):=u_n$ est de norme $1$ dans $(\ell^\infty)'$. Étant donnée une extraction $(n_k)$, la suite $u$ définie par $u_{n_k}:=(-1)^k$ et $u_m:=0$ ailleurs est bornée, et $T_{n_k}(u)=(-1)^k$ diverge : aucune sous-suite ne converge préfaiblement. L'hypothèse de séparabilité du Théorème~5.4 est indispensable, et $\ell^\infty$ n'est pas séparable (TD2 ex.~9).
+\noindent\textbf{16. Faux.} C'est l'Exercice~5.3 du poly (TD0) : $T_n(u):=u_n$ est de norme $1$ dans $(\ell^\infty)'$. Étant donnée une extraction $(n_k)$, la suite $u$ définie par $u_{n_k}:=(-1)^k$ et $u_m:=0$ ailleurs est bornée, et $T_{n_k}(u)=(-1)^k$ diverge : aucune sous-suite ne converge préfaiblement. L'hypothèse de séparabilité du Théorème~5.4 est indispensable, et $\ell^\infty$ n'est pas séparable (TD2 off.~9).
 \end{solution}
 
 \begin{pointcle}
