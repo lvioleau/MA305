@@ -95,7 +95,7 @@
   \item TD1 : Exercice 1.3 (ex.~2), 1.6 (ex.~4b), 1.7 (ex.~5), 1.12 (ex.~6, étiqueté « 1.11 » sur la feuille), 1.15 (ex.~8, théorème de Cantor), 1.20 (ex.~10, étiqueté « 1.19 ») ;
   \item TD2 : Exercice 2.1 (identique au TD1 ex.~4b), 2.2 (ex.~3), 2.5 (ex.~7), 2.6 et 2.8 (ex.~9), 2.7 (ex.~8), 3.2 (ex.~1).
 \end{itemize}
-Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Le chapitre~6 (distributions) contient six exercices, corrigés ici avec une dizaine de développements (continuité séquentielle, séries trigonométriques, masse de Dirac et ordre, formule des sauts et peigne de Dirac, valeur principale, équation $y'=ay$, solution fondamentale du laplacien dans le plan). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
+Les chapitres~1 et~2 se terminent chacun par quelques développements d'exemples et de remarques du polycopié (droite achevée et précompacité, distance uniforme sur $\Cz(X;Y)$ ; applications linéaires discontinues, multiplication par $x$, intégrale des fonctions réglées, comparaison des espaces $\ell^p$ et $L^p$), et le chapitre~3 par deux développements de plus (Exemple~3.6 et Corollaire~3.5 ; Corollaire~3.1 en action). Un exercice supplémentaire, rédigé à partir des Exemples~3.4 et 3.5 du polycopié (séries de Fourier, Banach--Steinhaus et application ouverte), clôt le chapitre~3, suivi de quatre développements d'énoncés laissés sans preuve dans le polycopié (Exemples~3.2 et 3.3, théorème du graphe fermé de la Remarque~3.8, réciproque de la Proposition~3.4). Les exercices du chapitre~4 (espaces de Hilbert) ne figurent sur aucune feuille de TD : ils sont tous corrigés ici, avec quelques exemples du polycopié développés. Le chapitre~5 ne contient que trois exercices, corrigés ici avec cinq développements (dual de $c_0$ et non-réflexivité, convergence faible dans $\ell^p$, opérateur de Volterra, conséquences du théorème spectral, compacité faible dans $L^q$). Le chapitre~6 (distributions) contient six exercices, corrigés ici avec une dizaine de développements (continuité séquentielle, séries trigonométriques, masse de Dirac et ordre, formule des sauts et peigne de Dirac, valeur principale, équation $y'=ay$, solution fondamentale du laplacien dans le plan). Les notations sont celles du polycopié ($B(a,r)$, $\Bf(a,r)$, $\interieur{A}$, $\adh{A}$, $d(A,x)$, distances produit $D_1,D_2,D_\infty$, compacité séquentielle, Définition~1.20). Les numéros de résultats renvoient au polycopié ; « TD$k$ ex.~$j$ » renvoie aux corrigés des feuilles.
 \end{commentaire}
 
 \tableofcontents
@@ -447,6 +447,120 @@ Montrer que $\Q\cap[0,1]$ est fermé dans $\Q$ et précompact, mais n'est pas co
 L'exemple montre que dans le Corollaire~1.4 (\emph{dans un espace complet}, compact $\iff$ fermé et précompact), l'hypothèse de complétude de l'espace ambiant ne peut être supprimée : $\Q$ n'est pas complet, et $\Q\cap[0,1]$ est fermé et précompact sans être compact. De façon équivalente, la bonne caractérisation intrinsèque est : \emph{compact $\iff$ complet et précompact}, et ici c'est la complétude qui manque (la suite $(x_n)$ est de Cauchy sans limite).
 \end{pointcle}
 
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 1.2 et Remarque 1.6 -- La droite achevée ; la complétude n'est pas une notion topologique}
+Sur $\overline\R:=\R\cup\{-\infty,+\infty\}$ on pose $\delta(x,y):=|\arctan x-\arctan y|$, avec la convention $\arctan(\pm\infty)=\pm\frac\pi2$. On note $d$ la distance usuelle de $\R$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\delta$ est une distance sur $\overline\R$ et que $\arctan$ est une isométrie bijective de $(\overline\R,\delta)$ sur $[-\frac\pi2,\frac\pi2]$ muni de la distance usuelle. En déduire que $(\overline\R,\delta)$ est compact.
+  \item Montrer que sur $\R$, les distances $\delta$ et $d$ ont les mêmes suites convergentes, avec les mêmes limites. En déduire qu'elles ont les mêmes ouverts, les mêmes fermés et les mêmes fonctions continues.
+  \item Montrer que $(\R,\delta)$ n'est pas complet. Quelle est l'adhérence de $\R$ dans $(\overline\R,\delta)$ ?
+  \item L'identité $(\R,d)\to(\R,\delta)$ est-elle uniformément continue ? Et sa réciproque ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} La fonction $\arctan$, prolongée par la convention de l'énoncé, est une bijection strictement croissante de $\overline\R$ sur $[-\frac\pi2,\frac\pi2]$. La séparation de $\delta$ vient de son injectivité ; la symétrie et l'inégalité triangulaire sont héritées de celles de $|\cdot|$ :
+\[
+\delta(x,z)=|\arctan x-\arctan z|\le|\arctan x-\arctan y|+|\arctan y-\arctan z| .
+\]
+Par construction $\arctan$ conserve les distances : c'est une isométrie, et elle est bijective. Soit $(x_n)$ une suite de $\overline\R$ ; la suite $(\arctan x_n)$ du segment $[-\frac\pi2,\frac\pi2]$ admet une sous-suite convergente vers un $\ell$ du segment (Théorème~1.2). En posant $x:=\arctan^{-1}(\ell)\in\overline\R$, on a $\delta(x_{\varphi(n)},x)=|\arctan x_{\varphi(n)}-\ell|\to0$ : $(\overline\R,\delta)$ est compact.
+
+\medskip
+\noindent\textbf{(b)} Soit $(x_n)$ une suite de $\R$ et $x\in\R$. Si $|x_n-x|\to0$, alors $\delta(x_n,x)\to0$ par continuité de $\arctan$. Réciproquement, si $\arctan x_n\to\arctan x$, tous ces nombres sont dans l'intervalle ouvert $]-\frac\pi2,\frac\pi2[$, sur lequel $\tan$ est continue, donc $x_n=\tan(\arctan x_n)\to\tan(\arctan x)=x$.
+
+Les fermés se caractérisent par les suites convergentes (Proposition~1.3) : $\delta$ et $d$ ont donc les mêmes fermés, puis, par passage au complémentaire, les mêmes ouverts. La continuité se caractérise elle aussi séquentiellement : les fonctions continues de source ou de but $\R$ sont les mêmes pour les deux distances.
+
+\medskip
+\noindent\textbf{(c)} La suite $x_n:=n$ vérifie $\arctan n\to\frac\pi2$ : elle est de Cauchy pour $\delta$ (une suite convergente de réels est de Cauchy, et $\arctan$ est une isométrie). Si elle convergeait dans $(\R,\delta)$ vers un réel $x$, on aurait $\arctan x=\frac\pi2$, ce qui est impossible. Donc $(\R,\delta)$ n'est pas complet, alors que $(\R,d)$ l'est et que les deux espaces ont la même topologie par (b).
+
+Dans $(\overline\R,\delta)$, la même suite converge vers $+\infty$, et $-n\to-\infty$ : l'adhérence de $\R$ est $\overline\R$ tout entier. On retrouve la Proposition~1.8 : $\R$ n'est pas fermé dans le complet $(\overline\R,\delta)$, donc n'est pas complet pour la distance induite.
+
+\medskip
+\noindent\textbf{(d)} $\arctan$ est $1$-lipschitzienne (dérivée $\frac1{1+t^2}\le1$), donc $\delta(x,y)\le|x-y|$ : l'identité $(\R,d)\to(\R,\delta)$ est lipschitzienne, donc uniformément continue. Sa réciproque est continue par (b) mais \emph{pas} uniformément continue : $\delta(n,n+1)\to0$ alors que $d(n,n+1)=1$.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Notions topologiques, notions métriques.} Ouvert, fermé, adhérence, densité, convergence, continuité, compacité ne dépendent que des suites convergentes : deux distances qui ont les mêmes suites convergentes les partagent. Suite de Cauchy, complétude, partie bornée, uniforme continuité, caractère lipschitzien dépendent, eux, de la distance elle-même : ici $(\R,d)$ est complet et non borné, $(\R,\delta)$ est borné et non complet. C'est la Remarque~1.6 : $(\R,\delta)$ est isométrique à l'intervalle ouvert $]-\frac\pi2,\frac\pi2[$, homéomorphe à $\R$ sans être complet. Pour conserver \emph{aussi} les notions métriques, il faut des distances \emph{équivalentes} ($c\,d\le\delta\le C\,d$), comme le sont les distances issues de deux normes équivalentes.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Définition 1.22 et Remarque 1.9 -- Autour de la précompacité}
+Soit $(X,d)$ un espace métrique et $A\subset X$.
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{(Remarque~1.9.)} On suppose que pour tout $\varepsilon>0$, $A$ est recouverte par un nombre fini de boules de rayon $\varepsilon$ centrées en des points de $X$. Montrer qu'on peut choisir les centres dans $A$.
+  \item Montrer qu'une partie précompacte est bornée, que toute partie d'une partie précompacte est précompacte, et que l'adhérence d'une partie précompacte est précompacte.
+  \item Montrer que dans un EVN de dimension finie, les parties précompactes sont exactement les parties bornées. Montrer que la boule unité de $\ell^2(\N)$ n'est pas précompacte.
+  \item \emph{(Réciproque de la Proposition~1.14.)} Montrer que si toute suite de $A$ admet une sous-suite de Cauchy, alors $A$ est précompacte. En déduire que, dans un espace complet, $A$ est précompacte si et seulement si $\adh A$ est compacte.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $\varepsilon>0$. Recouvrons $A$ par des boules $B(x_1,\frac\varepsilon2),\dots,B(x_N,\frac\varepsilon2)$ centrées dans $X$, et ne gardons que celles qui rencontrent $A$ (les autres ne servent à rien). Dans chacune, choisissons $a_i\in A\cap B(x_i,\frac\varepsilon2)$. Pour $y\in B(x_i,\frac\varepsilon2)$, $d(y,a_i)\le d(y,x_i)+d(x_i,a_i)<\varepsilon$ : donc $B(x_i,\frac\varepsilon2)\subset B(a_i,\varepsilon)$, et les boules $B(a_i,\varepsilon)$, centrées dans $A$, recouvrent $A$. La précompacité de $A$ est donc une propriété de l'espace métrique $(A,d_A)$ seul.
+
+\medskip
+\noindent\textbf{(b)} \emph{Bornée.} Si $A\subset\bigcup_{i\le N}B(x_i,1)$, deux points de $A$ sont à distance au plus $2+\max_{i,j}d(x_i,x_j)$.
+
+\emph{Sous-partie.} Si $A'\subset A$ avec $A$ précompacte, un recouvrement fini de $A$ par des boules de rayon $\varepsilon$ recouvre $A'$ ; les centres ne sont pas forcément dans $A'$, mais cela n'importe pas par (a).
+
+\emph{Adhérence.} Si $A\subset\bigcup_{i\le N}B(x_i,\frac\varepsilon2)$, alors $A$ est contenue dans la réunion \emph{finie} des boules fermées $\Bf(x_i,\frac\varepsilon2)$, qui est un fermé : elle contient donc $\adh A$, et $\adh A\subset\bigcup_iB(x_i,\varepsilon)$.
+
+\medskip
+\noindent\textbf{(c)} Précompact entraîne borné par (b). Réciproquement, si $A$ est bornée dans un EVN de dimension finie, $\adh A$ est fermée et bornée, donc compacte (Corollaire~2.1), donc précompacte (Proposition~1.13), et $A$ l'est aussi par (b).
+
+Dans $\ell^2(\N)$, les vecteurs $e_n$ de la suite canonique sont dans la boule unité et $\norm{e_n-e_m}_2=\sqrt2$ pour $n\ne m$. Une boule de rayon $\frac12$ est de diamètre $\le1<\sqrt2$, donc contient au plus un $e_n$ : aucun nombre fini de telles boules ne recouvre la boule unité.
+
+\medskip
+\noindent\textbf{(d)} Par contraposée. Si $A$ n'est pas précompacte, il existe $\varepsilon>0$ tel qu'aucune famille finie de boules de rayon $\varepsilon$ centrées dans $A$ ne recouvre $A$ (par (a)). On construit par récurrence une suite de $A$ : $a_0\in A$ quelconque, puis $a_{n+1}\in A\setminus\bigcup_{k\le n}B(a_k,\varepsilon)$, ensemble non vide. Alors $d(a_n,a_m)\ge\varepsilon$ pour $n\ne m$, et aucune sous-suite n'est de Cauchy.
+
+Avec la Proposition~1.14 : \emph{$A$ est précompacte si et seulement si toute suite de $A$ admet une sous-suite de Cauchy.} Si $X$ est complet et $A$ précompacte, $\adh A$ est fermée et précompacte (par (b)), donc compacte par le Corollaire~1.4. Réciproquement si $\adh A$ est compacte, elle est précompacte (Proposition~1.13) et $A$ aussi.
+\end{solution}
+
+\begin{methode}
+\textbf{Prouver une compacité dans un espace complet} : montrer \emph{fermé} et, pour tout $\varepsilon$, exhiber un \emph{$\varepsilon$-réseau fini} ; ou, ce qui revient au même, extraire de toute suite une sous-suite de Cauchy. C'est le schéma des preuves du théorème de Riesz (Théorème~3.1) et d'Arzelà--Ascoli (Théorème~3.2). \textbf{Prouver une non-compacité} : exhiber une suite dont les termes sont deux à deux à distance $\ge\varepsilon$, comme $(e_n)$ dans $\ell^2$ en (c).
+\end{methode}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 1.10 -- La distance uniforme sur $\Cz(X;Y)$ ; complétude}
+Soient $(X,d_X)$ un espace métrique compact non vide et $(Y,d_Y)$ un espace métrique. Pour $f,g\in\Cz(X;Y)$ on pose $d_\infty(f,g):=\sup_{x\in X}d_Y(f(x),g(x))$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $d_\infty$ est bien définie et que c'est une distance sur $\Cz(X;Y)$.
+  \item Montrer que la convergence pour $d_\infty$ entraîne la convergence simple, et que la réciproque est fausse.
+  \item Montrer que si $Y$ est complet, alors $(\Cz(X;Y),d_\infty)$ est complet.
+  \item Montrer que, réciproquement, si $(\Cz(X;Y),d_\infty)$ est complet, alors $Y$ est complet.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} L'application $x\mapsto d_Y(f(x),g(x))$ est continue sur $X$, comme composée de $x\mapsto(f(x),g(x))$ et de la distance $d_Y$, qui est continue sur $Y\times Y$ (Exercice~1.10). Sur le compact $X$ elle est bornée et atteint son maximum (Corollaire~1.3) : $d_\infty(f,g)<\infty$. La symétrie est claire ; si $d_\infty(f,g)=0$ alors $f(x)=g(x)$ pour tout $x$ ; enfin, pour tout $x$,
+\[
+d_Y(f(x),h(x))\le d_Y(f(x),g(x))+d_Y(g(x),h(x))\le d_\infty(f,g)+d_\infty(g,h),
+\]
+et l'on passe au supremum en $x$ dans le membre de gauche.
+
+\medskip
+\noindent\textbf{(b)} Pour tout $x$, $d_Y(f_n(x),f(x))\le d_\infty(f_n,f)$. Réciproque fausse : sur $X=[0,1]$, $Y=\R$, la suite $f_n(x):=x^n(1-x^n)$ converge simplement vers $0$ (en $x=1$ elle est nulle, et pour $x<1$, $x^n\to0$), mais $f_n(2^{-1/n})=\frac14$, donc $d_\infty(f_n,0)\ge\frac14$.
+
+\medskip
+\noindent\textbf{(c)} Soit $(f_n)$ une suite de Cauchy pour $d_\infty$.
+
+\emph{Étape 1 : candidat limite.} Pour chaque $x$, $d_Y(f_n(x),f_m(x))\le d_\infty(f_n,f_m)$ : la suite $(f_n(x))_n$ est de Cauchy dans $Y$ complet, elle converge vers un point noté $f(x)$.
+
+\emph{Étape 2 : la convergence est uniforme.} Soit $\varepsilon>0$ et $N$ tel que $d_\infty(f_n,f_m)\le\varepsilon$ pour $n,m\ge N$. Pour $x$ fixé et $n\ge N$, on fait tendre $m\to\infty$ dans $d_Y(f_n(x),f_m(x))\le\varepsilon$ (continuité de $d_Y$) : $d_Y(f_n(x),f(x))\le\varepsilon$. Le rang $N$ ne dépend pas de $x$ : $\sup_xd_Y(f_n(x),f(x))\le\varepsilon$ pour $n\ge N$.
+
+\emph{Étape 3 : la limite est continue.} Soit $x_0\in X$ et $\varepsilon>0$ ; avec $N$ comme ci-dessus, la continuité de $f_N$ en $x_0$ fournit $\eta>0$ tel que $d_X(x,x_0)<\eta\Rightarrow d_Y(f_N(x),f_N(x_0))\le\varepsilon$. Alors
+\[
+d_Y(f(x),f(x_0))\le d_Y(f(x),f_N(x))+d_Y(f_N(x),f_N(x_0))+d_Y(f_N(x_0),f(x_0))\le3\varepsilon .
+\]
+Donc $f\in\Cz(X;Y)$, et l'étape~2 se lit $d_\infty(f_n,f)\to0$.
+
+\medskip
+\noindent\textbf{(d)} Pour $y\in Y$ notons $c_y$ la fonction constante égale à $y$ ; alors $d_\infty(c_y,c_{y'})=d_Y(y,y')$ ($X$ est non vide). Si $(y_n)$ est de Cauchy dans $Y$, $(c_{y_n})$ est de Cauchy pour $d_\infty$, donc converge vers une $f$ continue ; en un point $x_0$ fixé, $y_n=c_{y_n}(x_0)\to f(x_0)$ par (b). Donc $Y$ est complet.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Le schéma en trois étapes des preuves de complétude} pour un espace de fonctions ou de suites : (1) la suite de Cauchy converge \emph{ponctuellement}, par complétude de l'espace d'arrivée, ce qui fournit un candidat ; (2) on passe à la limite $m\to\infty$ \emph{dans l'inégalité de Cauchy} pour obtenir la convergence dans la norme voulue ; (3) on vérifie que la limite est dans l'espace. C'est la preuve de la Proposition~3.3 (dont (c) est la version métrique), de la Proposition~3.4 pour $\Lc(E,F)$ et de la Proposition~3.5 pour $\ell^p$. L'étape~3 est l'argument « $\varepsilon/3$ » : une limite \emph{uniforme} de fonctions continues est continue, ce qui est faux pour une limite simple, comme le montre $x^n$ sur $[0,1]$.
+\end{pointcle}
+
 % =====================================================================
 \section{Chapitre 2 -- Espaces vectoriels normés}
 % =====================================================================
@@ -490,6 +604,137 @@ Elles sont donc continues (Théorème~2.4 (iv)) et $\opnorm{\delta_a}\le1$, $\op
 \begin{commentaire}
 Le schéma « majoration $+$ vecteur test » est celui du TD2 ex.~7. Ici le sup est \emph{atteint} (par $\mathbf 1$) ; ce n'est pas toujours le cas (TD2 ex.~6, commentaire). Noter que $\delta_a$ n'est pas continue pour la norme $L^1$ sur $E$ (prendre des « pics » de hauteur $1$ et de base $1/n$ en $a$) : la continuité d'une forme linéaire dépend de la norme choisie sur l'espace de départ.
 \end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Contre-exemple 2.1 -- Applications linéaires discontinues}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{(Le « pourquoi ? » du poly.)} Soient $E$ un EVN de dimension finie et $F$ un EVN. Montrer que toute application linéaire $T:E\to F$ est continue.
+  \item Soit $E:=\R[x]$ l'espace des fonctions polynomiales sur $[0,1]$, muni de la norme uniforme. Montrer que la forme linéaire $\varphi:P\mapsto P'(1)$ et l'endomorphisme $D:P\mapsto P'$ ne sont pas continus.
+  \item Montrer que $\Ker\varphi$ est dense dans $E$.
+  \item Montrer que $\varphi$ devient continue si l'on munit $E$ de la norme $N(P):=\norm P_\infty+\norm{P'}_\infty$. Les normes $N$ et $\norm\cdot_\infty$ sont-elles équivalentes sur $E$ ? Et sur le sous-espace $\R_d[x]$ des polynômes de degré $\le d$ ?
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Soit $(b_1,\dots,b_d)$ une base de $E$ et $N_\infty(x):=\max_i|x_i|$ pour $x=\sum_ix_ib_i$ ; c'est une norme sur $E$, équivalente à $\norm\cdot_E$ (Corollaire~2.1) : $N_\infty\le C\norm\cdot_E$. Alors
+\[
+\norm{T(x)}_F\le\sum_{i=1}^d|x_i|\,\norm{T(b_i)}_F\le\Big(\sum_{i=1}^d\norm{T(b_i)}_F\Big)N_\infty(x)\le C\Big(\sum_{i=1}^d\norm{T(b_i)}_F\Big)\norm x_E ,
+\]
+et $T$ est continue par le Théorème~2.4 (iv).
+
+\medskip
+\noindent\textbf{(b)} La suite $P_k:x\mapsto x^k$ vérifie $\norm{P_k}_\infty=1$ et $\varphi(P_k)=k$ : $\varphi$ n'est pas bornée sur la sphère unité, donc pas continue (Théorème~2.4 (iii)). De même $\norm{D(P_k)}_\infty=k$.
+
+\medskip
+\noindent\textbf{(c)} Soit $P\in E$ et $Q_n:=P-\varphi(P)\frac{x^n}n$. Comme $\varphi\big(\frac{x^n}n\big)=1$, on a $\varphi(Q_n)=0$, et $\norm{P-Q_n}_\infty=\frac{|\varphi(P)|}n\to0$. Tout polynôme est donc limite uniforme d'éléments de $\Ker\varphi$. C'est un fait général : \emph{le noyau d'une forme linéaire est fermé si elle est continue, dense si elle ne l'est pas}.
+
+\medskip
+\noindent\textbf{(d)} $|\varphi(P)|=|P'(1)|\le\norm{P'}_\infty\le N(P)$ : $\varphi$ est continue pour $N$, de norme $\le1$. On a $\norm\cdot_\infty\le N$, mais pas d'inégalité inverse : $N(P_k)=1+k$ alors que $\norm{P_k}_\infty=1$. Les deux normes ne sont pas équivalentes sur $E$. Sur $\R_d[x]$, de dimension finie, elles le sont (Corollaire~2.1) : il existe $C_d$ avec $\norm{P'}_\infty\le C_d\norm P_\infty$ pour tout $P$ de degré $\le d$, et l'exemple $P_d$ montre que $C_d\ge d$ : la constante explose avec le degré.
+\end{solution}
+
+\begin{piege}
+\textbf{La continuité d'une application linéaire dépend des normes choisies.} La dérivation est discontinue de $(\mathcal C^1,\norm\cdot_\infty)$ dans $(\Cz,\norm\cdot_\infty)$, et continue de $(\mathcal C^1,\norm\cdot_\infty+\norm{\cdot'}_\infty)$ dans $(\Cz,\norm\cdot_\infty)$. Pour prouver une discontinuité : une suite bornée d'images non bornées, ou une suite tendant vers $0$ dont les images ne tendent pas vers $0$. Les monômes $x^k$ et les suites $e_k$ sont les candidats habituels. Ce contre-exemple ressert à l'Exercice~3.9 : $\varphi$ est limite simple de formes continues, ce qui est possible parce que $\R[x]$ n'est pas complet.
+\end{piege}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 2.6 -- La multiplication par $x$ : injectif n'entraîne pas surjectif}
+Sur $E:=\Cz([0,1];\C)$ muni de la norme uniforme, soit $T:f\mapsto\big(x\mapsto xf(x)\big)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $T\in\Lc(E)$ et calculer $\opnorm T$.
+  \item Montrer que $T-\lambda\mathrm{Id}$ est injectif pour tout $\lambda\in\C$ : $T$ n'a aucune valeur propre.
+  \item Montrer que pour $\lambda\in[0,1]$, $T-\lambda\mathrm{Id}$ n'est pas surjectif, et que son image n'est pas dense.
+  \item Montrer que pour $\lambda\in\C\setminus[0,1]$, $T-\lambda\mathrm{Id}$ est bijectif d'inverse continu, et calculer la norme de l'inverse.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} $T$ est linéaire, $Tf$ est continue, et $|xf(x)|\le|f(x)|$ sur $[0,1]$ : $\norm{Tf}_\infty\le\norm f_\infty$. Avec $f=\mathbf 1$, $\norm{T\mathbf 1}_\infty=\sup_{[0,1]}x=1$. Donc $\opnorm T=1$.
+
+\medskip
+\noindent\textbf{(b)} Si $(T-\lambda)f=0$, alors $(x-\lambda)f(x)=0$ pour tout $x$, donc $f(x)=0$ pour tout $x\ne\lambda$. L'ensemble $[0,1]\setminus\{\lambda\}$ est dense dans $[0,1]$ et $f$ est continue : $f=0$.
+
+\medskip
+\noindent\textbf{(c)} Soit $\lambda\in[0,1]$. Toute fonction $g=(T-\lambda)f$ de l'image vérifie $g(\lambda)=(\lambda-\lambda)f(\lambda)=0$. L'image est donc contenue dans l'hyperplan $\{g:g(\lambda)=0\}$, noyau de la forme linéaire continue $\delta_\lambda$ : c'est un fermé strict (il ne contient pas $\mathbf 1$), donc l'image n'est ni égale à $E$ ni dense.
+
+\medskip
+\noindent\textbf{(d)} Soit $\lambda\notin[0,1]$ et $\rho:=\dist(\lambda,[0,1])>0$. La fonction $x\mapsto\frac1{x-\lambda}$ est continue sur $[0,1]$, de module $\le\frac1\rho$, cette borne étant atteinte au point de $[0,1]$ le plus proche de $\lambda$. Pour $g\in E$, l'équation $(x-\lambda)f=g$ a pour unique solution $f=\frac g{x-\lambda}\in E$ : $T-\lambda\mathrm{Id}$ est bijectif, et son inverse $R_\lambda:g\mapsto\frac g{x-\lambda}$ vérifie $\norm{R_\lambda g}_\infty\le\frac1\rho\norm g_\infty$, avec égalité pour $g=\mathbf 1$. Donc $\opnorm{R_\lambda}=\frac1{\dist(\lambda,[0,1])}$.
+\end{solution}
+
+\begin{commentaire}
+\textbf{Une précision sur le poly.} L'Exemple~2.6 affirme que $T-\lambda\mathrm{Id}$ n'est pas surjectif « pour tout $\lambda\in\C$ » : c'est vrai pour $\lambda\in[0,1]$ seulement, comme le montre (d). Ce qu'il faut retenir pour l'examen est le phénomène, impossible en dimension finie : \emph{un opérateur peut être injectif sans être surjectif} (et inversement, voir le décalage à gauche de $\ell^2$, TD4 ex.~5). L'ensemble des $\lambda$ pour lesquels $T-\lambda\mathrm{Id}$ n'est pas inversible, ici $[0,1]$, s'appelle le spectre ; il peut être non vide sans contenir aucune valeur propre. La théorie spectrale n'est pas au programme 2026--2027.
+\end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 2.7 -- L'intégrale des fonctions réglées, par prolongement}
+Soit $\mathcal B:=\mathcal B([0,1];\R)$ l'espace des fonctions bornées, muni de la norme uniforme, et $\mathcal E\subset\mathcal B$ le sous-espace des fonctions en escalier. Pour $f\in\mathcal E$ constante égale à $c_j$ sur chaque intervalle ouvert $]t_j,t_{j+1}[$ d'une subdivision $0=t_0<\dots<t_m=1$, on pose $\Phi(f):=\sum_{j<m}c_j(t_{j+1}-t_j)$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\Phi(f)$ ne dépend pas de la subdivision adaptée à $f$, et que $\Phi$ est une forme linéaire sur $\mathcal E$.
+  \item Montrer que $\Phi$ est continue sur $(\mathcal E,\norm\cdot_\infty)$, de norme $1$, et qu'elle se prolonge de manière unique en une forme linéaire continue $\widetilde\Phi$ sur $\mathcal R:=\adh{\mathcal E}$, l'espace des \emph{fonctions réglées}.
+  \item Montrer que $\Cz([0,1])\subset\mathcal R$ et que, pour $f$ continue, $\widetilde\Phi(f)$ est la limite des sommes de Riemann de $f$.
+  \item Montrer que $\mathbf 1_{\Q\cap[0,1]}\notin\mathcal R$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} Si l'on ajoute un point $s\in\,]t_j,t_{j+1}[$ à la subdivision, le terme $c_j(t_{j+1}-t_j)$ est remplacé par $c_j(s-t_j)+c_j(t_{j+1}-s)$ : la somme est inchangée. Par récurrence, elle est inchangée par tout raffinement ; deux subdivisions adaptées à $f$ admettant un raffinement commun (la réunion de leurs points), elles donnent la même valeur. Pour la linéarité, on calcule $\Phi(f)$, $\Phi(g)$ et $\Phi(\lambda f+g)$ sur une même subdivision adaptée à $f$ et à $g$. Noter que les valeurs de $f$ aux points $t_j$ n'interviennent pas.
+
+\medskip
+\noindent\textbf{(b)} $|\Phi(f)|\le\sum_j|c_j|(t_{j+1}-t_j)\le\norm f_\infty\sum_j(t_{j+1}-t_j)=\norm f_\infty$, avec égalité pour $f=\mathbf 1$ : $\Phi$ est continue de norme $1$. Elle est donc $1$-lipschitzienne, en particulier uniformément continue, sur $\mathcal E$ qui est dense dans $\mathcal R$, à valeurs dans $\R$ complet. Le Théorème~1.1 fournit un unique prolongement continu $\widetilde\Phi:\mathcal R\to\R$. Il est linéaire : si $f_n\to f$ et $g_n\to g$ avec $f_n,g_n\in\mathcal E$, alors $\widetilde\Phi(\lambda f+g)=\lim\Phi(\lambda f_n+g_n)=\lambda\widetilde\Phi(f)+\widetilde\Phi(g)$. De même $|\widetilde\Phi(f)|=\lim|\Phi(f_n)|\le\lim\norm{f_n}_\infty=\norm f_\infty$ : la norme reste égale à $1$.
+
+\medskip
+\noindent\textbf{(c)} Soit $f$ continue ; elle est uniformément continue (Théorème~1.3 de Heine), de module de continuité $\omega_f$. Pour $m\ge1$, soit $g_m$ la fonction en escalier valant $f(\frac km)$ sur $[\frac km,\frac{k+1}m[$, et $f(1)$ en $1$. Alors $\norm{f-g_m}_\infty\le\omega_f(\frac1m)\to0$ : $f\in\mathcal R$, et
+\[
+\widetilde\Phi(f)=\lim_{m\to\infty}\Phi(g_m)=\lim_{m\to\infty}\frac1m\sum_{k=0}^{m-1}f\Big(\frac km\Big),
+\]
+limite des sommes de Riemann : $\widetilde\Phi(f)=\int_0^1f$.
+
+\medskip
+\noindent\textbf{(d)} Soit $g\in\mathcal E$ ; sur un intervalle ouvert non vide $]t_0,t_1[$, $g$ vaut une constante $c$, tandis que $\mathbf 1_\Q$ y prend les valeurs $0$ et $1$. Donc $\norm{\mathbf 1_\Q-g}_\infty\ge\max(|c|,|1-c|)\ge\frac12$ : la fonction $\mathbf 1_{\Q\cap[0,1]}$ est à distance $\ge\frac12$ de $\mathcal E$, elle n'est pas réglée.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Définir par prolongement.} C'est l'usage type du Théorème~1.1, avec toujours les trois mêmes ingrédients : (1) une formule explicite sur un sous-espace \emph{dense} d'objets simples ; (2) une \emph{estimation} $|\Phi(f)|\le C\norm f$ sur ce sous-espace, qui donne l'uniforme continuité ; (3) un espace d'arrivée \emph{complet}. Le poly procède de même pour la convolution (Théorème~3.4 : inégalité de Young sur $\Cc$, puis prolongement à $L^p\times L^1$). Changer la norme change l'espace obtenu : avec $\norm\cdot_\infty$ on obtient les fonctions réglées, qui ne contiennent pas $\mathbf 1_\Q$ ; avec $\norm\cdot_1$ on obtient $L^1$ et l'intégrale de Lebesgue, pour laquelle $\int\mathbf 1_\Q=0$.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Proposition 2.4, Remarques 2.11 et 2.12 -- Comparer les espaces $\ell^p$ et $L^p$}
+Soient $1\le p<q\le\infty$.
+\begin{enumerate}[label=(\alph*)]
+  \item Montrer que $\ell^p(\N)\subset\ell^q(\N)$ avec $\norm u_q\le\norm u_p$, que l'inclusion est stricte, et que les normes $\norm\cdot_p$ et $\norm\cdot_q$ ne sont pas équivalentes sur $\ell^p(\N)$.
+  \item Montrer que $L^q(]0,1[)\subset L^p(]0,1[)$ avec $\norm f_p\le\norm f_q$, et que l'inclusion est stricte.
+  \item Montrer qu'il n'y a aucune inclusion entre $L^p(\R)$ et $L^q(\R)$.
+  \item \emph{(Interpolation.)} Soit $p<r<q$ et $\theta\in\,]0,1[$ tel que $\frac1r=\frac\theta p+\frac{1-\theta}q$. Montrer que $L^p(\R)\cap L^q(\R)\subset L^r(\R)$ avec $\norm f_r\le\norm f_p^\theta\norm f_q^{1-\theta}$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} \emph{Inégalité.} Si $q=\infty$ : $|u_n|\le\big(\sum_k|u_k|^p\big)^{1/p}$. Si $q<\infty$ et $u\ne0$, par homogénéité on peut supposer $\norm u_p=1$ ; alors $|u_n|\le1$ pour tout $n$, donc $|u_n|^q\le|u_n|^p$, et $\sum_n|u_n|^q\le\sum_n|u_n|^p=1$, soit $\norm u_q\le1=\norm u_p$.
+
+\emph{Inclusion stricte.} $u_n:=(n+1)^{-1/p}$ : $\sum|u_n|^p=\sum\frac1{n+1}=\infty$, alors que $\sum|u_n|^q=\sum(n+1)^{-q/p}<\infty$ car $\frac qp>1$ (et $u$ est bornée si $q=\infty$).
+
+\emph{Non-équivalence.} $v^N:=e_0+\dots+e_{N-1}$ vérifie $\norm{v^N}_p=N^{1/p}$ et $\norm{v^N}_q=N^{1/q}$ : le rapport $N^{\frac1p-\frac1q}$ tend vers l'infini, il n'existe pas de constante $C$ avec $\norm\cdot_p\le C\norm\cdot_q$. C'est la Remarque~2.11 : dans $\K^d$ on a $\norm x_p\le d^{\frac1p-\frac1q}\norm x_q$, et cette constante, optimale (prendre $x=(1,\dots,1)$), explose quand $d\to\infty$.
+
+\medskip
+\noindent\textbf{(b)} Si $q=\infty$, $\int_0^1|f|^p\le\norm f_\infty^p$. Sinon, l'inégalité de Hölder (Proposition~2.6) appliquée à $|f|^p\cdot1$ avec les exposants conjugués $\frac qp$ et $\frac q{q-p}$ donne
+\[
+\int_0^1|f|^p\le\Big(\int_0^1|f|^q\Big)^{p/q}\Big(\int_0^11\Big)^{1-p/q}=\norm f_q^p .
+\]
+C'est la Proposition~2.7 ; sur un ouvert de mesure finie $|\Omega|$ la constante est $|\Omega|^{\frac1p-\frac1q}$. Inclusion stricte : si $q<\infty$, $f(x):=x^{-1/q}$ vérifie $\int_0^1|f|^q=\int_0^1\frac{dx}x=\infty$ et $\int_0^1|f|^p=\int_0^1x^{-p/q}dx<\infty$ car $\frac pq<1$ ; si $q=\infty$, $f(x):=\ln x$ est dans tous les $L^p$, $p<\infty$, sans être bornée.
+
+\medskip
+\noindent\textbf{(c)} La fonction $f:=x^{-1/q}\mathbf 1_{]0,1[}$ de (b) (ou $\ln x\,\mathbf 1_{]0,1[}$ si $q=\infty$) est dans $L^p(\R)\setminus L^q(\R)$ : singularité \emph{locale} trop forte. Dans l'autre sens, $g:=x^{-1/p}\mathbf 1_{]1,+\infty[}$ vérifie $\int|g|^p=\int_1^\infty\frac{dx}x=\infty$ et $\int|g|^q=\int_1^\infty x^{-q/p}dx<\infty$ (et $g$ est bornée) : $g\in L^q(\R)\setminus L^p(\R)$, décroissance \emph{à l'infini} trop lente.
+
+\medskip
+\noindent\textbf{(d)} Supposons $q<\infty$. On écrit $|f|^r=|f|^{\theta r}\,|f|^{(1-\theta)r}$ et l'on applique Hölder avec les exposants $a:=\frac p{\theta r}$ et $b:=\frac q{(1-\theta)r}$, conjugués car $\frac1a+\frac1b=r\big(\frac\theta p+\frac{1-\theta}q\big)=1$ :
+\[
+\int|f|^r\le\Big(\int|f|^p\Big)^{\theta r/p}\Big(\int|f|^q\Big)^{(1-\theta)r/q}=\norm f_p^{\theta r}\norm f_q^{(1-\theta)r} ,
+\]
+et l'on prend la racine $r$-ième. Si $q=\infty$, alors $\theta=\frac pr$ et $\int|f|^r\le\norm f_\infty^{r-p}\int|f|^p$, ce qui est la même inégalité.
+\end{solution}
+
+\begin{methode}
+\textbf{Qui est inclus dans qui ?} Une suite n'a pas de singularité locale : seule compte la décroissance à l'infini, et un petit exposant est plus exigeant, d'où $\ell^p\subset\ell^q$ pour $p\le q$. Sur un domaine de mesure finie il n'y a pas d'infini : seules comptent les singularités locales, et un grand exposant est plus exigeant, d'où $L^q\subset L^p$ (Remarque~2.12). Sur $\R$ les deux phénomènes coexistent et il n'y a plus d'inclusion, seulement l'interpolation (d). Les fonctions test sont toujours les puissances $x^{-\alpha}$, coupées près de $0$ ou près de l'infini, avec le critère de Riemann : $\int_0^1x^{-\alpha}<\infty\iff\alpha<1$, $\int_1^\infty x^{-\alpha}<\infty\iff\alpha>1$.
+\end{methode}
 
 % =====================================================================
 \section{Chapitre 3 -- Espaces de Banach}
@@ -1014,6 +1259,64 @@ Soit $(y_n)$ une suite de Cauchy de $F$. Alors $\opnorm{T_{y_n}-T_{y_m}}=\opnorm
 \begin{commentaire}
 La Proposition~3.4 et sa réciproque disent que \emph{la complétude de $\Lc(E,F)$ ne dépend que de $F$} : $F$ se plonge isométriquement dans $\Lc(E,F)$ (via $y\mapsto\varphi(\cdot)y$), et $\Lc(E,F)$ est à son tour un sous-espace fermé de l'espace des fonctions bornées de la boule unité de $E$ dans $F$ (la preuve de la Proposition~3.4 est celle de la Remarque~2.4). En particulier le dual $E'=\Lc(E,\K)$ est \emph{toujours} un Banach, même si $E$ ne l'est pas (Proposition~5.1), et $\Lc(E,F)=\Lc(\adh E,F)$ par prolongement (Théorème~1.1) lorsque $F$ est complet : remplacer $E$ par son complété ne change rien.
 \end{commentaire}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Exemple 3.6 et Corollaire 3.5 -- Unicité de la norme d'un espace de Banach}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{(Exemple~3.6.)} Soient $N_1$, $N_2$ deux normes sur un espace vectoriel $E$, toutes deux complètes, avec $N_1\le C\,N_2$. Montrer qu'elles sont équivalentes.
+  \item En déduire, sans construire de suite de Cauchy, que $\norm\cdot_1$ n'est pas complète sur $\Cz([0,1])$ et que $\norm\cdot_2$ n'est pas complète sur $\ell^1(\N)$.
+  \item \emph{(Corollaire~3.5 pour les suites.)} Soit $N$ une norme sur $\ell^2(\N)$ rendant cet espace complet et telle que les formes coordonnées $u\mapsto u_k$ soient continues pour $N$. Montrer que $N$ est équivalente à $\norm\cdot_2$.
+  \item Soit $T:\ell^2(\N)\to\ell^2(\N)$ linéaire telle que, pour tout $k$, la forme $u\mapsto(Tu)_k$ soit continue sur $\ell^2$. Montrer que $T$ est continue.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} L'identité $(E,N_2)\to(E,N_1)$ est linéaire, bijective, et continue puisque $N_1\le C\,N_2$. Les deux espaces étant de Banach, son inverse est continu (Corollaire~3.4) : il existe $C'$ avec $N_2\le C'N_1$.
+
+\medskip
+\noindent\textbf{(b)} Sur $\Cz([0,1])$, $\norm\cdot_1\le\norm\cdot_\infty$ et $\norm\cdot_\infty$ est complète (Proposition~3.3). Si $\norm\cdot_1$ l'était aussi, les deux normes seraient équivalentes par (a) ; or les bosses $f_n(x):=\max(0,1-nx)$ vérifient $\norm{f_n}_\infty=1$ et $\norm{f_n}_1=\frac1{2n}\to0$. De même sur $\ell^1$ : $\norm\cdot_2\le\norm\cdot_1$, $\norm\cdot_1$ est complète (Proposition~3.5), et les deux normes ne sont pas équivalentes ($\norm{e_0+\dots+e_{N-1}}_1=N$, $\norm{e_0+\dots+e_{N-1}}_2=\sqrt N$). Donc $(\ell^1,\norm\cdot_2)$ n'est pas complet.
+
+\medskip
+\noindent\textbf{(c)} Posons $M:=N+\norm\cdot_2$ et montrons que $(\ell^2,M)$ est complet. Soit $(u^n)$ de Cauchy pour $M$ ; elle l'est pour $N$ et pour $\norm\cdot_2$, donc converge pour $N$ vers un $v$ et pour $\norm\cdot_2$ vers un $w$. Les formes coordonnées sont continues pour les deux normes (par hypothèse pour $N$, et $|u_k|\le\norm u_2$) : pour tout $k$, $v_k=\lim_nu^n_k=w_k$. Donc $v=w$, et $M(u^n-v)=N(u^n-v)+\norm{u^n-w}_2\to0$. Par (a) appliqué à $N\le M$ et à $\norm\cdot_2\le M$, les normes $N$ et $\norm\cdot_2$ sont toutes deux équivalentes à $M$, donc entre elles.
+
+\medskip
+\noindent\textbf{(d)} Par le théorème du graphe fermé (Remarque~3.8, développée ci-dessus). Soient $u^n\to u$ et $Tu^n\to v$ dans $\ell^2$. Pour tout $k$, d'une part $(Tu^n)_k\to v_k$ (convergence dans $\ell^2$), d'autre part $(Tu^n)_k\to(Tu)_k$ (continuité de $u\mapsto(Tu)_k$). Donc $v_k=(Tu)_k$ pour tout $k$, \ie{} $v=Tu$ : le graphe est fermé et $T$ est continue.
+\end{solution}
+
+\begin{pointcle}
+\textbf{Une convergence « témoin » rend la structure de Banach unique.} Dès que deux normes complètes contrôlent toutes deux une même convergence plus faible et séparante (convergence simple pour des fonctions, convergence des coordonnées pour des suites, plus tard convergence au sens des distributions, Remarque~3.7), elles sont équivalentes. Le mécanisme de (c) et celui du graphe fermé en (d) sont identiques : \emph{deux limites dans deux topologies fortes coïncident parce qu'elles coïncident dans la topologie témoin}. En pratique, (d) dit qu'un opérateur de $\ell^2$ défini « coordonnée par coordonnée » par des formules continues est automatiquement continu, sans calcul de norme. Sans convergence témoin l'unicité est fausse, mais les contre-exemples exigent l'axiome du choix.
+\end{pointcle}
+
+% ---------------------------------------------------------------------
+\begin{exo}{Corollaire 3.1 -- Arzelà--Ascoli en action}
+\begin{enumerate}[label=(\alph*)]
+  \item Soit $(f_n)$ une suite de $\mathcal C^1([0,1];\R)$ avec $\norm{f_n}_\infty+\norm{f_n'}_\infty\le M$ pour tout $n$. Montrer qu'une sous-suite converge uniformément vers une fonction $M$-lipschitzienne. Montrer par un exemple que la limite n'est pas nécessairement de classe $\mathcal C^1$.
+  \item Soit $k\in\Cz([0,1]^2;\R)$ et, pour $f\in\Cz([0,1])$, $Tf(x):=\int_0^1k(x,y)f(y)\,dy$. Montrer que si $(f_n)$ est bornée pour $\norm\cdot_\infty$, alors $(Tf_n)$ admet une sous-suite uniformément convergente.
+  \item Montrer que $K:=\{f\in\Cz([0,1]):f(0)=0,\ |f(x)-f(y)|\le|x-y|\ \forall x,y\}$ est compact dans $(\Cz([0,1]),\norm\cdot_\infty)$.
+  \item Soit $g\in\Cz([0,1])$. Montrer qu'il existe $f_\star\in K$ réalisant le minimum de $J(f):=\int_0^1|f-g|$ sur $K$.
+\end{enumerate}
+\end{exo}
+
+\begin{solution}
+\noindent\textbf{(a)} La suite est bornée par $M$, et par l'inégalité des accroissements finis $|f_n(x)-f_n(y)|\le M|x-y|$ : elle est uniformément équicontinue ($\delta=\varepsilon/M$). Le Corollaire~3.1 fournit une sous-suite $f_{\varphi(n)}\to f$ uniformément, et l'inégalité $|f_{\varphi(n)}(x)-f_{\varphi(n)}(y)|\le M|x-y|$ passe à la limite point par point : $f$ est $M$-lipschitzienne. Exemple : $f_n(x):=\sqrt{(x-\frac12)^2+\frac1n}$ est $\mathcal C^1$, $|f_n'|\le1$, $\norm{f_n}_\infty\le2$, et $0\le f_n(x)-|x-\frac12|\le\frac1{\sqrt n}$ : la limite uniforme $|x-\frac12|$ n'est pas dérivable en $\frac12$.
+
+\medskip
+\noindent\textbf{(b)} Soit $\norm{f_n}_\infty\le M$. \emph{Bornée :} $|Tf_n(x)|\le\norm k_\infty M$. \emph{Équicontinue :} $k$ est uniformément continue sur le compact $[0,1]^2$ (Théorème~1.3) ; pour $\varepsilon>0$ il existe $\delta$ tel que $|x-x'|<\delta\Rightarrow|k(x,y)-k(x',y)|\le\varepsilon$ pour tout $y$, et alors
+\[
+|Tf_n(x)-Tf_n(x')|\le\int_0^1|k(x,y)-k(x',y)|\,|f_n(y)|\,dy\le\varepsilon M ,
+\]
+uniformément en $n$. Le Corollaire~3.1 conclut. (En particulier $Tf$ est continue, et il suffirait que $(f_n)$ soit bornée dans $L^1$.)
+
+\medskip
+\noindent\textbf{(c)} \emph{Bornée :} $|f(x)|=|f(x)-f(0)|\le x\le1$. \emph{Uniformément équicontinue :} $\delta=\varepsilon$ convient pour toutes les $f\in K$. \emph{Fermée :} si $f_n\in K$ et $f_n\to f$ uniformément, les conditions $f_n(0)=0$ et $|f_n(x)-f_n(y)|\le|x-y|$ passent à la limite simple. Par le Théorème~3.2, $K$ est compact.
+
+\medskip
+\noindent\textbf{(d)} $J$ est continue sur $(\Cz([0,1]),\norm\cdot_\infty)$, car $|J(f)-J(h)|\le\int_0^1|f-h|\le\norm{f-h}_\infty$. Une fonction continue sur le compact non vide $K$ atteint son minimum (Corollaire~1.3).
+\end{solution}
+
+\begin{pointcle}
+\textbf{Compacité dans $\Cz$ : une borne sur les valeurs et une borne sur un module de continuité.} La seconde vient presque toujours d'une dérivée bornée (a), d'une condition de Lipschitz ou de Hölder (c), ou d'une formule intégrale à noyau régulier (b). Deux précautions : l'équicontinuité ne contrôle que les oscillations, il faut une information en un point pour borner (ici $f(0)=0$, comparer TD3 ex.~5) ; et la limite n'hérite que de ce qui passe à la limite uniforme, l'inégalité de Lipschitz mais pas la dérivabilité (a). En (d), la compacité joue le rôle que jouent la convexité et la complétude dans le théorème de projection hilbertien (Théorème~4.1) : ici la norme $L^1$ n'est pas hilbertienne, et c'est Ascoli qui donne l'existence d'un minimiseur. L'opérateur $T$ de (b) est le prototype des opérateurs compacts, notion hors programme 2026--2027 ; l'énoncé (b) lui-même n'utilise que le Corollaire~3.1.
+\end{pointcle}
 
 % =====================================================================
 \section{Chapitre 4 -- Espaces de Hilbert}
